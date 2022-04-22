@@ -57,12 +57,6 @@ if __name__ == "__main__":
 ```{note} Notes require **no** arguments,
 so content can start here.
 ```
-```{warning} This is an example
-of a warning directive.
-```
-```{tip} This is an example
-of a tip directive.
-```
 ```{caution} This is an example
 of a caution directive.
 ```
