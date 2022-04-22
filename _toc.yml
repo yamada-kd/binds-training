@@ -10,4 +10,4 @@ parts:
 - caption: Scikit-learnの使い方
   numbered: True
   chapters:
-  - file: markdown2
+  - file: 2-python
