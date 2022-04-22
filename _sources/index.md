@@ -64,6 +64,7 @@ if __name__ == "__main__":
 ```{note} Notes require **no** arguments,
 so content can start here.
 ```
+^^^
 ---
 ```{attention} This is an example
 of an attention directive.
