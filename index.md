@@ -24,8 +24,7 @@
 ---
 **Python**
 ^^^
-[Python](https://www.python.org/)をプログラミング言語として採用．[NumPy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), [scikit-learn](https://scikit-learn.org/), [scipy](https://scipy.org/), [PyTorch](https://pytorch.org/)などのエコシステムとあわせて、機械学習の実装を習得できます。
-
+プログラミング言語[Python](https://www.python.org/)の利用方法を紹介します．
 ```python
 #!/usr/bin/env python3
 
