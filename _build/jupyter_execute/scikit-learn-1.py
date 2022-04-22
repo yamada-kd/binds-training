@@ -150,7 +150,7 @@
 
 # Scikit-learn は以下のようにインポートします．以下のコードではインポートした Scikit-learn のバージョンを表示させています．
 
-# In[1]:
+# In[ ]:
 
 
 #!/usr/bin/env python3

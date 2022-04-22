@@ -107,7 +107,19 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="python-1.html">
-   1. グーグルコラボラトリーを利用した Python 入門
+   1. Python 入門
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Scikit-learnの使い方
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   2. Pythonの簡単な使い方
   </a>
  </li>
 </ul>
@@ -248,7 +260,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>NumPy と同じように TensorFlow をインポートします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -260,26 +272,12 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_177095</span><span class="o">/</span><span class="mf">3159002420.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1">#!/usr/bin/env python3</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="k">pass</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>###2-1-2. <font color="Crimson">テンソル</font></p>
 <p>TensorFlow では「テンソル」と呼ばれる NumPy の多次元配列に類似したデータ構造を用います．2行目で TensorFlow をインポートします．5行目のテンソルを生成するためのコマンドは <code class="docutils literal notranslate"><span class="pre">tf.zeros()</span></code> で，これによって，全要素が <code class="docutils literal notranslate"><span class="pre">0</span></code> であるテンソルが生成されます．最初の引数には生成されるテンソルの次元数を指定します．また，データのタイプを指定することができますが以下の場合は32ビットのフロートの値を生成しています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -297,7 +295,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>以下のようにすると，整数を生成できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -315,7 +313,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>データのタイプを確認したい場合とテンソルのシェイプを確認したい場合は以下のようにします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -333,7 +331,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>一様分布に従う乱数を生成したい場合には以下のようにします．一様分布の母数（パラメータ）は最小値と最大値です．ここでは，最小値が-1で最大値が1の一様分布 <span class="math notranslate nohighlight">\(U(-1,1)\)</span> に従う乱数を生成します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -350,7 +348,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>上のコードセルを何度か繰り返し実行すると一様分布に従う4行3列のテンソルの値が生成されますが，1回ごとに異なる値が出力されているはずです．これは計算機実験をする際にとても厄介です．再現性が取れないからです．これを防ぐために「乱数の種」というものを設定します．以下のコードの3行目のような指定を追加します．ここでは，0という値を乱数の種に設定していますが，これはなんでも好きな値を設定して良いです．<font color="Crimson">普通，科学的な計算機実験をする際に乱数の種を固定せずに計算を開始することはあり得ません．乱数を使う場合は常に乱数の種を固定しておくことを習慣づける必要があります．</font></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -371,7 +369,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Python 配列より変換することもできます．この <code class="docutils literal notranslate"><span class="pre">tf.constant()</span></code> は実際には使う機会は多くありません．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -395,7 +393,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>テンソルの四則計算は以下のように行います．最初に足し算を行います．NumPy と同じようにやはり element-wise な計算です．実行結果は <code class="docutils literal notranslate"><span class="pre">tf.Tensor([3</span> <span class="pre">7],</span> <span class="pre">shape=(2,),</span> <span class="pre">dtype=int32)</span></code> となっており，配列の計算の結果が tf.Tensor に変換されていることが確認できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -412,7 +410,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>以下では，ふたつの NumPy 多次元配列を生成しそれらを足し合わせます．得られる結果は NumPy の多次元配列でなくて tf.Tensor であることが確認できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
@@ -432,7 +430,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>その他の四則演算は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
@@ -455,7 +453,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>上の <code class="docutils literal notranslate"><span class="pre">tf.multiply()</span></code> はテンソルの要素ごとの積（アダマール積）を計算するための方法です．行列の積は以下のように <code class="docutils literal notranslate"><span class="pre">tf.matmul()</span></code> を利用します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
@@ -474,7 +472,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>テンソルもブロードキャストしてくれます．以下のようなテンソルとスカラの計算も良い感じで解釈して実行してくれます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
@@ -492,7 +490,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>以下のように <code class="docutils literal notranslate"><span class="pre">+</span></code> や <code class="docutils literal notranslate"><span class="pre">-</span></code> を使って記述することも可能です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -513,7 +511,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>二乗の計算やテンソルの要素の総和を求めるための便利な方法も用意されています．このような方法は状況に応じてその都度調べて使います．全部覚える必要はありません．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
@@ -533,7 +531,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>以下のようなスライスの実装も NumPy と同じです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -551,7 +549,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>テンソルのサイズの変更には <code class="docutils literal notranslate"><span class="pre">tf.reshape()</span></code> を利用します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -574,7 +572,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>これまでに，NumPyの 多次元配列を TensorFlow のテンソルに変換する方法は確認しました．テンソルを NumPy 配列に変換するには明示的に <code class="docutils literal notranslate"><span class="pre">numpy()</span></code> を指定する方法があります．6行目は NumPy 配列を生成します．8行目はその NumPy 配列をテンソルに変換します．さらに，NumPy 配列に戻すためには10行目のように <code class="docutils literal notranslate"><span class="pre">.numpy()</span></code> を利用します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
@@ -596,7 +594,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>また，テンソルに対して NumPy の演算操作を行うと自動的にテンソルは NumPy 配列に変換されます．以下の8行目と9行目はどちらもベクトルの内積を計算していますが，8行目で得られる結果はテンソル，9行目で得られる結果は NumPy の値です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
@@ -623,7 +621,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>これを TensorFlow で実装すると以下のように書けます．微分は10行目のように <code class="docutils literal notranslate"><span class="pre">tape.gradient()</span></code> によって行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -643,7 +641,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>上の程度の微分だとこの自動微分機能はさほど有難くないかもしれませんが，以下のような計算となると，そこそこ有難くなってきます．以下では，(1, 2) の行列 <code class="docutils literal notranslate"><span class="pre">ts</span></code> と (2, 2) の行列 <code class="docutils literal notranslate"><span class="pre">tt</span></code> と (2, 1) の行列 <code class="docutils literal notranslate"><span class="pre">tu</span></code> を順に掛けることで，最終的に (1, 1) の行列の値，スカラー値を得ますが，それを <code class="docutils literal notranslate"><span class="pre">tt</span></code> で微分した値を計算しています（<code class="docutils literal notranslate"><span class="pre">tt</span></code> で偏微分したので得られる行列のシェイプは <code class="docutils literal notranslate"><span class="pre">tt</span></code> と同じ）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -712,7 +710,7 @@ const thebe_selector_output = ".output, .cell_output"
 <img src="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR" width="70%"><p>これを TensorFlow を用いて実装すると以下のようになります．出力中，<code class="docutils literal notranslate"><span class="pre">Objective</span></code> は目的関数の値，<code class="docutils literal notranslate"><span class="pre">Solution</span></code> はその時点での解です．最終的に <span class="math notranslate nohighlight">\(x=-0.9968\simeq-1\)</span> のとき，最適値 <span class="math notranslate nohighlight">\(y=2\)</span> が出力されています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -744,7 +742,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>公式サイトよりダウンロードしてきても良いのですが，TensorFlow がダウンロードするためのユーティリティを準備してくれているため，それを用います．以下の <code class="docutils literal notranslate"><span class="pre">tf.keras.datasets.mnist.load_data()</span></code> を用いることで可能です．MNIST は合計7万インスタンスからなるデータセットです．5行目でふたつのタプルにデータをダウンロードしていますが，最初のタプルは学習データセット，次のタプルはテストデータセットのためのものです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -765,7 +763,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>データを可視化します．可視化のために matplotlib というライブラリをインポートします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -784,7 +782,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>このデータセットがダウンロードされている場所は <code class="docutils literal notranslate"><span class="pre">~/.keras/datasets</span></code> です．以下のような BaSH のコマンドを打つことで確認することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> ls /root/.keras/datasets
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! ls /root/.keras/datasets
 </pre></div>
 </div>
 </div>
@@ -814,7 +812,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>すなわち，<code class="docutils literal notranslate"><span class="pre">[1.1,</span> <span class="pre">2.2,</span> <span class="pre">3.0,</span> <span class="pre">4.0]</span></code> が人工知能へ入力されたら，<code class="docutils literal notranslate"><span class="pre">0</span></code> というクラスを返し，<code class="docutils literal notranslate"><span class="pre">[2.0,</span> <span class="pre">3.0,</span> <span class="pre">4.0,</span> <span class="pre">1.0]</span></code> というベクトルが入力されたら <code class="docutils literal notranslate"><span class="pre">1</span></code> というクラスを返し，<code class="docutils literal notranslate"><span class="pre">[2.0,</span> <span class="pre">2.0,</span> <span class="pre">3.0,</span> <span class="pre">4.0]</span></code> というベクトルが入力されたら <code class="docutils literal notranslate"><span class="pre">2</span></code> というクラスを返す人工知能を MLP で構築します．実際には以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
@@ -848,7 +846,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="c1"># 学習ループ</span>
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3000</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="c1"># 学習の回数の上限値</span>
         <span class="n">traincost</span><span class="p">,</span><span class="n">trainacc</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">100</span>==0:
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="mi">100</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:5d}</span><span class="s2">: Training cost= </span><span class="si">{:.4f}</span><span class="s2">, Training ACC= </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="n">traincost</span><span class="p">,</span><span class="n">trainacc</span><span class="p">))</span>
     
     <span class="c1"># 学習が本当にうまくいったのか入力ベクトルのひとつを処理させてみる</span>
@@ -998,7 +996,7 @@ tf.Tensor([[0. 0. 1.]], shape=(1, 3), dtype=float32)
 <p>以下では <code class="docutils literal notranslate"><span class="pre">Dense()</span></code> の挙動を確認してみます．<code class="docutils literal notranslate"><span class="pre">Dense()</span></code> はもちろんクラスの中でなければ使えない関数ではなく，<code class="docutils literal notranslate"><span class="pre">main()</span></code> の中でも呼び出して利用可能です．これで挙動を確認することでどのようにネットワークが構築されているか把握できるかもしれません．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
@@ -1066,7 +1064,7 @@ tf.Tensor([[0. 0. 1.]], shape=(1, 3), dtype=float32)
 <p>次に，MNIST を処理して「0から9の数字が書かれた（描かれた）手書き文字を入力にして，その手書き文字が0から9のどれなのかを判別する人工知能」を構築します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
@@ -1237,7 +1235,7 @@ tf.Tensor([[0. 0. 1.]], shape=(1, 3), dtype=float32)
 <p>学習曲線とは横軸にエポック，縦軸にコストの値をプロットした図です．これを観察することで，どれくらいのエポックで学習が進み始めたか，人工知能の成長が止まったか，どのくらいのエポックで過剰適合が起きたか等を視覚的に理解することができます（慣れたら前述の結果のような数字を読むだけでこの図を想像できるようになるのだと思います）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
@@ -1430,7 +1428,7 @@ Epoch   50: Training cost=  0.0003 Validation cost=  0.0699
 <p>学習の早期終了（early stopping）とは過学習を防ぐための方法です．ここでは，ペイシェンス（patience）を利用した早期終了を紹介します．この方法では最も良い値のバリデーションコストを記録し続けます．そして学習を続け，そのベストなバリデーションコストを <span class="math notranslate nohighlight">\(n\)</span> 回連続で更新できなかった場合，そこで学習を打ち切ります．この <span class="math notranslate nohighlight">\(n\)</span> がペイシェンスと呼ばれる値です．ペイシェンスには我慢とか忍耐とかそのような意味があります．コードは以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
@@ -1610,7 +1608,7 @@ Epoch   21: Training cost=  0.0056 Validation cost=  0.0618
 <p>これまでに，早期終了を利用して良い人工知能が生成できるエポックが判明しました．機械学習の目的は当然，良い人工知能を開発することです．開発した人工知能は普通，別のサーバーとかトレーニングした時とは別の時間に利用したいはずです．ここで，この学習で発見した人工知能を保存して別のプログラムから，独立した人工知能として利用する方法を紹介します．最後に，テストセットでのその人工知能の性能を評価します．コードは以下のように変更します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
@@ -1730,7 +1728,7 @@ Epoch   21: Training cost=  0.0056 Validation cost=  0.0618
 <p>以下のシェルのコマンドを打つと，ディレクトリが新規に生成されていることを確認できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> ls mlp-mnist
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! ls mlp-mnist
 </pre></div>
 </div>
 </div>
@@ -1738,7 +1736,7 @@ Epoch   21: Training cost=  0.0056 Validation cost=  0.0618
 <p>最後に，以下のコードで保存したモデル（実体はパラメータ）を呼び出して，テストセットにてその性能を評価します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
@@ -1847,7 +1845,7 @@ Epoch   21: Training cost=  0.0056 Validation cost=  0.0618
 <p>IMDb も TensorFlow を利用することでダウンロードすることができます．以下のように書きます．また，IMDb の性質を調査します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -1876,7 +1874,7 @@ Epoch   21: Training cost=  0.0056 Validation cost=  0.0618
 <p>データセットのサイズは学習セットとテストセットで等しく25000インスタンスでした．学習セットの最初のデータの長さは218で2番目のデータの長さは189です．MNIST はその入力ベクトルの長さは784に固定されていました．IMDb には様々な長さの入力ベクトルが格納されています．RNN はこのような様々な長さの入力ベクトルを扱うことができます．入力ベクトルの要素（数字）は単語を意味しています．元々は英語の単語であったものを，数字（整数）に変換してくれているのです．また，教師ベクトルは0か1の二値です．その文章がどのような感情を示すのかを0か1で表現しています．次に，入力ベクトルに何種類の単語が存在しているのかを調査します．入力ベクトルに存在する最も大きな値を知れたらこれを達成できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -1904,7 +1902,7 @@ Epoch   21: Training cost=  0.0056 Validation cost=  0.0618
 <p>ユニークな単語の数は88586個でした．実はテストセットの方が少しだけ少ないのですが，テストセットが少ない分には問題ありません．次に，入力ベクトルの長さを調べます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -2113,7 +2111,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
 <p>プログラムは以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">LSTM</span>
@@ -2153,7 +2151,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
     <span class="c1"># 学習ループ</span>
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">traincost</span><span class="p">,</span><span class="n">trainacc</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">50</span>==0:
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="mi">50</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:5d}</span><span class="s2">: Training cost= </span><span class="si">{:.4f}</span><span class="s2">, Training ACC= </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="n">traincost</span><span class="p">,</span><span class="n">trainacc</span><span class="p">))</span>
     
     <span class="c1"># 学習後の人工知能がどのような出力をしているのかを確認</span>
@@ -2244,7 +2242,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
 <p>プログラムは以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Bidirectional</span>
@@ -2284,7 +2282,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
     <span class="c1"># 学習ループ</span>
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">traincost</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">50</span>==0:
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="mi">50</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch=</span><span class="si">{0:5d}</span><span class="s2"> Cost=</span><span class="si">{1:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">traincost</span><span class="p">)))</span>
     
     <span class="c1"># 学習後の人工知能がどのような出力をしているのかを確認</span>
@@ -2351,7 +2349,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
 <p>以下では，<code class="docutils literal notranslate"><span class="pre">Embedding()</span></code> や <code class="docutils literal notranslate"><span class="pre">LSTM()</span></code> がどのような挙動をしているのかを観察します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Bidirectional</span>
@@ -2401,7 +2399,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
 <p>LSTM によって IMDb の感情分析をするには以下のようにプログラムを書きます．前述の MLP の書き方とかなり類似しています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
@@ -2548,7 +2546,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
 <p>上で紹介した Embedding Projector で単語間距離を可視化するために埋め込みベクトルとその埋め込みベクトルに対応する文字を出力します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
@@ -2715,7 +2713,7 @@ Minimum and maximum length of instances in test dataset: 7 2315
 <p>上の例では LSTM を使って文字列の感情分析を行いました．TensorFlow はとても整備が行き届いたフレームワークです．LSTM 以外の RNN を使いたい場合は以下のように2行だけ書き換えるのみで TensorFlow が用意してくれている RNN は利用可能です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
