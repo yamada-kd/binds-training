@@ -12,7 +12,7 @@
 東北大学**AMED**の教材．
 
 :::{panels}
-:container: %+full-width
+:container:
 :column: col-lg-6 px-2 py-2
 :card:
 
