@@ -9,6 +9,7 @@
 [![made-with-tensorflow](https://img.shields.io/badge/Made%20with-TensorFlow-1f425f.svg)](https://tensorflow.org/)
 ```
 
+## この教材について
 この教材は創薬等先端技術支援基盤プラットフォーム（Basis for Supporting innovative Drug Discovery and Life Science Research（BINDS））に関連する方向けに，**Python**の使い方，基本的な**機械学習法**の実装の仕方，**深層学習法**の実装の仕方を紹介する教材です．
 
 :::{panels}
@@ -48,5 +49,5 @@ if __name__ == "__main__":
 
 :::
 
+## 利用方法
 
-%機械学習帳は、[Jupyter Lab](https://jupyter.org/#jupyterlab)で書かれたコンテンツを[Jupyter Book](https://jupyterbook.org/)で変換することで生成されています。
