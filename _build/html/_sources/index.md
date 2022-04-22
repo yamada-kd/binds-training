@@ -56,8 +56,7 @@ if __name__ == "__main__":
 
 :::{panels}
 :container:
-:column: col-lg-6 px-2 py-2
-:card:
+:column: col-lg-6
 
 ---
 ```{note} Notes require **no** arguments,
