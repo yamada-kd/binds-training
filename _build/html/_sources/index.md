@@ -10,7 +10,7 @@
 ```
 
 ## この教材について
-この教材は創薬等先端技術支援基盤プラットフォーム（Basis for Supporting innovative Drug Discovery and Life Science Research（BINDS））に関連する方向けに，**Python**の使い方，基本的な**機械学習法**の実装の仕方，**深層学習法**の実装の仕方を紹介する教材です．
+この教材は創薬等先端技術支援基盤プラットフォーム（Basis for Supporting innovative Drug Discovery and Life Science Research（BINDS））に関連する方向けに，**Python** の使い方，基本的な**機械学習法**の実装の仕方，**深層学習法**の実装の仕方を紹介する教材です．
 
 :::{panels}
 :container:
