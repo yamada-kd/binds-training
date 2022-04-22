@@ -9,7 +9,7 @@
 [![made-with-tensorflow](https://img.shields.io/badge/Made%20with-TensorFlow-1f425f.svg)](https://tensorflow.org/)
 ```
 
-**Python**の使い方，基本的な**機械学習法**の実装の仕方，**深層学習法**の実装の仕方を紹介する教材．
+創薬等先端技術支援基盤プラットフォーム（Basis for Supporting innovative Drug Discovery and Life Science Research（BINDS））に関連する方向けに，**Python**の使い方，基本的な**機械学習法**の実装の仕方，**深層学習法**の実装の仕方を紹介する教材．
 
 :::{panels}
 :container:
