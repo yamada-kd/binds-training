@@ -33,15 +33,13 @@
 [Python](https://www.python.org/)をプログラミング言語として採用．[NumPy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), [scikit-learn](https://scikit-learn.org/), [scipy](https://scipy.org/), [PyTorch](https://pytorch.org/)などのエコシステムとあわせて、機械学習の実装を習得できます。
 
 ```python
-import torch
+#!/usr/bin/env python3
 
-x = torch.tensor([1., -1.])
-w = torch.tensor([1.0, 0.5], requires_grad=True)
-
-loss = -torch.dot(x, w).sigmoid().log()
-loss.backward()
-print(loss.item())
-print(w.grad)
+def main():
+    print("Hello world")
+     
+if __name__ == "__main__":
+    main()
 ```
 
 ---
