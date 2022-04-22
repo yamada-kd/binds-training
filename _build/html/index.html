@@ -223,64 +223,6 @@ const thebe_selector_output = ".output, .cell_output"
 <a class="reference external" href="https://scikit-learn.org/"><img alt="made-with-scikit-learn" src="https://img.shields.io/badge/Made%20with-scikit--learn-1f425f.svg" /></a>
 <a class="reference external" href="https://tensorflow.org/"><img alt="made-with-tensorflow" src="https://img.shields.io/badge/Made%20with-TensorFlow-1f425f.svg" /></a></p>
 <p>東北大学<strong>AMED</strong>の教材．</p>
-<div class="sphinx-bs container pb-4 full-width docutils">
-<div class="row docutils">
-<div class="d-flex col-lg-6 px-2 py-2 docutils">
-<div class="card w-100 docutils">
-<div class="card-header bg-jb-one docutils">
-<p class="card-text"><strong>対象aa者</strong> 👨‍</p>
-</div>
-<div class="card-body docutils">
-<p class="card-text">機械学習</p>
-<div style="text-align: center;">
-<video autoplay loop muted playsinline width="100%" src="sgd.mp4"></video>
-</div>
-</div>
-</div>
-</div>
-<div class="d-flex col-lg-6 px-2 py-2 docutils">
-<div class="card w-100 docutils">
-<div class="card-header bg-jb-two docutils">
-<p class="card-text"><strong>項目2</strong> ✨</p>
-</div>
-<div class="card-body docutils">
-<p class="card-text"><a class="reference external" href="https://www.python.org/">Python</a>をプログラミング言語として採用．<a class="reference external" href="https://numpy.org/">NumPy</a>, <a class="reference external" href="https://matplotlib.org/">Matplotlib</a>, <a class="reference external" href="https://scikit-learn.org/">scikit-learn</a>, <a class="reference external" href="https://scipy.org/">scipy</a>, <a class="reference external" href="https://pytorch.org/">PyTorch</a>などのエコシステムとあわせて、機械学習の実装を習得できます。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">])</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">()</span>
-<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="d-flex col-lg-6 px-2 py-2 docutils">
-<div class="card w-100 docutils">
-<div class="card-header bg-jb-three docutils">
-<p class="card-text"><strong>項目3</strong> 📖</p>
-</div>
-<div class="card-body docutils">
-<p class="card-text">解説する．</p>
-</div>
-</div>
-</div>
-<div class="d-flex col-lg-6 px-2 py-2 docutils">
-<div class="card w-100 docutils">
-<div class="card-header bg-jb-four docutils">
-<p class="card-text"><strong>項目4</strong> 🎁</p>
-</div>
-<div class="card-body docutils">
-<p class="card-text">ほげ</p>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">

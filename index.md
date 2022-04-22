@@ -12,7 +12,7 @@
 東北大学**AMED**の教材．
 
 :::{panels}
-:container: +full-width
+:container: %+full-width
 :column: col-lg-6 px-2 py-2
 :card:
 
@@ -60,5 +60,3 @@ print(w.grad)
 
 
 %機械学習帳は、[Jupyter Lab](https://jupyter.org/#jupyterlab)で書かれたコンテンツを[Jupyter Book](https://jupyterbook.org/)で変換することで生成されています。
-
-%東北大学
