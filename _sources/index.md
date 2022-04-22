@@ -61,6 +61,4 @@ print(w.grad)
 
 %機械学習帳は、[Jupyter Lab](https://jupyter.org/#jupyterlab)で書かれたコンテンツを[Jupyter Book](https://jupyterbook.org/)で変換することで生成されています。
 
-## 講義
-
 東北大学
