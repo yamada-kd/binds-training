@@ -60,21 +60,27 @@ if __name__ == "__main__":
 :column: col-lg-6 px-2 py-2
 :card:
 
+---
 ```{note} Notes require **no** arguments,
 so content can start here.
 ```
+---
 ```{attention} This is an example
 of an attention directive.
 ```
+---
 ```{danger} This is an example
 of a danger directive.
 ```
+---
 ```{error} This is an example
 of an error directive.
 ```
+---
 ```{hint} This is an example
 of a hint directive.
 ```
+---
 ```{important} This is an example
 of an important directive.
 ```
