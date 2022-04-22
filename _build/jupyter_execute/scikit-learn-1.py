@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# <font color="Crimson" size=6em>Scikit-learn を利用した機械学習入門</font>
-
-# 教材作成者：東北大学大学院 情報科学研究科
+# # Scikit-learn 入門
 
 # #1. <font color="Crimson">はじめに</font>
 # 
@@ -167,7 +165,7 @@ if __name__ == "__main__":
 
 # ここでは，Scikit-learn が備えているデータセットを利用して機械学習アルゴリズムの実装法を紹介します．アイリスというアヤメの咢と花弁のサイズの情報からなる，世界中で利用されてきたとても有名なデータセットを利用します．以下のようにすることでデータセットをダウンロードして中身を表示することができます．
 
-# In[1]:
+# In[ ]:
 
 
 #!/usr/bin/env python3

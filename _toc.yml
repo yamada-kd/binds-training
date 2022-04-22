@@ -9,3 +9,6 @@ parts:
 - caption: Scikit-learnの使い方
   chapters:
   - file: scikit-learn-1
+- caption: TensorFlowの使い方
+  chapters:
+  - file: tensorflow-1
