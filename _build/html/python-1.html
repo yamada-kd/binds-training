@@ -321,6 +321,21 @@ const thebe_selector_output = ".output, .cell_output"
      1.4.1. 四則計算
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     1.4.2. 変数
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     1.4.3. リストとディクショナリ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     1.4.4. 繰り返し処理
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -415,6 +430,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
      1.4.1. 四則計算
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     1.4.2. 変数
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     1.4.3. リストとディクショナリ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     1.4.4. 繰り返し処理
     </a>
    </li>
   </ul>
@@ -557,8 +587,13 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(コードセルを追加して何か書いてみましょう！)</font></p>
-<p>###2-3-2. <font color="Crimson">変数</font></p>
+<div class="admonition hint">
+<p class="admonition-title">ヒント</p>
+<p>コードセルを追加して何か書いてみましょう！</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h3><span class="section-number">1.4.2. </span>変数<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>上では，実際の数値を入力してプログラムを書きました．しかし，これではただの電卓です．以下のようにすると，変数を定義することができます．例えば，4行目で「a」という変数を生成し，これに「3」という数値を代入しています．ここで注意しなければならないことは，プログラミング言語において「=」は「その右側と左側が等しい」という意味ではなく，「右側を左側に代入する」という意味で用いられる点です．このように変数というものを使うことでプログラムは色々な処理を一般化することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -618,7 +653,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(Python では数値と文字列は明確に区別されます．数値を変数に代入したときは <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を利用しませんでした．<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> に囲まれた部分は文字列としてみなされます．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>Python では数値と文字列は明確に区別されます．数値を変数に代入したときは <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を利用しませんでした．<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> に囲まれた部分は文字列としてみなされます．</p>
+</div>
 <p>ダブルクォーテーション（<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で <code class="docutils literal notranslate"><span class="pre">&quot;greeting&quot;</span></code> と書いてその内容（<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world</span></code>）を出力しようとしても，<code class="docutils literal notranslate"><span class="pre">greeting</span></code> という文字列が出力されるだけで中身を出力できません．目的の動作をさせるには変数の中身をダブルクォーテション内で「展開」しなければならないのです．変数を文字列の中で展開したい場合は <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> と <code class="docutils literal notranslate"><span class="pre">format()</span></code> を組み合わせて使います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -635,7 +673,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>###2-3-3. <font color="Crimson">リストとディクショナリ</font></p>
+</div>
+<div class="section" id="id15">
+<h3><span class="section-number">1.4.3. </span>リストとディクショナリ<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>複数個の値を代入することができる変数があります．これのことをただの変数ではなく，Python ではリスト（list）と呼びます．リスト変数は <code class="docutils literal notranslate"><span class="pre">[</span></code> と <code class="docutils literal notranslate"><span class="pre">]</span></code> と <code class="docutils literal notranslate"><span class="pre">,</span></code> を使って生成します．以下のように生成した変数「list_a」の要素にアクセスするには「list_a[0]」のような感じでリスト変数に添字を付けて書きます．こうすることで「list_a」に格納されている最初の値である「10」にアクセスできます．多くのプログラミング言語ではリストの一番最初を示すインデックスは「0」です（1ではありません．）．こういうシステムのことはゼロオリジンと呼称します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -669,8 +709,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(便利ですね．)</font></p>
-<p>###2-3-4. <font color="Crimson">繰り返し処理</font></p>
+</div>
+<div class="section" id="id16">
+<h3><span class="section-number">1.4.4. </span>繰り返し処理<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Python で繰り返し処理をするには「for」を使います．以下のように書くと，<code class="docutils literal notranslate"><span class="pre">range(5)</span></code> に格納されている「0，1，2，3，4」という値が一行ごとに表示されます．プログラムではこの「for」を様々な局面で利用することによって人間ではできないような同じことの繰り返し作業を実現します．この繰り返し処理の方法と後に出る条件分岐の方法（if）さえ用いればどのようなプログラムでも実現することができます．繰り返し操作が終わった次の行からは，インデントを再びアウトデントするのを忘れないよう注意しましょう．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -687,7 +728,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(<code class="docutils literal notranslate"><span class="pre">range(5)</span></code> は <code class="docutils literal notranslate"><span class="pre">[0，1，2，3，4]</span></code> の配列を生成するものと考えて問題ないです．)</font></p>
+<div class="admonition hint">
+<p class="admonition-title">ヒント</p>
+<p><code class="docutils literal notranslate"><span class="pre">range(5)</span></code> は <code class="docutils literal notranslate"><span class="pre">[0，1，2，3，4]</span></code> の配列を生成するものと考えて問題ないです．</p>
+</div>
 <p>以下のように書くとリストに格納されているデータ全てにひとつずつアクセスすることができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -720,7 +764,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(ディクショナリ変数に <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> をつけることでディクショナリ変数に含まれるキーからなるリストを生成することができます．)</font></p>
+<div class="admonition hint">
+<p class="admonition-title">ヒント</p>
+<p>ディクショナリ変数に <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> をつけることでディクショナリ変数に含まれるキーからなるリストを生成することができます．</p>
+</div>
 <p>以下のように書いても，上と全く同じ挙動を示します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
