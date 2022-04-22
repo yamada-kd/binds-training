@@ -276,7 +276,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     1.2. 開始前に行うこと（重要）
+     1.2. 開始前に行うこと
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
@@ -319,19 +319,25 @@ const thebe_selector_output = ".output, .cell_output"
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#font-color-crimson-python-font">
-       2.2.2. 2-2-2.
-       <font color="Crimson">
-        Python プログラムの構造
-       </font>
+      <a class="reference internal nav-link" href="#id12">
+       2.2.2. Python プログラムの構造
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
-       2.2.3. 2-2-3.
-       <font color="Crimson">
-        Python コーディング
-       </font>
+      <a class="reference internal nav-link" href="#id13">
+       2.2.3. Python コーディング
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     2.3. Python の基本操作
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id15">
+       2.3.1. 四則計算
       </a>
      </li>
     </ul>
@@ -387,7 +393,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     1.2. 開始前に行うこと（重要）
+     1.2. 開始前に行うこと
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
@@ -430,19 +436,25 @@ const thebe_selector_output = ".output, .cell_output"
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#font-color-crimson-python-font">
-       2.2.2. 2-2-2.
-       <font color="Crimson">
-        Python プログラムの構造
-       </font>
+      <a class="reference internal nav-link" href="#id12">
+       2.2.2. Python プログラムの構造
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
-       2.2.3. 2-2-3.
-       <font color="Crimson">
-        Python コーディング
-       </font>
+      <a class="reference internal nav-link" href="#id13">
+       2.2.3. Python コーディング
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     2.3. Python の基本操作
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id15">
+       2.3.1. 四則計算
       </a>
      </li>
     </ul>
@@ -476,9 +488,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">1.2. </span>開始前に行うこと（重要）<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="admonition important">
-<p class="admonition-title">重要</p>
+<h2><span class="section-number">1.2. </span>開始前に行うこと<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition hint">
+<p class="admonition-title">ヒント</p>
 <p>上の（このグーグルコラボラトリー自体の一番上の）「ファイル」をクリックし，さらにポップアップで出てくる項目から「ドライブにコピーを保存」をクリックし，自身のグーグルドライブにこのウェブページ全体のソースを保存します（グーグルのアカウントが必要です）．</font>こうすることによって，自分で書いたプログラムを実行することができるようになります．また，メモ等を自由に以下のスペースに追加することができるようになります．</p>
 </div>
 </div>
@@ -517,10 +529,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>書いたソースコードを保存します．拡張子は「.py」とします．</p></li>
 <li><p>そのプログラムを（コマンドライン等から）呼び出します．</p></li>
 </ol>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(このチュートリアルでは，グーグルコラボラトリーを利用するので，2番と3番はやりません（やれません）．)</font></p>
 </div>
-<div class="section" id="font-color-crimson-python-font">
-<h3><span class="section-number">2.2.2. </span>2-2-2. <font color="Crimson">Python プログラムの構造</font><a class="headerlink" href="#font-color-crimson-python-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">2.2.2. </span>Python プログラムの構造<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のようなプログラムを書いて，それを実行するとターミナルウィンドウ等に「Hello world」という表示が出力されます．以下のプログラムにおいて，1～3と5～7行は Python にとって常に必要になる表記です．これは，いかなるときにも取り敢えず書いておくと良いでしょう．なので，以下のプログラムの本体は実質，4行目だけです．これは，「Hello world」という文を画面に表示しなさいという命令です．<code class="docutils literal notranslate"><span class="pre">print()</span></code> という表記の前に存在する空白は，キーボードの <code class="docutils literal notranslate"><span class="pre">Tab</span></code> を押すと入力できる空白文字です．Pythonではこのように空白文字をきちんと入れる必要があります．<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main():</span></code> 以下に書いた，タブの右側の表記だけがプログラムとして認識されます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -535,20 +546,27 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．)</font></p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．</p>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">2.2.3. </span>2-2-3. <font color="Crimson">Python コーディング</font><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h3><span class="section-number">2.2.3. </span>Python コーディング<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Python でコーディングをする際に統一的なルール（エチケット？） として PEP8 が定義されています．PEP とは Python Enhancement Proposal の略です．PEP8 に従って書かれたコードは可読性が高くなります．</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://pep8-ja.readthedocs.io/ja/latest/">https://pep8-ja.readthedocs.io/ja/latest/</a></p></li>
-</ul>
+<p><a class="reference external" href="https://pep8-ja.readthedocs.io/ja/latest/">https://pep8-ja.readthedocs.io/ja/latest/</a></p>
 <p>このコンテンツのコードは必ずしも PEP8 に従っていないかもしれません．</p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(Python に愛を持つ人はひたすら読み込みましょう！)</font></p>
-<p>##2-3. <font color="Crimson">Python の基本操作</font></p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><span class="section-number">2.3. </span>Python の基本操作<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>以降，実際にプログラムを書いてそれらを実行してみます．</p>
-<p>###2-3-1. <font color="Crimson">四則計算</font></p>
+<div class="section" id="id15">
+<h3><span class="section-number">2.3.1. </span>四則計算<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のように書くと足し算ができます．プログラム中の「#」はコメントの宣言のための記号で，これが書いてある部分から右側はプログラムとして認識されません．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -563,7 +581,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(ハッシュとシャープは実は違うものですよね．)</font></p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>ハッシュとシャープは実は違うものですよね．</p>
+</div>
 <p>その他の四則計算は以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
