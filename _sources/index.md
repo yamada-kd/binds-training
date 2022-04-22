@@ -53,3 +53,36 @@ if __name__ == "__main__":
 次のページから
 
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
+
+```{note} Notes require **no** arguments,
+so content can start here.
+```
+```{warning} This is an example
+of a warning directive.
+```
+```{tip} This is an example
+of a tip directive.
+```
+```{caution} This is an example
+of a caution directive.
+```
+```{attention} This is an example
+of an attention directive.
+```
+```{danger} This is an example
+of a danger directive.
+```
+```{error} This is an example
+of an error directive.
+```
+```{hint} This is an example
+of a hint directive.
+```
+```{important} This is an example
+of an important directive.
+```
+
+
+
+
+
