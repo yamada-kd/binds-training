@@ -3,16 +3,16 @@ root: index
 defaults:
   numbered: true
 parts:
-- caption: Python
+- caption: プログラミングの基礎
   chapters:
   - file: python-1
   - file: python-2
   - file: python-3
-- caption: Scikit-learn
+- caption: 一般的な機械学習法
   chapters:
   - file: scikit-learn-1
   - file: scikit-learn-2
-- caption: TensorFlow
+- caption: 深層学習法
   chapters:
   - file: tensorflow-1
   - file: tensorflow-2
