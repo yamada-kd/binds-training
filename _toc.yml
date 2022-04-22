@@ -6,3 +6,7 @@ parts:
 - caption: Pythonの使い方
   chapters:
   - file: python-1
+parts:
+- caption: Scikit-learnの使い方
+  chapters:
+  - file: scikit-learn-1
