@@ -17,8 +17,7 @@
 :card:
 
 ---
-:header: bg-jb-one
-**対象aa者** 👨‍
+**対象者**
 ^^^
 機械学習
 
@@ -27,8 +26,7 @@
 </div>
 
 ---
-:header: bg-jb-two
-**項目2** ✨
+**Python**
 ^^^
 [Python](https://www.python.org/)をプログラミング言語として採用．[NumPy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), [scikit-learn](https://scikit-learn.org/), [scipy](https://scipy.org/), [PyTorch](https://pytorch.org/)などのエコシステムとあわせて、機械学習の実装を習得できます。
 
@@ -43,14 +41,12 @@ if __name__ == "__main__":
 ```
 
 ---
-:header: bg-jb-three
-**項目3** 📖
+**Scikit-learn**
 ^^^
 解説する．
 
 ---
-:header: bg-jb-four
-**項目4** 🎁
+**TensorFlow**
 ^^^
 ほげ
 
