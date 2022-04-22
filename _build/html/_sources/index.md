@@ -54,6 +54,12 @@ if __name__ == "__main__":
 
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
 
+
+:::{panels}
+:container:
+:column: col-lg-6 px-2 py-2
+:card:
+
 ```{note} Notes require **no** arguments,
 so content can start here.
 ```
@@ -73,7 +79,7 @@ of a hint directive.
 of an important directive.
 ```
 
-
+:::
 
 
 
