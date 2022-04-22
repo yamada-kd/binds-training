@@ -44,6 +44,7 @@ if __name__ == "__main__":
 
 ---
 **TensorFlow**
+^^^
 ほげ
 
 :::
@@ -54,36 +55,18 @@ if __name__ == "__main__":
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
 
 
-:::{panels}
-:container:
-:column: col-lg-6
 
----
 ```{note} Notes require **no** arguments,
 so content can start here.
 ```
----
 ```{attention} This is an example
 of an attention directive.
 ```
----
-```{danger} This is an example
-of a danger directive.
-```
----
-```{error} This is an example
-of an error directive.
-```
----
 ```{hint} This is an example
 of a hint directive.
 ```
----
-```{important} This is an example
-of an important directive.
-```
 
-:::
+
 
 
 
