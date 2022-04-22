@@ -6,9 +6,14 @@ parts:
 - caption: Pythonの使い方
   chapters:
   - file: python-1
+  - file: python-2
+  - file: python-3
 - caption: Scikit-learnの使い方
   chapters:
   - file: scikit-learn-1
+  - file: scikit-learn-2
 - caption: TensorFlowの使い方
   chapters:
   - file: tensorflow-1
+  - file: tensorflow-2
+  - file: tensorflow-3
