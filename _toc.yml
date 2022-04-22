@@ -8,4 +8,4 @@ parts:
   - file: python-1
 - caption: Scikit-learnの使い方
   chapters:
-  - file: scikit-learn-1
+  - file: markdown
