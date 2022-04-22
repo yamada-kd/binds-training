@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="2. Pythonファイルの分割" href="python-2.html" />
+    <link rel="next" title="3. Pythonファイルの分割" href="python-2.html" />
     <link rel="prev" title="はじめに" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="ja">
@@ -112,12 +112,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="python-2.html">
-   2. Pythonファイルの分割
+   3. Pythonファイルの分割
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="python-3.html">
-   3. Pythonファイルの分割
+   4. Pythonファイルの分割
   </a>
  </li>
 </ul>
@@ -129,12 +129,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="scikit-learn-1.html">
-   4. Scikit-learn 入門
+   5. Scikit-learn 入門
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="scikit-learn-2.html">
-   5. Scikit-learnファイルの分割
+   6. Scikit-learnファイルの分割
   </a>
  </li>
 </ul>
@@ -146,17 +146,17 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow-1.html">
-   6. TensorFlow を利用した深層学習
+   7. TensorFlow を利用した深層学習
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow-2.html">
-   7. TensorFlowファイルの分割
+   8. TensorFlowファイルの分割
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow-3.html">
-   8. Hugging Face
+   9. Hugging Face
   </a>
  </li>
 </ul>
@@ -247,72 +247,94 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   1.1. はじめに
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   1. Python 入門
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     1.1.1. このコンテンツで学ぶこと
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     1.1. はじめに
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       1.1.1. このコンテンツで学ぶこと
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       1.1.2. この環境について
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gpu">
+       1.1.3. GPU の利用方法
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1.2. 開始前に行うこと（重要）
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     1.1.2. この環境について
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     1.3. 利用方法
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gpu">
-     1.1.3. GPU の利用方法
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       1.3.1. 進め方
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       1.3.2. コードセル
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   1.2. 開始前に行うこと（重要）
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   2. Python の基本的な使用方法
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-crimson-font">
-     1.2.1. 1-5-1.
-     <font color="Crimson">
-      進め方
-     </font>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     2.1. Python とは
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     1.2.2. 1-5-2.
-     <font color="Crimson">
-      コードセル
-     </font>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     2.2. Python の実行方法
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     1.2.3. 2-2-1.
-     <font color="Crimson">
-      実行の手順
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-crimson-python-font">
-     1.2.4. 2-2-2.
-     <font color="Crimson">
-      Python プログラムの構造
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     1.2.5. 2-2-3.
-     <font color="Crimson">
-      Python コーディング
-     </font>
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id11">
+       2.2.1. 実行の手順
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#font-color-crimson-python-font">
+       2.2.2. 2-2-2.
+       <font color="Crimson">
+        Python プログラムの構造
+       </font>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id12">
+       2.2.3. 2-2-3.
+       <font color="Crimson">
+        Python コーディング
+       </font>
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -336,72 +358,94 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   1.1. はじめに
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   1. Python 入門
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     1.1.1. このコンテンツで学ぶこと
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     1.1. はじめに
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       1.1.1. このコンテンツで学ぶこと
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       1.1.2. この環境について
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gpu">
+       1.1.3. GPU の利用方法
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1.2. 開始前に行うこと（重要）
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     1.1.2. この環境について
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     1.3. 利用方法
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gpu">
-     1.1.3. GPU の利用方法
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       1.3.1. 進め方
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       1.3.2. コードセル
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   1.2. 開始前に行うこと（重要）
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   2. Python の基本的な使用方法
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-crimson-font">
-     1.2.1. 1-5-1.
-     <font color="Crimson">
-      進め方
-     </font>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     2.1. Python とは
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     1.2.2. 1-5-2.
-     <font color="Crimson">
-      コードセル
-     </font>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     2.2. Python の実行方法
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     1.2.3. 2-2-1.
-     <font color="Crimson">
-      実行の手順
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-crimson-python-font">
-     1.2.4. 2-2-2.
-     <font color="Crimson">
-      Python プログラムの構造
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     1.2.5. 2-2-3.
-     <font color="Crimson">
-      Python コーディング
-     </font>
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id11">
+       2.2.1. 実行の手順
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#font-color-crimson-python-font">
+       2.2.2. 2-2-2.
+       <font color="Crimson">
+        Python プログラムの構造
+       </font>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id12">
+       2.2.3. 2-2-3.
+       <font color="Crimson">
+        Python コーディング
+       </font>
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -437,16 +481,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">重要</p>
 <p>上の（このグーグルコラボラトリー自体の一番上の）「ファイル」をクリックし，さらにポップアップで出てくる項目から「ドライブにコピーを保存」をクリックし，自身のグーグルドライブにこのウェブページ全体のソースを保存します（グーグルのアカウントが必要です）．</font>こうすることによって，自分で書いたプログラムを実行することができるようになります．また，メモ等を自由に以下のスペースに追加することができるようになります．</p>
 </div>
-<p>##1-4. <font color="Crimson">コンパニオン</font></p>
-<p>このコンテンツには，受講者の理解を助けるためのコンパニオンがいます．以下のものは「サミー先生」です．サミー先生はこの教材の英語版の制作者です．分かり難いところを詳しく教えてくれます．</p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(ちゃお！)</font></p>
-<p>##1-5. <font color="Crimson">利用方法</font></p>
-<div class="section" id="font-color-crimson-font">
-<h3><span class="section-number">1.2.1. </span>1-5-1. <font color="Crimson">進め方</font><a class="headerlink" href="#font-color-crimson-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>上から順番に読み進めます．Python のコードが書かれている場合は実行ボタンをクリックして実行します．コード内の値を変えたり，関数を変えたりして挙動を確かめてみてください．</p>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">1.2.2. </span>1-5-2. <font color="Crimson">コードセル</font><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2><span class="section-number">1.3. </span>利用方法<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h3><span class="section-number">1.3.1. </span>進め方<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>上から順番に読み進めます．Python のコードが書かれている場合は実行ボタンをクリックして実行します．コード内の値を変えたり，関数を変えたりして挙動を確かめてみてください．</p>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">1.3.2. </span>コードセル<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>コードセルとは，Python のコードを書き込み実行するためのセルです．以下のような灰色のボックスです．ここにコードを書きます．実行はコードセルの左に表示される「実行ボタン」をクリックするか，コードセルを選択した状態で <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Enter</span></code> を押します．環境によっては行番号が表示されていると思いますので注意してください（行番号の数字はプログラムの構成要素ではありません）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -455,13 +498,19 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>#2. <font color="Crimson">Python の基本的な使用方法</font></p>
-<p>##2-1. <font color="Crimson">Python とは</font></p>
-<p>Python は，科学技術界隈，特にデータ科学に関する分野において昨今，最も利用されていると言って過言ではないプログラミング言語です．これを習得することで今後，プログラミング技術なしでは為し得なかったような大量データの解析ができるようになります．Python は C言語とか Fortran とかの伝統的なプログラミング言語と比べて簡単に学ぶことができるプログラミング言語です．ものすごく人気がある言語であり，たくさんのライブラリ（補助ツール）が存在しているので，色々なことができます．計算の速さもそこそこで，少なくとも悪くはありません．ここでは，Python のバージョン3（Python3）の使い方を学びます．</p>
-<p>##2-2. <font color="Crimson">Python の実行方法</font></p>
 </div>
-<div class="section" id="id6">
-<h3><span class="section-number">1.2.3. </span>2-2-1. <font color="Crimson">実行の手順</font><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id8">
+<h1><span class="section-number">2. </span>Python の基本的な使用方法<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id9">
+<h2><span class="section-number">2.1. </span>Python とは<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Python は，科学技術界隈，特にデータ科学に関する分野において昨今，最も利用されていると言って過言ではないプログラミング言語です．これを習得することで今後，プログラミング技術なしでは為し得なかったような大量データの解析ができるようになります．Python は C言語とか Fortran とかの伝統的なプログラミング言語と比べて簡単に学ぶことができるプログラミング言語です．ものすごく人気がある言語であり，たくさんのライブラリ（補助ツール）が存在しているので，色々なことができます．計算の速さもそこそこで，少なくとも悪くはありません．ここでは，Python のバージョン3（Python3）の使い方を学びます．</p>
+</div>
+<div class="section" id="id10">
+<h2><span class="section-number">2.2. </span>Python の実行方法<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id11">
+<h3><span class="section-number">2.2.1. </span>実行の手順<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>普通，Python は以下のような手順で使います．</p>
 <ol class="simple">
 <li><p>プログラムを書きます．プログラムの本体をソースコードと呼びます．</p></li>
@@ -471,7 +520,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(このチュートリアルでは，グーグルコラボラトリーを利用するので，2番と3番はやりません（やれません）．)</font></p>
 </div>
 <div class="section" id="font-color-crimson-python-font">
-<h3><span class="section-number">1.2.4. </span>2-2-2. <font color="Crimson">Python プログラムの構造</font><a class="headerlink" href="#font-color-crimson-python-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.2.2. </span>2-2-2. <font color="Crimson">Python プログラムの構造</font><a class="headerlink" href="#font-color-crimson-python-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のようなプログラムを書いて，それを実行するとターミナルウィンドウ等に「Hello world」という表示が出力されます．以下のプログラムにおいて，1～3と5～7行は Python にとって常に必要になる表記です．これは，いかなるときにも取り敢えず書いておくと良いでしょう．なので，以下のプログラムの本体は実質，4行目だけです．これは，「Hello world」という文を画面に表示しなさいという命令です．<code class="docutils literal notranslate"><span class="pre">print()</span></code> という表記の前に存在する空白は，キーボードの <code class="docutils literal notranslate"><span class="pre">Tab</span></code> を押すと入力できる空白文字です．Pythonではこのように空白文字をきちんと入れる必要があります．<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main():</span></code> 以下に書いた，タブの右側の表記だけがプログラムとして認識されます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -489,8 +538,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．)</font></p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．)</font></p>
 </div>
-<div class="section" id="id7">
-<h3><span class="section-number">1.2.5. </span>2-2-3. <font color="Crimson">Python コーディング</font><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">2.2.3. </span>2-2-3. <font color="Crimson">Python コーディング</font><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Python でコーディングをする際に統一的なルール（エチケット？） として PEP8 が定義されています．PEP とは Python Enhancement Proposal の略です．PEP8 に従って書かれたコードは可読性が高くなります．</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pep8-ja.readthedocs.io/ja/latest/">https://pep8-ja.readthedocs.io/ja/latest/</a></p></li>
@@ -1745,7 +1794,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>派生クラスから生成したインスタンスの <code class="docutils literal notranslate"><span class="pre">sit()</span></code> の挙動が基底クラスのものから変化しているのがわかります．このとき，基底クラスの <code class="docutils literal notranslate"><span class="pre">sit()</span></code> は変化していません．</p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(派生クラスで，派生クラスにおいて利用するメソッドを書き換えるのであって，派生クラスで書き換えたメソッドが基底クラスのメソッドを書き換える（明らかに危険な行為）わけではありません．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>派生クラスで，派生クラスにおいて利用するメソッドを書き換えるのであって，派生クラスで書き換えたメソッドが基底クラスのメソッドを書き換える（明らかに危険な行為）わけではありません．)</p>
+</div>
 <p>次に，派生クラスにおいてインスタンス変数を増やします．これを実現するためには，コンストラクタ <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> をオーバーライドする必要があります．このとき，既に基底クラスで定義したインスタンス変数をそのまま利用するためにコンストラクタを呼び出します．基底クラスは <code class="docutils literal notranslate"><span class="pre">super()</span></code> を使って呼び出すことができます．以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1816,7 +1868,7 @@ const thebe_selector_output = ".output, .cell_output"
     <a class='right-next' id="next-link" href="python-2.html" title="次へ ページ">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>Pythonファイルの分割</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Pythonファイルの分割</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
