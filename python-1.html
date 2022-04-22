@@ -224,13 +224,6 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#id3">
      1.1.2. この環境について
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#jupyter-notebook">
-       1.1.2.1. Jupyter Notebook
-      </a>
-     </li>
-    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#font-color-crimson-gpu-font">
@@ -316,13 +309,6 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#id3">
      1.1.2. この環境について
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#jupyter-notebook">
-       1.1.2.1. Jupyter Notebook
-      </a>
-     </li>
-    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#font-color-crimson-gpu-font">
@@ -393,10 +379,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id3">
 <h3><span class="section-number">1.1.2. </span>この環境について<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<div class="section" id="jupyter-notebook">
-<h4><span class="section-number">1.1.2.1. </span>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>Jupyter Notebook は Python を実行するための環境です．メモを取りながら Python のコードを実行することができます．この環境は，Python プログラムがコマンドライン上で実行される実際の環境とは少し異なるのですが，Python プログラムがどのように動くかということを簡単に確認しながら学習することができます．</p>
-</div>
 </div>
 <div class="section" id="font-color-crimson-gpu-font">
 <h3><span class="section-number">1.1.3. </span>1-2-2. <font color="Crimson">GPU の利用方法</font><a class="headerlink" href="#font-color-crimson-gpu-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -418,11 +401,6 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a code cell.&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This is a code cell.
 </pre></div>
 </div>
 </div>
@@ -457,11 +435,6 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello world
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．)</font></p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．)</font></p>
@@ -490,11 +463,6 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(ハッシュとシャープは実は違うものですよね．)</font></p>
 <p>その他の四則計算は以下のように書きます．</p>
@@ -509,13 +477,6 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8
-30.0
-255
 </pre></div>
 </div>
 </div>
@@ -537,14 +498,6 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21
--15
-6.0
-54
 </pre></div>
 </div>
 </div>
@@ -588,11 +541,6 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello world
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(Python では数値と文字列は明確に区別されます．数値を変数に代入したときは <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を利用しませんでした．<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> に囲まれた部分は文字列としてみなされます．)</font></p>
 <p>ダブルクォーテーション（<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で <code class="docutils literal notranslate"><span class="pre">&quot;greeting&quot;</span></code> と書いてその内容（<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world</span></code>）を出力しようとしても，<code class="docutils literal notranslate"><span class="pre">greeting</span></code> という文字列が出力されるだけで中身を出力できません．目的の動作をさせるには変数の中身をダブルクォーテション内で「展開」しなければならないのです．変数を文字列の中で展開したい場合は <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> と <code class="docutils literal notranslate"><span class="pre">format()</span></code> を組み合わせて使います．</p>
@@ -607,11 +555,6 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ken, which is 6 years old is now sitting.
 </pre></div>
 </div>
 </div>
@@ -633,13 +576,6 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
-4
-aaa
-</pre></div>
-</div>
-</div>
 </div>
 <p>Python のリストでは上のように数値と文字（列）をひとつのリストに同時に入れることができます．リストを使うことが可能な多くのプログラミング言語ではこのような操作はできない場合が多いです．</p>
 <p>また，以下のような特別な変数も存在します．これをディクショナリ（dictionary）と呼びます．ディクショナリ変数は <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> と <code class="docutils literal notranslate"><span class="pre">,</span></code> と <code class="docutils literal notranslate"><span class="pre">:</span></code> を使って生成します．ディクショナリ変数には，キー（key）とそれに対応する値（value）を一組にして代入します．その後，キーの値を使って以下のようにしてディクショナリ変数にアクセスすることで，そのキーに対応する値を取得することができます．</p>
@@ -653,11 +589,6 @@ aaa
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
 </pre></div>
 </div>
 </div>
@@ -679,16 +610,6 @@ aaa
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
-1
-2
-3
-4
-hoge
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(<code class="docutils literal notranslate"><span class="pre">range(5)</span></code> は <code class="docutils literal notranslate"><span class="pre">[0，1，2，3，4]</span></code> の配列を生成するものと考えて問題ないです．)</font></p>
 <p>以下のように書くとリストに格納されているデータ全てにひとつずつアクセスすることができます．</p>
@@ -703,13 +624,6 @@ hoge
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
-4
-aaa
 </pre></div>
 </div>
 </div>
@@ -729,12 +643,6 @@ aaa
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>January 1
-February 2
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(ディクショナリ変数に <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> をつけることでディクショナリ変数に含まれるキーからなるリストを生成することができます．)</font></p>
 <p>以下のように書いても，上と全く同じ挙動を示します．</p>
@@ -749,12 +657,6 @@ February 2
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>January 1
-February 2
 </pre></div>
 </div>
 </div>
@@ -776,20 +678,6 @@ February 2
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></div>
-</div>
-</div>
 </div>
 <p>また，while は以下のようにして用いることもできます．この「!=」は「この記号の右側と左側の値が等しくない」ということを意味します．</p>
 <div class="cell docutils container">
@@ -807,20 +695,6 @@ February 2
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></div>
-</div>
-</div>
 </div>
 <p>###2-3-5. <font color="Crimson">条件分岐</font></p>
 <p>プログラミング言語にとって重要な要素として「if」があります．これは条件分岐のためのシステムです．以下のように書くと，もし <code class="docutils literal notranslate"><span class="pre">i</span></code> の値が2であるときのみ出力がされます．ここで，<code class="docutils literal notranslate"><span class="pre">==</span></code> という記号は「記号の右側と左側の値が等しい」ということを意味し，現実世界の「=」と同義です．</p>
@@ -835,11 +709,6 @@ February 2
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
 </pre></div>
 </div>
 </div>
@@ -864,13 +733,6 @@ February 2
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
-February corresponds to 2 in dict_a.
-May is not January or February.
-</pre></div>
-</div>
-</div>
 </div>
 <p>###2-3-6. <font color="Crimson">関数</font></p>
 <p>プログラミングをするにあたり，関数というものはとても大事な概念です．関数はあるプロセスの一群をまとめるためのシステムです．書いたプロセスを関数化することで，ソースコードの可読性が上がります．また，処理に汎用性を与えることができるようになります．同じ処理を変数の値だけを変えて何度も行いたい場合は同じ処理を何度も書くより，関数化して，必要なときにその関数を呼び出す，といったやり方が効率的です．関数は， <code class="docutils literal notranslate"><span class="pre">def</span></code> というものを使って生成します．これまでに書いてきたプログラムにも <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main()</span></code> という表記がありました．これは， <code class="docutils literal notranslate"><span class="pre">main()</span></code> という関数を定義するものです．そして，その <code class="docutils literal notranslate"><span class="pre">main()</span></code> という関数をソースコードの一番下，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>で呼び出して使っていたということです．この <code class="docutils literal notranslate"><span class="pre">main()</span></code> 以外にも，プログラマーは自由に関数を定義することができます．以下のように <code class="docutils literal notranslate"><span class="pre">func_1()</span></code> という関数を作って，それを <code class="docutils literal notranslate"><span class="pre">main()</span></code> の中で実行することができます．</p>
@@ -886,11 +748,6 @@ May is not January or February.
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span> <span class="c1"># The function &quot;main()&quot; is executed (and &quot;main()&quot; execute &quot;func_1()&quot; and &quot;func_1()&quot; execute &quot;print(&quot;Hello&quot;)&quot;).</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello
 </pre></div>
 </div>
 </div>
@@ -913,11 +770,6 @@ May is not January or February.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello Python
-</pre></div>
-</div>
-</div>
 </div>
 <p>また，関数はその関数内で処理された結果の値を関数の呼び出し元に返す (呼び出し元の関数内で使うことができるように値を渡す) ことができます．例えば，以下の書くと，<code class="docutils literal notranslate"><span class="pre">summation()</span></code> の呼び出し元に対して，<code class="docutils literal notranslate"><span class="pre">summation()</span></code> で計算した結果（リスト内の数値の和）が返ってきます．その返ってきた値を変数 <code class="docutils literal notranslate"><span class="pre">result_1</span></code> に格納してその後の処理に利用することができます．</p>
 <div class="cell docutils container">
@@ -937,11 +789,6 @@ May is not January or February.
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
 </pre></div>
 </div>
 </div>
@@ -996,12 +843,6 @@ May is not January or February.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean: 4.5
-sd: 2.449489742783178
-</pre></div>
-</div>
-</div>
 </div>
 <p>また，モジュール「math」を用いれば数学で用いられる様々な関数 (数学における関数) を簡単に記述することができます．</p>
 <div class="cell docutils container">
@@ -1025,26 +866,11 @@ sd: 2.449489742783178
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>log_10: 1.0
-log_2: 3.321928094887362
-log_e: 2.302585092994046
-1.2246467991473532e-16
--1.0
--1.2246467991473532e-16
-</pre></div>
-</div>
-</div>
 </div>
 <p>これまでは Python にデフォルトで組み込まれているモジュールのみを使ってきましたが，外部で用意されているモジュールを使うことも可能です．外部のモジュールはインストールしなければなりません．そのためにはコマンドライン上で「pip3」というコマンドを用います．例えば，数値計算を行うためのモジュール「NumPy」は以下のようにすることでインストールすることができます．現在使っている Python（正確には Python3）と pip3 が紐付いており，pip3 で外部からインストールしたライブラリは Python3 から呼び出すことができるのです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip3 install numpy
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in /home/yamada/local/anaconda3/envs/textbook/lib/python3.7/site-packages (1.21.6)
 </pre></div>
 </div>
 </div>
@@ -1054,132 +880,6 @@ log_e: 2.302585092994046
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip3 list
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Package                       Version
------------------------------ -----------
-alabaster                     0.7.12
-anyio                         3.5.0
-argon2-cffi                   21.3.0
-argon2-cffi-bindings          21.2.0
-attrs                         21.4.0
-Babel                         2.10.1
-backcall                      0.2.0
-beautifulsoup4                4.11.1
-bleach                        5.0.0
-certifi                       2021.10.8
-cffi                          1.15.0
-charset-normalizer            2.0.12
-click                         8.1.2
-colorama                      0.4.4
-debugpy                       1.6.0
-decorator                     5.1.1
-defusedxml                    0.7.1
-docutils                      0.16
-entrypoints                   0.4
-fastjsonschema                2.15.3
-ghp-import                    2.0.2
-gitdb                         4.0.9
-GitPython                     3.1.27
-greenlet                      1.1.2
-idna                          3.3
-imagesize                     1.3.0
-importlib-metadata            4.11.3
-importlib-resources           5.7.1
-ipykernel                     6.13.0
-ipython                       7.32.0
-ipython-genutils              0.2.0
-ipywidgets                    7.7.0
-jedi                          0.18.1
-Jinja2                        3.0.3
-jsonschema                    3.2.0
-jupyter-book                  0.12.3
-jupyter-cache                 0.4.3
-jupyter-client                7.2.2
-jupyter-core                  4.10.0
-jupyter-server                1.16.0
-jupyter-server-mathjax        0.2.5
-jupyter-sphinx                0.3.2
-jupyterlab-pygments           0.2.2
-jupyterlab-widgets            1.1.0
-latexcodec                    2.0.1
-linkify-it-py                 1.0.3
-markdown-it-py                1.1.0
-MarkupSafe                    2.1.1
-matplotlib-inline             0.1.3
-mdit-py-plugins               0.2.8
-mistune                       0.8.4
-myst-nb                       0.13.2
-myst-parser                   0.15.2
-nbclient                      0.5.13
-nbconvert                     6.5.0
-nbdime                        3.1.1
-nbformat                      5.3.0
-nest-asyncio                  1.5.5
-notebook                      6.4.11
-numpy                         1.21.6
-packaging                     21.3
-pandocfilters                 1.5.0
-parso                         0.8.3
-pexpect                       4.8.0
-pickleshare                   0.7.5
-pip                           21.2.2
-prometheus-client             0.14.1
-prompt-toolkit                3.0.29
-psutil                        5.9.0
-ptyprocess                    0.7.0
-pybtex                        0.24.0
-pybtex-docutils               1.0.1
-pycparser                     2.21
-pydata-sphinx-theme           0.7.2
-Pygments                      2.11.2
-pyparsing                     3.0.8
-pyrsistent                    0.18.1
-python-dateutil               2.8.2
-pytz                          2022.1
-PyYAML                        6.0
-pyzmq                         22.3.0
-requests                      2.27.1
-Send2Trash                    1.8.0
-setuptools                    61.2.0
-six                           1.16.0
-smmap                         5.0.0
-sniffio                       1.2.0
-snowballstemmer               2.2.0
-soupsieve                     2.3.2.post1
-Sphinx                        4.5.0
-sphinx-book-theme             0.1.10
-sphinx-comments               0.0.3
-sphinx-copybutton             0.5.0
-sphinx-external-toc           0.2.4
-sphinx-jupyterbook-latex      0.4.6
-sphinx-multitoc-numbering     0.1.3
-sphinx-panels                 0.6.0
-sphinx-thebe                  0.1.1
-sphinx-togglebutton           0.3.1
-sphinxcontrib-applehelp       1.0.2
-sphinxcontrib-bibtex          2.4.2
-sphinxcontrib-devhelp         1.0.2
-sphinxcontrib-htmlhelp        2.0.0
-sphinxcontrib-jsmath          1.0.1
-sphinxcontrib-qthelp          1.0.3
-sphinxcontrib-serializinghtml 1.1.5
-SQLAlchemy                    1.4.35
-terminado                     0.13.3
-tinycss2                      1.1.1
-tornado                       6.1
-traitlets                     5.1.1
-typing_extensions             4.2.0
-uc-micro-py                   1.0.1
-urllib3                       1.26.9
-wcwidth                       0.2.5
-webencodings                  0.5.1
-websocket-client              1.3.2
-wheel                         0.37.1
-widgetsnbextension            3.6.0
-zipp                          3.8.0
 </pre></div>
 </div>
 </div>
@@ -1206,11 +906,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;2018&#39;, &#39;2018&#39;, &#39;18&#39;, &#39;3&#39;, &#39;18&#39;, &#39;21&#39;, &#39;9&#39;, &#39;2010&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <p>このコードにおいて6行目の <code class="docutils literal notranslate"><span class="pre">\d+</span></code> が正規表現です．<code class="docutils literal notranslate"> <span class="pre">\d</span></code> が「アラビア数字の任意の1文字」を表し，その後の <code class="docutils literal notranslate"><span class="pre">+</span></code> は「前の表現の1回以上の繰り返すこと」を意味しています．すなわち，<code class="docutils literal notranslate"><span class="pre">\d+</span></code> は「1つ以上のアラビア数字が連続した文字列」を意味します．関数 <code class="docutils literal notranslate"><span class="pre">re.findall()</span></code> は最初の引数に指定されたパターン（正規表現）を2番目ので指定された文字列より検索して抽出するための役割を果たします．</p>
 <p>次に，以下のプログラムを実行します．これによって得られるリストには，「大文字から始まる文字列」が含まれます．使用する正規表現において，<code class="docutils literal notranslate"><span class="pre">[A-Z]</span></code> は大文字，<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code> は小文字を意味します．</p>
@@ -1226,14 +921,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Monday&#39;, &#39;Gregorian&#39;, &#39;Common&#39;, &#39;Era&#39;, &#39;Anno&#39;, &#39;Domini&#39;]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1254,11 +941,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Yes
-</pre></div>
-</div>
-</div>
 </div>
 <p>以下のように書くと，「<code class="docutils literal notranslate"><span class="pre">(</span></code> から始まり，何らかの文字が1個以上連続し，<code class="docutils literal notranslate"><span class="pre">)</span> </code> で終了する文字列」を全て削除（何もないものに置換）することができます．関数 <code class="docutils literal notranslate"><span class="pre">re.sub()</span></code> は第3引数の文字列から，第1引数の文字列を同定し，それを第2引数の値で置換するためのものです．この場合，<code class="docutils literal notranslate"><span class="pre">(</span></code> および <code class="docutils literal notranslate"><span class="pre">)</span></code> をそれぞれ <code class="docutils literal notranslate"><span class="pre">\(</span></code> および <code class="docutils literal notranslate"><span class="pre">\)</span></code> のように表記していますが，これは <code class="docutils literal notranslate"><span class="pre">(</span></code> および <code class="docutils literal notranslate"><span class="pre">)</span></code> が正規表現のための記号として用いられるものであるため，正規表現としてそれらを利用したい場合には，そのための特別な表記としなければならないためです．この操作は，「エスケープする」というように表現します．また，<code class="docutils literal notranslate"><span class="pre">\w</span></code> は「何らかの文字」，<code class="docutils literal notranslate"><span class="pre">\s</span></code> は「空白文字（スペース等）」を意味します．</p>
 <div class="cell docutils container">
@@ -1276,11 +958,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018 was a common year starting on Monday of the Gregorian calendar, the 2018th year of the Common Era and Anno Domini designations, the 18th year of the 3rd millennium, the 18th year of the 21st century, and the 9th year of the 2010s decade.
-</pre></div>
-</div>
-</div>
 </div>
 <p>以下の関数 <code class="docutils literal notranslate"><span class="pre">re.split()</span></code> を利用すると「文字列を空白文字がひとつ以上連続した文字列（<code class="docutils literal notranslate"><span class="pre">\s+</span></code>）」を区切り文字として分割することができます．これは文字列処理をする場合によく用いる関数です．</p>
 <div class="cell docutils container">
@@ -1295,11 +972,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;2018&#39;, &#39;(MMXVIII)&#39;, &#39;was&#39;, &#39;a&#39;, &#39;common&#39;, &#39;year&#39;, &#39;starting&#39;, &#39;on&#39;, &#39;Monday&#39;, &#39;of&#39;, &#39;the&#39;, &#39;Gregorian&#39;, &#39;calendar,&#39;, &#39;the&#39;, &#39;2018th&#39;, &#39;year&#39;, &#39;of&#39;, &#39;the&#39;, &#39;Common&#39;, &#39;Era&#39;, &#39;(CE)&#39;, &#39;and&#39;, &#39;Anno&#39;, &#39;Domini&#39;, &#39;(AD)&#39;, &#39;designations,&#39;, &#39;the&#39;, &#39;18th&#39;, &#39;year&#39;, &#39;of&#39;, &#39;the&#39;, &#39;3rd&#39;, &#39;millennium,&#39;, &#39;the&#39;, &#39;18th&#39;, &#39;year&#39;, &#39;of&#39;, &#39;the&#39;, &#39;21st&#39;, &#39;century,&#39;, &#39;and&#39;, &#39;the&#39;, &#39;9th&#39;, &#39;year&#39;, &#39;of&#39;, &#39;the&#39;, &#39;2010s&#39;, &#39;decade.&#39;]
 </pre></div>
 </div>
 </div>
@@ -1341,14 +1013,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 2 3]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 </div>
 <p>要素の参照は普通の Python 配列と同じようにできます．もちろんゼロオリジンです．</p>
 <div class="cell docutils container">
@@ -1362,11 +1026,6 @@ zipp                          3.8.0
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
 </pre></div>
 </div>
 </div>
@@ -1390,14 +1049,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 6  9 12]
-[-4 -5 -6]
-[ 5 14 27]
-[5.  3.5 3. ]
-</pre></div>
-</div>
-</div>
 </div>
 <p>コピーをする際は気を使わなければならない点があります．あるベクトルから別のベクトル変数を生成，つまり，コピーでベクトルを生成した場合，その生成したベクトルを元のベクトルと別のものとして扱いたい場合は以下のようにしなければなりません．以下では，8行目と9行目で元のベクトルとコピーで生成されたベクトルの要素をそれぞれ別の値で変更していますが，それぞれ別の値にて要素が置換されていることがわかります．</p>
 <div class="cell docutils container">
@@ -1415,12 +1066,6 @@ zipp                          3.8.0
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 1] [1 1]
-[2 1] [3 1]
 </pre></div>
 </div>
 </div>
@@ -1444,12 +1089,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 1] [1 1]
-[3 1] [3 1]
-</pre></div>
-</div>
-</div>
 </div>
 <p>###2-4-3. <font color="Crimson">行列の基本的な計算</font></p>
 <p>行列を生成するためにも，<code class="docutils literal notranslate"><span class="pre">np.array()</span></code> を利用します．さらに，行列のサイズは <code class="docutils literal notranslate"><span class="pre">.shape</span></code> によって確認することができます．</p>
@@ -1465,13 +1104,6 @@ zipp                          3.8.0
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 2]
- [3 4]]
-(2, 2)
 </pre></div>
 </div>
 </div>
@@ -1491,11 +1123,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
-</pre></div>
-</div>
-</div>
 </div>
 <p>NumPy 行列は以下のようなアクセスの方法があります．行ごとまたは列ごとのアクセスです．これは多用します．</p>
 <div class="cell docutils container">
@@ -1510,12 +1137,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 2]
-[2 4]
 </pre></div>
 </div>
 </div>
@@ -1540,16 +1161,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
-1
-10
-2.5
-1.25
-1.118033988749895
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(全知全能かよ．)</font></p>
 <p>以下の <code class="docutils literal notranslate"><span class="pre">np.zeros()</span></code> や <code class="docutils literal notranslate"><span class="pre">np.ones()</span></code> を用いると引数で指定したサイズの，全要素が0または1の行列を生成することができます．</p>
@@ -1564,17 +1175,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0. 0. 0.]
- [0. 0. 0.]
- [0. 0. 0.]]
-[[1. 1. 1. 1.]
- [1. 1. 1. 1.]
- [1. 1. 1. 1.]
- [1. 1. 1. 1.]]
 </pre></div>
 </div>
 </div>
@@ -1598,18 +1198,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 6  8]
- [10 12]]
-[[4 4]
- [4 4]]
-[[ 5 12]
- [21 32]]
-[[5.         3.        ]
- [2.33333333 2.        ]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>行列の掛け算は以下のようにします．</p>
 <div class="cell docutils container">
@@ -1627,12 +1215,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[19 22]
- [43 50]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>以下のようにすると一様分布に従う乱数を生成することができます．以下の例は一様分布のものですが，NumPy には一様分布以外にもたくさんの分布が用意されています．引数で指定するのは行列のサイズです．計算機実験をする際にこのようなランダムな値を生成することがあります．そんな中，Python や NumPy に限らず計算機実験をする際に気を付けなければならないことに「乱数のタネを固定する」ということがあります．計算機実験の再現性を得るためにとても重要なので絶対に忘れないようにすべきです．乱数のタネは3行目で行っています．ここでは <code class="docutils literal notranslate"><span class="pre">0</span></code> を設定しています．</p>
 <div class="cell docutils container">
@@ -1646,13 +1228,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.5488135  0.71518937 0.60276338]
- [0.54488318 0.4236548  0.64589411]
- [0.43758721 0.891773   0.96366276]]
 </pre></div>
 </div>
 </div>
@@ -1674,14 +1249,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1348.0
-[[ 0.01186944 -0.07715134  0.05192878]
- [ 0.07418398  0.01780415 -0.0504451 ]
- [-0.04005935  0.01038576  0.13724036]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>固有値分解は以下のようにします．</p>
 <div class="cell docutils container">
@@ -1697,15 +1264,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.45861873 6.54138127 1.         1.        ]
-[[-0.8983134  -0.82633465  0.68125794  0.80137532]
- [ 0.25366187 -0.32515178 -0.50330665  0.00189296]
- [ 0.25366187 -0.32515178 -0.45417196 -0.53425021]
- [ 0.25366187 -0.32515178  0.27622067 -0.26901807]]
 </pre></div>
 </div>
 </div>
@@ -1725,14 +1283,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 9 16  1 16]
- [ 1  4  1  1]
- [ 1  1  4  1]
- [ 1  1  1  4]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>一方で，「行列の冪乗」は以下のように計算します．</p>
 <div class="cell docutils container">
@@ -1746,14 +1296,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[18 25 13 25]
- [ 7 10  6  9]
- [ 7  9  7  9]
- [ 7  9  6 10]]
 </pre></div>
 </div>
 </div>
@@ -1774,14 +1316,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.46284538  1.39196824 -0.00171605  1.39196824]
- [ 0.3091356   1.20551839  0.36094421  0.20551839]
- [ 0.3091356   0.20551839  1.36094421  0.20551839]
- [ 0.3091356   0.20551839  0.36094421  1.20551839]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>###2-4-4. <font color="Crimson">ブロードキャスト</font></p>
 <p>NumPy は「行列にスカラを足す」，このような異様な計算をしても結果を返してくれます．以下の6行目では，行列にスカラを足しています．ここでは，最初に生成した4行4列の行列と同じサイズの，全要素が2からなる行列を自動で生成し，その行列と最初の4行4列の行列の和を計算しています．このような，対象となる行列のサイズに合せて，スカラから行列を生成することを「ブロードキャスト」と言います．この機能は非常に便利で様々な局面で使用することがあります．</p>
@@ -1796,17 +1330,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[5 6 3 6]
- [3 4 3 3]
- [3 3 4 3]
- [3 3 3 4]]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1827,11 +1350,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[7 6 5 4 3 2 1]
-</pre></div>
-</div>
-</div>
 </div>
 <p>以下のようにすると指定した条件に対する bool 配列を得ることができます．</p>
 <div class="cell docutils container">
@@ -1845,11 +1363,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[False False False  True  True  True  True]
 </pre></div>
 </div>
 </div>
@@ -1869,11 +1382,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[4 5 6 7]
-</pre></div>
-</div>
-</div>
 </div>
 <p>以下のように書けば，目的に合う値のインデックスを出力させることもできます．</p>
 <div class="cell docutils container">
@@ -1887,11 +1395,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([2, 6]),)
 </pre></div>
 </div>
 </div>
@@ -1961,12 +1464,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ken
-6
-</pre></div>
-</div>
-</div>
 </div>
 <p>しっかりと出力されました．クラスを使う利点は処理をきれいに整理できることです．もし，クラスを使わずにこの挙動を再現するには <code class="docutils literal notranslate"><span class="pre">mydog_name</span> <span class="pre">=</span> <span class="pre">Ken</span></code>，<code class="docutils literal notranslate"><span class="pre">mydog_age</span> <span class="pre">=</span> <span class="pre">6</span></code> のような変数を生成しなければなりません．クラスを使うと <code class="docutils literal notranslate"><span class="pre">mydog</span> <span class="pre">=</span> <span class="pre">Dog(&quot;Ken&quot;,</span> <span class="pre">6)</span></code> だけ，たったひとつの記述だけで複数個の情報を含む変数を生成できるのです．</p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(以上のように複数のデータをまとめて管理できることがクラスを使うメリットです．クラスを使わない場合，個々の変数を個別に管理する必要が生じ，プログラムが煩雑なものになります．クラスを作る効果ってたったそれだけ？と思われるかもしれませんが，そうです，たったそれだけです．ただ，この後にも説明がある通りクラスは変数だけでなく関数も内部に有することができます．処理が複雑になればなるほど有難くなります．)</font></p>
@@ -2001,11 +1498,6 @@ zipp                          3.8.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ken, which is (6) years old is now sitting.
-</pre></div>
-</div>
-</div>
 </div>
 <p>たったひとつの <code class="docutils literal notranslate"><span class="pre">mydog</span></code> という変数（インスタンス）が，複数個の変数を持ち，メソッドも有します．これはかなり整理整頓には良いシステムです．これがクラスを定義しインスタンスを生成する利点です．これは，以下のようにインスタンスを何個も生成するような処理が必要になる場合にさらに有用です．よりシンプルなコードを保てます．</p>
 <div class="cell docutils container">
@@ -2027,12 +1519,6 @@ zipp                          3.8.0
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ken, which is (6) years old is now sitting.
-Peko, which is (4) years old is now sitting.
 </pre></div>
 </div>
 </div>
@@ -2059,14 +1545,6 @@ Peko, which is (4) years old is now sitting.
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sendai
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Yokohama
 </pre></div>
 </div>
 </div>
@@ -2098,12 +1576,6 @@ Peko, which is (4) years old is now sitting.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
-8
-</pre></div>
-</div>
-</div>
 </div>
 <p>###2-5-5. <font color="Crimson">クラス変数</font></p>
 <p><code class="docutils literal notranslate"><span class="pre">インスタンス名.変数名</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">self.変数名</span></code> とすると，インスタンスが保持する変数にアクセスすることができましたが，そうではなく，クラスから生成されたすべてのインスタンスで値が共有されるような変数を作ることができます．そのような変数をクラス変数と呼びます．クラス変数を作成するには，単にクラスの定義部で変数に値を代入します．クラス変数にアクセスするには， <code class="docutils literal notranslate"><span class="pre">クラス名.変数名</span></code> とします．別のやり方として，インスタンス変数に同じ名前の変数がない場合には，<code class="docutils literal notranslate"><span class="pre">インスタンス名.変数名</span></code> と書いてもクラス変数にアクセスすることができます（ただし同名のインスタンス変数がある場合には，そちらにアクセスしますので注意が必要です）．</p>
@@ -2127,12 +1599,6 @@ Peko, which is (4) years old is now sitting.
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dog
-dog
 </pre></div>
 </div>
 </div>
@@ -2161,11 +1627,6 @@ dog
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
 </pre></div>
 </div>
 </div>
@@ -2202,16 +1663,6 @@ dog
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ken is now sitting.
-bow
-bow
-bow
-bow
-Peko is now sitting.
-</pre></div>
-</div>
-</div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(派生クラスである <code class="docutils literal notranslate"><span class="pre">TrainedDog</span></code> の定義には <code class="docutils literal notranslate"><span class="pre">sit()</span></code> は含まれていません．しかし，基底クラスである <code class="docutils literal notranslate"><span class="pre">Dog</span></code> を継承しているので <code class="docutils literal notranslate"><span class="pre">TrainedDog</span></code> から生成したインスタンスでは <code class="docutils literal notranslate"><span class="pre">sit()</span></code> を利用できています．)</font></p>
 <p>###2-5-8. <font color="Crimson">オーバーライド</font></p>
@@ -2239,12 +1690,6 @@ Peko is now sitting.
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ken is now sitting.
-Peko is now sitting and giving its paw.
 </pre></div>
 </div>
 </div>
@@ -2277,11 +1722,6 @@ Peko is now sitting and giving its paw.
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Peko is now sitting and giving its paw to Ben.
 </pre></div>
 </div>
 </div>
