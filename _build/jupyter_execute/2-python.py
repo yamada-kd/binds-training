@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# <font color="Crimson" size=6em>グーグルコラボラトリーを利用した Python 入門</font>
-
-# 教材作成者：東北大学大学院 情報科学研究科
+# # グーグルコラボラトリーを利用した Python 入門
 
 # #1. <font color="Crimson">はじめに</font>
 # 
