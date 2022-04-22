@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="scikit-learn-1.html" />
+    <link rel="next" title="2. Pythonの簡単な使い方" href="markdown.html" />
     <link rel="prev" title="はじめに" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="ja">
@@ -108,6 +108,18 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    1. グーグルコラボラトリーを利用した Python 入門
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Scikit-learnの使い方
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   2. Pythonの簡単な使い方
   </a>
  </li>
 </ul>
@@ -209,12 +221,16 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-crimson-jupyter-notebook-font">
-     1.1.2. 1-2-1.
-     <font color="Crimson">
-      Jupyter Notebook
-     </font>
+    <a class="reference internal nav-link" href="#id3">
+     1.1.2. この環境について
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jupyter-notebook">
+       1.1.2.1. Jupyter Notebook
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#font-color-crimson-gpu-font">
@@ -233,7 +249,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id4">
      1.1.5. 1-5-2.
      <font color="Crimson">
       コードセル
@@ -241,7 +257,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      1.1.6. 2-2-1.
      <font color="Crimson">
       実行の手順
@@ -257,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id6">
      1.1.8. 2-2-3.
      <font color="Crimson">
       Python コーディング
@@ -297,12 +313,16 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-crimson-jupyter-notebook-font">
-     1.1.2. 1-2-1.
-     <font color="Crimson">
-      Jupyter Notebook
-     </font>
+    <a class="reference internal nav-link" href="#id3">
+     1.1.2. この環境について
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jupyter-notebook">
+       1.1.2.1. Jupyter Notebook
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#font-color-crimson-gpu-font">
@@ -321,7 +341,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id4">
      1.1.5. 1-5-2.
      <font color="Crimson">
       コードセル
@@ -329,7 +349,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      1.1.6. 2-2-1.
      <font color="Crimson">
       実行の手順
@@ -345,7 +365,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id6">
      1.1.8. 2-2-3.
      <font color="Crimson">
       Python コーディング
@@ -370,11 +390,13 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id2">
 <h3><span class="section-number">1.1.1. </span>このコンテンツで学ぶこと<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>このコンテンツの目的は，ウェブベースの計算環境である Jupyter Notebook（このウェブページを形作っているもの）を利用して，Python の基本的な動作を習得することです．このコンテンツは東北大学大学院情報科学研究のプログラミング初学者向けの授業「ビッグデータスキルアップ演習（Big Data Skillup Training）」の内容の一部を日本語の e-learning コンテンツとして再構築したものです．</p>
-<p>##1-2. <font color="Crimson">この環境について</font></p>
 </div>
-<div class="section" id="font-color-crimson-jupyter-notebook-font">
-<h3><span class="section-number">1.1.2. </span>1-2-1. <font color="Crimson">Jupyter Notebook</font><a class="headerlink" href="#font-color-crimson-jupyter-notebook-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id3">
+<h3><span class="section-number">1.1.2. </span>この環境について<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="jupyter-notebook">
+<h4><span class="section-number">1.1.2.1. </span>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>Jupyter Notebook は Python を実行するための環境です．メモを取りながら Python のコードを実行することができます．この環境は，Python プログラムがコマンドライン上で実行される実際の環境とは少し異なるのですが，Python プログラムがどのように動くかということを簡単に確認しながら学習することができます．</p>
+</div>
 </div>
 <div class="section" id="font-color-crimson-gpu-font">
 <h3><span class="section-number">1.1.3. </span>1-2-2. <font color="Crimson">GPU の利用方法</font><a class="headerlink" href="#font-color-crimson-gpu-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -390,8 +412,8 @@ const thebe_selector_output = ".output, .cell_output"
 <h3><span class="section-number">1.1.4. </span>1-5-1. <font color="Crimson">進め方</font><a class="headerlink" href="#font-color-crimson-font" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>上から順番に読み進めます．Python のコードが書かれている場合は実行ボタンをクリックして実行します．コード内の値を変えたり，関数を変えたりして挙動を確かめてみてください．</p>
 </div>
-<div class="section" id="id3">
-<h3><span class="section-number">1.1.5. </span>1-5-2. <font color="Crimson">コードセル</font><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id4">
+<h3><span class="section-number">1.1.5. </span>1-5-2. <font color="Crimson">コードセル</font><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>コードセルとは，Python のコードを書き込み実行するためのセルです．以下のような灰色のボックスです．ここにコードを書きます．実行はコードセルの左に表示される「実行ボタン」をクリックするか，コードセルを選択した状態で <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Enter</span></code> を押します．環境によっては行番号が表示されていると思いますので注意してください（行番号の数字はプログラムの構成要素ではありません）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -410,8 +432,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Python は，科学技術界隈，特にデータ科学に関する分野において昨今，最も利用されていると言って過言ではないプログラミング言語です．これを習得することで今後，プログラミング技術なしでは為し得なかったような大量データの解析ができるようになります．Python は C言語とか Fortran とかの伝統的なプログラミング言語と比べて簡単に学ぶことができるプログラミング言語です．ものすごく人気がある言語であり，たくさんのライブラリ（補助ツール）が存在しているので，色々なことができます．計算の速さもそこそこで，少なくとも悪くはありません．ここでは，Python のバージョン3（Python3）の使い方を学びます．</p>
 <p>##2-2. <font color="Crimson">Python の実行方法</font></p>
 </div>
-<div class="section" id="id4">
-<h3><span class="section-number">1.1.6. </span>2-2-1. <font color="Crimson">実行の手順</font><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">1.1.6. </span>2-2-1. <font color="Crimson">実行の手順</font><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>普通，Python は以下のような手順で使います．</p>
 <ol class="simple">
 <li><p>プログラムを書きます．プログラムの本体をソースコードと呼びます．</p></li>
@@ -444,8 +466,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．)</font></p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．)</font></p>
 </div>
-<div class="section" id="id5">
-<h3><span class="section-number">1.1.8. </span>2-2-3. <font color="Crimson">Python コーディング</font><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">1.1.8. </span>2-2-3. <font color="Crimson">Python コーディング</font><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Python でコーディングをする際に統一的なルール（エチケット？） として PEP8 が定義されています．PEP とは Python Enhancement Proposal の略です．PEP8 に従って書かれたコードは可読性が高くなります．</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pep8-ja.readthedocs.io/ja/latest/">https://pep8-ja.readthedocs.io/ja/latest/</a></p></li>
@@ -975,10 +997,7 @@ May is not January or February.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 4.5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean: 4.5
 sd: 2.449489742783178
 </pre></div>
 </div>
@@ -1234,9 +1253,6 @@ zipp                          3.8.0
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Yes
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1710,9 +1726,6 @@ zipp                          3.8.0
  [ 1  1  1  4]]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </div>
 <p>一方で，「行列の冪乗」は以下のように計算します．</p>
@@ -2048,7 +2061,9 @@ Peko, which is (4) years old is now sitting.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sendai
-Yokohama
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Yokohama
 </pre></div>
 </div>
 </div>
@@ -2082,7 +2097,9 @@ Yokohama
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
-8
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8
 </pre></div>
 </div>
 </div>
@@ -2114,7 +2131,9 @@ Yokohama
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dog
-dog
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dog
 </pre></div>
 </div>
 </div>
@@ -2266,9 +2285,6 @@ Peko is now sitting and giving its paw.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Peko is now sitting and giving its paw to Ben.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(終わりです．)</font></p>
@@ -2308,10 +2324,10 @@ Peko is now sitting and giving its paw.
             <p class="prev-next-title">はじめに</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="scikit-learn-1.html" title="次へ ページ">
+    <a class='right-next' id="next-link" href="markdown.html" title="次へ ページ">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Pythonの簡単な使い方</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

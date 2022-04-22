@@ -10,9 +10,9 @@
 
 # このコンテンツの目的は，ウェブベースの計算環境である Jupyter Notebook（このウェブページを形作っているもの）を利用して，Python の基本的な動作を習得することです．このコンテンツは東北大学大学院情報科学研究のプログラミング初学者向けの授業「ビッグデータスキルアップ演習（Big Data Skillup Training）」の内容の一部を日本語の e-learning コンテンツとして再構築したものです．
 
-# ##1-2. <font color="Crimson">この環境について</font>
+# ### この環境について
 
-# ### 1-2-1. <font color="Crimson">Jupyter Notebook</font>
+# #### Jupyter Notebook
 # 
 
 # Jupyter Notebook は Python を実行するための環境です．メモを取りながら Python のコードを実行することができます．この環境は，Python プログラムがコマンドライン上で実行される実際の環境とは少し異なるのですが，Python プログラムがどのように動くかということを簡単に確認しながら学習することができます．
