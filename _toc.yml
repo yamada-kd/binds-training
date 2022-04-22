@@ -8,5 +8,6 @@ parts:
   - file: python-1
 parts:
 - caption: Scikit-learnの使い方
+  numbered: True
   chapters:
-  - file: scikit-learn-1
+  - file: markdown
