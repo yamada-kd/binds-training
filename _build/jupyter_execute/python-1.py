@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # グーグルコラボラトリーを利用した Python 入門
+# # Python 入門
 
 # ## はじめに
 # 
