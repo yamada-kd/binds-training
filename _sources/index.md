@@ -50,4 +50,4 @@ if __name__ == "__main__":
 :::
 
 ## 利用方法
-
+![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
