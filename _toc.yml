@@ -1,0 +1,13 @@
+format: jb-book
+root: index
+parts:
+- caption: Pythonの使い方
+  numbered: True
+  chapters:
+  - file: markdown
+  - file: notebooks
+  - file: markdown-notebooks
+- caption: Scikit-learnの使い方
+  numbered: True
+  chapters:
+  - file: markdown2
