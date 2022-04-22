@@ -9,7 +9,7 @@
 [![made-with-tensorflow](https://img.shields.io/badge/Made%20with-TensorFlow-1f425f.svg)](https://tensorflow.org/)
 ```
 
-東北大学**AMED**の教材．
+**Python**の使い方，基本的な**機械学習法**の実装の仕方，**深層学習法**の実装の仕方を紹介する教材．
 
 :::{panels}
 :container:
@@ -19,11 +19,8 @@
 ---
 **対象者**
 ^^^
-機械学習
+データ科学を用いた解析技術を身につけたい人
 
-<div style="text-align: center;">
-<video autoplay loop muted playsinline width="100%" src="sgd.mp4"></video>
-</div>
 
 ---
 **Python**
