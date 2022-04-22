@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Python 入門
+# # 変数，データ構造，繰り返し，条件分岐
 
 # ## はじめに
 
