@@ -250,6 +250,24 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   1.1. データ科学と機械学習
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   1.2. 機械学習に関わる用語の説明
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -262,6 +280,24 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> 目次 </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   1.1. データ科学と機械学習
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   1.2. 機械学習に関わる用語の説明
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -270,338 +306,11 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1><span class="section-number">1. </span>機械学習とその周辺事項<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> itikz
-</pre></div>
+<div class="section" id="id2">
+<h2><span class="section-number">1.1. </span>データ科学と機械学習<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The itikz extension is already loaded. To reload it, use:
-  %reload_ext itikz
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tikzmagic
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tikzmagic extension is already loaded. To reload it, use:
-  %reload_ext tikzmagic
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">itikz</span> --file-prefix implicit-demo- --implicit-pic --scale 0.15
-
-
-% 元データ
-\draw (0,18) rectangle (18,48);
-\node[] at (9,52) {Original dataset};
-
-% 学習データ
-\draw (36,24) rectangle (54,48);
-\node[] at (45,52) {Learning dataset};
-
-% テストデータ
-\draw (36,6) rectangle (54,12);
-\node[] at (45,2) {Test dataset};
-
-% トレーニングデータ
-\draw (72,30) rectangle (90,48);
-\node[] at (81,52) {Training dataset};
-
-% バリデーションデータ
-\draw (72,6) rectangle (90,12);
-\node[] at (81,2) {Validation dataset};
-
-% 学習--テスト
-\draw[&lt;-&gt;] (45,12)--(45,24);
-\node[fill=white] at (45,18) {Independent from each other};
-
-% トレーニング--バリデーション
-\draw[&lt;-&gt;] (81,12)--(81,30);
-\node[fill=white] at (81,21) {Not independent};
-
-% 1--2カラム
-\draw[-&gt;](18,33)--(27,33)--(27,36)--(36,36);
-\draw[-&gt;](27,33)--(27,9)--(36,9);
-
-% 2--3カラム
-\draw[-&gt;](54,36)--(63,36)--(63,39)--(72,39);
-\draw[-&gt;](63,36)--(63,9)--(72,9);
-
-% 点線
-\draw[dotted] (0,24)--(18,24);
-\draw[dotted] (0,30)--(18,30);
-\draw[dotted] (0,36)--(18,36);
-\draw[dotted] (0,42)--(18,42);
-
-\draw[dotted] (36,30)--(54,30);
-\draw[dotted] (36,36)--(54,36);
-\draw[dotted] (36,42)--(54,42);
-
-\draw[dotted] (72,36)--(90,36);
-\draw[dotted] (72,42)--(90,42);
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/introduction_3_0.svg" src="../_images/introduction_3_0.svg" /></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">itikz</span> --file-prefix implicit-demo- --implicit-pic --scale 2
-\draw[help lines] grid (5, 5);
-\draw[fill=magenta!10] (1, 1) rectangle (2, 2);
-\draw[fill=magenta!10] (2, 1) rectangle (3, 2);
-\draw[fill=magenta!10] (3, 1) rectangle (4, 2);
-\draw[fill=magenta!10] (3, 2) rectangle (4, 3);
-\draw[fill=magenta!10] (2, 3) rectangle (3, 4);
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/introduction_4_0.svg" src="../_images/introduction_4_0.svg" /></div>
-</div>
-<p>#2. <font color="Crimson">機械学習入門</font></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tikzmagic
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">itikz</span> --file-prefix implicit-demo- --implicit-pic
-\draw (0,0) -- (2,1);
-\draw [red] (0,0) circle (2);
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/introduction_7_0.svg" src="../_images/introduction_7_0.svg" /></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">itikz</span> --file-prefix implicit-demo- --implicit-pic
-
-\usetikzlibrary{patterns}
-\draw[-latex] (-2, 0) -- (3, 0);
-\draw[latex-] (-2, 0) -- (3, 0);
-\filldraw (-2/3, 0) circle (2pt);
-\node [below] at (-2/3,-0.1) {$-\displaystyle\frac{2}{3}$};
-\draw[-&gt;] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);
-\filldraw[fill=white] (1, 0) circle (2pt);
-\node [below] at (1,-0.2) {$1$};
-\draw[-&gt;] (1, 0) -- (1, 0.7) -- (3, 0.7);
-\filldraw[fill=white] (1, 0) circle (2pt);
-\draw[white,pattern=north west lines] (1, 0) -- (1, 0.5) -- (2.8, 0.5) -- (2.8, 0) -- (-2/3, 0);
-\draw[latex-] (-2, 0) -- (3, 0);
-\draw[-&gt;] (1, 0) -- (1, 0.7) -- (3, 0.7);
-\draw[-&gt;] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);
-\filldraw[fill=white] (1, 0) circle (2pt);
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/introduction_8_0.svg" src="../_images/introduction_8_0.svg" /></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span>
-\draw (0,0) -- (2,1);
-\node[] at (0,1) {Training Dataset};
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex)
- \write18 enabled.
-entering extended mode
-(./tikz.tex
-LaTeX2e &lt;2020-02-02&gt; patch level 2
-L3 programming layer &lt;2020-02-14&gt;
-(/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
-Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files stan
-dalone
-(/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc.sty)
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty))
-(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex))))
-(/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cfg)
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex)
- \write18 enabled.
-entering extended mode
-LaTeX2e &lt;2020-02-02&gt; patch level 2
-L3 programming layer &lt;2020-02-14&gt; (./tikz.tex
-(/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
-Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files stan
-dalone
-(/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc.sty)
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty))
-(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex))))
-(/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cfg)
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo)))
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
-ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def)))
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
-ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
-f)))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
-tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
-tex)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
-.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
-ric.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
-e.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
-.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
-tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
-.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
-tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
-thmetics.code.tex)))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
-x)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
-code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
-.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
-x)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
-ode.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
-s.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
-ex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
-.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
-x)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
-
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
-tex))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
-x)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
-ode.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
-tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex))
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
-)
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
-.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
-.sty)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
-
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
-.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarytopaths.code.tex)))
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def)
-No file tikz.aux.
-ABD: EveryShipout initializing macros
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./tikz.aux) )&lt;/usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb&gt;
-Output written on tikz.pdf (1 page, 12437 bytes).
-Transcript written on tikz.log.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class standalone:
-Output written on tikz.png.
- ) )
-No pages of output.
-Transcript written on tikz.log.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>convert-im6.q16: profile &#39;icc&#39;: &#39;RGB &#39;: RGB color space not permitted on grayscale PNG `tikz.png&#39; @ warning/png.c/MagickPNGWarningHandler/1667.
-</pre></div>
-</div>
-<img alt="../_images/introduction_9_3.png" src="../_images/introduction_9_3.png" />
-</div>
-</div>
-<p>##2-1. <font color="Crimson">機械学習をする際の心構え</font></p>
-<p>###2-1-1. <font color="Crimson">データ分割の大切さ</font></p>
-<p>機械学習を行う際の最も大切なことであるデータセットの構築方法を紹介します．データセットは以下のように分割します．はじめに，元の全データを「学習セット」と「テストセット」に分けます．さらに，学習セットを人工知能の成長（アルゴリズムが持つパラメータの更新）のためだけに利用する「トレーニングセット」と学習が問題なく進んでいるか（過学習や未学習がおこっていないか）を確認するために利用する「バリデーションセット」に分けます．</p>
-<img src="https://drive.google.com/uc?id=1rL7CPuXUa1MTM8MLWUF4_Xez4d9LSWjJ" width="70%"><p>学習の際には学習セットだけの結果を観察します．学習の際に一瞬でもテストセットにおける予測器の性能を観察するべきではありません．また，「独立であること」もしっかり定義すべきです．データが互いに独立であるとは，機械学習の文脈においては「互いに同じ分布に従うことが予想されるが，その生成過程が異なること」でしょうか．MNIST の学習セットとテストセットには，同一の手書き数字の提供者が同時に含まれている可能性があり，この観点からするとそれらは互いに独立なデータセットではないのかもしれません．</p>
-<p>新たな人工知能を開発してそれを公開する場合，普通，その人工知能の性能をベンチマークし論文や学会で発表します．その性能を評価するために使うデータセットがテストセットです．もしこのテストセットが学習セットと同じような性質を持っているのであれば，その人工知能は新たなデータを処理するときに期待されるような性能を発揮できないかもしれません．学習セットとテストセットが独立でないのならば，学習セットに過剰適合させた人工知能では，あたかもとても良い性能をしているように見えてしまいます．人工知能の実際の現場での活用方法を鑑みるに，人工知能はある特定のデータにだけではなく，様々なデータに対応できる汎化能力を持たなければなりません．</p>
-<p>人工知能の開発の研究に関して，その全行程において，データセットの正しい分割は何よりも大切なことです．従来からの科学の分野で研究を続けている人達にとって，機械学習に対する信頼度は未だ低い場合があります．機械学習をやる人がここを適当にやり続ける限り，「機械学習なんて眉唾」みたいな意見はなくならないことをご理解ください．</p>
-<p>###2-1-2. <font color="Crimson">用語の説明</font></p>
-<p>深層学習，機械学習や人工知能に関する用語の整理をします．</p>
+<div class="section" id="id3">
+<h2><span class="section-number">1.2. </span>機械学習に関わる用語の説明<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><strong>★予測器と人工知能</strong></p>
 <p>予測器と人工知能は同じものを指します．機械学習法によって成長させる対象のことであり，機械学習を行った際の最終産物です．本体は「何らかの入力に対して何らかの出力をするアルゴリズム」と「そのアルゴリズムが必要とするパラメータ（母数）」です．このような特定の問題を解決するための人工知能は特化型人工知能といいます．</p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(アトムやドラえもんみたいな汎用的に問題を解決できる存在のことは汎用人工知能といいます．また，精神を宿したような存在のことをジョン・サールという人は強い人工知能と表現しましたが，アトムとかドラえもんは汎用人工知能であり強い人工知能です．人が思い描く人工知能とはこういった存在であって，このような単なる予測器を人工知能と呼ぶことに抵抗を持つ人は多いですが，特化型人工知能と正確に呼べば納得してもらえるかもしれません．人工知能という言葉は色々なものを再定義しており，ニューラルネットワークを人工知能というのならば，高校数学で習得する最小二乗法を用いて求める線形回帰直線も人工知能です．)</font></p>
@@ -652,6 +361,12 @@ Transcript written on tikz.log.
 <img src="https://drive.google.com/uc?id=1eiSgnD5Y5HPHrgpIj5R4BCTifuKu77LK">
 <p>これは停留点の中でも厄介な鞍点から，洗練されたオプティマイザがいかに早く抜け出せるかを動画にしたものです．</p>
 <p>出典：<a class="reference external" href="https://rnrahman.com/">https://rnrahman.com/</a></p>
+<p>##2-1. <font color="Crimson">機械学習をする際の心構え</font></p>
+<p>###2-1-1. <font color="Crimson">データ分割の大切さ</font></p>
+<p>機械学習を行う際の最も大切なことであるデータセットの構築方法を紹介します．データセットは以下のように分割します．はじめに，元の全データを「学習セット」と「テストセット」に分けます．さらに，学習セットを人工知能の成長（アルゴリズムが持つパラメータの更新）のためだけに利用する「トレーニングセット」と学習が問題なく進んでいるか（過学習や未学習がおこっていないか）を確認するために利用する「バリデーションセット」に分けます．</p>
+<img src="https://drive.google.com/uc?id=1rL7CPuXUa1MTM8MLWUF4_Xez4d9LSWjJ" width="70%"><p>学習の際には学習セットだけの結果を観察します．学習の際に一瞬でもテストセットにおける予測器の性能を観察するべきではありません．また，「独立であること」もしっかり定義すべきです．データが互いに独立であるとは，機械学習の文脈においては「互いに同じ分布に従うことが予想されるが，その生成過程が異なること」でしょうか．MNIST の学習セットとテストセットには，同一の手書き数字の提供者が同時に含まれている可能性があり，この観点からするとそれらは互いに独立なデータセットではないのかもしれません．</p>
+<p>新たな人工知能を開発してそれを公開する場合，普通，その人工知能の性能をベンチマークし論文や学会で発表します．その性能を評価するために使うデータセットがテストセットです．もしこのテストセットが学習セットと同じような性質を持っているのであれば，その人工知能は新たなデータを処理するときに期待されるような性能を発揮できないかもしれません．学習セットとテストセットが独立でないのならば，学習セットに過剰適合させた人工知能では，あたかもとても良い性能をしているように見えてしまいます．人工知能の実際の現場での活用方法を鑑みるに，人工知能はある特定のデータにだけではなく，様々なデータに対応できる汎化能力を持たなければなりません．</p>
+<p>人工知能の開発の研究に関して，その全行程において，データセットの正しい分割は何よりも大切なことです．従来からの科学の分野で研究を続けている人達にとって，機械学習に対する信頼度は未だ低い場合があります．機械学習をやる人がここを適当にやり続ける限り，「機械学習なんて眉唾」みたいな意見はなくならないことをご理解ください．</p>
 <p>#3. <font color="Crimson">Scikit-learn 入門</font></p>
 <p>##3-1. <font color="Crimson">基本操作</font></p>
 <p>###3-1-1. <font color="Crimson">インポート</font></p>
@@ -1065,6 +780,7 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 <img src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" width="80%">
 <p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(終わりです．)</font></p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
