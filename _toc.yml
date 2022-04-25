@@ -1,7 +1,7 @@
 format: jb-book
+root: index
 defaults:
   numbered: true
-root: index
 parts:
 - caption: プログラミングの基礎
   chapters:
