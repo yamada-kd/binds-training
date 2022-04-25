@@ -3,7 +3,7 @@ root: index
 defaults:
   numbered: true
 parts:
-- caption: データ科学習得の際の重要事項
+- caption: データ科学を学ぶにあたって
   chapters:
   - file: notebook/introduction
 - caption: プログラミングの基礎

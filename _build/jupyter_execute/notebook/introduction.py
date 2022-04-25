@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 人工知能やデータについて
+# # 機械学習とデータ
 
 # #2. <font color="Crimson">機械学習入門</font>
 # 
