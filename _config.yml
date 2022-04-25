@@ -9,7 +9,7 @@ logo: image/neko.png
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: off
-exclude_patterns          : []
+
 
 # Define the name of the latex output file for PDF builds
 latex:
