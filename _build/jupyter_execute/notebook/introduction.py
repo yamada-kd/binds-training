@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 機械学習とデータ
+# # 機械学習とその周辺事項
 
 # In[10]:
 
@@ -15,7 +15,7 @@ get_ipython().run_line_magic('load_ext', 'itikz')
 get_ipython().run_line_magic('load_ext', 'tikzmagic')
 
 
-# In[48]:
+# In[49]:
 
 
 get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic --scale 0.15', '\n\n% 元データ\n\\draw (0,18) rectangle (18,48);\n\\node[] at (9,52) {Original dataset};\n\n% 学習データ\n\\draw (36,24) rectangle (54,48);\n\\node[] at (45,52) {Learning dataset};\n\n% テストデータ\n\\draw (36,6) rectangle (54,12);\n\\node[] at (45,2) {Test dataset};\n\n% トレーニングデータ\n\\draw (72,30) rectangle (90,48);\n\\node[] at (81,52) {Training dataset};\n\n% バリデーションデータ\n\\draw (72,6) rectangle (90,12);\n\\node[] at (81,2) {Validation dataset};\n\n% 学習--テスト\n\\draw[<->] (45,12)--(45,24);\n\\node[fill=white] at (45,18) {Independent from each other};\n\n% トレーニング--バリデーション\n\\draw[<->] (81,12)--(81,30);\n\\node[fill=white] at (81,21) {Not independent};\n\n% 1--2カラム\n\\draw[->](18,33)--(27,33)--(27,36)--(36,36);\n\\draw[->](27,33)--(27,9)--(36,9);\n\n% 2--3カラム\n\\draw[->](54,36)--(63,36)--(63,39)--(72,39);\n\\draw[->](63,36)--(63,9)--(72,9);\n\n% 点線\n\\draw[dotted] (0,24)--(18,24);\n\\draw[dotted] (0,30)--(18,30);\n\\draw[dotted] (0,36)--(18,36);\n\\draw[dotted] (0,42)--(18,42);\n\n\\draw[dotted] (36,30)--(54,30);\n\\draw[dotted] (36,36)--(54,36);\n\\draw[dotted] (36,42)--(54,42);\n\n\\draw[dotted] (72,36)--(90,36);\n\\draw[dotted] (72,42)--(90,42);\n\n\n\n')
