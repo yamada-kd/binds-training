@@ -59,15 +59,7 @@ if __name__ == "__main__":
 Jupyter Notebook は Python を実行するための環境です．メモを取りながら Python のコードを実行することができます．この環境は，Python プログラムがコマンドライン上で実行される実際の環境とは少し異なるのですが，Python プログラムがどのように動くかということを簡単に確認しながら学習することができます．
 
 ### Google Colaboratory
-Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook のファイルをウェブブラウザから使えるように Google が用意してくれたアプリです．各ページに以下のようなアイコンがあるのでこれをクリックして各ページのファイルを Google Colaboratory 上で開いて利用してください．
-
-ロケットアイコン <i class="fa fa-rocket" aria-hidden="true"></i> を押す
-
-<i class="fa fa-rocket" aria-hidden="true"></i>
-
-ほげ
-
-<i class=\"fa fa-rocket\" aria-hidden=\"true\"></i>
+Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook のファイルをウェブブラウザから使えるように Google が用意してくれたアプリです．各ページの上部にロケットのアイコン <i class="fa fa-rocket" aria-hidden="true"></i> があるのでこれをクリックして各ページのファイルを Google Colaboratory 上で開いて利用してください．
 
 ### グーグルコラボラトリーでの GPU の利用方法
 
