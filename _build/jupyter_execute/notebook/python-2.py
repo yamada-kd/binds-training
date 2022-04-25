@@ -786,6 +786,141 @@ if __name__ == "__main__":
     main()
 
 
+# ## ファイルの取り扱い
+# 
+
+# 多くの場合，開発したプログラムで扱いたいものはデータであると思います．データの整理とかデータの解析とかです．そのようなデータはファイルという形式で存在しており，プログラムはそれを読み込む必要があります．ここではプログラムを用いてファイルをどのように操作するのかを学びます．
+
+# ### 繰り返しによるファイルの読み込み
+
+# ここでは，以下のような内容の情報からなるファイルを使います．ファイルは全部で3行からなり，各行には文字列が存在します．これのファイル名は `ff.txt` です．
+# ```
+# Cloud Strife
+# Squall Leonhart
+# Zidane Tribal
+# ```
+
+# このようなファイルを使って練習するために以下の Linux コマンドでファイルをカレントディレクトリに生成します．<font color="Crimson">これはファイルの読み込みをするための準備であって，Python の学習ではありません．</font>
+
+# In[ ]:
+
+
+get_ipython().system(' echo -e "Cloud Strife\\nSquall Leonhart\\nZidane Tribal" > ff.txt')
+
+
+# ```{note}
+# Linux システムでは現在ユーザーがいるディレクトリをカレントディレクトリと呼ぶのでした．
+# ```
+
+# ファイルが生成されているかどうかは以下のコマンドで確認できます．
+
+# In[ ]:
+
+
+get_ipython().system(' ls')
+
+
+# ```{note}
+# これはカレントディレクトリに存在しているファイルやフォルダを確認するための Linux コマンドです．
+# ```
+
+# 以上で用いるファイルの準備が完了したので，ファイルを読み込んでみます．以下のように書きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+
+def main():
+    fin = open("ff.txt", "r")
+    for line in fin:
+        print(line)
+    fin.close()
+
+if __name__ == "__main__":
+    main()
+
+
+# 上のコードにおいて，`fin = open("ff.txt", "r")` は `ff.txt` を読み込みモード（`r`）でファイルを開くための記述です．ファイルを読み込むために生成された変数 `fin` は以下のような形式で用いると，すべての行を繰り返し `line` という変数に代入し続けます．
+# ```
+# for line in fin:
+#     処理
+# ```
+# 最後に，`fin.close()` にてファイルを閉じる作業をします．
+
+# 次に，読み込んだ各行に存在している改行コードを削除して，削除後の行を出力してみます．以下のように書きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+
+def main():
+    fin = open("ff.txt", "r")
+    for line in fin:
+        line = line.rstrip()
+        print(line)
+    fin.close()
+
+if __name__ == "__main__":
+    main()
+
+
+# 各行をリストに格納し，その後処理をしたい場合があるかもしれません．そのようなときには以下のように書きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+
+def main():
+    liline=[]
+    fin = open("ff.txt", "r")
+    for line in fin:
+        line = line.rstrip()
+        liline.append(line)
+    fin.close()
+    print(liline)
+
+if __name__ == "__main__":
+    main()
+
+
+# 以下のように `with` を使えばファイルを閉じる作業を省くことができます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+
+def main():
+    with open("ff.txt", "r") as fin:
+        for line in fin:
+            print(line)
+
+if __name__ == "__main__":
+    main()
+
+
+# ###10-1-2. <font color="Crimson">ファイルの一括読み込み</font>
+
+# 以上ではファイルを1行ずつ読み込みました．普通，ファイルはそのように読み込む方が良いと思われますが，小さいファイルであれば以下のように一括で読み込むことができます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+
+def main():
+    fin = open("ff.txt", "r")
+    contents = fin.read()
+    fin.close()
+    print(contents)
+
+if __name__ == "__main__":
+    main()
+
+
 # ```{note}
 # 終わりです．
 # ```

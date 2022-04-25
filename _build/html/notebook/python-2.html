@@ -320,6 +320,18 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   2.3. ファイルの取り扱い
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     2.3.1. 繰り返しによるファイルの読み込み
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -415,6 +427,18 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
      2.2.8. オーバーライド
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   2.3. ファイルの取り扱い
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     2.3.1. 繰り返しによるファイルの読み込み
     </a>
    </li>
   </ul>
@@ -1213,6 +1237,138 @@ const thebe_selector_output = ".output, .cell_output"
     
     <span class="k">def</span> <span class="nf">sit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> is now sitting and giving its paw to </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><span class="section-number">2.3. </span>ファイルの取り扱い<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>多くの場合，開発したプログラムで扱いたいものはデータであると思います．データの整理とかデータの解析とかです．そのようなデータはファイルという形式で存在しており，プログラムはそれを読み込む必要があります．ここではプログラムを用いてファイルをどのように操作するのかを学びます．</p>
+<div class="section" id="id16">
+<h3><span class="section-number">2.3.1. </span>繰り返しによるファイルの読み込み<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここでは，以下のような内容の情報からなるファイルを使います．ファイルは全部で3行からなり，各行には文字列が存在します．これのファイル名は <code class="docutils literal notranslate"><span class="pre">ff.txt</span></code> です．</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="n">Strife</span>
+<span class="n">Squall</span> <span class="n">Leonhart</span>
+<span class="n">Zidane</span> <span class="n">Tribal</span>
+</pre></div>
+</div>
+<p>このようなファイルを使って練習するために以下の Linux コマンドでファイルをカレントディレクトリに生成します．<font color="Crimson">これはファイルの読み込みをするための準備であって，Python の学習ではありません．</font></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> <span class="nb">echo</span> -e <span class="s2">&quot;Cloud Strife\nSquall Leonhart\nZidane Tribal&quot;</span> &gt; ff.txt
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>Linux システムでは現在ユーザーがいるディレクトリをカレントディレクトリと呼ぶのでした．</p>
+</div>
+<p>ファイルが生成されているかどうかは以下のコマンドで確認できます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> ls
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>これはカレントディレクトリに存在しているファイルやフォルダを確認するための Linux コマンドです．</p>
+</div>
+<p>以上で用いるファイルの準備が完了したので，ファイルを読み込んでみます．以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;ff.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fin</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>上のコードにおいて，<code class="docutils literal notranslate"><span class="pre">fin</span> <span class="pre">=</span> <span class="pre">open(&quot;ff.txt&quot;,</span> <span class="pre">&quot;r&quot;)</span></code> は <code class="docutils literal notranslate"><span class="pre">ff.txt</span></code> を読み込みモード（<code class="docutils literal notranslate"><span class="pre">r</span></code>）でファイルを開くための記述です．ファイルを読み込むために生成された変数 <code class="docutils literal notranslate"><span class="pre">fin</span></code> は以下のような形式で用いると，すべての行を繰り返し <code class="docutils literal notranslate"><span class="pre">line</span></code> という変数に代入し続けます．</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fin</span><span class="p">:</span>
+    <span class="n">処理</span>
+</pre></div>
+</div>
+<p>最後に，<code class="docutils literal notranslate"><span class="pre">fin.close()</span></code> にてファイルを閉じる作業をします．</p>
+<p>次に，読み込んだ各行に存在している改行コードを削除して，削除後の行を出力してみます．以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;ff.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fin</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>各行をリストに格納し，その後処理をしたい場合があるかもしれません．そのようなときには以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">liline</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;ff.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fin</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="n">liline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">liline</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下のように <code class="docutils literal notranslate"><span class="pre">with</span></code> を使えばファイルを閉じる作業を省くことができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;ff.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fin</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fin</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>###10-1-2. <font color="Crimson">ファイルの一括読み込み</font></p>
+<p>以上ではファイルを1行ずつ読み込みました．普通，ファイルはそのように読み込む方が良いと思われますが，小さいファイルであれば以下のように一括で読み込むことができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;ff.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
