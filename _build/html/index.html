@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="1. 基本的な処理" href="python-1.html" />
+    <link rel="next" title="1. Python の基本的な使用方法" href="notebook/python-1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="ja">
     
@@ -105,17 +105,17 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="python-1.html">
-   1. 基本的な処理
+  <a class="reference internal" href="notebook/python-1.html">
+   1. Python の基本的な使用方法
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="python-2.html">
+  <a class="reference internal" href="notebook/python-2.html">
    2. 数値計算と描画ライブラリ
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="python-3.html">
+  <a class="reference internal" href="notebook/python-3.html">
    3. クラスの利用とファイル入出力
   </a>
  </li>
@@ -233,11 +233,43 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id2">
    この教材について
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   利用方法
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     このコンテンツで学ぶこと
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     この環境について
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#google-colaboratory">
+     Google Colaboratory
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gpu">
+     グーグルコラボラトリーでの GPU の利用方法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     開始前に行うこと
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     進め方
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     コードセル
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -263,11 +295,43 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id2">
    この教材について
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   利用方法
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     このコンテンツで学ぶこと
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     この環境について
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#google-colaboratory">
+     Google Colaboratory
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gpu">
+     グーグルコラボラトリーでの GPU の利用方法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     開始前に行うこと
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     進め方
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     コードセル
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -341,25 +405,44 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="id3">
-<h2>利用方法<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>次のページから</p>
-<p><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></p>
+<h3>このコンテンツで学ぶこと<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>このコンテンツの目的は，ウェブベースの計算環境である Jupyter Notebook（このウェブページを形作っているもの）を利用して，Python の基本的な動作を習得することです．このコンテンツは東北大学大学院情報科学研究のプログラミング初学者向けの授業「ビッグデータスキルアップ演習（Big Data Skillup Training）」の内容の一部を日本語の e-learning コンテンツとして再構築したものです．</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
-<p>Notes require <strong>no</strong> arguments,
-so content can start here.</p>
+<p>つまり，このコンテンツに間違いが含まれていても山田はまったく悪くなくて元の作成者が悪いです．</p>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">注意</p>
-<p>This is an example
-of an attention directive.</p>
 </div>
+<div class="section" id="id4">
+<h3>この環境について<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Jupyter Notebook は Python を実行するための環境です．メモを取りながら Python のコードを実行することができます．この環境は，Python プログラムがコマンドライン上で実行される実際の環境とは少し異なるのですが，Python プログラムがどのように動くかということを簡単に確認しながら学習することができます．</p>
+</div>
+<div class="section" id="google-colaboratory">
+<h3>Google Colaboratory<a class="headerlink" href="#google-colaboratory" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook のファイルをウェブブラウザから使えるように Google が用意してくれたアプリです．各ページに以下のようなアイコンがあるのでこれをクリックして各ページのファイルを Google Colaboratory 上で開いて利用してください．</p>
+<p><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></p>
+</div>
+<div class="section" id="gpu">
+<h3>グーグルコラボラトリーでの GPU の利用方法<a class="headerlink" href="#gpu" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>グーグルコラボラトリーで GPU を利用するには上のメニューの「ランタイム」から「ランタイムのタイプを変更」と進み，「ハードウェアアクセラレータ」の「GPU」を選択します</p>
+</div>
+<div class="section" id="id5">
+<h3>開始前に行うこと<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="admonition hint">
 <p class="admonition-title">ヒント</p>
-<p>This is an example
-of a hint directive.</p>
+<p>グーグルコラボラトリー自体の一番上の「ファイル」をクリックし，さらにポップアップで出てくる項目から「ドライブにコピーを保存」をクリックし，自身のグーグルドライブにこのウェブページ全体のソースを保存します（グーグルのアカウントが必要です）．こうすることによって，自分で書いたプログラムを実行することができるようになります．また，メモ等を自由に以下のスペースに追加することができるようになります．</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>進め方<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>上から順番に読み進めます．Python のコードが書かれている場合は実行ボタンをクリックして実行します．コード内の値を変えたり，関数を変えたりして挙動を確かめてみてください．</p>
+</div>
+<div class="section" id="id7">
+<h3>コードセル<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>コードセルとは，Python のコードを書き込み実行するためのセルです．以下のような灰色のボックスで表示されていますす．ここにコードを書きます．実行はコードセルの左に表示される「実行ボタン」をクリックするか，コードセルを選択した状態で <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Enter</span></code> を押します．環境によっては行番号が表示されていると思いますので注意してください（行番号の数字はプログラムの構成要素ではありません）．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a code cell.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="toctree-wrapper compound">
@@ -395,10 +478,10 @@ of a hint directive.</p>
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="python-1.html" title="次へ ページ">
+    <a class='right-next' id="next-link" href="notebook/python-1.html" title="次へ ページ">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>基本的な処理</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Python の基本的な使用方法</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

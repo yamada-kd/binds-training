@@ -3,7 +3,7 @@
 
 title: BINDSデータ科学演習
 author: ""
-logo: neko.png
+logo: image/neko.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -42,3 +42,7 @@ html:
   extra_footer: |
     <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img style="0;margin-bottom:0.2em;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> © Copyright 2022 Graduate School of Information Sciences, Tohoku University．
 
+launch_buttons:
+  notebook_interface        : "jupyterlab" # The interface interactive links will activate ["classic", "jupyterlab"]
+  binderhub_url             : "https://mybinder.org"  # The URL of the BinderHub (e.g., https://mybinder.org)
+  colab_url                 : "https://colab.research.google.com" # The URL of Google Colab (https://colab.research.google.com)

@@ -5,9 +5,9 @@ defaults:
 parts:
 - caption: プログラミングの基礎
   chapters:
-  - file: python-1
-  - file: python-2
-  - file: python-3
+  - file: notebook/python-1
+  - file: notebook/python-2
+  - file: notebook/python-3
 - caption: 一般的な機械学習法
   chapters:
   - file: scikit-learn-1
