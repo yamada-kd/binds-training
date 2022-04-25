@@ -3,6 +3,18 @@
 
 # # 機械学習とデータ
 
+# In[1]:
+
+
+get_ipython().run_line_magic('load_ext', 'itikz')
+
+
+# In[2]:
+
+
+get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic', '\\draw[help lines] grid (5, 5);\n\\draw[fill=magenta!10] (1, 1) rectangle (2, 2);\n\\draw[fill=magenta!10] (2, 1) rectangle (3, 2);\n\\draw[fill=magenta!10] (3, 1) rectangle (4, 2);\n\\draw[fill=magenta!10] (3, 2) rectangle (4, 3);\n\\draw[fill=magenta!10] (2, 3) rectangle (3, 4);\n')
+
+
 # #2. <font color="Crimson">機械学習入門</font>
 # 
 
@@ -12,16 +24,16 @@
 get_ipython().run_line_magic('load_ext', 'tikzmagic')
 
 
-# In[4]:
+# In[7]:
 
 
-get_ipython().run_cell_magic('tikz', '-S hoge.tikz -f svg', '\\draw (0,0) -- (2,1);\n\\draw [red] (0,0) circle (2);\n')
+get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic', '\\draw (0,0) -- (2,1);\n\\draw [red] (0,0) circle (2);\n')
 
 
-# In[5]:
+# In[8]:
 
 
-get_ipython().run_cell_magic('tikz', '-S test_output.tikz -f svg', '\n\\usetikzlibrary{patterns}\n\\draw[-latex] (-2, 0) -- (3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\filldraw (-2/3, 0) circle (2pt);\n\\node [below] at (-2/3,-0.1) {$-\\displaystyle\\frac{2}{3}$};\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\node [below] at (1,-0.2) {$1$};\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\draw[white,pattern=north west lines] (1, 0) -- (1, 0.5) -- (2.8, 0.5) -- (2.8, 0) -- (-2/3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n')
+get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic', '\n\\usetikzlibrary{patterns}\n\\draw[-latex] (-2, 0) -- (3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\filldraw (-2/3, 0) circle (2pt);\n\\node [below] at (-2/3,-0.1) {$-\\displaystyle\\frac{2}{3}$};\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\node [below] at (1,-0.2) {$1$};\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\draw[white,pattern=north west lines] (1, 0) -- (1, 0.5) -- (2.8, 0.5) -- (2.8, 0) -- (-2/3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n')
 
 
 # ##2-1. <font color="Crimson">機械学習をする際の心構え</font>
