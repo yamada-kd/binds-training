@@ -6,6 +6,18 @@
 # #2. <font color="Crimson">機械学習入門</font>
 # 
 
+# In[3]:
+
+
+get_ipython().run_line_magic('load_ext', 'tikzmagic')
+
+
+# In[1]:
+
+
+get_ipython().run_cell_magic('tikz', '-S test_output.tikz -f svg', '\n\\usetikzlibrary{patterns}\n\\draw[-latex] (-2, 0) -- (3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\filldraw (-2/3, 0) circle (2pt);\n\\node [below] at (-2/3,-0.1) {$-\\displaystyle\\frac{2}{3}$};\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\node [below] at (1,-0.2) {$1$};\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\draw[white,pattern=north west lines] (1, 0) -- (1, 0.5) -- (2.8, 0.5) -- (2.8, 0) -- (-2/3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n')
+
+
 # ##2-1. <font color="Crimson">機械学習をする際の心構え</font>
 
 # ###2-1-1. <font color="Crimson">データ分割の大切さ</font>
