@@ -62,6 +62,8 @@ Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook �
 
 ロケットアイコン <i class="fa fa-rocket" aria-hidden="true"></i> を押す
 
+<i class="fa fa-rocket" aria-hidden="true"></i>
+
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
 <i class=\"fa fa-rocket\" aria-hidden=\"true\"></i>
 
