@@ -6,10 +6,16 @@
 # #2. <font color="Crimson">機械学習入門</font>
 # 
 
-# In[3]:
+# In[1]:
 
 
 get_ipython().run_line_magic('load_ext', 'tikzmagic')
+
+
+# In[2]:
+
+
+get_ipython().run_cell_magic('tikz', '', '\\draw (0,0) -- (2,1);\n')
 
 
 # In[1]:
