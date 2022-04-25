@@ -3,10 +3,16 @@
 
 # # 機械学習とデータ
 
-# In[1]:
+# In[10]:
 
 
 get_ipython().run_line_magic('load_ext', 'itikz')
+
+
+# In[12]:
+
+
+get_ipython().run_cell_magic('itikz', '--file-prefix conway-', '\n\\documentclass[tikz]{standalone}\n\\begin{document}\n\\begin{tikzpicture}\n\\draw[help lines] grid (5, 5);\n\\draw[fill=magenta!10] (1, 1) rectangle (2, 2);\n\\draw[fill=magenta!10] (2, 1) rectangle (3, 2);\n\\draw[fill=magenta!10] (3, 1) rectangle (4, 2);\n\\draw[fill=magenta!10] (3, 2) rectangle (4, 3);\n\\draw[fill=magenta!10] (2, 3) rectangle (3, 4);\n\\end{tikzpicture}\n\\end{document}\n\n')
 
 
 # In[2]:
@@ -24,7 +30,7 @@ get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-p
 get_ipython().run_line_magic('load_ext', 'tikzmagic')
 
 
-# In[7]:
+# In[9]:
 
 
 get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic', '\\draw (0,0) -- (2,1);\n\\draw [red] (0,0) circle (2);\n')
