@@ -64,6 +64,8 @@ Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook �
 
 <i class="fa fa-rocket" aria-hidden="true"></i>
 
+ほげ
+
 ![Colab](https://colab.research.google.com/assets/colab-badge.svg)
 <i class=\"fa fa-rocket\" aria-hidden=\"true\"></i>
 
