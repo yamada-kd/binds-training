@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. TensorFlow を利用した深層学習 &#8212; BINDSデータ科学演習</title>
+    <title>5. TensorFlow の基本的な利用方法 &#8212; BINDSデータ科学演習</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="6. TensorFlowファイルの分割" href="tensorflow-2.html" />
+    <link rel="next" title="6. 多層パーセプトロンとデータ分割" href="tensorflow-2.html" />
     <link rel="prev" title="4. 教師なし学習法" href="notebook/scikit-learn-2.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="ja">
@@ -143,17 +143,17 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   5. TensorFlow を利用した深層学習
+   5. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow-2.html">
-   6. TensorFlowファイルの分割
+   6. 多層パーセプトロンとデータ分割
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow-3.html">
-   7. Hugging Face
+   7. Hugging Face の利用方法
   </a>
  </li>
 </ul>
@@ -245,7 +245,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>TensorFlow を利用した深層学習</h1>
+                <h1>TensorFlow の基本的な利用方法</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -257,8 +257,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="tensorflow">
-<h1><span class="section-number">5. </span>TensorFlow を利用した深層学習<a class="headerlink" href="#tensorflow" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>教材作成者：東北大学大学院 情報科学研究科</p>
+<h1><span class="section-number">5. </span>TensorFlow の基本的な利用方法<a class="headerlink" href="#tensorflow" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>#1. <font color="Crimson">はじめに</font></p>
 <p>##1-1. <font color="Crimson">このコンテンツで学ぶこと</font></p>
 <p>TenforFlow とは 深層学習を Python で利用するためのフレームワークです．現在世界で最も多くの人に利用されています．TensorFlow はひとつのフレームワークなのですが，コーディングをする際にいくつかの書き方があります．Keras の書き方，Sequential な書き方，Functional な書き方，Subclassing な書き方です．Keras の書き方はとても簡単にニューラルネットワークを実現します．しかし，拡張性が高くありません．Subclassing API は最も柔軟な書き方が可能です．習得は大して難しくありません（Keras から入った人がそういう主張をしているように思えます）．習得の難易度と，ニューラルネットワークに対する理解を得られる度合いや柔軟にネットワークを構築できる利点を天秤にかけたときに，Subclassing API を最初に学習した方が得られるものが多いと思い，これを紹介します．Subclassing API は PyTorch（元々は Chainer の書き方 = define by run）とほぼ同じ書き方です．このコンテンツは以下の3個の章からなります．</p>
@@ -2777,7 +2776,7 @@ const thebe_selector_output = ".output, .cell_output"
     <a class='right-next' id="next-link" href="tensorflow-2.html" title="次へ ページ">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>TensorFlowファイルの分割</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>多層パーセプトロンとデータ分割</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
