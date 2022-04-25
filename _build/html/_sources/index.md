@@ -64,7 +64,7 @@ Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook �
 
 <i class="fa fa-rocket" aria-hidden="true"></i>
 
-![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
+![Colab](https://colab.research.google.com/assets/colab-badge.svg)
 <i class=\"fa fa-rocket\" aria-hidden=\"true\"></i>
 
 ### グーグルコラボラトリーでの GPU の利用方法
