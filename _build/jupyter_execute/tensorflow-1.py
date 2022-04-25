@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # TensorFlow を利用した深層学習
-
-# 教材作成者：東北大学大学院 情報科学研究科
+# # TensorFlow の基本的な利用方法
 
 # #1. <font color="Crimson">はじめに</font>
 # 
