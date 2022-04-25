@@ -327,7 +327,32 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     2.3.1. 繰り返しによるファイルの読み込み
+     2.3.1. ファイルの入出力について
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     2.3.2. 繰り返しによる読み込み
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     2.3.3. ファイルの一括読み込み
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     2.3.4. ファイルへ出力する意義
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id20">
+     2.3.5. ファイルへの新規出力
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     2.3.6. ファイルへの追加出力
     </a>
    </li>
   </ul>
@@ -438,7 +463,32 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     2.3.1. 繰り返しによるファイルの読み込み
+     2.3.1. ファイルの入出力について
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     2.3.2. 繰り返しによる読み込み
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     2.3.3. ファイルの一括読み込み
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     2.3.4. ファイルへ出力する意義
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id20">
+     2.3.5. ファイルへの新規出力
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     2.3.6. ファイルへの追加出力
     </a>
    </li>
   </ul>
@@ -1248,16 +1298,23 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id15">
 <h2><span class="section-number">2.3. </span>ファイルの取り扱い<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>多くの場合，開発したプログラムで扱いたいものはデータであると思います．データの整理とかデータの解析とかです．そのようなデータはファイルという形式で存在しており，プログラムはそれを読み込む必要があります．ここではプログラムを用いてファイルをどのように操作するのかを学びます．</p>
 <div class="section" id="id16">
-<h3><span class="section-number">2.3.1. </span>繰り返しによるファイルの読み込み<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.1. </span>ファイルの入出力について<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>多くの場合，開発したプログラムで扱いたいものはデータであると思います．データの整理とかデータの解析とかです．そのようなデータはファイルという形式で存在しており，プログラムはそれを読み込む必要があります．ここではプログラムを用いてファイルをどのように操作するのかを学びます．</p>
+</div>
+<div class="section" id="id17">
+<h3><span class="section-number">2.3.2. </span>繰り返しによる読み込み<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ここでは，以下のような内容の情報からなるファイルを使います．ファイルは全部で3行からなり，各行には文字列が存在します．これのファイル名は <code class="docutils literal notranslate"><span class="pre">ff.txt</span></code> です．</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="n">Strife</span>
 <span class="n">Squall</span> <span class="n">Leonhart</span>
 <span class="n">Zidane</span> <span class="n">Tribal</span>
 </pre></div>
 </div>
-<p>このようなファイルを使って練習するために以下の Linux コマンドでファイルをカレントディレクトリに生成します．<font color="Crimson">これはファイルの読み込みをするための準備であって，Python の学習ではありません．</font></p>
+<p>このようなファイルを使って練習するために以下の Linux コマンドでファイルをカレントディレクトリに生成します．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>これはファイルの読み込みをするための準備であって，Python の学習ではありません．</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> <span class="nb">echo</span> -e <span class="s2">&quot;Cloud Strife\nSquall Leonhart\nZidane Tribal&quot;</span> &gt; ff.txt
@@ -1279,7 +1336,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
-<p>これはカレントディレクトリに存在しているファイルやフォルダを確認するための Linux コマンドです．</p>
+<p>これはカレントディレクトリに存在しているファイルやフォルダを確認するための Linux コマンドでした．</p>
 </div>
 <p>以上で用いるファイルの準備が完了したので，ファイルを読み込んでみます．以下のように書きます．</p>
 <div class="cell docutils container">
@@ -1358,7 +1415,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>###10-1-2. <font color="Crimson">ファイルの一括読み込み</font></p>
+</div>
+<div class="section" id="id18">
+<h3><span class="section-number">2.3.3. </span>ファイルの一括読み込み<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以上ではファイルを1行ずつ読み込みました．普通，ファイルはそのように読み込む方が良いと思われますが，小さいファイルであれば以下のように一括で読み込むことができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1369,6 +1428,66 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">contents</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3><span class="section-number">2.3.4. </span>ファイルへ出力する意義<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ファイルにプログラム中で生成した情報を書き込めば，プログラムを終了させた後にもその情報を見返して確認することができます．また，途中の状態をファイルに記憶させておけば，ファイルの内容を再度メモリ上に呼び起こしプログラムの続きを計算させることができます．</p>
+</div>
+<div class="section" id="id20">
+<h3><span class="section-number">2.3.5. </span>ファイルへの新規出力<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ファイルへ何かを出力する際には，<code class="docutils literal notranslate"><span class="pre">open()</span></code> のオプションに書き込みモード（<code class="docutils literal notranslate"><span class="pre">w</span></code>）を指定します．以下のように書きます．この場合，<code class="docutils literal notranslate"><span class="pre">programming.txt</span></code> というファイルがカレントディレクトリに生成されます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;programming.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I like programming.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fout</span><span class="p">)</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>当然，複数行を出力することも可能です．以下は，リストに含まれる文をファイルに出力する例です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">liline</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;I like programming.&quot;</span><span class="p">,</span> <span class="s2">&quot;I love creating new codes.&quot;</span><span class="p">]</span>
+    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;programming.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">liline</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fout</span><span class="p">)</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3><span class="section-number">2.3.6. </span>ファイルへの追加出力<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ファイルに上書きする場合には，上書きモード <code class="docutils literal notranslate"><span class="pre">a</span></code> を指定します．上で生成したファイルに追加書きするには以下のようにします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;programming.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I also love to learn machine learning.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fout</span><span class="p">)</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>

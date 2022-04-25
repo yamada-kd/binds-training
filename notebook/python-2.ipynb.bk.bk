@@ -1410,13 +1410,6 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "### ファイルの入出力について"
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "metadata": {
     "id": "YznBW_Mf-NeQ"
    },
@@ -1430,7 +1423,7 @@
     "id": "SywdvnKyDEpu"
    },
    "source": [
-    "### 繰り返しによる読み込み"
+    "### 繰り返しによるファイルの読み込み"
    ]
   },
   {
@@ -1453,16 +1446,7 @@
     "id": "CZBD7D56EXmP"
    },
    "source": [
-    "このようなファイルを使って練習するために以下の Linux コマンドでファイルをカレントディレクトリに生成します．"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "```{note}\n",
-    "これはファイルの読み込みをするための準備であって，Python の学習ではありません．\n",
-    "```"
+    "このようなファイルを使って練習するために以下の Linux コマンドでファイルをカレントディレクトリに生成します．<font color=\"Crimson\">これはファイルの読み込みをするための準備であって，Python の学習ではありません．</font>"
    ]
   },
   {
@@ -1514,7 +1498,7 @@
    },
    "source": [
     "```{note}\n",
-    "これはカレントディレクトリに存在しているファイルやフォルダを確認するための Linux コマンドでした．\n",
+    "これはカレントディレクトリに存在しているファイルやフォルダを確認するための Linux コマンドです．\n",
     "```"
    ]
   },
@@ -1657,7 +1641,7 @@
     "id": "sSd0NlGkFl1R"
    },
    "source": [
-    "### ファイルの一括読み込み"
+    "###10-1-2. <font color=\"Crimson\">ファイルの一括読み込み</font>"
    ]
   },
   {
@@ -1684,128 +1668,6 @@
     "    contents = fin.read()\n",
     "    fin.close()\n",
     "    print(contents)\n",
-    "\n",
-    "if __name__ == \"__main__\":\n",
-    "    main()"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "4cVrR3O4DEbh"
-   },
-   "source": [
-    "### ファイルへ出力する意義"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "gEiuMvTuDEbi"
-   },
-   "source": [
-    "ファイルにプログラム中で生成した情報を書き込めば，プログラムを終了させた後にもその情報を見返して確認することができます．また，途中の状態をファイルに記憶させておけば，ファイルの内容を再度メモリ上に呼び起こしプログラムの続きを計算させることができます．"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "yIQTXnoYJJZr"
-   },
-   "source": [
-    "### ファイルへの新規出力"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "qm3s7e0HJJZt"
-   },
-   "source": [
-    "ファイルへ何かを出力する際には，`open()` のオプションに書き込みモード（`w`）を指定します．以下のように書きます．この場合，`programming.txt` というファイルがカレントディレクトリに生成されます．"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "id": "xoCUi6exDEbj"
-   },
-   "outputs": [],
-   "source": [
-    "#!/usr/bin/env python3\n",
-    "\n",
-    "def main():\n",
-    "    fout = open(\"programming.txt\", \"w\")\n",
-    "    print(\"I like programming.\", file=fout)\n",
-    "    fout.close()\n",
-    "\n",
-    "if __name__ == \"__main__\":\n",
-    "    main()"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "TQcVty-SLkLm"
-   },
-   "source": [
-    "当然，複数行を出力することも可能です．以下は，リストに含まれる文をファイルに出力する例です．"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "id": "CjcUnaM7Lt7A"
-   },
-   "outputs": [],
-   "source": [
-    "#!/usr/bin/env python3\n",
-    "\n",
-    "def main():\n",
-    "    liline = [\"I like programming.\", \"I love creating new codes.\"]\n",
-    "    fout = open(\"programming.txt\", \"w\")\n",
-    "    for line in liline:\n",
-    "        print(line, file=fout)\n",
-    "    fout.close()\n",
-    "\n",
-    "if __name__ == \"__main__\":\n",
-    "    main()"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "VQ_Pefd6JxjM"
-   },
-   "source": [
-    "### ファイルへの追加出力"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "ODd5O7nTJxjN"
-   },
-   "source": [
-    "ファイルに上書きする場合には，上書きモード `a` を指定します．上で生成したファイルに追加書きするには以下のようにします．"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "id": "mTT-7SS7JxjO"
-   },
-   "outputs": [],
-   "source": [
-    "#!/usr/bin/env python3\n",
-    "\n",
-    "def main():\n",
-    "    fout = open(\"programming.txt\", \"a\")\n",
-    "    print(\"I also love to learn machine learning.\", file=fout)\n",
-    "    fout.close()\n",
     "\n",
     "if __name__ == \"__main__\":\n",
     "    main()"
