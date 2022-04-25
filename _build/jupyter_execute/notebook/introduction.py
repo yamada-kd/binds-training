@@ -9,22 +9,28 @@
 get_ipython().run_line_magic('load_ext', 'itikz')
 
 
-# In[12]:
+# In[22]:
 
 
-get_ipython().run_cell_magic('itikz', '--file-prefix conway-', '\n\\documentclass[tikz]{standalone}\n\\begin{document}\n\\begin{tikzpicture}\n\\draw[help lines] grid (5, 5);\n\\draw[fill=magenta!10] (1, 1) rectangle (2, 2);\n\\draw[fill=magenta!10] (2, 1) rectangle (3, 2);\n\\draw[fill=magenta!10] (3, 1) rectangle (4, 2);\n\\draw[fill=magenta!10] (3, 2) rectangle (4, 3);\n\\draw[fill=magenta!10] (2, 3) rectangle (3, 4);\n\\end{tikzpicture}\n\\end{document}\n\n')
+get_ipython().run_line_magic('load_ext', 'tikzmagic')
 
 
-# In[2]:
+# In[47]:
 
 
-get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic', '\\draw[help lines] grid (5, 5);\n\\draw[fill=magenta!10] (1, 1) rectangle (2, 2);\n\\draw[fill=magenta!10] (2, 1) rectangle (3, 2);\n\\draw[fill=magenta!10] (3, 1) rectangle (4, 2);\n\\draw[fill=magenta!10] (3, 2) rectangle (4, 3);\n\\draw[fill=magenta!10] (2, 3) rectangle (3, 4);\n')
+get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic --scale 0.15', '\n\n% 元データ\n\\draw (0,18) rectangle (18,48);\n\\node[] at (9,52) {Original dataset};\n\n% 学習データ\n\\draw (36,24) rectangle (54,48);\n\\node[] at (45,52) {Learning dataset};\n\n% テストデータ\n\\draw (36,6) rectangle (54,12);\n\\node[] at (45,2) {Test dataset};\n\n% トレーニングデータ\n\\draw (72,30) rectangle (90,48);\n\\node[] at (81,52) {Training dataset};\n\n% バリデーションデータ\n\\draw (72,6) rectangle (90,12);\n\\node[] at (81,2) {Validation dataset};\n\n% 学習--テスト\n\\draw[<->] (45,12)--(45,24);\n\\node[fill=white] at (45,18) {Independent from each other};\n\n% トレーニング--バリデーション\n\\draw[<->] (81,12)--(81,30);\n\\node[fill=white] at (81,21) {Not independent};\n\n% 1--2カラム\n\\draw[->](18,33)--(27,33)--(27,36)--(36,36);\n\\draw[->](27,33)--(27,9)--(36,9);\n\n% 2--3カラム\n\\draw[->](54,36)--(63,36)--(63,39)--(72,39);\n\\draw[->](63,36)--(63,9)--(72,9);\n\n% 点線\n\\draw[dotted] (0,24)--(18,24);\n\\draw[dotted] (0,30)--(18,30);\n\\draw[dotted] (0,36)--(18,36);\n\\draw[dotted] (0,42)--(18,42);\n\n\\draw[dotted] (36,30)--(54,30);\n\\draw[dotted] (36,36)--(54,36);\n\\draw[dotted] (36,42)--(54,42);\n\n\\draw[dotted] (72,36)--(90,36);\n\\draw[dotted] (72,42)--(90,42);\n\n\n\n')
+
+
+# In[26]:
+
+
+get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic --scale 2', '\\draw[help lines] grid (5, 5);\n\\draw[fill=magenta!10] (1, 1) rectangle (2, 2);\n\\draw[fill=magenta!10] (2, 1) rectangle (3, 2);\n\\draw[fill=magenta!10] (3, 1) rectangle (4, 2);\n\\draw[fill=magenta!10] (3, 2) rectangle (4, 3);\n\\draw[fill=magenta!10] (2, 3) rectangle (3, 4);\n')
 
 
 # #2. <font color="Crimson">機械学習入門</font>
 # 
 
-# In[1]:
+# In[21]:
 
 
 get_ipython().run_line_magic('load_ext', 'tikzmagic')
@@ -40,6 +46,12 @@ get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-p
 
 
 get_ipython().run_cell_magic('itikz', '--file-prefix implicit-demo- --implicit-pic', '\n\\usetikzlibrary{patterns}\n\\draw[-latex] (-2, 0) -- (3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\filldraw (-2/3, 0) circle (2pt);\n\\node [below] at (-2/3,-0.1) {$-\\displaystyle\\frac{2}{3}$};\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\node [below] at (1,-0.2) {$1$};\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n\\draw[white,pattern=north west lines] (1, 0) -- (1, 0.5) -- (2.8, 0.5) -- (2.8, 0) -- (-2/3, 0);\n\\draw[latex-] (-2, 0) -- (3, 0);\n\\draw[->] (1, 0) -- (1, 0.7) -- (3, 0.7);\n\\draw[->] (-2/3, 0) -- (-2/3, 0.5) -- (3, 0.5);\n\\filldraw[fill=white] (1, 0) circle (2pt);\n')
+
+
+# In[29]:
+
+
+get_ipython().run_cell_magic('tikz', '', '\\draw (0,0) -- (2,1);\n\\node[] at (0,1) {Training Dataset};\n')
 
 
 # ##2-1. <font color="Crimson">機械学習をする際の心構え</font>
