@@ -61,6 +61,7 @@ Jupyter Notebook は Python を実行するための環境です．メモを取�
 Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook のファイルをウェブブラウザから使えるように Google が用意してくれたアプリです．各ページに以下のようなアイコンがあるのでこれをクリックして各ページのファイルを Google Colaboratory 上で開いて利用してください．
 
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
+<i class=\"fa fa-rocket\" aria-hidden=\"true\"></i>
 
 ### グーグルコラボラトリーでの GPU の利用方法
 
