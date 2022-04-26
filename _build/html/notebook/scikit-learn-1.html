@@ -269,7 +269,7 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#scikit-learn">
-   4.1. scikit-learn とは
+   4.1. scikit-learn の基本操作
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -282,12 +282,12 @@ const thebe_selector_output = ".output, .cell_output"
      4.1.2. データセット
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     4.1.3. 決定木による予測器の構築
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   4.2. 決定木による予測器の構築
-  </a>
  </li>
 </ul>
 
@@ -311,7 +311,7 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#scikit-learn">
-   4.1. scikit-learn とは
+   4.1. scikit-learn の基本操作
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -324,12 +324,12 @@ const thebe_selector_output = ".output, .cell_output"
      4.1.2. データセット
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     4.1.3. 決定木による予測器の構築
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   4.2. 決定木による予測器の構築
-  </a>
  </li>
 </ul>
 
@@ -343,7 +343,7 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1><span class="section-number">4. </span>教師あり学習法（執筆中）<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="scikit-learn">
-<h2><span class="section-number">4.1. </span>scikit-learn とは<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.1. </span>scikit-learn の基本操作<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
 <p>このコンテンツで紹介する scikit-learn とは様々な機械学習アルゴリズムをとても簡単な記述で実現することができる Python のライブラリです．最初に scikit-learn の基本的な操作方法を紹介した後にいくつかの教師あり学習法を紹介します．</p>
 <div class="section" id="id2">
 <h3><span class="section-number">4.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
@@ -408,10 +408,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
 <p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
 </div>
-</div>
 <div class="section" id="id4">
-<h2><span class="section-number">4.2. </span>決定木による予測器の構築<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>最初に，データを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の2割にします（何割でも良いのですが2割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
+<h3><span class="section-number">4.1.3. </span>決定木による予測器の構築<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>決定木という機械学習アルゴリズムを用いて人工知能を構築します．最初にデータを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の2割にします（何割でも良いのですが2割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -429,6 +428,165 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[6.4 3.1 5.5 1.8]
+ [5.4 3.  4.5 1.5]
+ [5.2 3.5 1.5 0.2]
+ [6.1 3.  4.9 1.8]
+ [6.4 2.8 5.6 2.2]
+ [5.2 2.7 3.9 1.4]
+ [5.7 3.8 1.7 0.3]
+ [6.  2.7 5.1 1.6]
+ [5.9 3.  4.2 1.5]
+ [5.8 2.6 4.  1.2]
+ [6.8 3.  5.5 2.1]
+ [4.7 3.2 1.3 0.2]
+ [6.9 3.1 5.1 2.3]
+ [5.  3.5 1.6 0.6]
+ [5.4 3.7 1.5 0.2]
+ [5.  2.  3.5 1. ]
+ [6.5 3.  5.5 1.8]
+ [6.7 3.3 5.7 2.5]
+ [6.  2.2 5.  1.5]
+ [6.7 2.5 5.8 1.8]
+ [5.6 2.5 3.9 1.1]
+ [7.7 3.  6.1 2.3]
+ [6.3 3.3 4.7 1.6]
+ [5.5 2.4 3.8 1.1]
+ [6.3 2.7 4.9 1.8]
+ [6.3 2.8 5.1 1.5]
+ [4.9 2.5 4.5 1.7]
+ [6.3 2.5 5.  1.9]
+ [7.  3.2 4.7 1.4]
+ [6.5 3.  5.2 2. ]
+ [6.  3.4 4.5 1.6]
+ [4.8 3.1 1.6 0.2]
+ [5.8 2.7 5.1 1.9]
+ [5.6 2.7 4.2 1.3]
+ [5.6 2.9 3.6 1.3]
+ [5.5 2.5 4.  1.3]
+ [6.1 3.  4.6 1.4]
+ [7.2 3.2 6.  1.8]
+ [5.3 3.7 1.5 0.2]
+ [4.3 3.  1.1 0.1]
+ [6.4 2.7 5.3 1.9]
+ [5.7 3.  4.2 1.2]
+ [5.4 3.4 1.7 0.2]
+ [5.7 4.4 1.5 0.4]
+ [6.9 3.1 4.9 1.5]
+ [4.6 3.1 1.5 0.2]
+ [5.9 3.  5.1 1.8]
+ [5.1 2.5 3.  1.1]
+ [4.6 3.4 1.4 0.3]
+ [6.2 2.2 4.5 1.5]
+ [7.2 3.6 6.1 2.5]
+ [5.7 2.9 4.2 1.3]
+ [4.8 3.  1.4 0.1]
+ [7.1 3.  5.9 2.1]
+ [6.9 3.2 5.7 2.3]
+ [6.5 3.  5.8 2.2]
+ [6.4 2.8 5.6 2.1]
+ [5.1 3.8 1.6 0.2]
+ [4.8 3.4 1.6 0.2]
+ [6.5 3.2 5.1 2. ]
+ [6.7 3.3 5.7 2.1]
+ [4.5 2.3 1.3 0.3]
+ [6.2 3.4 5.4 2.3]
+ [4.9 3.  1.4 0.2]
+ [5.7 2.5 5.  2. ]
+ [6.9 3.1 5.4 2.1]
+ [4.4 3.2 1.3 0.2]
+ [5.  3.6 1.4 0.2]
+ [7.2 3.  5.8 1.6]
+ [5.1 3.5 1.4 0.3]
+ [4.4 3.  1.3 0.2]
+ [5.4 3.9 1.7 0.4]
+ [5.5 2.3 4.  1.3]
+ [6.8 3.2 5.9 2.3]
+ [7.6 3.  6.6 2.1]
+ [5.1 3.5 1.4 0.2]
+ [4.9 3.1 1.5 0.2]
+ [5.2 3.4 1.4 0.2]
+ [5.7 2.8 4.5 1.3]
+ [6.6 3.  4.4 1.4]
+ [5.  3.2 1.2 0.2]
+ [5.1 3.3 1.7 0.5]
+ [6.4 2.9 4.3 1.3]
+ [5.4 3.4 1.5 0.4]
+ [7.7 2.6 6.9 2.3]
+ [4.9 2.4 3.3 1. ]
+ [7.9 3.8 6.4 2. ]
+ [6.7 3.1 4.4 1.4]
+ [5.2 4.1 1.5 0.1]
+ [6.  3.  4.8 1.8]
+ [5.8 4.  1.2 0.2]
+ [7.7 2.8 6.7 2. ]
+ [5.1 3.8 1.5 0.3]
+ [4.7 3.2 1.6 0.2]
+ [7.4 2.8 6.1 1.9]
+ [5.  3.3 1.4 0.2]
+ [6.3 3.4 5.6 2.4]
+ [5.7 2.8 4.1 1.3]
+ [5.8 2.7 3.9 1.2]
+ [5.7 2.6 3.5 1. ]
+ [6.4 3.2 5.3 2.3]
+ [6.7 3.  5.2 2.3]
+ [6.3 2.5 4.9 1.5]
+ [6.7 3.  5.  1.7]
+ [5.  3.  1.6 0.2]
+ [5.5 2.4 3.7 1. ]
+ [6.7 3.1 5.6 2.4]
+ [5.8 2.7 5.1 1.9]
+ [5.1 3.4 1.5 0.2]
+ [6.6 2.9 4.6 1.3]
+ [5.6 3.  4.1 1.3]
+ [5.9 3.2 4.8 1.8]
+ [6.3 2.3 4.4 1.3]
+ [5.5 3.5 1.3 0.2]
+ [5.1 3.7 1.5 0.4]
+ [4.9 3.1 1.5 0.1]
+ [6.3 2.9 5.6 1.8]
+ [5.8 2.7 4.1 1. ]
+ [7.7 3.8 6.7 2.2]
+ [4.6 3.2 1.4 0.2]]
+[2 1 0 2 2 1 0 1 1 1 2 0 2 0 0 1 2 2 2 2 1 2 1 1 2 2 2 2 1 2 1 0 2 1 1 1 1
+ 2 0 0 2 1 0 0 1 0 2 1 0 1 2 1 0 2 2 2 2 0 0 2 2 0 2 0 2 2 0 0 2 0 0 0 1 2
+ 2 0 0 0 1 1 0 0 1 0 2 1 2 1 0 2 0 2 0 0 2 0 2 1 1 1 2 2 1 1 0 1 2 2 0 1 1
+ 1 1 0 0 0 2 1 2 0]
+[[5.8 2.8 5.1 2.4]
+ [6.  2.2 4.  1. ]
+ [5.5 4.2 1.4 0.2]
+ [7.3 2.9 6.3 1.8]
+ [5.  3.4 1.5 0.2]
+ [6.3 3.3 6.  2.5]
+ [5.  3.5 1.3 0.3]
+ [6.7 3.1 4.7 1.5]
+ [6.8 2.8 4.8 1.4]
+ [6.1 2.8 4.  1.3]
+ [6.1 2.6 5.6 1.4]
+ [6.4 3.2 4.5 1.5]
+ [6.1 2.8 4.7 1.2]
+ [6.5 2.8 4.6 1.5]
+ [6.1 2.9 4.7 1.4]
+ [4.9 3.6 1.4 0.1]
+ [6.  2.9 4.5 1.5]
+ [5.5 2.6 4.4 1.2]
+ [4.8 3.  1.4 0.3]
+ [5.4 3.9 1.3 0.4]
+ [5.6 2.8 4.9 2. ]
+ [5.6 3.  4.5 1.5]
+ [4.8 3.4 1.9 0.2]
+ [4.4 2.9 1.4 0.2]
+ [6.2 2.8 4.8 1.8]
+ [4.6 3.6 1.  0.2]
+ [5.1 3.8 1.9 0.4]
+ [6.2 2.9 4.3 1.3]
+ [5.  2.3 3.3 1. ]
+ [5.  3.4 1.6 0.4]]
+[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0]
 </pre></div>
 </div>
 </div>
@@ -455,6 +613,16 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0]
+[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>出力の1行目は予測器がテストデータセットの入力値に対して予測した予測値です．1行目はテストデータセットの教師データです．</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -473,6 +641,41 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[5.8 2.8 5.1 2.4]
+ [6.  2.2 4.  1. ]
+ [5.5 4.2 1.4 0.2]
+ [7.3 2.9 6.3 1.8]
+ [5.  3.4 1.5 0.2]
+ [6.3 3.3 6.  2.5]
+ [5.  3.5 1.3 0.3]
+ [6.7 3.1 4.7 1.5]
+ [6.8 2.8 4.8 1.4]
+ [6.1 2.8 4.  1.3]
+ [6.1 2.6 5.6 1.4]
+ [6.4 3.2 4.5 1.5]
+ [6.1 2.8 4.7 1.2]
+ [6.5 2.8 4.6 1.5]
+ [6.1 2.9 4.7 1.4]
+ [4.9 3.6 1.4 0.1]
+ [6.  2.9 4.5 1.5]
+ [5.5 2.6 4.4 1.2]
+ [4.8 3.  1.4 0.3]
+ [5.4 3.9 1.3 0.4]
+ [5.6 2.8 4.9 2. ]
+ [5.6 3.  4.5 1.5]
+ [4.8 3.4 1.9 0.2]
+ [4.4 2.9 1.4 0.2]
+ [6.2 2.8 4.8 1.8]
+ [4.6 3.6 1.  0.2]
+ [5.1 3.8 1.9 0.4]
+ [6.2 2.9 4.3 1.3]
+ [5.  2.3 3.3 1. ]
+ [5.  3.4 1.6 0.4]]
+[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0]
 </pre></div>
 </div>
 </div>
@@ -762,6 +965,7 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 <img src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" width="80%">
 <p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(終わりです．)</font></p>
+</div>
 </div>
 </div>
 
