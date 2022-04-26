@@ -30,6 +30,7 @@ sphinx:
 html:
   use_issues_button: false
   use_repository_button: true
+  home_page_in_navbar       : false
   extra_footer: |
     <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img style="0;margin-bottom:0.2em;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> © Copyright 2022 Graduate School of Information Sciences, Tohoku University．
 
