@@ -17,5 +17,5 @@ parts:
 - caption: 深層学習
   chapters:
   - file: notebook/tensorflow-1
-  - file: tensorflow-2
+  - file: notebook/tensorflow-2
   - file: notebook/tensorflow-7
