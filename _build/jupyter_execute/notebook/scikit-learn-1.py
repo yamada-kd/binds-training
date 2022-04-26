@@ -3,9 +3,7 @@
 
 # # 教師あり学習法（執筆中）
 
-# #3. <font color="Crimson">Scikit-learn 入門</font>
-
-# ##3-1. <font color="Crimson">基本操作</font>
+# ## scikit-learn の基本操作
 
 # ###3-1-1. <font color="Crimson">インポート</font>
 
