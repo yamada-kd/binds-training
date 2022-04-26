@@ -349,6 +349,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id20">
+   1.3. 学習法の種類
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id21">
+   1.4. 機械学習をする際の心構え
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -463,6 +473,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id20">
+   1.3. 学習法の種類
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id21">
+   1.4. 機械学習をする際の心構え
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -557,13 +577,21 @@ const thebe_selector_output = ".output, .cell_output"
 <p>最急降下法は最もナイーブな最適化法のひとつです．学習をより良く（学習の速さを良くするとか局所解に陥り難くするとか）進めるために様々な最適化法が考案されています．深層学習で用いられる最適化法は基本的には最急降下法を改善した方法です．最急降下法やそういった最適化法のことをオプティマイザと言います．利用するオプティマイザによって学習の様子は劇的に変化します．以下の画像は停留点の中でも厄介な鞍点から，洗練されたオプティマイザがいかに早く抜け出せるかを動画にしたものです．</p>
 <img src="https://drive.google.com/uc?id=1eiSgnD5Y5HPHrgpIj5R4BCTifuKu77LK">
 <p>出典：<a class="reference external" href="https://rnrahman.com/">https://rnrahman.com/</a></p>
-<p>##2-1. <font color="Crimson">機械学習をする際の心構え</font></p>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><span class="section-number">1.3. </span>学習法の種類<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<div class="section" id="id21">
+<h2><span class="section-number">1.4. </span>機械学習をする際の心構え<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>###2-1-1. <font color="Crimson">データ分割の大切さ</font></p>
 <p>機械学習を行う際の最も大切なことであるデータセットの構築方法を紹介します．データセットは以下のように分割します．はじめに，元の全データを「学習セット」と「テストセット」に分けます．さらに，学習セットを人工知能の成長（アルゴリズムが持つパラメータの更新）のためだけに利用する「トレーニングセット」と学習が問題なく進んでいるか（過学習や未学習がおこっていないか）を確認するために利用する「バリデーションセット」に分けます．</p>
 <img src="https://drive.google.com/uc?id=1rL7CPuXUa1MTM8MLWUF4_Xez4d9LSWjJ" width="70%"><p>学習の際には学習セットだけの結果を観察します．学習の際に一瞬でもテストセットにおける予測器の性能を観察するべきではありません．また，「独立であること」もしっかり定義すべきです．データが互いに独立であるとは，機械学習の文脈においては「互いに同じ分布に従うことが予想されるが，その生成過程が異なること」でしょうか．MNIST の学習セットとテストセットには，同一の手書き数字の提供者が同時に含まれている可能性があり，この観点からするとそれらは互いに独立なデータセットではないのかもしれません．</p>
 <p>新たな人工知能を開発してそれを公開する場合，普通，その人工知能の性能をベンチマークし論文や学会で発表します．その性能を評価するために使うデータセットがテストセットです．もしこのテストセットが学習セットと同じような性質を持っているのであれば，その人工知能は新たなデータを処理するときに期待されるような性能を発揮できないかもしれません．学習セットとテストセットが独立でないのならば，学習セットに過剰適合させた人工知能では，あたかもとても良い性能をしているように見えてしまいます．人工知能の実際の現場での活用方法を鑑みるに，人工知能はある特定のデータにだけではなく，様々なデータに対応できる汎化能力を持たなければなりません．</p>
 <p>人工知能の開発の研究に関して，その全行程において，データセットの正しい分割は何よりも大切なことです．従来からの科学の分野で研究を続けている人達にとって，機械学習に対する信頼度は未だ低い場合があります．機械学習をやる人がここを適当にやり続ける限り，「機械学習なんて眉唾」みたいな意見はなくならないことをご理解ください．</p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(終わりです．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>終わりです．</p>
 </div>
 </div>
 </div>
