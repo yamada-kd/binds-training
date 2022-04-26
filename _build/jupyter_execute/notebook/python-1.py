@@ -528,8 +528,8 @@ get_ipython().system(' pip3 install numpy')
 get_ipython().system(' pip3 list')
 
 
-# ``{note}
-# 本物のコマンドライン上で実行するときには「!」は不要です．
+# ```{note}
+# 本物のコマンドライン上で実行するときには ` ! ` は不要です．
 # ```
 
 # ### 文字列処理（正規表現）
