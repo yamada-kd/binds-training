@@ -955,6 +955,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id6">
 <h2><span class="section-number">3.2. </span>オブジェクト指向の記法<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>後の章で紹介する TensorFlow を利用する際にオブジェクト指向の書き方ができたほうが良いので紹介します．</p>
 <div class="section" id="id7">
 <h3><span class="section-number">3.2.1. </span>クラスの生成<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Python にはクラスというプログラムのコードを短くすることで可読性をあげたり，チームでの大規模開発に有利になったりするシステムが備わっています．最初にとてもシンプルなクラスを作ってみます．これは後ほどもう少し多機能なものへと改変していきます．クラスの名前を <code class="docutils literal notranslate"><span class="pre">Dog</span></code> とします．最初の辺りで変数名のイニシャルに大文字は使わないことを紹介しましたが，それはクラスの宣言の際にクラス名のイニシャルを大文字にするためです．以下のように書きます．<code class="docutils literal notranslate"><span class="pre">main()</span></code> には <code class="docutils literal notranslate"><span class="pre">pass</span></code> とだけ書いていますが，これは「何も実行しない」というコマンドです．今はクラスを生成することが目的だから <code class="docutils literal notranslate"><span class="pre">main()</span></code> では何も行いません．クラスは以下のように生成します．</p>
@@ -1311,6 +1312,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id15">
 <h2><span class="section-number">3.3. </span>ファイルの取り扱い<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>人工知能に学習させるためのデータが存在しているファイルを読み込んだり，構築した人工知能に予測させたいデータが載っているファイルを読み込ませたりしたいので，Python でファイルを取り扱う方法を紹介します．</p>
 <div class="section" id="id16">
 <h3><span class="section-number">3.3.1. </span>ファイルの入出力について<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>多くの場合，開発したプログラムで扱いたいものはデータであると思います．データの整理とかデータの解析とかです．そのようなデータはファイルという形式で存在しており，プログラムはそれを読み込む必要があります．ここではプログラムを用いてファイルをどのように操作するのかを学びます．</p>
