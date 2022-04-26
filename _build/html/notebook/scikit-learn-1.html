@@ -269,7 +269,24 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#scikit-learn">
-   4.1. scikit-learn の基本操作
+   4.1. scikit-learn とは
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.1.1. インポート
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     4.1.2. データセット
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   4.2. 決定木による予測器の構築
   </a>
  </li>
 </ul>
@@ -294,7 +311,24 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#scikit-learn">
-   4.1. scikit-learn の基本操作
+   4.1. scikit-learn とは
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.1.1. インポート
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     4.1.2. データセット
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   4.2. 決定木による予測器の構築
   </a>
  </li>
 </ul>
@@ -309,9 +343,11 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1><span class="section-number">4. </span>教師あり学習法（執筆中）<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="scikit-learn">
-<h2><span class="section-number">4.1. </span>scikit-learn の基本操作<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
-<p>###3-1-1. <font color="Crimson">インポート</font></p>
-<p>Scikit-learn は以下のようにインポートします．以下のコードではインポートした Scikit-learn のバージョンを表示させています．</p>
+<h2><span class="section-number">4.1. </span>scikit-learn とは<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
+<p>このコンテンツで紹介する scikit-learn とは様々な機械学習アルゴリズムをとても簡単な記述で実現することができる Python のライブラリです．最初に scikit-learn の基本的な操作方法を紹介した後にいくつかの教師あり学習法を紹介します．</p>
+<div class="section" id="id2">
+<h3><span class="section-number">4.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Scikit-learn は以下のようにインポートします．以下のコードではインポートした scikit-learn のバージョンを表示させています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -326,7 +362,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>###3-1-2. <font color="Crimson">データセット</font></p>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">4.1.2. </span>データセット<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>ここでは，Scikit-learn が備えているデータセットを利用して機械学習アルゴリズムの実装法を紹介します．アイリスというアヤメの咢と花弁のサイズの情報からなる，世界中で利用されてきたとても有名なデータセットを利用します．以下のようにすることでデータセットをダウンロードして中身を表示することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -369,7 +407,10 @@ const thebe_selector_output = ".output, .cell_output"
 <img src="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1" width="20%">
 <p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
 <p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
-<p>###3-1-3. <font color="Crimson">決定木による予測器の構築</font></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">4.2. </span>決定木による予測器の構築<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>最初に，データを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の2割にします（何割でも良いのですが2割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
