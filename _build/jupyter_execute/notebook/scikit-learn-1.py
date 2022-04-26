@@ -5,6 +5,8 @@
 
 # ## scikit-learn の基本操作
 
+# 
+
 # ###3-1-1. <font color="Crimson">インポート</font>
 
 # Scikit-learn は以下のようにインポートします．以下のコードではインポートした Scikit-learn のバージョンを表示させています．
