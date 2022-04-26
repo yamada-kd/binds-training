@@ -527,9 +527,9 @@ const thebe_selector_output = ".output, .cell_output"
 <h3><span class="section-number">1.2.8. </span>正確度と精度<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>正確度とは英語では accuracy と記述されます．略記で ACC とも表現されます．真陽性，偽陽性，偽陰性，真陰性をそれぞれ <span class="math notranslate nohighlight">\(a\)</span>，<span class="math notranslate nohighlight">\(b\)</span>，<span class="math notranslate nohighlight">\(c\)</span>，<span class="math notranslate nohighlight">\(d\)</span> とするとき正確度 <span class="math notranslate nohighlight">\(u\)</span> は以下の式で定義されます：</p>
 <p><span class="math notranslate nohighlight">\(u=\displaystyle\frac{a+d}{a+b+c+d}\)</span>．</p>
-<p>また，精度は英語では precision と記述されます．これは陽性的中率のことであって英語では positive predictive value であり，PPV と略記されます．精度 <span class="math notranslate nohighlight">\(v\)</span> は以下の式で定義されます：</p>
+<p>また，精度は英語では precision と記述されると思いますが，合っていますでしょうか．統計学においては精度（分散の逆数）の英訳は precision です．統計学と近い分野である機械学習の分野でもこれまでに伝統的な統計学の分野で利用されてきた「精度 = precision」の利用を否定しないのであれば，人工知能の評価指標としての presicion は positive predictive value（陽性適中率）のことを指していて，PPV と略記されます．精度 <span class="math notranslate nohighlight">\(v\)</span> は以下の式で定義されます：</p>
 <p><span class="math notranslate nohighlight">\(v=\displaystyle\frac{a}{a+b}\)</span>．</p>
-<p>つまり，これは陽性と予想した場合の数に対して本当に陽性であった場合の数の割合です．人工知能の性能を表現するために精度という単語を使う人がたくさんいます．精度は人工知能を評価するひとつの指標に過ぎません．しかも，この指標は正確度や MCC や F1 と比較して頑健な評価指標ではなく，人工知能の開発者が自由に調整できてしまう値です．これだけで人工知能の性能は評価不可能です．科学的な文脈においては，精度という単語を使いすぎないように気を付ける必要があります（多くの場合，性能というべきでしょう）．その他の指標は以下の Wikipedia が詳しいです．</p>
+<p>つまり，これは陽性と予想した場合の数に対して本当に陽性であった場合の数の割合です．人工知能の性能を表現するために精度という単語を使う人がたくさんいます．精度は人工知能を評価するひとつの指標に過ぎません．しかも，この指標は正確度や MCC や F1 と比較して頑健な評価指標ではなく，人工知能の開発者が自由に調整できてしまう値です．これだけで人工知能の性能は評価不可能です．科学的な文脈においては，精度という単語を使いすぎないように気を付ける必要があるのではないでしょうか（多くの場合，性能というべきでしょう）．その他の指標は以下の Wikipedia が詳しいです．</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">https://en.wikipedia.org/wiki/Precision_and_recall</a></p>
 </div>
 <div class="section" id="id14">
