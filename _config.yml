@@ -1,6 +1,6 @@
 title: BINDSデータ科学演習
 author: ""
-logo: image/neko.png
+logo: ""
 
 execute:
   execute_notebooks: off
@@ -22,6 +22,7 @@ repository:
 
 sphinx:
   config:
+#    language: ja
     html_show_copyright: false
     bibtex_reference_style: author_year
 
