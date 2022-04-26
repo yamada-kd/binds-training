@@ -122,33 +122,15 @@ if __name__ == "__main__":
     main()
 
 
+# 結果として出力された上段の値とそれに対応する教師データが完全に一致しています．高性能な予測器が作れたということです．
+
 # ```{note}
 # 出力の1行目は予測器がテストデータセットの入力値に対して予測した予測値です．1行目はテストデータセットの教師データです．
 # ```
 
-# In[ ]:
-
-
-#!/usr/bin/env python3
-import sklearn
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
- 
-def main():
-    diris = load_iris()
-    learnx, testx, learnt, testt = train_test_split(diris.data, diris.target, test_size = 0.2, random_state = 0)
-
-    print(testx)
-    print(testt)
-
-if __name__ == "__main__":
-    main()
-
-
-# 結果として出力された上段の値とそれに対応する教師データが完全に一致しています．高性能な予測器が作れたということです．
-
-# <font color="Crimson">(9｀･ω･)9 ｡oO(予測器の性能を定量的に示す方法は後で紹介します．)</font>
+# ```{note}
+# 予測器の性能を定量的に示す方法は後で紹介します．
+# ```
 
 # 決定木がどのようなものなのかを把握するために，構築された予測器，すなわち，学習済みの決定木を可視化します．以下のように書きます．
 
