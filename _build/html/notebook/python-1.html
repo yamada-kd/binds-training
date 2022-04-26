@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="ja">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +43,6 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -52,12 +51,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="検索" href="../search.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. Python の発展的な使用方法" href="python-2.html" />
     <link rel="prev" title="1. 機械学習とその周辺事項" href="introduction.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="ja">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -89,7 +88,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p aria-level="2" class="caption" role="heading">
@@ -184,8 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
             
             <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
                 data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
-                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
                 <i class="fas fa-bars"></i>
                 <i class="fas fa-arrow-left"></i>
                 <i class="fas fa-arrow-up"></i>
@@ -193,7 +192,7 @@ const thebe_selector_output = ".output, .cell_output"
             
             
 <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
     <div class="dropdown-buttons">
@@ -201,10 +200,10 @@ const thebe_selector_output = ".output, .cell_output"
         
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="../_sources/notebook/python-1.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
@@ -217,8 +216,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
             href="https://github.com/yamada-kd/binds-training/tree/main/notebook"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
-                    class="fab fa-github"></i>リポジトリ</button></a>
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
         
         
     </div>
@@ -227,8 +226,8 @@ const thebe_selector_output = ".output, .cell_output"
             <!-- Full screen (wrap in <a> to have style consistency -->
 
 <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
-        title="全画面モード"><i
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
@@ -241,7 +240,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         <a class="colab-button" href="https://colab.research.google.com/github/yamada-kd/binds-training/blob/main/notebook/python-1.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="発売 Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
@@ -255,7 +254,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> 目次
+                <i class="fas fa-list"></i> Contents
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
@@ -349,7 +348,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <div id="jb-print-toc">
                         
                         <div>
-                            <h2> 目次 </h2>
+                            <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
@@ -437,16 +436,16 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="python">
-<h1><span class="section-number">2. </span>Python の基本的な使用方法<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">2. </span>Python の基本的な使用方法<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2><span class="section-number">2.1. </span>Python とは<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">2.1. </span>Python とは<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Python は，科学技術界隈，特にデータ科学に関する分野において昨今，最も利用されていると言って過言ではないプログラミング言語です．これを習得することで今後，プログラミング技術なしでは為し得なかったような大量データの解析ができるようになります．Python は C言語とか Fortran とかの伝統的なプログラミング言語と比べて簡単に学ぶことができるプログラミング言語です．ものすごく人気がある言語であり，たくさんのライブラリ（補助ツール）が存在しているので，色々なことができます．計算の速さもそこそこで，少なくとも悪くはありません．ここでは，Python のバージョン3（Python3）の使い方を学びます．</p>
 </div>
 <div class="section" id="id2">
-<h2><span class="section-number">2.2. </span>Python の実行方法<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">2.2. </span>Python の実行方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Python をどうやって実行するかとか，グーグル小ラボラトリーでどうやって動かすかとかを紹介します．</p>
 <div class="section" id="id3">
-<h3><span class="section-number">2.2.1. </span>実行の手順<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.2.1. </span>実行の手順<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>普通，Python は以下のような手順で使います．</p>
 <ol class="simple">
 <li><p>プログラムを書きます．プログラムの本体をソースコードと呼びます．</p></li>
@@ -455,7 +454,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ol>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">2.2.2. </span>Python プログラムの構造<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.2.2. </span>Python プログラムの構造<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>以下のようなプログラムを書いて，それを実行するとターミナルウィンドウ等に「Hello world」という表示が出力されます．以下のプログラムにおいて，1～3と5～7行は Python にとって常に必要になる表記です．これは，いかなるときにも取り敢えず書いておくと良いでしょう．なので，以下のプログラムの本体は実質，4行目だけです．これは，「Hello world」という文を画面に表示しなさいという命令です．<code class="docutils literal notranslate"><span class="pre">print()</span></code> という表記の前に存在する空白は，キーボードの <code class="docutils literal notranslate"><span class="pre">Tab</span></code> を押すと入力できる空白文字です．Pythonではこのように空白文字をきちんと入れる必要があります．<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main():</span></code> 以下に書いた，タブの右側の表記だけがプログラムとして認識されます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -471,26 +470,26 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注釈</p>
+<p class="admonition-title">Note</p>
 <p>実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．</p>
 </div>
 <div class="admonition attention">
-<p class="admonition-title">注意</p>
+<p class="admonition-title">Attention</p>
 <p>Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．</p>
 </div>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">2.2.3. </span>Python コーディング<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.2.3. </span>Python コーディング<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Python でコーディングをする際に統一的なルール（エチケット？） として PEP8 が定義されています．PEP とは Python Enhancement Proposal の略です．PEP8 に従って書かれたコードは可読性が高くなります．</p>
 <p><a class="reference external" href="https://pep8-ja.readthedocs.io/ja/latest/">https://pep8-ja.readthedocs.io/ja/latest/</a></p>
 <p>このコンテンツのコードは必ずしも PEP8 に従っていないかもしれません．</p>
 </div>
 </div>
 <div class="section" id="id6">
-<h2><span class="section-number">2.3. </span>Python の基本操作<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">2.3. </span>Python の基本操作<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>以降，実際にプログラムを書いてそれらを実行してみます．何かを画面に表示させたり，変数というものを使ったり，リストとかディクショナリとかいうものを使ったりします．</p>
 <div class="section" id="id7">
-<h3><span class="section-number">2.3.1. </span>四則計算<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.1. </span>四則計算<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>以下のように書くと足し算ができます．プログラム中の「#」はコメントの宣言のための記号で，これが書いてある部分から右側はプログラムとして認識されません．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -506,7 +505,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition attention">
-<p class="admonition-title">注意</p>
+<p class="admonition-title">Attention</p>
 <p>ハッシュ（#）とシャープ（♯）は実は違うものですよね．</p>
 </div>
 <p>その他の四則計算は以下のように書きます．</p>
@@ -526,12 +525,12 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition hint">
-<p class="admonition-title">ヒント</p>
+<p class="admonition-title">Hint</p>
 <p>コードセルを追加して何か書いてみましょう！</p>
 </div>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">2.3.2. </span>変数<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.2. </span>変数<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>上では，実際の数値を入力してプログラムを書きました．しかし，これではただの電卓です．以下のようにすると，変数を定義することができます．例えば，4行目で「a」という変数を生成し，これに「3」という数値を代入しています．ここで注意しなければならないことは，プログラミング言語において「=」は「その右側と左側が等しい」という意味ではなく，「右側を左側に代入する」という意味で用いられる点です．このように変数というものを使うことでプログラムは色々な処理を一般化することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -592,7 +591,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注釈</p>
+<p class="admonition-title">Note</p>
 <p>Python では数値と文字列は明確に区別されます．数値を変数に代入したときは <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を利用しませんでした．<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> に囲まれた部分は文字列としてみなされます．</p>
 </div>
 <p>ダブルクォーテーション（<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で <code class="docutils literal notranslate"><span class="pre">&quot;greeting&quot;</span></code> と書いてその内容（<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world</span></code>）を出力しようとしても，<code class="docutils literal notranslate"><span class="pre">greeting</span></code> という文字列が出力されるだけで中身を出力できません．目的の動作をさせるには変数の中身をダブルクォーテション内で「展開」しなければならないのです．変数を文字列の中で展開したい場合は <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> と <code class="docutils literal notranslate"><span class="pre">format()</span></code> を組み合わせて使います．</p>
@@ -613,7 +612,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">2.3.3. </span>リストとディクショナリ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.3. </span>リストとディクショナリ<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>複数個の値を代入することができる変数があります．これのことをただの変数ではなく，Python ではリスト（list）と呼びます．リスト変数は <code class="docutils literal notranslate"><span class="pre">[</span></code> と <code class="docutils literal notranslate"><span class="pre">]</span></code> と <code class="docutils literal notranslate"><span class="pre">,</span></code> を使って生成します．以下のように生成した変数「list_a」の要素にアクセスするには「list_a[0]」のような感じでリスト変数に添字を付けて書きます．こうすることで「list_a」に格納されている最初の値である「10」にアクセスできます．多くのプログラミング言語ではリストの一番最初を示すインデックスは「0」です（1ではありません．）．こういうシステムのことはゼロオリジンと呼称します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -649,7 +648,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id10">
-<h3><span class="section-number">2.3.4. </span>繰り返し処理<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.4. </span>繰り返し処理<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>Python で繰り返し処理をするには「for」を使います．以下のように書くと，<code class="docutils literal notranslate"><span class="pre">range(5)</span></code> に格納されている「0，1，2，3，4」という値が一行ごとに表示されます．プログラムではこの「for」を様々な局面で利用することによって人間ではできないような同じことの繰り返し作業を実現します．この繰り返し処理の方法と後に出る条件分岐の方法（if）さえ用いればどのようなプログラムでも実現することができます．繰り返し操作が終わった次の行からは，インデントを再びアウトデントするのを忘れないよう注意しましょう．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -667,7 +666,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition hint">
-<p class="admonition-title">ヒント</p>
+<p class="admonition-title">Hint</p>
 <p><code class="docutils literal notranslate"><span class="pre">range(5)</span></code> は <code class="docutils literal notranslate"><span class="pre">[0，1，2，3，4]</span></code> の配列を生成するものと考えて問題ないです．</p>
 </div>
 <p>以下のように書くとリストに格納されているデータ全てにひとつずつアクセスすることができます．</p>
@@ -703,7 +702,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition hint">
-<p class="admonition-title">ヒント</p>
+<p class="admonition-title">Hint</p>
 <p>ディクショナリ変数に <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> をつけることでディクショナリ変数に含まれるキーからなるリストを生成することができます．</p>
 </div>
 <p>以下のように書いても，上と全く同じ挙動を示します．</p>
@@ -723,7 +722,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注釈</p>
+<p class="admonition-title">Note</p>
 <p>この場合，<code class="docutils literal notranslate"><span class="pre">.items()</span></code> によってキーと値のペアが同時に抜き出されているのです．変数の内容を変更して，挙動を確認してみましょう！</p>
 </div>
 <p>繰り返し処理をする方法にはその他に，<code class="docutils literal notranslate"><span class="pre">while</span></code> があります．以下のようにして使います．<code class="docutils literal notranslate"><span class="pre">while</span></code> の右側に書いた条件が満たされる場合のみ，それ以下の処理を繰り返すというものです．この場合，<code class="docutils literal notranslate"><span class="pre">i</span></code> という変数が <code class="docutils literal notranslate"><span class="pre">10</span></code> より小さいとき処理が繰り返されます．そして，この <code class="docutils literal notranslate"><span class="pre">i</span></code> の値は <code class="docutils literal notranslate"><span class="pre">while</span></code> が1回実行されるたびに <code class="docutils literal notranslate"><span class="pre">1</span></code> ずつインクリメント（増加）されています．その表記が，<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">1</span></code> です．これは，<code class="docutils literal notranslate"><span class="pre">i</span></code> に「<code class="docutils literal notranslate"><span class="pre">i</span></code> に <code class="docutils literal notranslate"><span class="pre">1</span></code> を足した値」を代入しろという意味です．なので，この表記の前の <code class="docutils literal notranslate"><span class="pre">i</span></code> に比べて，表記の後の <code class="docutils literal notranslate"><span class="pre">i</span></code> は <code class="docutils literal notranslate"><span class="pre">1</span></code> だけ大きい値です．</p>
@@ -762,7 +761,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id11">
-<h3><span class="section-number">2.3.5. </span>条件分岐<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.5. </span>条件分岐<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>プログラミング言語にとって重要な要素として「if」があります．これは条件分岐のためのシステムです．以下のように書くと，もし <code class="docutils literal notranslate"><span class="pre">i</span></code> の値が2であるときのみ出力がされます．ここで，<code class="docutils literal notranslate"><span class="pre">==</span></code> という記号は「記号の右側と左側の値が等しい」ということを意味し，現実世界の「=」と同義です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -802,7 +801,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id12">
-<h3><span class="section-number">2.3.6. </span>関数<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.6. </span>関数<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>プログラミングをするにあたり，関数というものはとても大事な概念です．関数はあるプロセスの一群をまとめるためのシステムです．書いたプロセスを関数化することで，ソースコードの可読性が上がります．また，処理に汎用性を与えることができるようになります．同じ処理を変数の値だけを変えて何度も行いたい場合は同じ処理を何度も書くより，関数化して，必要なときにその関数を呼び出す，といったやり方が効率的です．関数は， <code class="docutils literal notranslate"><span class="pre">def</span></code> というものを使って生成します．これまでに書いてきたプログラムにも <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main()</span></code> という表記がありました．これは， <code class="docutils literal notranslate"><span class="pre">main()</span></code> という関数を定義するものです．そして，その <code class="docutils literal notranslate"><span class="pre">main()</span></code> という関数をソースコードの一番下，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>で呼び出して使っていたということです．この <code class="docutils literal notranslate"><span class="pre">main()</span></code> 以外にも，プログラマーは自由に関数を定義することができます．以下のように <code class="docutils literal notranslate"><span class="pre">func_1()</span></code> という関数を作って，それを <code class="docutils literal notranslate"><span class="pre">main()</span></code> の中で実行することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -821,7 +820,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition attention">
-<p class="admonition-title">注意</p>
+<p class="admonition-title">Attention</p>
 <p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かない人結構いますが，では，その書いたプログラム，<a class="reference external" href="http://hoge.py">hoge.py</a> としましょう，別のプログラムでインポート <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> したときの挙動は期待したものと異なると思いますのでので試してみましょう！あと，変数のスコープの管理もしやすいです．</p>
 </div>
 <p>関数を生成する際に <code class="docutils literal notranslate"><span class="pre">()</span></code> が付属していますが，これは，引数（ひきすう，パラメータ）の受け渡しに使うためのものです．以下のように書くと，<code class="docutils literal notranslate"><span class="pre">Python</span></code> という文字列が格納された変数 <code class="docutils literal notranslate"><span class="pre">str_1</span></code> を関数 <code class="docutils literal notranslate"><span class="pre">func_1()</span></code> のパラメータとして関数が実行されます．その後，<code class="docutils literal notranslate"><span class="pre">func_1()</span></code> 内では，パラメータ <code class="docutils literal notranslate"><span class="pre">str_1</span> <span class="pre">==</span> <span class="pre">Python</span></code> を <code class="docutils literal notranslate"><span class="pre">func_1()</span></code> の中でのみ定義されるパラメータ変数である <code class="docutils literal notranslate"><span class="pre">arg_1</span></code> で受け取りそれを利用して新たな処理が実行されます．</p>
@@ -866,7 +865,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id13">
-<h3><span class="section-number">2.3.7. </span>ライブラリのインポート<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.7. </span>ライブラリのインポート<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>上では関数を作ってプログラムを便利にしてきましたが，世界には様々な便利な関数をまとめたライブラリが存在します．これを使うと様々な便利なことをすごく簡単な記述で実現可能です．そういった関数の集まりをライブラリと言いますが，ここではそれらライブラリの使い方を学びます．ライブラリは以下のように，<code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">python3</span></code> の下に <code class="docutils literal notranslate"><span class="pre">import</span></code> という表記によりプログラム中で使うことを宣言します（利用する直前に呼び出しても良い）．以下では，「statistics」というモジュールを使うことを明示しています．以下は実行しても何もしない（ライブラリをインポートすることだけをする）プログラムです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -883,7 +882,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition hint">
-<p class="admonition-title">ヒント</p>
+<p class="admonition-title">Hint</p>
 <p>この世にどんなライブラリがあるのかは人に聞くとか Google で調べることとかで知ることができます．</p>
 </div>
 <p>複数個のモジュールを呼び込むときは以下のように書くことができます．</p>
@@ -952,7 +951,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注釈</p>
+<p class="admonition-title">Note</p>
 <p>これは Python のコマンドではありません．本来，コマンドラインで打つものです．Python のプログラム中に書くものではありません．「!」が Python のプログラム外でコマンドを実行するための表記です．</p>
 </div>
 <p>現在使っている Python にインストールされているライブラリを確認するには以下のように打ちます．</p>
@@ -970,7 +969,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">2.3.8. </span>文字列処理（正規表現）<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.3.8. </span>文字列処理（正規表現）<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>プログラミング言語は「正規表現（regular expression）」と呼ばれる文字列パターン表現方法を持ちます．プログラミングで文字列を操作するための非常に強力なツールです．Python で正規表現を使用する場合は、「re」 ライブラリを利用します．ここでは，以下のような文を用いて正規表現を学びます．</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2018</span> <span class="p">(</span><span class="n">MMXVIII</span><span class="p">)</span> <span class="n">was</span> <span class="n">a</span> <span class="n">common</span> <span class="n">year</span> <span class="n">starting</span> <span class="n">on</span> <span class="n">Monday</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Gregorian</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">the</span> <span class="mi">2018</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Common</span> <span class="n">Era</span> <span class="p">(</span><span class="n">CE</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Anno</span> <span class="n">Domini</span> <span class="p">(</span><span class="n">AD</span><span class="p">)</span> <span class="n">designations</span><span class="p">,</span> <span class="n">the</span> <span class="mi">18</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">3</span><span class="n">rd</span> <span class="n">millennium</span><span class="p">,</span> <span class="n">the</span> <span class="mi">18</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">21</span><span class="n">st</span> <span class="n">century</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="mi">9</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">2010</span><span class="n">s</span> <span class="n">decade</span><span class="o">.</span>
 </pre></div>
@@ -1067,7 +1066,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><a class="reference external" href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a></p></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title">注釈</p>
+<p class="admonition-title">Note</p>
 <p>終わりです．</p>
 </div>
 </div>
@@ -1099,16 +1098,16 @@ const thebe_selector_output = ".output, .cell_output"
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="introduction.html" title="前へ ページ">
+    <a class='left-prev' id="prev-link" href="introduction.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
-            <p class="prev-next-subtitle">前へ</p>
+            <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title"><span class="section-number">1. </span>機械学習とその周辺事項</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="python-2.html" title="次へ ページ">
+    <a class='right-next' id="next-link" href="python-2.html" title="next page">
     <div class="prev-next-info">
-        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">3. </span>Python の発展的な使用方法</p>
     </div>
     <i class="fas fa-angle-right"></i>

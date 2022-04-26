@@ -22,7 +22,6 @@ repository:
 
 sphinx:
   config:
-    language: ja
     html_show_copyright: false
     bibtex_reference_style: author_year
 
