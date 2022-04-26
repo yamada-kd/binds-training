@@ -375,6 +375,18 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id24">
    1.4. 機械学習をする際の心構え
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id25">
+     1.4.1. 過学習
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id26">
+     1.4.2. データ分割の大切さ
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -516,6 +528,18 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id24">
    1.4. 機械学習をする際の心構え
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id25">
+     1.4.1. 過学習
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id26">
+     1.4.2. データ分割の大切さ
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -629,11 +653,19 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id23">
 <h3><span class="section-number">1.3.3. </span>強化学習法<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>強化学習法は教師あり学習法と完全に独立な学習法ではないと思います．正解の情報を利用するという点においては教師あり学習法と同様で，教師あり学習法の一種と考えることも可能なのではないでしょうか．しかし実際の強化学習法で行っていることは教師あり学習法で行っていることと様々な部分で異なっているように見え，現状の分類では強化学習法と教師あり学習法は別々に紹介される場合が多いです．強化学習法で用いる正解の情報は報酬と呼ばれます．これに加えて強化学習法では，エージェントと呼ばれる何らかの行動をする存在を設定します．エージェントは何らかの環境に存在していて，一連の行動をすることによって得られる報酬を最大化するように成長させられます．このときの報酬は教師あり学習法で用いられるような正解データのような即時的に正解または不正解を判断できるようなものではなく，一連の行動の結果に対して与えられるものです．この点において，教師あり学習法と強化学習法は異なります．例えば，2人のキャラクター同士が何らかのステージで戦う格闘ゲームを例にすると，最大の報酬が与えられるのは敵であるキャラクターを倒したときであって，戦いの過程においてパンチを繰り出せとか，必殺技を放て等の個々の行動に対する正解は提示されません．強化学習法は現在最も活発に開発研究が行われている学習法であると言っても過言ではなく，日々様々な手法が考案されています．例えば，ディープニューラルネットワークを利用する深層強化学習アルゴリズムの deep Q-network は一部のゲームにおいては人以上の性能を示しています．強化学習法で利用されるアルゴリズムとしては，マルコフ決定過程，動的計画法，モンテカルロ法，Q学習法等があります．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>このコンテンツで主に扱うものは教師あり学習法です．</p>
+</div>
 </div>
 </div>
 <div class="section" id="id24">
 <h2><span class="section-number">1.4. </span>機械学習をする際の心構え<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>###2-1-1. <font color="Crimson">データ分割の大切さ</font></p>
+<div class="section" id="id25">
+<h3><span class="section-number">1.4.1. </span>過学習<a class="headerlink" href="#id25" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="id26">
+<h3><span class="section-number">1.4.2. </span>データ分割の大切さ<a class="headerlink" href="#id26" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>機械学習を行う際の最も大切なことであるデータセットの構築方法を紹介します．データセットは以下のように分割します．はじめに，元の全データを「学習セット」と「テストセット」に分けます．さらに，学習セットを人工知能の成長（アルゴリズムが持つパラメータの更新）のためだけに利用する「トレーニングセット」と学習が問題なく進んでいるか（過学習や未学習がおこっていないか）を確認するために利用する「バリデーションセット」に分けます．</p>
 <img src="https://drive.google.com/uc?id=1rL7CPuXUa1MTM8MLWUF4_Xez4d9LSWjJ" width="70%"><p>学習の際には学習セットだけの結果を観察します．学習の際に一瞬でもテストセットにおける予測器の性能を観察するべきではありません．また，「独立であること」もしっかり定義すべきです．データが互いに独立であるとは，機械学習の文脈においては「互いに同じ分布に従うことが予想されるが，その生成過程が異なること」でしょうか．MNIST の学習セットとテストセットには，同一の手書き数字の提供者が同時に含まれている可能性があり，この観点からするとそれらは互いに独立なデータセットではないのかもしれません．</p>
 <p>新たな人工知能を開発してそれを公開する場合，普通，その人工知能の性能をベンチマークし論文や学会で発表します．その性能を評価するために使うデータセットがテストセットです．もしこのテストセットが学習セットと同じような性質を持っているのであれば，その人工知能は新たなデータを処理するときに期待されるような性能を発揮できないかもしれません．学習セットとテストセットが独立でないのならば，学習セットに過剰適合させた人工知能では，あたかもとても良い性能をしているように見えてしまいます．人工知能の実際の現場での活用方法を鑑みるに，人工知能はある特定のデータにだけではなく，様々なデータに対応できる汎化能力を持たなければなりません．</p>
@@ -641,6 +673,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p>終わりです．</p>
+</div>
 </div>
 </div>
 </div>
