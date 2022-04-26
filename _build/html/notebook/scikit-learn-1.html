@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. 教師あり学習法（執筆中） &#8212; BINDSデータ科学演習</title>
+    <title>4. 教師あり学習法 &#8212; BINDSデータ科学演習</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -137,7 +137,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. 教師あり学習法（執筆中）
+   4. 教師あり学習法
   </a>
  </li>
  <li class="toctree-l1">
@@ -348,7 +348,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>教師あり学習法（執筆中）</h1>
+                <h1>教師あり学習法</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -439,7 +439,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">4. </span>教師あり学習法（執筆中）<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">4. </span>教師あり学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="scikit-learn">
 <h2><span class="section-number">4.1. </span>scikit-learn の基本操作<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
 <p>このコンテンツで紹介する scikit-learn とは様々な機械学習アルゴリズムをとても簡単な記述で実現することができる Python のライブラリです．最初に scikit-learn の基本的な操作方法を紹介した後にいくつかの教師あり学習法を紹介します．</p>
@@ -661,9 +661,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id6">
 <h2><span class="section-number">4.3. </span>他のアルゴリズムの利用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>これまでに決定木を用いて人工知能を構築しましたが，この節では別の機械学習アルゴリズムを利用して人工知能を構築します．</p>
 <div class="section" id="id7">
 <h3><span class="section-number">4.3.1. </span>サポートベクトルマシン<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>他の様々な機械学習アルゴリズムに同じ計算をさせます．サポートベクトルマシンの分類に利用可能な方法 SVC を利用します（回帰問題には SVR を利用します）．以下のように書きます．この場合の正確度は 0.9667 となりました．決定木を用いた場合と（ほぼ）同じ結果です．</p>
+<p>サポートベクトルマシンの分類に利用可能な方法 SVC を利用します（回帰問題には SVR を利用します）．以下のように書きます．この場合の正確度は 0.9667 となりました．決定木を用いた場合と（ほぼ）同じ結果です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -685,7 +686,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(たった1行を書き換えるだけで別の機械学習法を利用できました．これが Scikit-learn の強みです．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>たった1行を書き換えるだけで別の機械学習法を利用できました．これが Scikit-learn の強みです．</p>
+</div>
 </div>
 <div class="section" id="id8">
 <h3><span class="section-number">4.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
@@ -741,9 +745,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id10">
 <h2><span class="section-number">4.4. </span>実際の解析で必要なこと<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>上では学習とテストを同時に行いましたが，予測器を利用する度に学習を行うのは良い方法ではありません．というか通常，想像を絶する悪手です．普通はひとつめのコードで与えられたデータを利用して人工知能を構築して，また別の新たなコードでその人工知能を利用する，というのが実際の解析で行うことではないでしょうか．その方法を紹介します．</p>
 <div class="section" id="id11">
 <h3><span class="section-number">4.4.1. </span>モデルの保存と呼び出し<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>これまでにとても簡単に Scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います（上では学習とテストを同時に行いましたが，予測器を利用する度に学習を行うのは良い方法ではありません．というか通常，想像を絶する悪手です．）．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
+<p>これまでにとても簡単に Scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -776,7 +781,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(これは Python のコマンドではありません．Google Colaboratory のコードセルは通常，Python を実行させるためのものです．「!」をコマンドの前に付けて実行すると，この計算機のシェルを動かすことができます．)</font></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>これは Python のコマンドではありません．Google Colaboratory のコードセルは通常，Python を実行させるためのものです．<code class="docutils literal notranslate"><span class="pre">!</span></code> をコマンドの前に付けて実行すると，この計算機のシェルを動かすことができます．</p>
+</div>
 <p>上のコマンドを実行すると確かに predictor.sav というファイルが保存されていることが確認できました．次はこのファイルを別のプログラムから呼び出して利用します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
