@@ -289,6 +289,55 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   4.2. 予測器の性能評価
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   4.3. 他のアルゴリズムの利用
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     4.3.1. サポートベクトルマシン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     4.3.2. 多層パーセプトロン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     4.3.3. ロジスティック回帰法
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   4.4. 実際の解析で必要なこと
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     4.4.1. モデルの保存と呼び出し
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     4.4.2. ハイパーパラメータの探索
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     4.4.3. 方法の選択
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -327,6 +376,55 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
      4.1.3. 決定木による予測器の構築
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   4.2. 予測器の性能評価
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   4.3. 他のアルゴリズムの利用
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     4.3.1. サポートベクトルマシン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     4.3.2. 多層パーセプトロン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     4.3.3. ロジスティック回帰法
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   4.4. 実際の解析で必要なこと
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     4.4.1. モデルの保存と呼び出し
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     4.4.2. ハイパーパラメータの探索
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     4.4.3. 方法の選択
     </a>
    </li>
   </ul>
@@ -503,7 +601,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>このように決定木で得られた結果はとても解釈性が高いです．決定木はそれだけで利用すると（集団学習という性能を向上するものがありますが，そういったものを利用せずにという意味）予測性能は良い方ではありませんが，解釈性が高いためビジネスの分野でよく用いられます．</p>
 </div>
-<p>###3-1-4. <font color="Crimson">予測器の性能評価</font></p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">4.2. </span>予測器の性能評価<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>上のコードではテストデータセットの入力データを入力したときの予測器の出力とテストデータセットの教師データの比較を並べて目視で行いました．予測器の性能を評価する方法があります．評価を行うために混同行列（confusion matrix）というものを計算させます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -557,7 +658,11 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>###3-1-5. <font color="Crimson">他のアルゴリズムの利用</font></p>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">4.3. </span>他のアルゴリズムの利用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3><span class="section-number">4.3.1. </span>サポートベクトルマシン<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>他の様々な機械学習アルゴリズムに同じ計算をさせます．サポートベクトルマシンの分類に利用可能な方法 SVC を利用します（回帰問題には SVR を利用します）．以下のように書きます．この場合の正確度は 0.9667 となりました．決定木を用いた場合と（ほぼ）同じ結果です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -581,6 +686,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p><font color="Crimson">(9｀･ω･)9 ｡oO(たった1行を書き換えるだけで別の機械学習法を利用できました．これが Scikit-learn の強みです．)</font></p>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">4.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>多層パーセプトロンを利用します．英語では multilayer perceptron（MLP）というものです．深層学習で利用されるニューラルネットワークの最も基礎的な手法です．この場合，正確度は 1.0 と計算されました．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -603,6 +711,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">4.3.3. </span>ロジスティック回帰法<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>ロジスティック回帰法を利用します．ロジスティック回帰は名前に回帰という文字が入っていますが分類問題に用いられる方法です．この場合も大体同じような正確度が得られました．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -626,8 +737,12 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>このように Scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．Scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
-<p>##3-2. <font color="Crimson">実際の解析で必要なこと</font></p>
-<p>###3-2-1. <font color="Crimson">モデルの保存と呼び出し</font></p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><span class="section-number">4.4. </span>実際の解析で必要なこと<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3><span class="section-number">4.4.1. </span>モデルの保存と呼び出し<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>これまでにとても簡単に Scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います（上では学習とテストを同時に行いましたが，予測器を利用する度に学習を行うのは良い方法ではありません．というか通常，想像を絶する悪手です．）．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -686,7 +801,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>このプログラムでは SVC をインポートすらしていないし，学習データセットの学習をするためにコードも書いていないのに，しっかりと予測器が動いていることを確認できます．つまり，学習済み決定木を読み込めたということを意味しています．</p>
-<p>###3-2-2. <font color="Crimson">ハイパーパラメータの探索</font></p>
+</div>
+<div class="section" id="id12">
+<h3><span class="section-number">4.4.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは <span class="math notranslate nohighlight">\(w_1\)</span>，<span class="math notranslate nohighlight">\(w_2\)</span>，<span class="math notranslate nohighlight">\(w_3\)</span>，<span class="math notranslate nohighlight">\(b\)</span> です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
 <p>\begin{eqnarray}
 f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
@@ -750,11 +867,16 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 </div>
 </div>
 </div>
-<p>###3-2-3. <font color="Crimson">方法の選択</font></p>
+</div>
+<div class="section" id="id13">
+<h3><span class="section-number">4.4.3. </span>方法の選択<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを Scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
 <img src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" width="80%">
 <p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(終わりです．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>終わりです．</p>
+</div>
 </div>
 </div>
 </div>
