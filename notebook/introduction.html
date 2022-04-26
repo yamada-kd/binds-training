@@ -353,9 +353,26 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id20">
    1.3. 学習法の種類
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     1.3.1. 教師あり学習法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     1.3.2. 教師なし学習法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     1.3.3. 強化学習法
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id21">
+  <a class="reference internal nav-link" href="#id24">
    1.4. 機械学習をする際の心構え
   </a>
  </li>
@@ -477,9 +494,26 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id20">
    1.3. 学習法の種類
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     1.3.1. 教師あり学習法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     1.3.2. 教師なし学習法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     1.3.3. 強化学習法
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id21">
+  <a class="reference internal nav-link" href="#id24">
    1.4. 機械学習をする際の心構え
   </a>
  </li>
@@ -583,10 +617,19 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id20">
 <h2><span class="section-number">1.3. </span>学習法の種類<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>人工知能にデータを読ませ成長させる過程を学習と言いますが，学習方法にはいくつかの種類があります．教師あり学習法，教師なし学習法と強化学習法です．</p>
-</div>
+<p>人工知能にデータを読ませ成長させる過程を学習と言いますが，学習方法にはいくつかの種類があります．機械学習法は教師あり学習法（supervised learning），教師なし学習法（unsupervised learning），強化学習法（reinforcement learning）の3つに大別されます．これらの学習法は，どれがどれに対して優れていて，どれがどれに対して劣っている等の比較をするような対象ではありません．これらは，与えられた問題を解決するためにどのような人工知能を構築したいのかという観点からそれに適した方法を選択するものです．</p>
 <div class="section" id="id21">
-<h2><span class="section-number">1.4. </span>機械学習をする際の心構え<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">1.3.1. </span>教師あり学習法<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="id22">
+<h3><span class="section-number">1.3.2. </span>教師なし学習法<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="id23">
+<h3><span class="section-number">1.3.3. </span>強化学習法<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id24">
+<h2><span class="section-number">1.4. </span>機械学習をする際の心構え<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>###2-1-1. <font color="Crimson">データ分割の大切さ</font></p>
 <p>機械学習を行う際の最も大切なことであるデータセットの構築方法を紹介します．データセットは以下のように分割します．はじめに，元の全データを「学習セット」と「テストセット」に分けます．さらに，学習セットを人工知能の成長（アルゴリズムが持つパラメータの更新）のためだけに利用する「トレーニングセット」と学習が問題なく進んでいるか（過学習や未学習がおこっていないか）を確認するために利用する「バリデーションセット」に分けます．</p>
 <img src="https://drive.google.com/uc?id=1rL7CPuXUa1MTM8MLWUF4_Xez4d9LSWjJ" width="70%"><p>学習の際には学習セットだけの結果を観察します．学習の際に一瞬でもテストセットにおける予測器の性能を観察するべきではありません．また，「独立であること」もしっかり定義すべきです．データが互いに独立であるとは，機械学習の文脈においては「互いに同じ分布に従うことが予想されるが，その生成過程が異なること」でしょうか．MNIST の学習セットとテストセットには，同一の手書き数字の提供者が同時に含まれている可能性があり，この観点からするとそれらは互いに独立なデータセットではないのかもしれません．</p>
