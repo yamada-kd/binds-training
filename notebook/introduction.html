@@ -342,6 +342,11 @@ const thebe_selector_output = ".output, .cell_output"
      1.2.13. 早期終了
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     1.2.14. オプティマイザ
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -451,6 +456,11 @@ const thebe_selector_output = ".output, .cell_output"
      1.2.13. 早期終了
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     1.2.14. オプティマイザ
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -541,7 +551,9 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id18">
 <h3><span class="section-number">1.2.13. </span>早期終了<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>人工知能を成長させるときに，過学習（データへの過剰適合）が起こる前に学習を停止させることです．最もナイーブには，学習の最中に最も良い性能を示した値を記録しておき，その値を <span class="math notranslate nohighlight">\(n\)</span> 回連続で更新しなかった場合に学習を打ち切る方法があります．この <span class="math notranslate nohighlight">\(n\)</span> 回のことを patience と言います．</p>
-<p><strong>★オプティマイザ</strong></p>
+</div>
+<div class="section" id="id19">
+<h3><span class="section-number">1.2.14. </span>オプティマイザ<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>最急降下法は最もナイーブな最適化法のひとつです．学習をより良く（学習の速さを良くするとか局所解に陥り難くするとか）進めるために様々な最適化法が考案されています．深層学習で用いられる最適化法は基本的には最急降下法を改善した方法です．最急降下法やそういった最適化法のことをオプティマイザと言います．利用するオプティマイザによって学習の様子は劇的に変化します．以下の画像は停留点の中でも厄介な鞍点から，洗練されたオプティマイザがいかに早く抜け出せるかを動画にしたものです．</p>
 <img src="https://drive.google.com/uc?id=1eiSgnD5Y5HPHrgpIj5R4BCTifuKu77LK">
 <p>出典：<a class="reference external" href="https://rnrahman.com/">https://rnrahman.com/</a></p>
