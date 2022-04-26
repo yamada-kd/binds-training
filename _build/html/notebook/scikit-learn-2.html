@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. 教師なし学習法（未完成） &#8212; BINDSデータ科学演習</title>
+    <title>5. 教師なし学習法（編集中） &#8212; BINDSデータ科学演習</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -135,7 +135,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   5. 教師なし学習法（未完成）
+   5. 教師なし学習法（編集中）
   </a>
  </li>
 </ul>
@@ -262,8 +262,20 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   5.1. 教師なし学習法の種類
+   5.1. 教師なし学習法とは
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     5.1.1. 対象となるデータ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     5.1.2. 機械学習アルゴリズム
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#scikit-learn">
@@ -271,7 +283,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id5">
      5.2.1. 階層的クラスタリング法
     </a>
    </li>
@@ -285,12 +297,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id6">
      5.2.3. 主成分分析法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id7">
      5.2.4. 自己組織化マップ
     </a>
    </li>
@@ -306,7 +318,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>教師なし学習法（未完成）</h1>
+                <h1>教師なし学習法（編集中）</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -318,8 +330,20 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   5.1. 教師なし学習法の種類
+   5.1. 教師なし学習法とは
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     5.1.1. 対象となるデータ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     5.1.2. 機械学習アルゴリズム
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#scikit-learn">
@@ -327,7 +351,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id5">
      5.2.1. 階層的クラスタリング法
     </a>
    </li>
@@ -341,12 +365,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id6">
      5.2.3. 主成分分析法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id7">
      5.2.4. 自己組織化マップ
     </a>
    </li>
@@ -362,28 +386,36 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">5. </span>教師なし学習法（未完成）<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5. </span>教師なし学習法（編集中）<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">5.1. </span>教師なし学習法の種類<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.1. </span>教師なし学習法とは<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>ほげ</p>
+<div class="section" id="id3">
+<h3><span class="section-number">5.1.1. </span>対象となるデータ<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>ほげ</p>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">5.1.2. </span>機械学習アルゴリズム<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>ほげ</p>
+</div>
 </div>
 <div class="section" id="scikit-learn">
 <h2><span class="section-number">5.2. </span>scikit-learn による実装<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
 <p>ほげ</p>
-<div class="section" id="id3">
-<h3><span class="section-number">5.2.1. </span>階層的クラスタリング法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">5.2.1. </span>階層的クラスタリング法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
 </div>
 <div class="section" id="k-means">
 <h3><span class="section-number">5.2.2. </span><span class="math notranslate nohighlight">\(k\)</span>-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
 </div>
-<div class="section" id="id4">
-<h3><span class="section-number">5.2.3. </span>主成分分析法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">5.2.3. </span>主成分分析法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
 </div>
-<div class="section" id="id5">
-<h3><span class="section-number">5.2.4. </span>自己組織化マップ<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><span class="section-number">5.2.4. </span>自己組織化マップ<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
