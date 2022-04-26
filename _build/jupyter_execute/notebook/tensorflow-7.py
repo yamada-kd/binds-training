@@ -77,6 +77,10 @@
 get_ipython().system(' pip3 install transformers')
 
 
+# ```{attention}
+# このコンテンツの実行にグーグルコラボラトリーを使っておらず，自身の環境で Anaconda 等を利用している場合は気をつけてください．例えば，Anaconda を利用しているのであれば ` conda install -c huggingface transformers ` のようなコマンドでインストールした方が良いです．
+# ```
+
 # ##2-2. <font color="Crimson">基本的な使い方</font>
 
 # ###2-2-1. <font color="Crimson">感情分析</font>
