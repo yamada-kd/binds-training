@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # TensorFlow の基本的な利用方法
+# # TensorFlow の基本的な利用方法（未完成）
 
 # #2. <font color="Crimson">TensorFlow 入門</font>
 

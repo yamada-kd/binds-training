@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 教師なし学習法
+# # 教師なし学習法（未完成）
 
 # #3. <font color="Crimson">Scikit-learn 入門</font>
 
