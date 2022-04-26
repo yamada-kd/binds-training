@@ -160,7 +160,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../tensorflow-2.html">
-   7. 多層パーセプトロンとデータ分割
+   7. 多層パーセプトロン
   </a>
  </li>
  <li class="toctree-l1">
@@ -317,6 +317,31 @@ const thebe_selector_output = ".output, .cell_output"
      1.2.8. 正確度と精度
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     1.2.9. パラメータとハイパーパラメータ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     1.2.10. 二乗誤差
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     1.2.11. ソフトマックス
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     1.2.12. 一括学習，逐次学習，ミニバッチ学習
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     1.2.13. 早期終了
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -401,6 +426,31 @@ const thebe_selector_output = ".output, .cell_output"
      1.2.8. 正確度と精度
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     1.2.9. パラメータとハイパーパラメータ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     1.2.10. 二乗誤差
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     1.2.11. ソフトマックス
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     1.2.12. 一括学習，逐次学習，ミニバッチ学習
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     1.2.13. 早期終了
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -471,33 +521,29 @@ const thebe_selector_output = ".output, .cell_output"
 <p><span class="math notranslate nohighlight">\(v=\displaystyle\frac{a}{a+b}\)</span>．</p>
 <p>つまり，これは陽性と予想した場合の数に対して本当に陽性であった場合の数の割合です．人工知能の性能を表現するために精度という単語を使う人がたくさんいます．精度は人工知能を評価するひとつの指標に過ぎません．しかも，この指標は正確度や MCC や F1 と比較して頑健な評価指標ではなく，人工知能の開発者が自由に調整できてしまう値です．これだけで人工知能の性能は評価不可能です．科学的な文脈においては，精度という単語を使いすぎないように気を付ける必要があります（多くの場合，性能というべきでしょう）．その他の指標は以下の Wikipedia が詳しいです．</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">https://en.wikipedia.org/wiki/Precision_and_recall</a></p>
-<p>パラメータとハイパーパラメータ**</p>
+</div>
+<div class="section" id="id14">
+<h3><span class="section-number">1.2.9. </span>パラメータとハイパーパラメータ<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>パラメータは人工知能を構成する一部です．機械学習法で成長させられるアルゴリズムは何らかの入力に対して何らかの出力をしますが，このアルゴリズムがその計算をするために必要とする値を持っている場合があり，それをパラメータと言います．機械学習ではアルゴリズム自体は変化させずに，パラメータを変化させることによって良い人工知能を作ろうとします．深層学習界隈では最急降下法によってパラメータは更新される場合が多いです．また，学習によって更新されるパラメータとは異なり，学習の前に人間が決めなければならないパラメータがありますが，これをハイパーパラメータと言います．ニューラルネットワークでは，活性化関数の種類であったり，各層のニューロンの数であったり，層の数であったりします．このハイパーパラメータすらも自動で最適化しようとする方法もあり，そういう方法を network architecture search（NAS）と言います．</p>
-<p><strong>★二乗誤差</strong></p>
+</div>
+<div class="section" id="id15">
+<h3><span class="section-number">1.2.10. </span>二乗誤差<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>あるベクトルとあるベクトルの距離です．</p>
-<p><strong>★ソフトマックス</strong></p>
+</div>
+<div class="section" id="id16">
+<h3><span class="section-number">1.2.11. </span>ソフトマックス<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>要素を合計すると1になるベクトルタイプのデータです．各要素の最小値は0です．これを出力する関数をソフトマックス関数と言います．入力ベクトルに対して入力ベクトルと同じ要素次元数のベクトル（ソフトマックス）を出力します．</p>
-<p><strong>★一括学習，逐次学習，ミニバッチ学習</strong></p>
+</div>
+<div class="section" id="id17">
+<h3><span class="section-number">1.2.12. </span>一括学習，逐次学習，ミニバッチ学習<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>一括学習はバッチ学習とも呼ばれます．人工知能を成長させるときにデータを全部読み込ませた後に初めてパラメータを更新します．逐次学習はオンライン学習とも呼ばれます．人工知能を成長させるときにデータを1個ずつ読み込ませ，その都度パラメータを更新する方法です．ミニバッチ学習は全データからあらかじめ決めた分のデータを読み込ませ，その度にパラメータを更新する方法です．ミニバッチ学習のミニバッチサイズが全データサイズと等しいならそれは一括学習で，ミニバッチサイズが1なら逐次学習です．</p>
-<p><strong>★早期終了</strong></p>
+</div>
+<div class="section" id="id18">
+<h3><span class="section-number">1.2.13. </span>早期終了<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>人工知能を成長させるときに，過学習（データへの過剰適合）が起こる前に学習を停止させることです．最もナイーブには，学習の最中に最も良い性能を示した値を記録しておき，その値を <span class="math notranslate nohighlight">\(n\)</span> 回連続で更新しなかった場合に学習を打ち切る方法があります．この <span class="math notranslate nohighlight">\(n\)</span> 回のことを patience と言います．</p>
 <p><strong>★オプティマイザ</strong></p>
-<p>最急降下法は最もナイーブな最適化法のひとつです．学習をより良く（学習の速さを良くするとか局所解に陥り難くするとか）進めるために様々な最適化法が考案されています．深層学習で用いられる最適化法は基本的には最急降下法を改善した方法です．そういったものをオプティマイザと言います．ここでは，世界で最も利用されているオプティマイザである Adam を紹介します．最初に，最急降下法の式を紹介します．</p>
-<p><span class="math notranslate nohighlight">\(\theta_{t+1}=\theta_t-\alpha g_t\)</span></p>
-<p>これに対して，世界で最も利用されているオプティマイザである Adam は以下のような更新式で定義されます．</p>
-<p><span class="math notranslate nohighlight">\(m_{t+1}=\beta_{1} m_t+(1-\beta_{1})g_t\)</span></p>
-<p><span class="math notranslate nohighlight">\(v_{t+1}=\beta_{2} v_t+(1-\beta_{2})g_t^2\)</span></p>
-<p><span class="math notranslate nohighlight">\(\hat{m}=\displaystyle\frac{m_{t+1}}{1-\beta_{1}^{t+1}}\)</span></p>
-<p><span class="math notranslate nohighlight">\(\hat{v}=\displaystyle\frac{v_{t+1}}{1-\beta_{2}^{t+1}}\)</span></p>
-<p><span class="math notranslate nohighlight">\(h=\alpha\displaystyle\frac{\hat{m}}{\sqrt{\hat{v}-\epsilon}}\)</span></p>
-<p><span class="math notranslate nohighlight">\(\theta_{t+1}=\theta_t-h\)</span></p>
-<p>ハイパーパラメータは以下の4つです．</p>
-<p><span class="math notranslate nohighlight">\(\alpha=0.001\)</span>，<span class="math notranslate nohighlight">\(\beta_{1}=0.9\)</span>，<span class="math notranslate nohighlight">\(\beta_{2}=0.999\)</span>，<span class="math notranslate nohighlight">\(\epsilon=10^{-6}\)</span></p>
-<p>また，Adam のパラメータの初期値として以下の値を用います．</p>
-<p><span class="math notranslate nohighlight">\(m_0=0\)</span>，<span class="math notranslate nohighlight">\(v_0=0\)</span></p>
-<p>Adam がやっていることは，勾配の平均値と分散の値を保存して，その値をうまく利用することで学習率を調整することです．例えば，下に凸である二次関数の曲線で言うと，極小値付近では勾配の値は正の値と負の値を行ったり来たりするはずです．そのような際には何ステップかに渡り記録した勾配の分散の値は大きくなるはずです．また，極小値付近においては勾配の値は小さな値となるはずです．よって，分母を勾配の分散にして，分子を勾配の平均値にした値は小さい値になります．これに対して学習率を掛けると得られる値は小さくなります．これが Adam における更新値であり <span class="math notranslate nohighlight">\(h\)</span> です．極小値付近ではパラメータ更新が緩やかになります．</p>
+<p>最急降下法は最もナイーブな最適化法のひとつです．学習をより良く（学習の速さを良くするとか局所解に陥り難くするとか）進めるために様々な最適化法が考案されています．深層学習で用いられる最適化法は基本的には最急降下法を改善した方法です．最急降下法やそういった最適化法のことをオプティマイザと言います．利用するオプティマイザによって学習の様子は劇的に変化します．以下の画像は停留点の中でも厄介な鞍点から，洗練されたオプティマイザがいかに早く抜け出せるかを動画にしたものです．</p>
 <img src="https://drive.google.com/uc?id=1eiSgnD5Y5HPHrgpIj5R4BCTifuKu77LK">
-<p>これは停留点の中でも厄介な鞍点から，洗練されたオプティマイザがいかに早く抜け出せるかを動画にしたものです．</p>
 <p>出典：<a class="reference external" href="https://rnrahman.com/">https://rnrahman.com/</a></p>
 <p>##2-1. <font color="Crimson">機械学習をする際の心構え</font></p>
 <p>###2-1-1. <font color="Crimson">データ分割の大切さ</font></p>
