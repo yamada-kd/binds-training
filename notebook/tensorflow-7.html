@@ -322,6 +322,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>このコンテンツの実行にグーグルコラボラトリーを使っておらず，自身の環境で Anaconda 等を利用している場合は気をつけてください．例えば，Anaconda を利用しているのであれば <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">huggingface</span> <span class="pre">transformers</span></code> のようなコマンドでインストールした方が良いです．</p>
+</div>
 <p>##2-2. <font color="Crimson">基本的な使い方</font></p>
 <p>###2-2-1. <font color="Crimson">感情分析</font></p>
 <p>最も簡単な <code class="docutils literal notranslate"><span class="pre">tranformers</span></code> の利用方法は以下のようになると思います．<code class="docutils literal notranslate"><span class="pre">pipeline</span></code> を読み込んで，そこに取り組みたいタスク（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．</p>
