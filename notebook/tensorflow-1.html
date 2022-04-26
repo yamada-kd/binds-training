@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6. TensorFlow の基本的な利用方法（未完成） &#8212; BINDSデータ科学演習</title>
+    <title>6. TensorFlow の基本的な利用方法 &#8212; BINDSデータ科学演習</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -154,7 +154,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   6. TensorFlow の基本的な利用方法（未完成）
+   6. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1">
@@ -299,6 +299,28 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   6.2. 最急降下法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     6.2.1. 単一の変数に対する勾配
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     6.2.2. 複数の変数に対する勾配
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     6.2.3. 最急降下法の実装
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -309,7 +331,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>TensorFlow の基本的な利用方法（未完成）</h1>
+                <h1>TensorFlow の基本的な利用方法</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -351,6 +373,28 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   6.2. 最急降下法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     6.2.1. 単一の変数に対する勾配
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     6.2.2. 複数の変数に対する勾配
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     6.2.3. 最急降下法の実装
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
                         </nav>
@@ -361,7 +405,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="tensorflow">
-<h1><span class="section-number">6. </span>TensorFlow の基本的な利用方法（未完成）<a class="headerlink" href="#tensorflow" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6. </span>TensorFlow の基本的な利用方法<a class="headerlink" href="#tensorflow" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2><span class="section-number">6.1. </span>基本操作<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>この節では TensorFlow の基本的な操作方法を紹介します．</p>
@@ -739,7 +783,13 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>###2-1-6. <font color="Crimson">勾配の計算</font></p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><span class="section-number">6.2. </span>最急降下法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>深層ニューラルネットワークのパラメータを更新するためには何らかの最適化法が利用されます．最も簡単な最適化法である最急降下法を実装します．</p>
+<div class="section" id="id8">
+<h3><span class="section-number">6.2.1. </span>単一の変数に対する勾配<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>深層学習法におけるアルゴリズムの中身を分解すると行列の掛け算と微分から構成されていることがわかります．TensorFlow はこの行列の掛け算と微分を行うライブラリです．自動微分機能を提供します．ここでは勾配の計算を紹介するため，以下の式を考えます．</p>
 <p><span class="math notranslate nohighlight">\(y = x^2 + 2\)</span></p>
 <p>これに対して以下の偏微分を計算することができます．</p>
@@ -766,6 +816,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">6.2.2. </span>複数の変数に対する勾配<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>上の程度の微分だとこの自動微分機能はさほど有難くないかもしれませんが，以下のような計算となると，そこそこ有難くなってきます．以下では，(1, 2) の行列 <code class="docutils literal notranslate"><span class="pre">ts</span></code> と (2, 2) の行列 <code class="docutils literal notranslate"><span class="pre">tt</span></code> と (2, 1) の行列 <code class="docutils literal notranslate"><span class="pre">tu</span></code> を順に掛けることで，最終的に (1, 1) の行列の値，スカラー値を得ますが，それを <code class="docutils literal notranslate"><span class="pre">tt</span></code> で微分した値を計算しています（<code class="docutils literal notranslate"><span class="pre">tt</span></code> で偏微分したので得られる行列のシェイプは <code class="docutils literal notranslate"><span class="pre">tt</span></code> と同じ）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -820,7 +873,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial w}\right|_{(v,w,x,y)=(2,4,6,8)}=2\)</span>，</p>
 <p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial x}\right|_{(v,w,x,y)=(2,4,6,8)}=4\)</span>，</p>
 <p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial y}\right|_{(v,w,x,y)=(2,4,6,8)}=1\)</span>．</p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(これにコスト関数と活性化関数付けて最急降下法やったらニューラルネットワークです．自動微分すごい．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>これにコスト関数と活性化関数付けて最急降下法やったらニューラルネットワークです．自動微分すごい．</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h3><span class="section-number">6.2.3. </span>最急降下法の実装<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>なぜ微分を求めたいかというと，勾配法（深層学習の場合，普通，最急降下法）でパラメータをアップデートしたいからです．以下では最急降下法を実装してみます．最急降下法は関数の最適化法です．ある関数に対して極小値（極大値）を計算するためのものです．以下のような手順で計算が進みます．</p>
 <ol class="simple">
 <li><p>初期パラメータ（<span class="math notranslate nohighlight">\(\theta_0\)</span>）をランダムに生成します．</p></li>
@@ -861,7 +920,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>5行目で最初のパラメータを発生させています．通常は乱数によってこの値を決めますが，ここでは上の図に合わせて1.6とします．次の6行目では，最初のエポック，更新値，学習率を定義します．エポックとは（ここでは）パラメータの更新回数のことを言います．7行目は終了条件です．以上のような凸関数においては勾配の値が0になる点が本当の最適値（正しくは停留点）ではありますが，計算機的にはパラメータを更新する値が大体0になったところで計算を打ち切ります．この場合，「大体0」を「0.001」としました．9行目は目的の関数，10行目で微分をしています．11行目は最急降下法で更新する値を計算しています．12行目の計算で <code class="docutils literal notranslate"><span class="pre">tx</span></code> をアップデートします．この12行目こそが上述の最急降下法の式です．</p>
-<p><font color="Crimson">(9｀･ω･)9 ｡oO(ここで最急降下法について説明しましたが，このような実装は TensorFlow を利用する際にする必要はありません．TensorFlow はこのような計算をしてくれる方法を提供してくれています．よって，ここの部分の意味が解らなかったとしても以降の部分は理解できます．)</font></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ここで最急降下法について説明しましたが，このような実装は TensorFlow を利用する際にする必要はありません．TensorFlow はこのような計算をしてくれる方法を提供してくれています．よって，ここの部分の意味が解らなかったとしても以降の部分は理解できます．</p>
+</div>
 <p>#3. <font color="Crimson">深層学習入門</font></p>
 <p>##3-1. <font color="Crimson">扱うデータの紹介</font></p>
 <p>###3-1-1. <font color="Crimson">MNIST について</font></p>
