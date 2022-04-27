@@ -269,39 +269,60 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id3">
    5.2. 階層的クラスタリング法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     5.2.1. 基本的な事柄
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#k-means">
-   5.3. K-means
+   5.3. K-means 法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     5.3.1. 基本的な事柄
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
+  <a class="reference internal nav-link" href="#id6">
    5.4. 主成分分析法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     5.4.1. 基本的な事柄
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
+  <a class="reference internal nav-link" href="#id8">
    5.5. カーネル密度推定法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id9">
      5.5.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id10">
      5.5.2. 発展的な利用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id11">
      5.5.3. 元の確率分布の推定
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id12">
      5.5.4. 生成モデルとしての利用
     </a>
    </li>
@@ -336,39 +357,60 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id3">
    5.2. 階層的クラスタリング法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     5.2.1. 基本的な事柄
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#k-means">
-   5.3. K-means
+   5.3. K-means 法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     5.3.1. 基本的な事柄
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
+  <a class="reference internal nav-link" href="#id6">
    5.4. 主成分分析法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     5.4.1. 基本的な事柄
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
+  <a class="reference internal nav-link" href="#id8">
    5.5. カーネル密度推定法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id9">
      5.5.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id10">
      5.5.2. 発展的な利用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id11">
      5.5.3. 元の確率分布の推定
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id12">
      5.5.4. 生成モデルとしての利用
     </a>
    </li>
@@ -408,20 +450,30 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id3">
 <h2><span class="section-number">5.2. </span>階層的クラスタリング法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>ほげ</p>
+<p>与えられたデータをクラスター化する階層的クラスタリング法の利用方法を紹介します．階層的クラスタリング法でクラスター化した各クラスターは階層構造を有します．</p>
+<div class="section" id="id4">
+<h3><span class="section-number">5.2.1. </span>基本的な事柄<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="k-means">
-<h2><span class="section-number">5.3. </span>K-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
-<p>ほげ</p>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">5.4. </span>主成分分析法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>ほげ</p>
-</div>
+<h2><span class="section-number">5.3. </span>K-means 法<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
+<p>階層的クラスタリングと異なり K-means 法は非階層的にデータをクラスター化する手法です．</p>
 <div class="section" id="id5">
-<h2><span class="section-number">5.5. </span>カーネル密度推定法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">5.3.1. </span>基本的な事柄<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
 <div class="section" id="id6">
-<h3><span class="section-number">5.5.1. </span>基本的な事柄<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">5.4. </span>主成分分析法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>主成分分析法の進め方を紹介します．</p>
+<div class="section" id="id7">
+<h3><span class="section-number">5.4.1. </span>基本的な事柄<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">5.5. </span>カーネル密度推定法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>カーネル密度推定法の利用方法を紹介します．簡単な利用方法に加えて生成モデルとして利用する方法を紹介します．</p>
+<div class="section" id="id9">
+<h3><span class="section-number">5.5.1. </span>基本的な事柄<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．<span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n\)</span> を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 <span class="math notranslate nohighlight">\(f\)</span> は以下のように計算されます．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
@@ -435,8 +487,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>このカーネルのことはガウシアンカーネルとも言いますね．</p>
 </div>
 </div>
-<div class="section" id="id7">
-<h3><span class="section-number">5.5.2. </span>発展的な利用方法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">5.5.2. </span>発展的な利用方法<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>昨今の深層学習ブームで専ら利用されている深層ニューラルネットワークは通常たくさんのハイパーパラメータを持ちます．良いハイパーパラメータを同定することは良い人工知能を構築するために重要なことであるため，その探索方法の開発が活発です．ブルートフォース（しらみつぶし）な探索，ランダムな探索，手動による探索，進化戦略法を利用した探索，ベイズ探索等の様々な方法が利用されていますが，その中でも最も有効なもののひとつに代理モデルを利用した逐次最適化法（sequential model-based optimization（SMBO））と呼ばれるベイズ最適化法の範疇に入る方法があります．ハイパーパラメータが従うであろう分布を推定して（この推定した分布を代理モデルと言います），その分布から予想したハイパーパラメータを利用して構築した人工知能の評価を行い，さらにその評価結果から分布の推定を繰り返す，というようなハイパーパラメータの従う分布の推定と人工知能の評価を交互に繰り返すことで最適なハイパーパラメータを持つ人工知能を同定しようとする方法です．この SMBO を行う際の代理モデルの構築にカーネル密度推定法が利用されることがあります．そして，カーネル密度推定法を利用した SMBO は従来の代理モデルの推定法（例えば，ガウス過程回帰法）より良い性能を示すことがあります．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -447,8 +499,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>ハイパーパラメータの最適化は深層学習の分野で最も重要なトピックのひとつなので紹介してみました．</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h3><span class="section-number">5.5.3. </span>元の確率分布の推定<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">5.5.3. </span>元の確率分布の推定<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>ここでは，母数の異なるふたつの正規分布からいくつかのインスタンスをサンプリングして，そのサンプリングしたデータから元の正規分布ふたつからなる二峰性の確率分布を再現できるかということを試します．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -533,8 +585,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>サンプリングしたインスタンスを使って予測した分布の形状と元の分布の形状が類似している様子がわかります．</p>
 </div>
 </div>
-<div class="section" id="id9">
-<h3><span class="section-number">5.5.4. </span>生成モデルとしての利用<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">5.5.4. </span>生成モデルとしての利用<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は何もないところからデータを生成する生成モデルとして利用することができます．何らかのデータを入力にしてそのデータが出力される確率分布をカーネル密度推定法で推定します．次に，その確率密度分布に基づいてデータを生成する，といった手順です．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -562,7 +614,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>これは5ですね．</p>
 </div>
-<p>以下のようにすることで新たな画像データを生成することができます．<code class="docutils literal notranslate"><span class="pre">.sample()</span></code> というメソッドで新たなデータを生成することができます．</p>
+<p>以下のようにすることで新たな画像データを生成することができます．学習済みの生成器に対して利用する <code class="docutils literal notranslate"><span class="pre">.sample()</span></code> というメソッドで新たなデータを生成することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -591,7 +643,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>左から，2，1，1，6という画像が生成されているように見えます．</p>
+<p>左から，「2」，「1」，「1」，「6」という画像が生成されているように見えます．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
