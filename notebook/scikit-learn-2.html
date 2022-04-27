@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. TensorFlow の基本的な利用方法" href="tensorflow-1.html" />
@@ -375,7 +377,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="scikit-learn">
 <h2><span class="section-number">5.2. </span>scikit-learn による実装<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
-<p>この節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的なもの），主成分分析法，カーネル密度推定法を実装します．</p>
+<p>この節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的な手法），主成分分析法，カーネル密度推定法を実装します．</p>
 <div class="section" id="id3">
 <h3><span class="section-number">5.2.1. </span>階層的クラスタリング法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
@@ -390,7 +392,33 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id5">
 <h3><span class="section-number">5.2.4. </span>カーネル密度推定法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>ほげ</p>
+<p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．<span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n\)</span> を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 <span class="math notranslate nohighlight">\(f\)</span> は以下のように計算されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
+\)</span></p>
+<p>このとき，<span class="math notranslate nohighlight">\(K\)</span> はカーネル関数と呼ばれる確率分布を近似するための関数で，<span class="math notranslate nohighlight">\(h\)</span> はバンド幅と呼ばれるハイパーパラメータです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 予測器を生成．ここも乱数の種に注意．</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span> <span class="c1"># 学習．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testx</span><span class="p">))</span> <span class="c1"># テストデータセットの入力データを予測器に入れて結果を予測．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">testt</span><span class="p">)</span> <span class="c1"># 教師データ．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
