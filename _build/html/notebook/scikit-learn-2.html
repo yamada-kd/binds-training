@@ -285,9 +285,31 @@ const thebe_selector_output = ".output, .cell_output"
      5.2.3. 主成分分析法
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   5.3. カーネル密度推定法
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     5.2.4. カーネル密度推定法
+    <a class="reference internal nav-link" href="#id6">
+     5.3.1. 基本的な事柄
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     5.3.2. 発展的な利用方法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     5.3.3. 元の確率分布の推定
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     5.3.4. 画像の生成
     </a>
    </li>
   </ul>
@@ -337,9 +359,31 @@ const thebe_selector_output = ".output, .cell_output"
      5.2.3. 主成分分析法
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   5.3. カーネル密度推定法
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     5.2.4. カーネル密度推定法
+    <a class="reference internal nav-link" href="#id6">
+     5.3.1. 基本的な事柄
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     5.3.2. 発展的な利用方法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     5.3.3. 元の確率分布の推定
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     5.3.4. 画像の生成
     </a>
    </li>
   </ul>
@@ -390,8 +434,11 @@ const thebe_selector_output = ".output, .cell_output"
 <h3><span class="section-number">5.2.3. </span>主成分分析法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
 </div>
+</div>
 <div class="section" id="id5">
-<h3><span class="section-number">5.2.4. </span>カーネル密度推定法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">5.3. </span>カーネル密度推定法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3><span class="section-number">5.3.1. </span>基本的な事柄<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．<span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n\)</span> を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 <span class="math notranslate nohighlight">\(f\)</span> は以下のように計算されます．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
@@ -404,6 +451,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>このカーネルのことはガウシアンカーネルとも言いますね．</p>
 </div>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">5.3.2. </span>発展的な利用方法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">5.3.3. </span>元の確率分布の推定<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">5.3.4. </span>画像の生成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
