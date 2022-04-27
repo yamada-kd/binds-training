@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="7. 多層パーセプトロン" href="tensorflow-2.html" />
@@ -475,7 +477,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>一様分布に従う乱数を生成したい場合には以下のようにします．一様分布の母数（パラメータ）は最小値と最大値です．ここでは，最小値が-1で最大値が1の一様分布 $U(-1,1)$ に従う乱数を生成します．</p>
+<p>一様分布に従う乱数を生成したい場合には以下のようにします．一様分布の母数（パラメータ）は最小値と最大値です．ここでは，最小値が-1で最大値が1の一様分布 <span class="math notranslate nohighlight">\(U(-1,1)\)</span> に従う乱数を生成します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -782,11 +784,11 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id8">
 <h3><span class="section-number">6.2.1. </span>単一の変数に対する勾配<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>深層学習法におけるアルゴリズムの中身を分解すると行列の掛け算と微分から構成されていることがわかります．TensorFlow はこの行列の掛け算と微分を行うライブラリです．自動微分機能を提供します．ここでは勾配の計算を紹介するため，以下の式を考えます．</p>
-<p>$y = x^2 + 2$</p>
+<p><span class="math notranslate nohighlight">\(y = x^2 + 2\)</span></p>
 <p>これに対して以下の偏微分を計算することができます．</p>
-<p>$\dfrac{\partial y}{\partial x} = 2x$</p>
-<p>よって $x=5$ のときの偏微分係数は以下のように計算できます．</p>
-<p>$\left.\dfrac{\partial y}{\partial x}\right|_{x=5}=10$</p>
+<p><span class="math notranslate nohighlight">\(\dfrac{\partial y}{\partial x} = 2x\)</span></p>
+<p>よって <span class="math notranslate nohighlight">\(x=5\)</span> のときの偏微分係数は以下のように計算できます．</p>
+<p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial y}{\partial x}\right|_{x=5}=10\)</span></p>
 <p>これを TensorFlow で実装すると以下のように書けます．微分は10行目のように <code class="docutils literal notranslate"><span class="pre">tape.gradient()</span></code> によって行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -835,35 +837,35 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>これは以下のような計算をしています．<code class="docutils literal notranslate"><span class="pre">tf.Variable()</span></code> で定義される行列は以下です：</p>
-<p>$
-t = \left[
-\begin{array}{cc}
-v &amp; w \
-x &amp; y \
-\end{array}
-\right]
-$．</p>
+<p><span class="math notranslate nohighlight">\(
+  t = \left[
+    \begin{array}{cc}
+      v &amp; w \\
+      x &amp; y \\
+    \end{array}
+  \right]
+\)</span>．</p>
 <p>また，<code class="docutils literal notranslate"><span class="pre">tf.constant()</span></code> で定義される行列は以下です：</p>
-<p>$s = \left[
-\begin{array}{cc}
-2 &amp; 1 \
-\end{array}
-\right]
-$，</p>
-<p>$u = \left[
-\begin{array}{c}
-4 \
-1
-\end{array}
-\right]
-$．</p>
+<p><span class="math notranslate nohighlight">\(s = \left[
+    \begin{array}{cc}
+      2 &amp; 1 \\
+    \end{array}
+  \right]
+\)</span>，</p>
+<p><span class="math notranslate nohighlight">\(u = \left[
+    \begin{array}{c}
+      4 \\
+      1
+    \end{array}
+  \right]
+\)</span>．</p>
 <p>これに対して11行目の計算で得られる値は以下です：</p>
-<p>$z(v,w,x,y) = 8v+2w+4x+y$．</p>
+<p><span class="math notranslate nohighlight">\(z(v,w,x,y) = 8v+2w+4x+y\)</span>．</p>
 <p>よってこれらを偏微分して，それぞれの変数がプログラム中で定義される値のときの値は以下のように計算されます：</p>
-<p>$\left.\dfrac{\partial z}{\partial v}\right|_{(v,w,x,y)=(2,4,6,8)}=8$，</p>
-<p>$\left.\dfrac{\partial z}{\partial w}\right|_{(v,w,x,y)=(2,4,6,8)}=2$，</p>
-<p>$\left.\dfrac{\partial z}{\partial x}\right|_{(v,w,x,y)=(2,4,6,8)}=4$，</p>
-<p>$\left.\dfrac{\partial z}{\partial y}\right|_{(v,w,x,y)=(2,4,6,8)}=1$．</p>
+<p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial v}\right|_{(v,w,x,y)=(2,4,6,8)}=8\)</span>，</p>
+<p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial w}\right|_{(v,w,x,y)=(2,4,6,8)}=2\)</span>，</p>
+<p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial x}\right|_{(v,w,x,y)=(2,4,6,8)}=4\)</span>，</p>
+<p><span class="math notranslate nohighlight">\(\left.\dfrac{\partial z}{\partial y}\right|_{(v,w,x,y)=(2,4,6,8)}=1\)</span>．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>これにコスト関数と活性化関数付けて最急降下法やったらニューラルネットワークです．自動微分すごい．</p>
@@ -873,20 +875,20 @@ $．</p>
 <h3><span class="section-number">6.2.3. </span>最急降下法の実装<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>なぜ微分を求めたいかというと，勾配法（深層学習の場合，普通，最急降下法）でパラメータをアップデートしたいからです．以下では最急降下法を実装してみます．最急降下法は関数の最適化法です．ある関数に対して極小値（極大値）を計算するためのものです．以下のような手順で計算が進みます．</p>
 <ol class="simple">
-<li><p>初期パラメータ（$\theta_0$）をランダムに生成します．</p></li>
-<li><p>もしパラメータ（$\theta_t$）が最適値または，最適値に近いなら計算をやめます．ここで，$t$ は以下の繰り返しにおける $t$ 番目のパラメータです．</p></li>
-<li><p>パラメータを以下の式によって更新し，かつ，$t$ の値を $1$ だけ増やします．ここで，$\alpha$ は学習率と呼ばれる更新の大きさを決める値で，$g_t$ は $t$ のときの目的の関数の勾配です．<br>
-$\theta_{t+1}=\theta_t-\alpha g_t$</p></li>
+<li><p>初期パラメータ（<span class="math notranslate nohighlight">\(\theta_0\)</span>）をランダムに生成します．</p></li>
+<li><p>もしパラメータ（<span class="math notranslate nohighlight">\(\theta_t\)</span>）が最適値または，最適値に近いなら計算をやめます．ここで，<span class="math notranslate nohighlight">\(t\)</span> は以下の繰り返しにおける <span class="math notranslate nohighlight">\(t\)</span> 番目のパラメータです．</p></li>
+<li><p>パラメータを以下の式によって更新し，かつ，<span class="math notranslate nohighlight">\(t\)</span> の値を <span class="math notranslate nohighlight">\(1\)</span> だけ増やします．ここで，<span class="math notranslate nohighlight">\(\alpha\)</span> は学習率と呼ばれる更新の大きさを決める値で，<span class="math notranslate nohighlight">\(g_t\)</span> は <span class="math notranslate nohighlight">\(t\)</span> のときの目的の関数の勾配です．<br>
+<span class="math notranslate nohighlight">\(\theta_{t+1}=\theta_t-\alpha g_t\)</span></p></li>
 <li><p>ステップ2と3を繰り返します．</p></li>
 </ol>
 <p>ここでは以下の関数を考えます．</p>
-<p>$y=(x+1)^2+2$</p>
+<p><span class="math notranslate nohighlight">\(y=(x+1)^2+2\)</span></p>
 <p>初期パラメータを以下のように決めます（実際にはランダムに決める）．</p>
-<p>$x_0=1.6$</p>
-<p>この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち $x$ が $-1$ のとき，極小値 $y=2$ です．</p>
+<p><span class="math notranslate nohighlight">\(x_0=1.6\)</span></p>
+<p>この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち <span class="math notranslate nohighlight">\(x\)</span> が <span class="math notranslate nohighlight">\(-1\)</span> のとき，極小値 <span class="math notranslate nohighlight">\(y=2\)</span> です．</p>
 <p>最急降下法で解くと，以下の図のようになります．最急降下法は解析的に解くことが難しい問題を正解の方向へ少しずつ反復的に動かしていく方法です．</p>
 <a class="reference internal image-reference" href="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR"><img alt="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR" src="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR" style="width: 70%;" /></a>
-<p>これを TensorFlow を用いて実装すると以下のようになります．出力中，<code class="docutils literal notranslate"><span class="pre">Objective</span></code> は目的関数の値，<code class="docutils literal notranslate"><span class="pre">Solution</span></code> はその時点での解です．最終的に $x=-0.9968\simeq-1$ のとき，最適値 $y=2$ が出力されています．</p>
+<p>これを TensorFlow を用いて実装すると以下のようになります．出力中，<code class="docutils literal notranslate"><span class="pre">Objective</span></code> は目的関数の値，<code class="docutils literal notranslate"><span class="pre">Solution</span></code> はその時点での解です．最終的に <span class="math notranslate nohighlight">\(x=-0.9968\simeq-1\)</span> のとき，最適値 <span class="math notranslate nohighlight">\(y=2\)</span> が出力されています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
