@@ -47,7 +47,7 @@
 
 # ### 基本的な事柄
 
-# <img src="fig/pca_01icecream-shop.svg" width="70%" />
+# <img src="image/pca_01.svg" width="70%" />
 
 # ## カーネル密度推定法
 
