@@ -71,7 +71,89 @@
 
 # ### 元の確率分布の推定
 
-# 
+# ここでは，母数の異なるふたつの正規分布からいくつかのインスタンスをサンプリングして，そのサンプリングしたデータから元の正規分布ふたつからなる二峰性の確率分布を再現できるかということを試します．
+
+# ```{hint}
+# 正規分布の母数（パラメータ）は平均値と分散ですね．母数の値が決まればそれに対応する正規分布の形状は一意に決まるのですね．
+# ```
+
+# 以下のコードで $N(-3, 1.5)$ と $N(-3, 2)$ の正規分布を描画します．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+ 
+def main():
+    x = np.linspace(-8, 8, 100)
+    y = (norm.pdf(x, loc=2, scale=1.5) + norm.pdf(x, loc=-3, scale=2)) / 2
+    plt.plot(x, y)
+
+if __name__ == "__main__":
+    main()
+
+
+# 次に，以下のコードで $N(-3, 1.5)$ に従う50個のインスタンスと $N(-3, 2)$ に従う50個のインスタンスをサンプリングします．また，そのヒストグラムを描きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+np.random.seed(0)
+ 
+def main():
+    x1 = norm.rvs(loc=2, scale=1.5, size=50)
+    plt.hist(x1)
+    x2 = norm.rvs(loc=-3, scale=2, size=50)
+    plt.hist(x2)
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{attention}
+# 計算機実験をする際は乱数の種は固定しなきゃならないのでしたね．
+# ```
+
+# カーネル密度推定は以下のように行います．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+from scipy.stats import norm
+from sklearn.neighbors import KernelDensity
+import matplotlib.pyplot as plt
+np.random.seed(0)
+ 
+def main():
+    x1 = norm.rvs(loc=2, scale=1.5, size=1000)
+    x2 = norm.rvs(loc=-3, scale=2, size=1000)
+    x = np.concatenate([x1, x2]) # x1とx2を連結します
+    x = x.reshape(-1, 1) # このような入力形式にしないと受け付けてくれないからこうしました．
+    kde = KernelDensity(kernel="gaussian", bandwidth=0.4).fit(x) # ハンド幅は適当に選んでみました．
+    p = np.linspace(-8, 8, 100)[:, np.newaxis] # プロット用の値を生成しています．
+    l = kde.score_samples(p) # これで予測値を計算します．
+    plt.plot(p, np.exp(l)) # 予測値は対数値で出力されているのでそれをnp.exp()を利用してプロットします．
+    y = (norm.pdf(p, loc=2, scale=1.5) + norm.pdf(p, loc=-3, scale=2)) / 2 # 元の分布です．
+    plt.plot(p, y)
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# サンプリングしたインスタンスを使って予測した分布の形状と元の分布の形状が類似している様子がわかります．
+# ```
 
 # ### 画像の生成
 
