@@ -25,7 +25,7 @@
 
 # ## scikit-learn による実装
 
-# この節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的なもの），主成分分析法，カーネル密度推定法を実装します．
+# この節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的な手法），主成分分析法，カーネル密度推定法を実装します．
 
 # ### 階層的クラスタリング法
 
@@ -41,7 +41,34 @@
 
 # ### カーネル密度推定法
 
-# ほげ
+# カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．$x_1, x_2, \dots, x_n$ を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 $f$ は以下のように計算されます．
+# 
+# $
+# \displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
+# $
+# 
+# このとき，$K$ はカーネル関数と呼ばれる確率分布を近似するための関数で，$h$ はバンド幅と呼ばれるハイパーパラメータです．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+ 
+def main():
+    diris = load_iris()
+    learnx, testx, learnt, testt = train_test_split(diris.data, diris.target, test_size = 0.2, random_state = 0)
+    predictor = DecisionTreeClassifier(random_state=0) # 予測器を生成．ここも乱数の種に注意．
+    predictor.fit(learnx, learnt) # 学習．
+    print(predictor.predict(testx)) # テストデータセットの入力データを予測器に入れて結果を予測．
+    print(testt) # 教師データ．
+
+if __name__ == "__main__":
+    main()
+
 
 # ```{note}
 # 終わりです．
