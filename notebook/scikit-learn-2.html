@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. TensorFlow の基本的な利用方法" href="tensorflow-1.html" />
@@ -485,14 +487,14 @@ const thebe_selector_output = ".output, .cell_output"
 <p>カーネル密度推定法の利用方法を紹介します．簡単な利用方法に加えて生成モデルとして利用する方法を紹介します．</p>
 <div class="section" id="id9">
 <h3><span class="section-number">5.5.1. </span>基本的な事柄<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．$x_1, x_2, \dots, x_n$ を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 $f$ は以下のように計算されます．</p>
-<p>$
+<p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．<span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n\)</span> を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 <span class="math notranslate nohighlight">\(f\)</span> は以下のように計算されます．</p>
+<p><span class="math notranslate nohighlight">\(
 \displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
-$</p>
-<p>このとき，$K$ はカーネル関数と呼ばれる確率分布を近似するための関数で，$h$ はバンド幅と呼ばれるハイパーパラメータです．カーネル関数として利用される関数には様々なものがありますが，以下の標準正規分布（平均値が0で分散が1である正規分布）の確率密度関数を利用することが多いです．</p>
-<p>$
+\)</span></p>
+<p>このとき，<span class="math notranslate nohighlight">\(K\)</span> はカーネル関数と呼ばれる確率分布を近似するための関数で，<span class="math notranslate nohighlight">\(h\)</span> はバンド幅と呼ばれるハイパーパラメータです．カーネル関数として利用される関数には様々なものがありますが，以下の標準正規分布（平均値が0で分散が1である正規分布）の確率密度関数を利用することが多いです．</p>
+<p><span class="math notranslate nohighlight">\(
 \displaystyle K(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
-$</p>
+\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>このカーネルのことはガウシアンカーネルとも言いますね．</p>
@@ -517,7 +519,7 @@ $</p>
 <p class="admonition-title">Hint</p>
 <p>正規分布の母数（パラメータ）は平均値と分散ですね．母数の値が決まればそれに対応する正規分布の形状は一意に決まるのですね．</p>
 </div>
-<p>以下のコードで $N(-3, 1.5)$ と $N(-3, 2)$ の正規分布を描画します．</p>
+<p>以下のコードで <span class="math notranslate nohighlight">\(N(-3, 1.5)\)</span> と <span class="math notranslate nohighlight">\(N(-3, 2)\)</span> の正規分布を描画します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -537,7 +539,7 @@ $</p>
 </div>
 </div>
 </div>
-<p>次に，以下のコードで $N(-3, 1.5)$ に従う50個のインスタンスと $N(-3, 2)$ に従う50個のインスタンスをサンプリングします．また，そのヒストグラムを描きます．</p>
+<p>次に，以下のコードで <span class="math notranslate nohighlight">\(N(-3, 1.5)\)</span> に従う50個のインスタンスと <span class="math notranslate nohighlight">\(N(-3, 2)\)</span> に従う50個のインスタンスをサンプリングします．また，そのヒストグラムを描きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>

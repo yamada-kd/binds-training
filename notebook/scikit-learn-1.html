@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. 教師なし学習法（編集中）" href="scikit-learn-2.html" />
@@ -803,10 +805,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id12">
 <h3><span class="section-number">4.4.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは $w_1$，$w_2$，$w_3$，$b$ です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
-<p>$
+<p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは <span class="math notranslate nohighlight">\(w_1\)</span>，<span class="math notranslate nohighlight">\(w_2\)</span>，<span class="math notranslate nohighlight">\(w_3\)</span>，<span class="math notranslate nohighlight">\(b\)</span> です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
+<p><span class="math notranslate nohighlight">\(
 f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
-$</p>
+\)</span></p>
 <p>機械学習アルゴリズムは学習の過程においてパラメータの値を変化させます．これに対して，学習によって決定されないパラメータをハイパーパラメータと言います．例えば，決定木においてはその分岐の深さをあらかじめ決めて分岐の仕方を学習させることができますが，これはハイパーパラメータのひとつです．また，機械学習アルゴリズムに持たせるパラメータのサイズもハイパーパラメータであるし，そのパラメータを学習させる最適化法もハイパーパラメータと言えます．このようなハイパーパラメータは各機械学習アルゴリズムが固有に持っているものです．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
