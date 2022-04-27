@@ -51,8 +51,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. 教師なし学習法（編集中）" href="scikit-learn-2.html" />
@@ -495,8 +493,8 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 <p>最初の行に表示されている <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4,</span> <span class="pre">0.2]</span></code> が最初のデータです．4個の要素からなるベクトルデータです．このような4個の要素からなるインスタンスが150個あります．すべてのインスタンスの後に表示されている target という項目がありますが，これは，各インスタンスがどのアヤメの種類に属しているかを示しています．アヤメには種類があるらしく，<code class="docutils literal notranslate"><span class="pre">0</span></code> は setosa，<code class="docutils literal notranslate"><span class="pre">1</span></code> は versicolor，<code class="docutils literal notranslate"><span class="pre">2</span></code> は virginica という種類を意味しています．それぞれ均等にデータが取得されており，全部で150個のインスタンスの内，50個が setosa，別の50個が versicolor，残りの50個が virginica です．各インスタンスは4個の要素からなるベクトルデータであることを紹介しましたが，各要素はそのインスタンスの属性（アトリビュート）と言います．このデータの場合，最初の要素は咢の長さです．咢というのは以下の写真の茎ではない緑色の部分を示すものらしいです．単位は cm です．次の要素は咢の幅，次の要素は花弁（花びら）の長さ，最後の要素は花弁の幅です．どれも単位は cm です．</p>
-<img src="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1" width="20%">
-<p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
+<a class="reference internal image-reference" href="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1"><img alt="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1" src="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1" style="width: 20%;" /></a>
+<p>出典：https://ja.wikipedia.org/</p>
 <p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
 </div>
 <div class="section" id="id4">
@@ -733,7 +731,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>このように Scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．Scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
+<p>このように Scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．Scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は https://scikit-learn.org/stable/supervised_learning.html にまとめられています．</p>
 </div>
 </div>
 <div class="section" id="id10">
@@ -805,10 +803,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id12">
 <h3><span class="section-number">4.4.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは <span class="math notranslate nohighlight">\(w_1\)</span>，<span class="math notranslate nohighlight">\(w_2\)</span>，<span class="math notranslate nohighlight">\(w_3\)</span>，<span class="math notranslate nohighlight">\(b\)</span> です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
-<p><span class="math notranslate nohighlight">\(
+<p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは $w_1$，$w_2$，$w_3$，$b$ です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
+<p>$
 f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
-\)</span></p>
+$</p>
 <p>機械学習アルゴリズムは学習の過程においてパラメータの値を変化させます．これに対して，学習によって決定されないパラメータをハイパーパラメータと言います．例えば，決定木においてはその分岐の深さをあらかじめ決めて分岐の仕方を学習させることができますが，これはハイパーパラメータのひとつです．また，機械学習アルゴリズムに持たせるパラメータのサイズもハイパーパラメータであるし，そのパラメータを学習させる最適化法もハイパーパラメータと言えます．このようなハイパーパラメータは各機械学習アルゴリズムが固有に持っているものです．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -880,8 +878,8 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 <div class="section" id="id13">
 <h3><span class="section-number">4.4.3. </span>方法の選択<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを Scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
-<img src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" width="80%">
-<p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
+<a class="reference internal image-reference" href="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H"><img alt="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" style="width: 80%;" /></a>
+<p>出典：https://scikit-learn.org/</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
