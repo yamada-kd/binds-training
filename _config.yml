@@ -38,3 +38,7 @@ launch_buttons:
   notebook_interface        : "jupyterlab"
   colab_url: "https://colab.research.google.com" # The URL of Google Colab (https://colab.research.google.com)
   binderhub_url: ""
+
+parse:
+  myst_enable_extensions:
+    - html_image
