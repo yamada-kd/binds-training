@@ -155,28 +155,66 @@ if __name__ == "__main__":
 # サンプリングしたインスタンスを使って予測した分布の形状と元の分布の形状が類似している様子がわかります．
 # ```
 
-# ### 画像の生成
+# ### 生成モデルとしての利用
+
+# カーネル密度推定法は何もないところからデータを生成する生成モデルとして利用することができます．何らかのデータを入力にしてそのデータが出力される確率分布をカーネル密度推定法で推定します．次に，その確率密度分布に基づいてデータを生成する，といった手順です．
+
+# ```{hint}
+# 与えられたデータが出力された確率分布を推定できたのなら，その分布から新たなデータは当然出力することができるよねという仕組みです．
+# ```
+
+# ここでは機械学習界隈で最も有名なデータセットである MNIST（Mixed National Institute of Standards and Technology database）を解析対象に用います．「エムニスト」と発音します．MNIST は縦横28ピクセル，合計784ピクセルよりなる画像データです．画像には手書きの一桁の数字（0から9）が含まれています．公式ウェブサイトでは，学習データセット6万個とテストデータセット1万個，全部で7万個の画像からなるデータセットが無償で提供されています．そのデータセットを以下のようにダウンロードして最初のデータを可視化します．
 
 # In[ ]:
 
 
 #!/usr/bin/env python3
-import sklearn
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
- 
+import tensorflow as tf
+import matplotlib.pyplot as plt
+
 def main():
-    diris = load_iris()
-    learnx, testx, learnt, testt = train_test_split(diris.data, diris.target, test_size = 0.2, random_state = 0)
-    predictor = DecisionTreeClassifier(random_state=0) # 予測器を生成．ここも乱数の種に注意．
-    predictor.fit(learnx, learnt) # 学習．
-    print(predictor.predict(testx)) # テストデータセットの入力データを予測器に入れて結果を予測．
-    print(testt) # 教師データ．
+    (x, _), (_, _) = tf.keras.datasets.mnist.load_data()
+    plt.imshow(x[0], cmap="gray")
+    plt.axis("off")
+
+if __name__ == "__main__":
+	main()
+
+
+# ```{note}
+# これは5ですね．
+# ```
+
+# 以下のようにすることで新たな画像データを生成することができます．`.sample()` というメソッドで新たなデータを生成することができます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+import sklearn
+from sklearn.neighbors import KernelDensity
+import matplotlib.pyplot as plt
+import tensorflow as tf
+np.random.seed(0)
+
+def main():
+    (x, _), (_, _) = tf.keras.datasets.mnist.load_data()
+    x = x.reshape(-1, 28*28) # 縦横どちらも28ピクセルの画像を784の要素からなるベクトルに変換します．
+    kde = KernelDensity().fit(x)
+    g = kde.sample(4) # 学習済みの生成器で4個の画像を生成させてみます．
+    plt.figure(figsize=(10,10))
+    for i in range(len(g)): # 生成データの可視化です．
+        s = g[i].reshape(28, 28)
+        plt.subplot(1, 4, i+1)
+        plt.imshow(s, cmap="gray")
+        plt.axis("off")
 
 if __name__ == "__main__":
     main()
 
+
+# 左から，2，1，1，6という画像が生成されているように見えます．
 
 # ```{note}
 # 終わりです．
