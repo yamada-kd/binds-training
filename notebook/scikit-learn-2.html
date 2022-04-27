@@ -465,7 +465,19 @@ const thebe_selector_output = ".output, .cell_output"
 <p>主成分分析法の進め方を紹介します．</p>
 <div class="section" id="id7">
 <h3><span class="section-number">5.4.1. </span>基本的な事柄<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>与えられたデータに対して主成分分析を行う理由は，人が目で見て理解するには複雑なデータを人が理解しやすい形式に整えたいためです．4個以上の要素からなるベクトル形式のデータを2個または3個の要素からなるベクトル形式のデータに変換し2次元または3次元平面上にインスタンスをプロットすることでデータの関連性を明らかにすることができます．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>次元削減と言います．</p>
+</div>
+<p>主成分分析で行っていることはちょうど以下のような作業です．左に示されている2次元平面上にプロットされた点を右に示されているように1次元平面上にプロットしています．</p>
 <a class="reference internal image-reference" href="../_images/pca_01.svg"><img alt="../_images/pca_01.svg" src="../_images/pca_01.svg" width="70%" /></a>
+<p>ただし，主成分分析で行いたいことは以下のような次元削減ではありません．以下のようにすると変換後の軸上のインスタンスが互いに重なっており，かなりの情報が失われているように思えます．</p>
+<a class="reference internal image-reference" href="../_images/pca_01.svg"><img alt="../_images/pca_01.svg" src="../_images/pca_01.svg" width="70%" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>主成分分析では元の情報をできるだけ維持したままデータの変換をしようとします．この例において新たに生成される軸はこのデータを説明するための情報量が最も大きい方向に設定されます．情報量が最も大きい方向とはデータが最も散らばっている（分散が大きい）方向です．</p>
+</div>
 </div>
 </div>
 <div class="section" id="id8">
