@@ -47,10 +47,10 @@
 
 # ### 基本的な事柄
 
-# 与えられたデータに対して主成分分析を行う理由は，人が目で見て理解するには複雑なデータを人が理解しやすい形式に整えたいためです．4個以上の要素からなるベクトル形式のデータを2個または3個の要素からなるベクトル形式のデータに変換し2次元または3次元平面上にインスタンスをプロットすることでデータの関連性を明らかにすることができます．
+# 与えられたデータに対して主成分分析を行う理由は，人が目で見て理解するには複雑なデータを人が理解しやすい形式に整えたいためです．4個以上の要素からなるベクトル形式のデータを2個または3個（または稀に1個）の要素からなるベクトル形式のデータに変換し2次元または3次元（または1次元）平面上にインスタンスをプロットし直すことでデータの関連性を把握することができます．
 
 # ```{note}
-# 次元削減と言います．
+# この変換を次元削減と言います．
 # ```
 
 # 主成分分析で行っていることはちょうど以下のような作業です．左に示されている2次元平面上にプロットされた点を右に示されているように1次元平面上にプロットしています．
@@ -64,6 +64,94 @@
 # ```{note}
 # 主成分分析では元の情報をできるだけ維持したままデータの変換をしようとします．この例において新たに生成される軸はこのデータを説明するための情報量が最も大きい方向に設定されます．情報量が最も大きい方向とはデータが最も散らばっている（分散が大きい）方向です．
 # ```
+
+# ### 主成分分析法の限界
+
+# 主成分分析は変数を元の変数の線形結合で表される新たな変数へと変換させる方法です．元々何らかの非線形平面で関係を持っていたデータを別の平面へと変換した場合において，元々の非線形な関係性が維持されているとは限りません．非線形な関係を含めて次元削減をしたい場合は他の方法を利用する方法があります．主成分分析法を非線形で行う方法には非線形カーネル関数を利用したカーネル主成分分析法があります．scikit-learn でも利用することが可能です．
+
+# ### 次元の削減
+
+# アヤメのデータセットに対して次元の削減を行います．以下のようにこのデータセットにおける各インスタンスは4個の要素からなるベクトル形式のデータです．よってこれを4次元平面上にプロットしたとしてもその関係性を人は理解できません．
+
+# ```{note}
+# そもそも4次元平面なんて描画できませんね．
+# ```
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_iris
+ 
+def main():
+    diris = load_iris()
+    print(diris.data[0])
+
+if __name__ == "__main__":
+    main()
+
+
+# 主成分分析は以下のように行います．主成分分析で得られた全インスタンス（150個）の値を出力させます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+ 
+def main():
+    diris = load_iris()
+    x = diris.data
+    t = diris.target
+    target_names = diris.target_names
+    pca = PCA(n_components=2) # n_componentsで縮約後の次元数を指定します．
+    xt = pca.fit(x).transform(x)
+    print(xt)
+
+if __name__ == "__main__":
+    main()
+
+
+# 次元縮約後の各インスタンスを以下のコードで散布図上にプロットします．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+ 
+def main():
+    diris = load_iris()
+    x = diris.data
+    t = diris.target
+    target_names = diris.target_names
+    pca = PCA(n_components=2)
+    xt = pca.fit(x).transform(x)
+    
+    plt.figure()
+    colors = ["navy", "turquoise", "darkorange"]
+    for color, i, target_name in zip(colors, [0, 1, 2], target_names):
+        plt.scatter(xt[t==i, 0], xt[t==i, 1], color=color, alpha=0.8, lw=0, label=target_name)
+    plt.legend()
+
+if __name__ == "__main__":
+    main()
+
+
+# 各種類のアヤメがそれぞれ集まっていることがわかります．2次元平面上にプロットすることで各インスタンスの関係性を把握することができました．この主成分平面には横軸と縦軸がありますが，これらの軸が何を意味しているのかは解析者がデータの分布の様子を観察する等して決定しなければなりません．
+
+# ```{note}
+# この主成分平面上の任意の点をサンプリングして主成分分析の逆操作をすると新たなデータを生成することも可能です．
+# ```
+
+# ### 次元削減データの説明力
 
 # ## カーネル密度推定法
 
