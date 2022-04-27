@@ -266,50 +266,43 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scikit-learn">
-   5.2. scikit-learn による実装
+  <a class="reference internal nav-link" href="#id3">
+   5.2. 階層的クラスタリング法
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     5.2.1. 階層的クラスタリング法
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#k-means">
-     5.2.2. K-means
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     5.2.3. 主成分分析法
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means">
+   5.3. K-means
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   5.4. 主成分分析法
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   5.3. カーネル密度推定法
+   5.5. カーネル密度推定法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     5.3.1. 基本的な事柄
+     5.5.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     5.3.2. 発展的な利用方法
+     5.5.2. 発展的な利用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     5.3.3. 元の確率分布の推定
+     5.5.3. 元の確率分布の推定
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     5.3.4. 画像の生成
+     5.5.4. 画像の生成
     </a>
    </li>
   </ul>
@@ -340,50 +333,43 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scikit-learn">
-   5.2. scikit-learn による実装
+  <a class="reference internal nav-link" href="#id3">
+   5.2. 階層的クラスタリング法
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     5.2.1. 階層的クラスタリング法
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#k-means">
-     5.2.2. K-means
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     5.2.3. 主成分分析法
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means">
+   5.3. K-means
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   5.4. 主成分分析法
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   5.3. カーネル密度推定法
+   5.5. カーネル密度推定法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     5.3.1. 基本的な事柄
+     5.5.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     5.3.2. 発展的な利用方法
+     5.5.2. 発展的な利用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     5.3.3. 元の確率分布の推定
+     5.5.3. 元の確率分布の推定
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     5.3.4. 画像の生成
+     5.5.4. 画像の生成
     </a>
    </li>
   </ul>
@@ -418,27 +404,24 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>敵対的生成ネットワークは別に紹介します．</p>
 </div>
+<p>次の節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的な手法），主成分分析法，カーネル密度推定法を実装します．</p>
 </div>
-<div class="section" id="scikit-learn">
-<h2><span class="section-number">5.2. </span>scikit-learn による実装<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
-<p>この節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的な手法），主成分分析法，カーネル密度推定法を実装します．</p>
 <div class="section" id="id3">
-<h3><span class="section-number">5.2.1. </span>階層的クラスタリング法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">5.2. </span>階層的クラスタリング法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>ほげ</p>
 </div>
 <div class="section" id="k-means">
-<h3><span class="section-number">5.2.2. </span>K-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">5.3. </span>K-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
 <p>ほげ</p>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">5.2.3. </span>主成分分析法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">5.4. </span>主成分分析法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>ほげ</p>
 </div>
-</div>
 <div class="section" id="id5">
-<h2><span class="section-number">5.3. </span>カーネル密度推定法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.5. </span>カーネル密度推定法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
-<h3><span class="section-number">5.3.1. </span>基本的な事柄<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.5.1. </span>基本的な事柄<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．<span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n\)</span> を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 <span class="math notranslate nohighlight">\(f\)</span> は以下のように計算されます．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
@@ -453,13 +436,22 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">5.3.2. </span>発展的な利用方法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.5.2. </span>発展的な利用方法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>昨今の深層学習ブームで専ら利用されている深層ニューラルネットワークは通常たくさんのハイパーパラメータを持ちます．良いハイパーパラメータを同定することは良い人工知能を構築するために重要なことであるため，その探索方法の開発が活発です．ブルートフォース（しらみつぶし）な探索，ランダムな探索，手動による探索，進化戦略法を利用した探索，ベイズ探索等の様々な方法が利用されていますが，その中でも最も有効なもののひとつに代理モデルを利用した逐次最適化法（sequential model-based optimization（SMBO））と呼ばれるベイズ最適化法の範疇に入る方法があります．ハイパーパラメータが従うであろう分布を推定して（この推定した分布を代理モデルと言います），その分布から予想したハイパーパラメータを利用して構築した人工知能の評価を行い，さらにその評価結果から分布の推定を繰り返す，というようなハイパーパラメータの従う分布の推定と人工知能の評価を交互に繰り返すことで最適なハイパーパラメータを持つ人工知能を同定しようとする方法です．この SMBO を行う際の代理モデルの構築にカーネル密度推定法が利用されることがあります．そして，カーネル密度推定法を利用した SMBO は従来の代理モデルの推定法（例えば，ガウス過程回帰法）より良い性能を示すことがあります．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SMBO の領域ではカーネル密度推定量はパルツェン推定量と呼ばれています．</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ハイパーパラメータの最適化は深層学習の分野で最も重要なトピックのひとつなので紹介してみました．</p>
+</div>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">5.3.3. </span>元の確率分布の推定<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.5.3. </span>元の確率分布の推定<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">5.3.4. </span>画像の生成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.5.4. </span>画像の生成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
