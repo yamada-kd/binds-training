@@ -438,7 +438,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>このコンテンツで紹介する scikit-learn とは様々な機械学習アルゴリズムをとても簡単な記述で実現することができる Python のライブラリです．最初に scikit-learn の基本的な操作方法を紹介した後にいくつかの教師あり学習法を紹介します．</p>
 <div class="section" id="id2">
 <h3><span class="section-number">4.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Scikit-learn は以下のようにインポートします．以下のコードではインポートした scikit-learn のバージョンを表示させています．</p>
+<p>scikit-learn は以下のようにインポートします．以下のコードではインポートした scikit-learn のバージョンを表示させています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -456,7 +456,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id3">
 <h3><span class="section-number">4.1.2. </span>データセット<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>ここでは，Scikit-learn が備えているデータセットを利用して機械学習アルゴリズムの実装法を紹介します．アイリスというアヤメの咢と花弁のサイズの情報からなる，世界中で利用されてきたとても有名なデータセットを利用します．以下のようにすることでデータセットをダウンロードして中身を表示することができます．</p>
+<p>ここでは，scikit-learn が備えているデータセットを利用して機械学習アルゴリズムの実装法を紹介します．アイリスというアヤメの咢と花弁のサイズの情報からなる，世界中で利用されてきたとても有名なデータセットを利用します．以下のようにすることでデータセットをダウンロードして中身を表示することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -681,7 +681,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>たった1行を書き換えるだけで別の機械学習法を利用できました．これが Scikit-learn の強みです．</p>
+<p>たった1行を書き換えるだけで別の機械学習法を利用できました．これが scikit-learn の強みです．</p>
 </div>
 </div>
 <div class="section" id="id8">
@@ -733,7 +733,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>このように Scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．Scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
+<p>このように scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
 </div>
 </div>
 <div class="section" id="id10">
@@ -741,7 +741,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>上では学習とテストを同時に行いましたが，予測器を利用する度に学習を行うのは良い方法ではありません．というか通常，想像を絶する悪手です．普通はひとつめのコードで与えられたデータを利用して人工知能を構築して，また別の新たなコードでその人工知能を利用する，というのが実際の解析で行うことではないでしょうか．その方法を紹介します．</p>
 <div class="section" id="id11">
 <h3><span class="section-number">4.4.1. </span>モデルの保存と呼び出し<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>これまでにとても簡単に Scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
+<p>これまでにとても簡単に scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -879,7 +879,7 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 </div>
 <div class="section" id="id13">
 <h3><span class="section-number">4.4.3. </span>方法の選択<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを Scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
+<p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
 <a class="reference internal image-reference" href="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H"><img alt="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" style="width: 80%;" /></a>
 <p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
 <div class="admonition note">
