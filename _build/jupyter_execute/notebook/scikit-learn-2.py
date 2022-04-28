@@ -151,7 +151,65 @@ if __name__ == "__main__":
 # この主成分平面上の任意の点をサンプリングして主成分分析の逆操作をすると新たなデータを生成することも可能です．
 # ```
 
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+ 
+def main():
+    diris = load_iris()
+    x = diris.data
+    t = diris.target
+    target_names = diris.target_names
+    pca = PCA(n_components=2)
+    xt = pca.fit(x).transform(x)
+    
+    plt.figure()
+    colors = ["navy", "turquoise", "darkorange"]
+    for color, i, target_name in zip(colors, [0, 1, 2], target_names):
+        plt.scatter(xt[t==i, 0], xt[t==i, 1], color=color, alpha=0.8, lw=0, label=target_name)
+    plt.legend()
+
+if __name__ == "__main__":
+    main()
+
+
 # ### 次元削減データの説明力
+
+# これまでの計算で4つの要素からなるベクトルデータを2つの要素からなるベクトルデータへと変換しました．そのインスタンスを特徴付ける4つの要素を半分にしたのですから元々インスタンスが持っていた情報は少なくなっているはずです．この主成分分析の操作でどれくらいの情報が失われたのか，どれくらいの情報が維持されているのかは以下のコードで確認できます．元々の情報を1としたときに各軸が持つ説明力の割合を出力することができます．また，それらの値を合計することで元々の情報を2つの軸だけでどれくらい説明できるかを計算できます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+ 
+def main():
+    diris = load_iris()
+    x = diris.data
+    t = diris.target
+    target_names = diris.target_names
+    pca = PCA(n_components=2)
+    xt = pca.fit(x).transform(x)
+    print(pca.explained_variance_ratio_) # 各軸が持つ説明力の割合．
+    print(sum(pca.explained_variance_ratio_)) # 2軸で説明できる割合．
+
+if __name__ == "__main__":
+    main()
+
+
+# 第一主成分のみで全体の大体92%の説明力を持ち，第二主成分で大体5%の説明力を持つようです．ふたつの軸によって元の約98%の説明ができているようです．
+
+# ```{note}
+# この説明力の比率は寄与率と言います．それらを（解析者が必要と感じる次元数まで）足したものを累積寄与率と言います．
+# ```
 
 # ## カーネル密度推定法
 
