@@ -35,11 +35,180 @@
 
 # ## K-means 法
 
-# 階層的クラスタリングと異なり K-means 法は非階層的にデータをクラスター化する手法です．
+# 階層的クラスタリングと異なり K-means 法は非階層的にデータをクラスタ化する手法です．
 
 # ### 基本的な事柄
 
+# K-means 法はあらかじめ決めた $k$ 個のクラスタにデータを分割する方法です．K-means 法は以下のような手順で計算します．
 # 
+# 1.   ランダムに $k$ 個のクラスタの中心（$\mu_k$）を決定します．
+# 2.   各インスタンスからそれぞれのクラスタの中心との距離を計算します．
+# 3.   各インスタンスを最も近いクラスタ中心のクラスタ（$C_k$）に所属させます．$C_k$ に所属するインスタンスの数を $n_k$ とします．
+# 4.   各クラスタの重心を計算して，その重心を新たなクラスタの中心とします．
+# 5.   クラスタの中心が変化しなくなるまで上の2, 3, 4の操作を繰り返します．
+# 
+# よって，$\mu_k$ は各インスタンスベクトルを $x_i$ としたとき，以下のように計算します．
+# 
+# $
+# \displaystyle \mu_k=\frac{1}{n_k}\sum_{i=1}^{n_k}x_i
+# $
+# 
+# 各クラスタ内に所属するインスタンスとクラスタ中心との二乗距離の合計 $I_k$ は以下のように計算できますが，これをクラスタ内平方和とか慣性とかと呼びます．
+# 
+# $
+# \displaystyle I_k=\sum_{i=1}^{n_k}\|x_i-\mu_k\|_2^2
+# $
+# 
+# K-means ではこの値を最初化するようにクラスタへのインスタンスの割り当てを行います．つまり，K-means では以下の $E$ を最小化します．
+# 
+# $\displaystyle E=\sum_{i=1}^kI_k$
+
+# ### クラスタリングの実行
+
+# ここでは K-means 法を実行しますが，そのためのデータセットを生成します．scikit-learn にはクラスタリング法用に擬似的なデータセットを生成するためのユーティリティが備わっています．以下のようにすることで，3個のクラスタに分けられるべき150個のインスタンスを生成することができます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+import sklearn
+from sklearn.datasets import make_blobs
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+np.random.seed(1000)
+ 
+def main():
+    x, t = make_blobs(n_samples=150, centers=3)
+    plt.scatter(x[:,0], x[:,1])
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# 目で見ると3個のクラスタに分かれているように見えますね．
+# ```
+
+# このデータを最初に2個のクラスタに分けます．以下のようにします．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+np.random.seed(1000)
+ 
+def main():
+    x, t = make_blobs(n_samples=150, centers=3)
+
+    kmeans = KMeans(n_clusters=2).fit(x)
+    cluster = kmeans.labels_
+
+    colors = ["navy", "turquoise"]
+    plt.figure()
+    for color, i in zip(colors, [0, 1]):
+        plt.scatter(x[cluster==i, 0], x[cluster==i, 1], color=color, alpha=0.8, lw=0, label=str(i))
+    plt.legend()
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# 微妙な感じがします．
+# ```
+
+# 次に3個のクラスタに分割します．以下のように書きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+np.random.seed(1000)
+ 
+def main():
+    x, t = make_blobs(n_samples=150, centers=3)
+
+    kmeans = KMeans(n_clusters=3).fit(x)
+    cluster = kmeans.labels_
+
+    colors = ["navy", "turquoise", "darkorange"]
+    plt.figure()
+    for color, i in zip(colors, [0, 1, 2]):
+        plt.scatter(x[cluster==i, 0], x[cluster==i, 1], color=color, alpha=0.8, lw=0, label=str(i))
+    plt.legend()
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# これだって感じがしますね．
+# ```
+
+# ```{note}
+# 乱数の種は ` make_blobs(n_samples=150, centers=3, random_state=1000) ` のように指定することもできますが，ここで発生する乱数は NumPy の乱数発生機能に依存しているので NumPy を読み込んで ` np.random.seed() ` で行っても良いのです．
+# ```
+
+# ### クラスタ数の決定方法
+
+# 上の例だと正解のクラスタ数を知っているので $k$ を上手に設定することができました．実際のデータをクラスタリングしたいときには何個に分割すれば良いか分からない場合が多いと思います．そのときに，$k$ の値を決定するための指標があります．シルエットスコアと言います．
+
+# ```{note}
+# シルエットスコアはクラスタに所属するインスタンス間の平均距離（凝集度と言う）をそのクラスタから最も近いクラスタに存在しているインスタンスとの平均距離（乖離度と言う）から引いた値を凝集度または乖離度の内で大きな値で割った値を全 $k$ 個のクラスタについて計算して平均をとった値です．
+# ```
+
+# シルエットスコアは以下のように計算します．上と同じデータに対して，$k$ の値を変えて K-means 法を実行した場合のシルエットスコアを出力します．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+import sklearn
+from sklearn.datasets import load_iris
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+np.random.seed(1000)
+ 
+def main():
+    x, t = make_blobs(n_samples=150, centers=3)
+
+    for k in range(2,8):
+        kmeans = KMeans(n_clusters=k).fit(x)
+        cluster = kmeans.labels_
+        print(k, ": ", silhouette_score(x, cluster), sep="")
+
+if __name__ == "__main__":
+    main()
+
+
+# シルエットスコアはクラスタの個数が3個のとき最も良い値を示しており，やはり，クラスタ数は3個が良さそうであることが確認できます．
+
+# ```{attention}
+# クラスタ数を決定付ける強力な根拠ではありません．こういう指標があるという程度に使ってください．
+# ```
+
+# ```{hint}
+# 他にはクラスタ数に対するクラスタ内平方和の変化を観察するエルボー法という方法があります．
+# ```
 
 # ## 主成分分析法
 
@@ -146,6 +315,10 @@ if __name__ == "__main__":
 
 
 # 各種類のアヤメがそれぞれ集まっていることがわかります．2次元平面上にプロットすることで各インスタンスの関係性を把握することができました．この主成分平面には横軸と縦軸がありますが，これらの軸が何を意味しているのかは解析者がデータの分布の様子を観察する等して決定しなければなりません．
+
+# ```{note}
+# 軸の意味の解釈のヒントは主成分負荷量を散布図上にプロットすることである程度は得られます．主成分負荷量とは最終的に得られた固有ベクトル（線形結合の係数）にそれに対応する固有値の正の平方根を掛けた値のことです．
+# ```
 
 # ```{note}
 # この主成分平面上の任意の点をサンプリングして主成分分析の逆操作をすると新たなデータを生成することも可能です．
