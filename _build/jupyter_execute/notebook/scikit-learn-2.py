@@ -23,15 +23,7 @@
 # 敵対的生成ネットワークは別に紹介します．
 # ```
 
-# 次の節では scikit-learn を利用して，階層的クラスタリング法，K-means 法（非階層的クラスタリング法の代表的な手法），主成分分析法，カーネル密度推定法を実装します．
-
-# ## 階層的クラスタリング法
-
-# 与えられたデータをクラスター化する階層的クラスタリング法の利用方法を紹介します．階層的クラスタリング法でクラスター化した各クラスターは階層構造を有します．
-
-# ### 基本的な事柄
-
-# 
+# 次の節では scikit-learn を利用して，K-means 法（非階層的クラスタリング法の代表的な手法），階層的クラスタリング法，主成分分析法，カーネル密度推定法を実装します．
 
 # ## K-means 法
 
@@ -72,7 +64,6 @@
 
 #!/usr/bin/env python3
 import numpy as np
-import sklearn
 from sklearn.datasets import make_blobs
 import matplotlib.pyplot as plt
 plt.style.use("ggplot")
@@ -97,7 +88,6 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import numpy as np
-import sklearn
 from sklearn.datasets import load_iris
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
@@ -132,7 +122,6 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import numpy as np
-import sklearn
 from sklearn.datasets import load_iris
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
@@ -179,13 +168,9 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import numpy as np
-import sklearn
-from sklearn.datasets import load_iris
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
-import matplotlib.pyplot as plt
-plt.style.use("ggplot")
 np.random.seed(1000)
  
 def main():
@@ -208,6 +193,101 @@ if __name__ == "__main__":
 
 # ```{hint}
 # 他にはクラスタ数に対するクラスタ内平方和の変化を観察するエルボー法という方法があります．
+# ```
+
+# ## 階層的クラスタリング法
+
+# 与えられたデータをクラスター化する階層的クラスタリング法の利用方法を紹介します．階層的クラスタリング法でクラスター化した各クラスターは階層構造を有します．
+
+# ### 基本的な事柄
+
+# 階層的クラスタリングは与えられたデータを任意の数のクラスタに分割する方法です．その計算の過程において各クラスタが階層構造を持つように分割することができるため「階層的」という名前がついています．階層的クラスタリング法は各クラスタリング法の総称です．単連結（最短距離）法，完全連結（最長距離）法，群平均法，ウォード法等のいくつかの方法が階層的クラスタリング法に属します．
+
+# ```{note}
+# 階層的クラスタリング法は凝集型クラスタリング法とも言います．
+# ```
+
+# 階層的クラスタリング法は以下のような手順で計算されます．計算を開始する時点では与えられたデータの各インスタンスがそれぞれクラスタを形成しているものとみなします．つまり，解析対象のデータが $N$ のインスタンスからなるデータであれば最初に $N$ 個のクラスタが存在しているとして計算を開始します．
+# 
+# 1.   対象とするクラスタとその他のクラスタの類似度等の指標を計算します（この指標は単連結法や完全連結法やその他の方法で異なります）．
+# 2.   計算した指標を最も良くするようにクラスタと別のクラスタを連結して新たなクラスタを生成します．
+# 3.   クラスタがひとつになるまで，上の1，2を繰り返します．
+# 
+# 例えば，ウォード法を利用するのであれば1番で計算する指標は，以下のクラスタ内平方和です．クラスタ $C_k$ のクラスタ内平方和 $I_k$ は以下のように計算します．
+# 
+# $
+# \displaystyle I_k=\sum_{i=1}^{n_k}\|x_i-\mu_k\|_2^2
+# $
+# 
+# このとき，$\mu_k$ は各インスタンスベクトルを $x_i$ としたとき，以下のように計算するクラスタの中心です．
+# 
+# $
+# \displaystyle \mu_k=\frac{1}{n_k}\sum_{i=1}^{n_k}x_i
+# $
+# 
+# 
+# 
+
+# ```{note}
+# クラスタ内平方和は K-means 法の計算でも利用する値です．
+# ```
+
+# ウォード法ではあるクラスタ $C_l$ のクラスタ内平方和 $I_l$ と別のクラスタ $C_m$ のクラスタ内平方和 $I_m$ を計算します．また，それらのクラスタを連結して新たなクラスタ $C_n$ を生成した場合のクラスタ内平方和 $I_n$ の値を計算します．ウォード法では，元のふたつのクラスタ内平方和の和と新たなクラスタのクラスタ内平方和の差 $E$ を最小化するようにクラスタを連結させます．
+# 
+# $E=I_n-(I_l+I_m)$
+
+# ```{note}
+# ウォード法はよく用いられる方法です．
+# ```
+
+# ### クラスタリングの実行
+
+# ここではアヤメのデータをウォード法で分割します．以下のように書きます．各インスタンスがどのクラスタに分類されているか出力します．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+from sklearn.datasets import load_iris
+from sklearn.cluster import AgglomerativeClustering
+
+def main():
+    diris = load_iris()
+    x = diris.data
+    hclust = AgglomerativeClustering(n_clusters=3, linkage="ward").fit(x)
+    print(hclust.labels_)
+
+if __name__ == "__main__":
+    main()
+
+
+# ### 樹形図の描画
+
+# このように scikit-learn でも簡単に階層的クラスタリングが実装できるのですが，階層構造を視覚的に理解するために便利な樹形図を簡単に描くことができないので，SciPy を利用して同様のことをやります．アヤメのデータは10個おきにサンプリングして合計15個のみ利用します（結果を見やすくするためです）．よって，0から4が setosa，5から9がversicolor，10から14が virginica です．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+from sklearn.datasets import load_iris
+from scipy.cluster.hierarchy import linkage, dendrogram
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+
+def main():
+    diris = load_iris()
+    x = diris.data[::10]
+    t = diris.target[::10]
+    hclust = linkage(x, method="ward")
+    plt.figure()
+    dendrogram(hclust)
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# 階層構造が見て取れます．
 # ```
 
 # ## 主成分分析法
@@ -267,7 +347,6 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
-import sklearn
 from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA
  
@@ -290,7 +369,6 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
-import sklearn
 from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
@@ -303,7 +381,7 @@ def main():
     target_names = diris.target_names
     pca = PCA(n_components=2)
     xt = pca.fit(x).transform(x)
-    
+
     plt.figure()
     colors = ["navy", "turquoise", "darkorange"]
     for color, i, target_name in zip(colors, [0, 1, 2], target_names):
@@ -328,7 +406,6 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
-import sklearn
 from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
@@ -360,7 +437,6 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
-import sklearn
 from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA
  
@@ -541,7 +617,6 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import numpy as np
-import sklearn
 from sklearn.neighbors import KernelDensity
 import matplotlib.pyplot as plt
 import tensorflow as tf
