@@ -46,7 +46,7 @@ if __name__ == "__main__":
 ---
 **TensorFlow**
 ^^^
-TensorFlow は世界で最も利用されている深層学習フレームワークです．scikit-learn ではできない複雑なニューラルネットワーク構造を実現することができます．TensorFlow はひとつのフレームワークなのですが，コーディングをする際にいくつかの書き方があります．Keras の書き方，Sequential な書き方，Functional な書き方，Subclassing な書き方です．Keras の書き方はとても簡単にニューラルネットワークを実現します．しかし，拡張性が高くありません．Subclassing API は最も柔軟な書き方が可能です．習得は大して難しくありません．習得の難易度と，ニューラルネットワークに対する理解を得られる度合いや柔軟にネットワークを構築できる利点を天秤にかけたときに，Subclassing API を最初に学習した方が得られるものが多いと思い，これを紹介します．Subclassing API は PyTorch（元々は Chainer の書き方 = define by run）とほぼ同じ書き方です．
+[TensorFlow](https://www.tensorflow.org/) は世界で最も利用されている深層学習フレームワークです．scikit-learn ではできない複雑なニューラルネットワーク構造を実現することができます．TensorFlow はひとつのフレームワークなのですが，コーディングをする際にいくつかの書き方があります．Keras の書き方，Sequential な書き方，Functional な書き方，Subclassing な書き方です．Keras の書き方はとても簡単にニューラルネットワークを実現します．しかし，拡張性が高くありません．Subclassing API は最も柔軟な書き方が可能です．習得は大して難しくありません．習得の難易度と，ニューラルネットワークに対する理解を得られる度合いや柔軟にネットワークを構築できる利点を天秤にかけたときに，Subclassing API を最初に学習した方が得られるものが多いと思い，これを紹介します．Subclassing API は [PyTorch](https://pytorch.org/)（元々は [Chainer](https://chainer.org/) の書き方 = define by run）とほぼ同じ書き方です．
 
 :::
 
