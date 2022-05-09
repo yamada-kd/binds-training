@@ -134,7 +134,7 @@
 # バリデーションデータセットは開発データセット（development dataset）とも言います．
 # ```
 
-# <img src="https://drive.google.com/uc?id=1rL7CPuXUa1MTM8MLWUF4_Xez4d9LSWjJ" width="70%">
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/dataset.svg?raw=1" width="70%" />
 
 # 学習の際には学習セットだけの結果を観察します．学習の際に一瞬でもテストセットにおける予測器の性能を観察するべきではありません．また，「独立であること」もしっかり定義すべきです．データが互いに独立であるとは，機械学習の文脈においては「互いに同じ分布に従うことが予想されるが，その生成過程が異なること」でしょうか．MNIST の学習セットとテストセットには，同一の手書き数字の提供者が同時に含まれている可能性があり，この観点からするとそれらは互いに独立なデータセットではないのかもしれません．
 
