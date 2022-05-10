@@ -14,7 +14,7 @@
    version="1.1"
    id="svg2"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="transformer.svg">
+   sodipodi:docname="main.svg">
   <metadata
      id="metadata404">
     <rdf:RDF>
@@ -36,8 +36,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1573"
-     inkscape:window-height="818"
+     inkscape:window-width="1667"
+     inkscape:window-height="721"
      id="namedview402"
      showgrid="false"
      units="mm"
@@ -656,7 +656,7 @@
          height="100%" />
     </g>
     <path
-       style="fill:#eef5fa;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.3985;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1"
+       style="fill:#faeef0;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.3985;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1"
        d="m -39.841173,96.373027 79.682075,0 0,27.888993 -79.682075,0 z m 0,0"
        transform="matrix(1.44,0,0,-1.44,346.82832,419.76544)"
        id="path190"
@@ -1102,7 +1102,7 @@
          height="100%" />
     </g>
     <path
-       style="fill:#eef5fa;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.3985;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1"
+       style="fill:#faeef0;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.3985;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1"
        d="m 63.096653,134.61901 79.684787,0 0,19.92188 -79.684787,0 z m 0,0"
        transform="matrix(1.44,0,0,-1.44,346.82832,419.76544)"
        id="path328"
