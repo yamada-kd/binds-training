@@ -882,13 +882,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>ステップ2と3を繰り返します．</p></li>
 </ol>
 <p>ここでは以下の関数を考えます．</p>
-<p><span class="math notranslate nohighlight">\(y=(x+1)^2+2\)</span></p>
+<p><span class="math notranslate nohighlight">\(\displaystyle y=f(x)=\frac{1}{2}(x+1)^2+1\)</span></p>
+<p>よって勾配ベクトル場は以下のように計算されます．</p>
+<p><span class="math notranslate nohighlight">\(\nabla f=x+1\)</span></p>
 <p>初期パラメータを以下のように決めます（実際にはランダムに決める）．</p>
 <p><span class="math notranslate nohighlight">\(x_0=1.6\)</span></p>
-<p>この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち <span class="math notranslate nohighlight">\(x\)</span> が <span class="math notranslate nohighlight">\(-1\)</span> のとき，極小値 <span class="math notranslate nohighlight">\(y=2\)</span> です．</p>
+<p>この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち <span class="math notranslate nohighlight">\(x\)</span> が <span class="math notranslate nohighlight">\(-1\)</span> のとき，極小値 <span class="math notranslate nohighlight">\(y=1\)</span> です．</p>
 <p>最急降下法で解くと，以下の図のようになります．最急降下法は解析的に解くことが難しい問題を正解の方向へ少しずつ反復的に動かしていく方法です．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1" style="width: 100%;" /></a>
-<p>これを TensorFlow を用いて実装すると以下のようになります．出力中，<code class="docutils literal notranslate"><span class="pre">Objective</span></code> は目的関数の値，<code class="docutils literal notranslate"><span class="pre">Solution</span></code> はその時点での解です．最終的に <span class="math notranslate nohighlight">\(x=-0.9968\simeq-1\)</span> のとき，最適値 <span class="math notranslate nohighlight">\(y=2\)</span> が出力されています．</p>
+<p>これを TensorFlow を用いて実装すると以下のようになります．出力中，<code class="docutils literal notranslate"><span class="pre">Objective</span></code> は目的関数の値，<code class="docutils literal notranslate"><span class="pre">Solution</span></code> はその時点での解です．最終的に <span class="math notranslate nohighlight">\(x=-0.9912\simeq-1\)</span> のとき，最適値 <span class="math notranslate nohighlight">\(y=1\)</span> が出力されています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -899,7 +901,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">epoch</span><span class="p">,</span> <span class="n">update_value</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span> <span class="c1"># 更新値はダミー変数．</span>
     <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">update_value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.001</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-            <span class="n">ty</span> <span class="o">=</span> <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+            <span class="n">ty</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">grad</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">ty</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
         <span class="n">update_value</span> <span class="o">=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
         <span class="n">tx</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tx</span> <span class="o">-</span> <span class="n">update_value</span><span class="p">)</span>

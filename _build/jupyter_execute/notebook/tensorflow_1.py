@@ -506,19 +506,23 @@ if __name__ == "__main__":
 
 # ここでは以下の関数を考えます．
 # 
-# $y=(x+1)^2+2$
+# $\displaystyle y=f(x)=\frac{1}{2}(x+1)^2+1$
+# 
+# よって勾配ベクトル場は以下のように計算されます．
+# 
+# $\nabla f=x+1$
 # 
 # 初期パラメータを以下のように決めます（実際にはランダムに決める）．
 # 
 # $x_0=1.6$
 # 
-# この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち $x$ が $-1$ のとき，極小値 $y=2$ です．
+# この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち $x$ が $-1$ のとき，極小値 $y=1$ です．
 
 # 最急降下法で解くと，以下の図のようになります．最急降下法は解析的に解くことが難しい問題を正解の方向へ少しずつ反復的に動かしていく方法です．
 
 # <img src="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1" width="100%" />
 
-# これを TensorFlow を用いて実装すると以下のようになります．出力中，`Objective` は目的関数の値，`Solution` はその時点での解です．最終的に $x=-0.9968\simeq-1$ のとき，最適値 $y=2$ が出力されています．
+# これを TensorFlow を用いて実装すると以下のようになります．出力中，`Objective` は目的関数の値，`Solution` はその時点での解です．最終的に $x=-0.9912\simeq-1$ のとき，最適値 $y=1$ が出力されています．
 
 # In[ ]:
 
@@ -531,7 +535,7 @@ def main():
     epoch, update_value, lr = 1, 5, 0.1 # 更新値はダミー変数．
     while abs(update_value) > 0.001:
         with tf.GradientTape() as tape:
-            ty = (tx + 1)**2 + 2
+            ty = (1/2) * (tx + 1)**2 + 1
         grad = tape.gradient(ty, tx)
         update_value = lr * grad.numpy()
         tx.assign(tx - update_value)
