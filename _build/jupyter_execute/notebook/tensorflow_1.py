@@ -516,7 +516,7 @@ if __name__ == "__main__":
 
 # 最急降下法で解くと，以下の図のようになります．最急降下法は解析的に解くことが難しい問題を正解の方向へ少しずつ反復的に動かしていく方法です．
 
-# <img src="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR" width="70%">
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1" width="100%" />
 
 # これを TensorFlow を用いて実装すると以下のようになります．出力中，`Objective` は目的関数の値，`Solution` はその時点での解です．最終的に $x=-0.9968\simeq-1$ のとき，最適値 $y=2$ が出力されています．
 
