@@ -36,13 +36,13 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1025"
-     inkscape:window-height="781"
+     inkscape:window-width="1571"
+     inkscape:window-height="862"
      id="namedview159"
      showgrid="false"
      units="mm"
      inkscape:zoom="0.31716166"
-     inkscape:cx="526.18126"
+     inkscape:cx="-0.3640986"
      inkscape:cy="372.05002"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -134,6 +134,13 @@
       </symbol>
     </g>
   </defs>
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+     id="rect4213"
+     width="841.88977"
+     height="283.46457"
+     x="0.00012639564"
+     y="-1.3288362e-005" />
   <g
      id="surface1"
      transform="translate(0,-156.09118)">
