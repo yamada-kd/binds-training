@@ -887,7 +887,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><span class="math notranslate nohighlight">\(x_0=1.6\)</span></p>
 <p>この関数の極小値を見つけたいのです．これは解析的に解くのはとても簡単で，括弧の中が0になる値，すなわち <span class="math notranslate nohighlight">\(x\)</span> が <span class="math notranslate nohighlight">\(-1\)</span> のとき，極小値 <span class="math notranslate nohighlight">\(y=2\)</span> です．</p>
 <p>最急降下法で解くと，以下の図のようになります．最急降下法は解析的に解くことが難しい問題を正解の方向へ少しずつ反復的に動かしていく方法です．</p>
-<a class="reference internal image-reference" href="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR"><img alt="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR" src="https://drive.google.com/uc?id=1bRRIwEJy-ltIHnzfqOpOVVlZYXrT3PXR" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/gradientDescent.svg?raw=1" style="width: 100%;" /></a>
 <p>これを TensorFlow を用いて実装すると以下のようになります．出力中，<code class="docutils literal notranslate"><span class="pre">Objective</span></code> は目的関数の値，<code class="docutils literal notranslate"><span class="pre">Solution</span></code> はその時点での解です．最終的に <span class="math notranslate nohighlight">\(x=-0.9968\simeq-1\)</span> のとき，最適値 <span class="math notranslate nohighlight">\(y=2\)</span> が出力されています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
