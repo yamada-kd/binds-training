@@ -304,11 +304,11 @@ if __name__ == "__main__":
 
 # 主成分分析で行っていることはちょうど以下のような作業です．左に示されている2次元平面上にプロットされた点を右に示されているように1次元平面上にプロットしています．
 # 
-# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/pca_01.svg?raw=1" width="70%" />
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/pca_01.svg?raw=1" width="100%" />
 
 # ただし，主成分分析で行いたいことは以下のような次元削減ではありません．以下のようにすると変換後の軸上のインスタンスが互いに重なっており，かなりの情報が失われているように思えます．
 # 
-# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/pca_02.svg?raw=1" width="70%" />
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/pca_02.svg?raw=1" width="100%" />
 
 # ```{note}
 # 主成分分析では元の情報をできるだけ維持したままデータの変換をしようとします．この例において新たに生成される軸はこのデータを説明するための情報量が最も大きい方向に設定されます．情報量が最も大きい方向とはデータが最も散らばっている（分散が大きい）方向です．
