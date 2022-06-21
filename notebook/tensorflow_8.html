@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>9. Hugging Face の利用方法 &#8212; 実践データ科学</title>
+    <title>9. 敵対的生成ネットワーク &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -159,7 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   9. Hugging Face の利用方法
+   9. 敵対的生成ネットワーク
   </a>
  </li>
 </ul>
@@ -263,7 +263,7 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#hugging-face">
    9.1. Hugging Face とは
   </a>
   <ul class="nav section-nav flex-column">
@@ -378,7 +378,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Hugging Face の利用方法</h1>
+                <h1>敵対的生成ネットワーク</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -389,7 +389,7 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#hugging-face">
    9.1. Hugging Face とは
   </a>
   <ul class="nav section-nav flex-column">
@@ -503,10 +503,10 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="hugging-face">
-<h1><span class="section-number">9. </span>Hugging Face の利用方法<a class="headerlink" href="#hugging-face" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2><span class="section-number">9.1. </span>Hugging Face とは<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">9. </span>敵対的生成ネットワーク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hugging-face">
+<h2><span class="section-number">9.1. </span>Hugging Face とは<a class="headerlink" href="#hugging-face" title="Permalink to this headline">¶</a></h2>
 <p>Hugging Face とは主に Transformer（トランスフォーマー）に関連する深層学習モデルやそれに付随する技術の提供を行っているサービスです．トランスフォーマー（のエンコーダーとデコーダー）はニューラルネットワーク等からなる，様々なタイプのデータを処理できる機械学習モデルです．トランスフォーマーは色々な問題を解決するために少しずつ違う構造を持ちますが，そのようなものをまとめてコマンド一発で利用可能にしてくれているのが Hugging Face です．また，自然言語処理の分野で扱うデータのサイズはとても大きい場合があるのですが，どこかの誰かがあらかじめ何かのデータを利用して学習済みのデータを提供してくれていることがあり，そのような学習済みモデルも簡単に利用できるように整備してくれています．Hugging Face を利用すれば，特に自然言語処理に関する問題を簡単に解けるようになるため紹介します．</p>
 <div class="section" id="id2">
 <h3><span class="section-number">9.1.1. </span>トランスフォーマー<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
