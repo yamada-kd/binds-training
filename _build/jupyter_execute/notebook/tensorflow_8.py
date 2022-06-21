@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Hugging Face の利用方法
+# # 敵対的生成ネットワーク
 
 # ## Hugging Face とは
 
