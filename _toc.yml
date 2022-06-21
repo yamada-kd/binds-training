@@ -19,3 +19,4 @@ parts:
   - file: notebook/tensorflow_1
   - file: notebook/tensorflow_2
   - file: notebook/tensorflow_7
+  - file: notebook/tensorflow_8
