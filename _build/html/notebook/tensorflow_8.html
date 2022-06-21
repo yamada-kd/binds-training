@@ -1,0 +1,1249 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hugging Face の利用方法 &#8212; 実践データ科学</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/neko.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">実践データ科学</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  データ科学を学ぶにあたって
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   1. 機械学習とその周辺事項
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  プログラミングの基礎
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_1.html">
+   2. Python の基本的な使用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_2.html">
+   3. Python の発展的な使用方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  scikit-learn を利用した機械学習
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="scikit_learn_1.html">
+   4. 教師あり学習法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="scikit_learn_2.html">
+   5. 教師なし学習法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深層学習
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_1.html">
+   6. TensorFlow の基本的な利用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_2.html">
+   7. 多層パーセプトロン
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_7.html">
+   8. Hugging Face の利用方法
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebook/tensorflow_8.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/yamada-kd/binds-training/tree/main/notebook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/yamada-kd/binds-training/blob/main/notebook/tensorflow_8.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Hugging Face とは
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     トランスフォーマー
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     できること
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hugging-face-course">
+     Hugging Face Course
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     インストール
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   基本的な使い方
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     感情分析
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     特徴抽出
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     ゼロショット文章分類
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     文章生成
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     穴埋め
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     固有表現抽出
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     質問応答
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     要約
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     翻訳
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   応用的な使い方
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     他のモデルの利用
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     日本語の解析
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     モデルの設定変更
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     ファインチューニング
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Hugging Face の利用方法</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Hugging Face とは
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     トランスフォーマー
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     できること
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hugging-face-course">
+     Hugging Face Course
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     インストール
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   基本的な使い方
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     感情分析
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     特徴抽出
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     ゼロショット文章分類
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     文章生成
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     穴埋め
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     固有表現抽出
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     質問応答
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     要約
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     翻訳
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   応用的な使い方
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     他のモデルの利用
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     日本語の解析
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     モデルの設定変更
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     ファインチューニング
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="hugging-face">
+<h1>Hugging Face の利用方法<a class="headerlink" href="#hugging-face" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Hugging Face とは<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Hugging Face とは主に Transformer（トランスフォーマー）に関連する深層学習モデルやそれに付随する技術の提供を行っているサービスです．トランスフォーマー（のエンコーダーとデコーダー）はニューラルネットワーク等からなる，様々なタイプのデータを処理できる機械学習モデルです．トランスフォーマーは色々な問題を解決するために少しずつ違う構造を持ちますが，そのようなものをまとめてコマンド一発で利用可能にしてくれているのが Hugging Face です．また，自然言語処理の分野で扱うデータのサイズはとても大きい場合があるのですが，どこかの誰かがあらかじめ何かのデータを利用して学習済みのデータを提供してくれていることがあり，そのような学習済みモデルも簡単に利用できるように整備してくれています．Hugging Face を利用すれば，特に自然言語処理に関する問題を簡単に解けるようになるため紹介します．</p>
+<div class="section" id="id2">
+<h3>トランスフォーマー<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
+<p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
+<p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションという技術が利用されます．</p>
+<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" style="width: 100%;" /></a>
+<p>エンコーダーとデコーダー間のアテンション以外にも，エンコーダーとデコーダーの内部でもそれぞれアテンション（セルフアテンション）が計算されます．アテンションは文字列内における文字の関連性を計算します．</p>
+<p>トランスフォーマーは再帰型ニューラルネットワークで行うような文字の逐次的な処理が不要です．よって，計算機の並列化性能をより引き出せます．扱える文脈の長さも無限です（再帰型ニューラルネットワークでも理論上無限です．）．</p>
+<p>このトランスフォーマーはものすごい性能を発揮しており，これまでに作られてきた様々な構造を過去のものとしました．特に応用の範囲が広いのはトランスフォーマーのエンコーダーの部分です．BERT と呼ばれる方法を筆頭に自然言語からなる配列を入力にして何らかの分散表現を出力する方法として自然言語処理に関わる様々な研究開発に利用されています．</p>
+<p>（会話でトランスフォーマーという場合は，トランスフォーマーのエンコーダーまたはデコーダーのことを言っている場合があります．エンコーダー・デコーダー，エンコーダー，デコーダー，この3個でそれぞれできることが異なります．）</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>実用上，配列を入力にして配列を返す構造とだけ覚えておけば問題はないと思います．</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>できること<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Hugging Face で扱うことができるタスクは以下に示すものがあります．これ以外にもありますが自然言語処理に関する代表的なタスクを抽出しました．括弧内の文字列は実際に Hugging Face を利用する際に指定するオプションです（後で利用します．）．</p>
+<ul class="simple">
+<li><p>感情分析（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）：入力した文章が有する感情を予測</p></li>
+<li><p>特徴抽出（<code class="docutils literal notranslate"><span class="pre">feature-extraction</span></code>）：入力した文章をその特徴を示すベクトルに変換</p></li>
+<li><p>穴埋め（<code class="docutils literal notranslate"><span class="pre">fill-mask</span></code>）：文章中のマスクされた単語を予測</p></li>
+<li><p>固有表現抽出（<code class="docutils literal notranslate"><span class="pre">ner</span></code>）：入力した文章中の固有表現（名前とか場所とか）にラベルをつける</p></li>
+<li><p>質問応答（<code class="docutils literal notranslate"><span class="pre">question-answering</span></code>）：質問文とその答えが含まれる何らかの説明文を入力として解答文を生成</p></li>
+<li><p>要約（<code class="docutils literal notranslate"><span class="pre">summarization</span></code>）：入力した文章を要約</p></li>
+<li><p>文章生成（<code class="docutils literal notranslate"><span class="pre">text-generation</span></code>）：文章を入力にして，その文章に続く文章を生成</p></li>
+<li><p>翻訳（<code class="docutils literal notranslate"><span class="pre">translation</span></code>）：文章を他の言語に翻訳</p></li>
+<li><p>ゼロショット文章分類（<code class="docutils literal notranslate"><span class="pre">zero-shot-classification</span></code>）：文章とそれが属する可能性があるいくつかのカテゴリを入力にしてその文章をひとつのカテゴリに分類</p></li>
+</ul>
+</div>
+<div class="section" id="hugging-face-course">
+<h3>Hugging Face Course<a class="headerlink" href="#hugging-face-course" title="Permalink to this headline">¶</a></h3>
+<p>Hugging Face の利用方法は以下のウェブサイト，Hugging Face Course の Transformer models の部分を読めば大体のことが把握できると思います．</p>
+<p><a class="reference external" href="https://huggingface.co/course/">https://huggingface.co/course/</a></p>
+</div>
+<div class="section" id="id4">
+<h3>インストール<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Hugging Face（のトランスフォーマー）は TensorFlow または PyTorch とあわせて利用可能なライブラリです．本来は TensorFlow か PyTorch をあらかじめインストールする必要があります．グーグルコラボラトリーには既に TensorFlow がインストールされているため不要です．以下のように <code class="docutils literal notranslate"><span class="pre">transformers</span></code> のみをインストールすれば利用可能です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip3 install transformers
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>このコンテンツの実行にグーグルコラボラトリーを使っておらず，自身の環境で Anaconda 等を利用している場合は気をつけてください．例えば，Anaconda を利用しているのであれば <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">huggingface</span> <span class="pre">transformers</span></code> のようなコマンドでインストールした方が良いです．</p>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>基本的な使い方<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．</p>
+<div class="section" id="id6">
+<h3>感情分析<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>最も簡単な <code class="docutils literal notranslate"><span class="pre">tranformers</span></code> の利用方法は以下のようになると思います．<code class="docutils literal notranslate"><span class="pre">pipeline</span></code> を読み込んで，そこに取り組みたいタスク（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I have a pen.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>入力した文章がポジティブな文章なのかネガティブな文章なのかを分類できます．ここでは1個の文章を入力しましたが，以下のように2個以上の文章も入力可能です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">)</span>
+    <span class="n">litext</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;I&#39;ve been waiting for a HuggingFace course my whole life.&quot;</span><span class="p">,</span> <span class="s2">&quot;I hate this so much!&quot;</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">litext</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>特徴抽出<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>文字列の特徴を抽出して何らかの分散表現にしたい場合は <code class="docutils literal notranslate"><span class="pre">feature-extraction</span></code> を指定します．文字列の長さに依存した配列が出力されますが，同じ長さのベクトルにしたい場合は配列長に渡って要素の値を足し算すること等で特徴量を得ることができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">converter</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;feature-extraction&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;We are very happy to introduce pipeline to the transformers repository.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>例えば，BERT を使うと各トークンが768次元のベクトルでトークン数個からなる要素のベクトルが出力されます．</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>ゼロショット文章分類<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>ゼロショット文章分類は以下のように利用します．ゼロショットとは訓練中に一度も出現しなかったクラスの分類タスクです．ラベルが未定義の問題に利用することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;zero-shot-classification&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a course about the Transformers library&quot;</span><span class="p">,</span>
+    <span class="n">lilabel</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;education&quot;</span><span class="p">,</span> <span class="s2">&quot;politics&quot;</span><span class="p">,</span> <span class="s2">&quot;business&quot;</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">candidate_labels</span> <span class="o">=</span> <span class="n">lilabel</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ゼロショット分類では，例えば，馬を入力にして猫とか犬とかのラベルそのものを予測されるのではなくて猫および犬ベクトルを予測させどちらに近いかを予測させることができます．そろそろマシンパワー的にきついかもしれませんね．</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>文章生成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>文章の生成は以下のように行います．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;text-generation&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;In this course, we will teach you how to&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>穴埋め<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>穴埋めは以下のように行います．以下のコードでは可能性が高いものふたつを表示させます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">unmasker</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;fill-mask&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This course will teach you all about &lt;mask&gt; models.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">unmasker</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>固有表現抽出<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>固有表現抽出は以下のように行います．結果の <code class="docutils literal notranslate"><span class="pre">PER</span></code> は人名，<code class="docutils literal notranslate"><span class="pre">ORG</span></code> は組織名，<code class="docutils literal notranslate"><span class="pre">LOC</span></code> は地名です．それらの固有表現の文書中における位置も <code class="docutils literal notranslate"><span class="pre">start</span></code> と <code class="docutils literal notranslate"><span class="pre">end</span></code> で示されています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">ner</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;ner&quot;</span><span class="p">,</span> <span class="n">grouped_entities</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;My name is Sylvain and I work at Hugging Face in Brooklyn.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">ner</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>質問応答<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>SQuAD のような機械学習コンテストで行われる質問応答は質問だけを入力にして何かを出力する問題ではありません．質問文と何らかの説明文を入力にして解答を出力される問題です．以下のように利用します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">question_answerer</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;question-answering&quot;</span><span class="p">)</span>
+    <span class="n">question_text</span> <span class="o">=</span> <span class="s2">&quot;Where do I work?&quot;</span>
+    <span class="n">explanation</span> <span class="o">=</span> <span class="s2">&quot;My name is Sylvain and I work at Hugging Face in Brooklyn&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">question_answerer</span><span class="p">(</span><span class="n">question</span> <span class="o">=</span> <span class="n">question_text</span><span class="p">,</span> <span class="n">context</span> <span class="o">=</span> <span class="n">explanation</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>要約<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>文章の要約は以下のように行います．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">summarizer</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;summarization&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        America has changed dramatically during recent years. Not only has the number of </span>
+<span class="s2">    graduates in traditional engineering disciplines such as mechanical, civil, </span>
+<span class="s2">    electrical, chemical, and aeronautical engineering declined, but in most of </span>
+<span class="s2">    the premier American universities engineering curricula now concentrate on </span>
+<span class="s2">    and encourage largely the study of engineering science. As a result, there </span>
+<span class="s2">    are declining offerings in engineering subjects dealing with infrastructure, </span>
+<span class="s2">    the environment, and related issues, and greater concentration on high </span>
+<span class="s2">    technology subjects, largely supporting increasingly complex scientific </span>
+<span class="s2">    developments. While the latter is important, it should not be at the expense </span>
+<span class="s2">    of more traditional engineering.</span>
+
+<span class="s2">    Rapidly developing economies such as China and India, as well as other </span>
+<span class="s2">    industrial countries in Europe and Asia, continue to encourage and advance </span>
+<span class="s2">    the teaching of engineering. Both China and India, respectively, graduate </span>
+<span class="s2">    six and eight times as many traditional engineers as does the United States. </span>
+<span class="s2">    Other industrial countries at minimum maintain their output, while America </span>
+<span class="s2">    suffers an increasingly serious decline in the number of engineering graduates </span>
+<span class="s2">    and a lack of well-educated engineers.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">summarizer</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>翻訳<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>翻訳はこれまでと少しだけ指定方法が異なります．以下のように <code class="docutils literal notranslate"><span class="pre">translation_XX_to_YY</span></code> としなければなりません．ここでは，英語からフランス語への翻訳を行います．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">translator</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;translation_en_to_fr&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This course is produced by Hugging Face.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">translator</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>応用的な使い方<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>これまでに利用したものとは異なるモデルを利用したいとか，自身が持っているデータセットにより適合させたいとかの応用的な利用方法を紹介します．</p>
+<div class="section" id="id16">
+<h3>他のモデルの利用<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>これまでに，Hugging Face が自動でダウンロードしてくれたデフォルトの事前学習済みモデルを利用した予測を行いましたが，そうでなくて，モデルを指定することもできます．以下のページをご覧ください．Model Hub と言います．</p>
+<p><a class="reference external" href="https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads">https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads</a></p>
+<p>この Model Hub の Tasks というところでタグを選択できます．例えば，Text Generation の <code class="docutils literal notranslate"><span class="pre">distilgpt2</span></code> を利用するには以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;text-generation&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;distilgpt2&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;In this course, we will teach you how to&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>日本語の解析<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>日本語も扱うことができます．ここでは，日本語で書かれた文章の感情分析を行います．最初に，必要なライブラリをダウンロードしてインストールします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip install fugashi
+<span class="o">!</span> pip install ipadic
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>これをインストールしないで使ったらインストールしろってメッセージが出たからインストールしました．</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>グーグルコラボラトリーでのインストール方法です．</p>
+</div>
+<p>Model Hub で調べたら以下のような感情分析のモデルが公開されていたので，それを使います．トークナイザーとは文章をトークン化（単語化して数字を割り当てます）してくれるものです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;daigo/bert-base-japanese-sentiment&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="s2">&quot;daigo/bert-base-japanese-sentiment&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;みんながマリオのチョコエッグツイートをしていく中，未だにひとつも買えなくて焦る…．&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下のようにモデルやトークナイザーは明示的に書くこともできます．ここでは，東北大学の乾研が公開している日本語版BERTを利用してみました．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">mytokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;cl-tohoku/bert-base-japanese-whole-word-masking&quot;</span><span class="p">)</span>
+    <span class="n">unmasker</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;fill-mask&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;cl-tohoku/bert-base-japanese-whole-word-masking&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">mytokenizer</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;みんなが[MASK]のチョコエッグツイートをしていく中，未だにひとつも買えなくて焦る…．&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">unmasker</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3>モデルの設定変更<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>上で紹介したのと同様に，モデルとトークナイザーをそれぞれ，<code class="docutils literal notranslate"><span class="pre">TFAutoModelForSequenceClassification</span></code> と <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code> で読み込むことができます．以下の通りです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">mymodel</span> <span class="o">=</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span><span class="p">)</span>
+    <span class="n">mytokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">mymodel</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">mytokenizer</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I do not have a pen but I am happy.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この際に <code class="docutils literal notranslate"><span class="pre">Auto</span></code> を使わずにあらかじめ用意されていいるクラスを明示的に指定することもできます．この場合，以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">TFDistilBertForSequenceClassification</span><span class="p">,</span> <span class="n">DistilBertTokenizer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">mymodel</span> <span class="o">=</span> <span class="n">TFDistilBertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span><span class="p">)</span>
+    <span class="n">mytokenizer</span> <span class="o">=</span> <span class="n">DistilBertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">mymodel</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">mytokenizer</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I do not have a pen but I am happy.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>さらにモデルをカスタマイズすることもできます．ここでは，<code class="docutils literal notranslate"><span class="pre">DistilBert</span></code> の構造を変えてしまっているので，全く性能が出ていません．学習をし直す必要がありそうです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">TFDistilBertForSequenceClassification</span><span class="p">,</span> <span class="n">DistilBertTokenizer</span><span class="p">,</span> <span class="n">DistilBertConfig</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">myconfig</span> <span class="o">=</span> <span class="n">DistilBertConfig</span><span class="p">(</span><span class="n">n_heads</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="mi">512</span><span class="p">)</span>
+    <span class="n">mymodel</span> <span class="o">=</span> <span class="n">TFDistilBertForSequenceClassification</span><span class="p">(</span><span class="n">myconfig</span><span class="p">)</span>
+    <span class="n">mytokenizer</span> <span class="o">=</span> <span class="n">DistilBertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">mymodel</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">mytokenizer</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I do not have a pen but I am happy.&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>ファインチューニング<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>事前学習モデルを自分の解きたい問題に合わせてファインチューニングすることができます．ここでは，インターネット上の映画レビューのデータセット IMDb に対してモデルのファインチューニングを行います．最初に Hugging Face が提供してくれているデータセットを利用するためのモジュールをインストールします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip3 install datasets
+</pre></div>
+</div>
+</div>
+</div>
+<p>中身を確認します．映画に関するレビューが含まれています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このデータセットをトークナイズします．以下のようなコードを追加します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preprocess_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tokenized_imdb</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tokenized_imdb</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>データセット中のデータをパディングします．データセット中の最大の長さのデータに合わせてパディングしても良いのですが，それだと非効率的なので，バッチ毎にパディングする方法を行います．ダイナミックパディングと呼ばれる方法です．以下のようにします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">DataCollatorWithPadding</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preprocess_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tokenized_imdb</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorWithPadding</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ファインチューニング前のモデルを呼び出して，テストデータセットの最初の5個について感情分析をしてみます．ポジティブとネガティブの判定はどれも 0.5 くらいであり，判別しきれていません．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">DataCollatorWithPadding</span><span class="p">,</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">pipeline</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preprocess_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tokenized_imdb</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorWithPadding</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>データセットを TensorFlow で処理できるように変換します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">DataCollatorWithPadding</span><span class="p">,</span> <span class="n">create_optimizer</span><span class="p">,</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">pipeline</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preprocess_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tokenized_imdb</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorWithPadding</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;tf&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+
+    <span class="n">tf_train_dataset</span> <span class="o">=</span> <span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_tf_dataset</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;input_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">tf_validation_dataset</span> <span class="o">=</span> <span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_tf_dataset</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;input_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>学習の条件を設定し，学習を行います．ファインチューニング済みモデルを用いてテストデータセットの最初の5個の予測をしていますが，どれも判別の確率が上がっています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">DataCollatorWithPadding</span><span class="p">,</span> <span class="n">create_optimizer</span><span class="p">,</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">pipeline</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preprocess_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tokenized_imdb</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorWithPadding</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;tf&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+
+    <span class="n">tf_train_dataset</span> <span class="o">=</span> <span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_tf_dataset</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;input_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">tf_validation_dataset</span> <span class="o">=</span> <span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_tf_dataset</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;input_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">batches_per_epoch</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">])</span> <span class="o">//</span> <span class="n">batch_size</span>
+    <span class="n">total_train_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">batches_per_epoch</span> <span class="o">*</span> <span class="n">num_epochs</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="p">,</span> <span class="n">schedule</span> <span class="o">=</span> <span class="n">create_optimizer</span><span class="p">(</span>
+        <span class="n">init_lr</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span> 
+        <span class="n">num_warmup_steps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+        <span class="n">num_train_steps</span><span class="o">=</span><span class="n">total_train_steps</span>
+    <span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">tf_train_dataset</span><span class="p">,</span>
+        <span class="n">validation_data</span><span class="o">=</span><span class="n">tf_validation_dataset</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ファインチューニング済みのモデルやトークナイザーは以下のように保存します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">DataCollatorWithPadding</span><span class="p">,</span> <span class="n">create_optimizer</span><span class="p">,</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">pipeline</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preprocess_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tokenized_imdb</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorWithPadding</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;tf&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;distilbert-base-uncased&quot;</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+
+    <span class="n">tf_train_dataset</span> <span class="o">=</span> <span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_tf_dataset</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;input_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">tf_validation_dataset</span> <span class="o">=</span> <span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_tf_dataset</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;input_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">batches_per_epoch</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokenized_imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">])</span> <span class="o">//</span> <span class="n">batch_size</span>
+    <span class="n">total_train_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">batches_per_epoch</span> <span class="o">*</span> <span class="n">num_epochs</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="p">,</span> <span class="n">schedule</span> <span class="o">=</span> <span class="n">create_optimizer</span><span class="p">(</span>
+        <span class="n">init_lr</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span> 
+        <span class="n">num_warmup_steps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+        <span class="n">num_train_steps</span><span class="o">=</span><span class="n">total_train_steps</span>
+    <span class="p">)</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">tf_train_dataset</span><span class="p">,</span>
+        <span class="n">validation_data</span><span class="o">=</span><span class="n">tf_validation_dataset</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+
+    <span class="n">save_directory</span> <span class="o">=</span> <span class="s1">&#39;./pretrained&#39;</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">save_directory</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">save_directory</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>終わりです．</p>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebook"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      <div class="extra_footer">
+        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img style="0;margin-bottom:0.2em;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> © Copyright 2022 Graduate School of Information Sciences, Tohoku University．
+
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
