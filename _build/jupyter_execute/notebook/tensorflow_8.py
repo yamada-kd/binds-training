@@ -9,9 +9,143 @@
 
 # ## 原理とできること
 
+# In[14]:
+
+
+#!/usr/bin/env python3
+import tensorflow as tf
+import numpy as np
+import time
+import matplotlib.pyplot as plt
+tf.random.set_seed(0)
+np.random.seed(0)
+#np.set_printoptions(threshold=np.inf,linewidth=np.inf,suppress=True,precision=12)
+
+def main():
+    MiniBatchSize = 300
+    NoiseSize = 100
+    MaxEpoch = 500
+    
+    (learnX, learnT), (_, _) = tf.keras.datasets.mnist.load_data()
+    learnX = learnX.reshape([60000, 784])
+    learnX = (learnX - 127.5) / 127.5
+    
+    generator = Generator()
+    discriminator = Discriminator()
+    
+    costComputer = tf.keras.losses.SparseCategoricalCrossentropy()
+    accuracyComputer = tf.keras.metrics.SparseCategoricalAccuracy()
+    
+    optimizerGenerator = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    optimizerDiscriminator = tf.keras.optimizers.Adam(learning_rate=0.00004)
+    
+    def generatorCostFunction(discriminatorOutputFromGenerated): # 生成器のコストの引数は生成器の出力を識別器に入れた結果．生成器としては全部正解を出しているはずなので教師はすべて1となるはず．そのように学習すべき．
+        cost = costComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
+        accuracy = accuracyComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
+        return cost, accuracy
+    
+    def discriminatorCostFunction(discriminatorOutputFromReal,discriminatorOutputFromGenerated): # 識別器のコストの引数は本物の情報を識別器に入れた結果と生成器の出力を識別器に入れた結果．
+        realCost = costComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal) # 本物の情報の場合はすべて正例（1）と判断すべき．これが例のコスト関数の左の項に相当．
+        fakeCost = costComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 偽物の情報の場合はすべて負例（0）と判断すべき．これが例のコスト関数の右の項に相当．
+        cost = realCost + fakeCost
+        realAccuracy = accuracyComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal)
+        fakeAccuracy = accuracyComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
+        accuracy=(realAccuracy + fakeAccuracy) / 2
+        return cost, accuracy
+    
+    @tf.function()
+    def run(generator, discriminator, noiseVector, realVector):
+        with tf.GradientTape() as generatorTape, tf.GradientTape() as discriminatorTape:
+            generatedVector = generator(noiseVector) # 生成器によるデータの生成．
+            discriminatorOutputFromGenerated = discriminator(generatedVector) # その生成データを識別器に入れる．
+            discriminatorOutputFromReal = discriminator(realVector) # 本物データを識別器に入れる．
+            
+            discriminatorCost, discriminatorAccuracy = discriminatorCostFunction(discriminatorOutputFromReal, discriminatorOutputFromGenerated)
+            gradientDiscriminator = discriminatorTape.gradient(discriminatorCost, discriminator.trainable_variables)
+            optimizerDiscriminator.apply_gradients(zip(gradientDiscriminator, discriminator.trainable_variables))
+            
+            generatorCost, generatorAccuracy = generatorCostFunction(discriminatorOutputFromGenerated)
+            gradientGenerator = generatorTape.gradient(generatorCost,generator.trainable_variables)
+            optimizerGenerator.apply_gradients(zip(gradientGenerator,generator.trainable_variables))
+            
+            return discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy
+    
+    # ミニバッチセットの生成
+    learnX = tf.data.Dataset.from_tensor_slices(learnX)
+    learnT = tf.data.Dataset.from_tensor_slices(learnT)
+    learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．
+    miniBatchNumber = len(list(learnA.as_numpy_iterator()))
+    for epoch in range(1,MaxEpoch+1):
+        discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy = 0, 0, 0, 0
+        for learnx, _ in learnA:
+            noiseVector = generateNoise(MiniBatchSize, NoiseSize) # ミニバッチサイズで100個の要素からなるノイズベクトルを生成．
+            discriminatorCostTmp, discriminatorAccuracyTmp, generatorCostTmp, generatorAccuracyTmp = run(generator, discriminator, noiseVector, learnx)
+            discriminatorCost += discriminatorCostTmp / miniBatchNumber
+            discriminatorAccuracy += discriminatorAccuracyTmp / miniBatchNumber
+            generatorCost += generatorCostTmp / miniBatchNumber
+            generatorAccuracy += generatorAccuracyTmp / miniBatchNumber
+        if epoch%10 == 0:
+            print("Epoch {:10d} D-cost {:6.4f} D-acc {:6.4f} G-cost {:6.4f} G-acc {:6.4f} ".format(epoch,float(discriminatorCost),float(discriminatorAccuracy),float(generatorCost),float(generatorAccuracy)))
+            validationNoiseVector = generateNoise(1, NoiseSize)
+            validationOutput = generator(validationNoiseVector)
+            validationOutput = np.asarray(validationOutput).reshape([1, 28, 28])
+            plt.imshow(validationOutput[0], cmap = "gray")
+            plt.pause(1)
+            #print(validationOutput)
+
+class Discriminator(tf.keras.Model):
+    def __init__(self):
+        super(Discriminator,self).__init__()
+        self.d1 = tf.keras.layers.Dense(units=128)
+        self.d2 = tf.keras.layers.Dense(units=128)
+        self.d3 = tf.keras.layers.Dense(units=128)
+        self.d4 = tf.keras.layers.Dense(units=2,activation="softmax")
+        self.a = tf.keras.layers.LeakyReLU()
+        self.d = tf.keras.layers.Dropout(0.5)
+    def call(self,x):
+        y = self.d1(x)
+        y = self.a(y)
+        y = self.d(y)
+        y = self.d2(y)
+        y = self.a(y)
+        y = self.d(y)
+        y = self.d3(y)
+        y = self.a(y)
+        y = self.d(y)
+        y = self.d4(y)
+        return y
+
+class Generator(tf.keras.Model):
+    def __init__(self):
+        super(Generator,self).__init__()
+        self.d1=tf.keras.layers.Dense(units=256)
+        self.d2=tf.keras.layers.Dense(units=256)
+        self.d3=tf.keras.layers.Dense(units=784)
+        self.a=tf.keras.layers.LeakyReLU()
+        self.b1=tf.keras.layers.BatchNormalization()
+        self.b2=tf.keras.layers.BatchNormalization()
+    def call(self,x):
+        y = self.d1(x)
+        y = self.a(y)
+        y = self.b1(y)
+        y = self.d2(y)
+        y = self.a(y)
+        y = self.b2(y)
+        y = self.d3(y)
+        return y
+    
+def generateNoise(miniBatchSize,randomNoiseSize):
+    return np.random.uniform(-1,1,size=(miniBatchSize,randomNoiseSize)).astype("float32")
+
+if __name__ == "__main__":
+    main()
+
+
 # 敵対的生成ネットワークとは
 
 # ### 原理
+
+# 生成器，識別器，生成器のコスト関数，識別器のコスト関数
 
 # トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．
 # 
@@ -52,6 +186,147 @@
 #     
 
 # ## 基本的な構造
+
+# 最も基本的な GAN の構造は以下のプログラムに含まれるものです．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+tf.random.set_seed(0)
+np.random.seed(0)
+
+def main():
+    # ハイパーパラメータの設定
+    MiniBatchSize = 300
+    NoiseSize = 100 # GANはランダムなノイズベクトルから何かを生成する方法なので，そのノイズベクトルのサイズを設定する．
+    MaxEpoch = 500
+    
+    # データセットの読み込み
+    (learnX, learnT), (_, _) = tf.keras.datasets.mnist.load_data()
+    learnX = learnX.reshape([60000, 784])
+    learnX = (learnX - 127.5) / 127.5
+    
+    # 生成器と識別器の構築
+    generator = Generator() # 下のクラスを参照．
+    discriminator = Discriminator() # 下のクラスを参照．
+    
+    # コスト関数と正確度を計算する関数の生成
+    costComputer = tf.keras.losses.SparseCategoricalCrossentropy()
+    accuracyComputer = tf.keras.metrics.SparseCategoricalAccuracy()
+    
+    # オプティマイザは生成器と識別器で別々のものを利用
+    optimizerGenerator = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    optimizerDiscriminator = tf.keras.optimizers.Adam(learning_rate=0.00004)
+    
+    # 生成器を成長させるためのコストを計算する関数
+    def generatorCostFunction(discriminatorOutputFromGenerated):
+        cost = costComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 生成器のコストの引数は生成器の出力を識別器に入れた結果．生成器としては全部正解を出しているはずなので教師はすべて1となるはず．そのように学習すべき．
+        accuracy = accuracyComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
+        return cost, accuracy
+    
+    # 識別器を成長させるためのコストを計算する関数
+    def discriminatorCostFunction(discriminatorOutputFromReal,discriminatorOutputFromGenerated): # 識別器のコストの引数は本物の情報を識別器に入れた結果と生成器の出力を識別器に入れた結果．
+        realCost = costComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal) # 本物の情報の場合はすべて正例（1）と判断すべき．これが例のコスト関数の左の項に相当．
+        fakeCost = costComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 偽物の情報の場合はすべて負例（0）と判断すべき．これが例のコスト関数の右の項に相当．
+        cost = realCost + fakeCost
+        realAccuracy = accuracyComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal)
+        fakeAccuracy = accuracyComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
+        accuracy=(realAccuracy + fakeAccuracy) / 2
+        return cost, accuracy
+    
+    @tf.function()
+    def run(generator, discriminator, noiseVector, realVector):
+        with tf.GradientTape() as generatorTape, tf.GradientTape() as discriminatorTape:
+            generatedVector = generator(noiseVector) # 生成器によるデータの生成．
+            discriminatorOutputFromGenerated = discriminator(generatedVector) # その生成データを識別器に入れる．
+            discriminatorOutputFromReal = discriminator(realVector) # 本物データを識別器に入れる．
+            # 識別器の成長
+            discriminatorCost, discriminatorAccuracy = discriminatorCostFunction(discriminatorOutputFromReal, discriminatorOutputFromGenerated)
+            gradientDiscriminator = discriminatorTape.gradient(discriminatorCost, discriminator.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
+            optimizerDiscriminator.apply_gradients(zip(gradientDiscriminator, discriminator.trainable_variables))
+            # 生成器の成長
+            generatorCost, generatorAccuracy = generatorCostFunction(discriminatorOutputFromGenerated)
+            gradientGenerator = generatorTape.gradient(generatorCost,generator.trainable_variables) # 生成器のパラメータで勾配を計算．
+            optimizerGenerator.apply_gradients(zip(gradientGenerator,generator.trainable_variables))
+            return discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy
+    
+    # ミニバッチセットの生成
+    learnX = tf.data.Dataset.from_tensor_slices(learnX) # このような方法を使うと簡単にミニバッチを実装することが可能．
+    learnT = tf.data.Dataset.from_tensor_slices(learnT)
+    learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．
+    miniBatchNumber = len(list(learnA.as_numpy_iterator()))
+    # 学習ループ
+    for epoch in range(1,MaxEpoch+1):
+        discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy = 0, 0, 0, 0
+        for learnx, _ in learnA:
+            noiseVector = generateNoise(MiniBatchSize, NoiseSize) # ミニバッチサイズで100個の要素からなるノイズベクトルを生成．
+            discriminatorCostTmp, discriminatorAccuracyTmp, generatorCostTmp, generatorAccuracyTmp = run(generator, discriminator, noiseVector, learnx)
+            discriminatorCost += discriminatorCostTmp / miniBatchNumber
+            discriminatorAccuracy += discriminatorAccuracyTmp / miniBatchNumber
+            generatorCost += generatorCostTmp / miniBatchNumber
+            generatorAccuracy += generatorAccuracyTmp / miniBatchNumber
+        # 疑似的なテスト
+        if epoch%10 == 0:
+            print("Epoch {:10d} D-cost {:6.4f} D-acc {:6.4f} G-cost {:6.4f} G-acc {:6.4f} ".format(epoch,float(discriminatorCost),float(discriminatorAccuracy),float(generatorCost),float(generatorAccuracy)))
+            validationNoiseVector = generateNoise(1, NoiseSize)
+            validationOutput = generator(validationNoiseVector)
+            validationOutput = np.asarray(validationOutput).reshape([1, 28, 28])
+            plt.imshow(validationOutput[0], cmap = "gray")
+            plt.pause(1)
+
+# 入力されたデータを0か1に分類するネットワーク
+class Discriminator(tf.keras.Model):
+    def __init__(self):
+        super(Discriminator,self).__init__()
+        self.d1 = tf.keras.layers.Dense(units=128)
+        self.d2 = tf.keras.layers.Dense(units=128)
+        self.d3 = tf.keras.layers.Dense(units=128)
+        self.d4 = tf.keras.layers.Dense(units=2, activation="softmax")
+        self.a = tf.keras.layers.LeakyReLU()
+        self.d = tf.keras.layers.Dropout(0.5)
+    def call(self,x):
+        y = self.d1(x)
+        y = self.a(y)
+        y = self.d(y)
+        y = self.d2(y)
+        y = self.a(y)
+        y = self.d(y)
+        y = self.d3(y)
+        y = self.a(y)
+        y = self.d(y)
+        y = self.d4(y)
+        return y
+
+# 入力されたベクトルから別のベクトルを生成するネットワーク
+class Generator(tf.keras.Model):
+    def __init__(self):
+        super(Generator,self).__init__()
+        self.d1=tf.keras.layers.Dense(units=256)
+        self.d2=tf.keras.layers.Dense(units=256)
+        self.d3=tf.keras.layers.Dense(units=784)
+        self.a=tf.keras.layers.LeakyReLU()
+        self.b1=tf.keras.layers.BatchNormalization()
+        self.b2=tf.keras.layers.BatchNormalization()
+    def call(self,x):
+        y = self.d1(x)
+        y = self.a(y)
+        y = self.b1(y)
+        y = self.d2(y)
+        y = self.a(y)
+        y = self.b2(y)
+        y = self.d3(y)
+        return y
+
+def generateNoise(miniBatchSize, randomNoiseSize):
+    return np.random.uniform(-1,1,size=(miniBatchSize,randomNoiseSize)).astype("float32")
+
+if __name__ == "__main__":
+    main()
+
 
 # とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．
 
