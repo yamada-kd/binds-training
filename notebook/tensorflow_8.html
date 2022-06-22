@@ -391,9 +391,345 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id2">
 <h2><span class="section-number">9.1. </span>原理とできること<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#np.set_printoptions(threshold=np.inf,linewidth=np.inf,suppress=True,precision=12)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">MiniBatchSize</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">NoiseSize</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">MaxEpoch</span> <span class="o">=</span> <span class="mi">500</span>
+    
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">learnX</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">784</span><span class="p">])</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="p">(</span><span class="n">learnX</span> <span class="o">-</span> <span class="mf">127.5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">127.5</span>
+    
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">()</span>
+    <span class="n">discriminator</span> <span class="o">=</span> <span class="n">Discriminator</span><span class="p">()</span>
+    
+    <span class="n">costComputer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
+    <span class="n">accuracyComputer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>
+    
+    <span class="n">optimizerGenerator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+    <span class="n">optimizerDiscriminator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.00004</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">generatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="p">):</span> <span class="c1"># 生成器のコストの引数は生成器の出力を識別器に入れた結果．生成器としては全部正解を出しているはずなので教師はすべて1となるはず．そのように学習すべき．</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="n">costComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracyComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span>
+    
+    <span class="k">def</span> <span class="nf">discriminatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="p">,</span><span class="n">discriminatorOutputFromGenerated</span><span class="p">):</span> <span class="c1"># 識別器のコストの引数は本物の情報を識別器に入れた結果と生成器の出力を識別器に入れた結果．</span>
+        <span class="n">realCost</span> <span class="o">=</span> <span class="n">costComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromReal</span><span class="p">)</span> <span class="c1"># 本物の情報の場合はすべて正例（1）と判断すべき．これが例のコスト関数の左の項に相当．</span>
+        <span class="n">fakeCost</span> <span class="o">=</span> <span class="n">costComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span> <span class="c1"># 偽物の情報の場合はすべて負例（0）と判断すべき．これが例のコスト関数の右の項に相当．</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="n">realCost</span> <span class="o">+</span> <span class="n">fakeCost</span>
+        <span class="n">realAccuracy</span> <span class="o">=</span> <span class="n">accuracyComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromReal</span><span class="p">)</span>
+        <span class="n">fakeAccuracy</span> <span class="o">=</span> <span class="n">accuracyComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+        <span class="n">accuracy</span><span class="o">=</span><span class="p">(</span><span class="n">realAccuracy</span> <span class="o">+</span> <span class="n">fakeAccuracy</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span>
+    
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realVector</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">generatorTape</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">discriminatorTape</span><span class="p">:</span>
+            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">discriminatorOutputFromGenerated</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="n">discriminatorOutputFromReal</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">realVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
+            
+            <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span> <span class="o">=</span> <span class="n">discriminatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="p">,</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+            <span class="n">gradientDiscriminator</span> <span class="o">=</span> <span class="n">discriminatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+            <span class="n">optimizerDiscriminator</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradientDiscriminator</span><span class="p">,</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            
+            <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span> <span class="o">=</span> <span class="n">generatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+            <span class="n">gradientGenerator</span> <span class="o">=</span> <span class="n">generatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+            <span class="n">optimizerGenerator</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradientGenerator</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            
+            <span class="k">return</span> <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span><span class="p">,</span> <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span>
+    
+    <span class="c1"># ミニバッチセットの生成</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">learnX</span><span class="p">)</span>
+    <span class="n">learnT</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">learnT</span><span class="p">)</span>
+    <span class="n">learnA</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">zip</span><span class="p">((</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">))</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">60000</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">)</span> <span class="c1"># 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．</span>
+    <span class="n">miniBatchNumber</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">learnA</span><span class="o">.</span><span class="n">as_numpy_iterator</span><span class="p">()))</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">MaxEpoch</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span><span class="p">,</span> <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">learnx</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">learnA</span><span class="p">:</span>
+            <span class="n">noiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span> <span class="c1"># ミニバッチサイズで100個の要素からなるノイズベクトルを生成．</span>
+            <span class="n">discriminatorCostTmp</span><span class="p">,</span> <span class="n">discriminatorAccuracyTmp</span><span class="p">,</span> <span class="n">generatorCostTmp</span><span class="p">,</span> <span class="n">generatorAccuracyTmp</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">learnx</span><span class="p">)</span>
+            <span class="n">discriminatorCost</span> <span class="o">+=</span> <span class="n">discriminatorCostTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">discriminatorAccuracy</span> <span class="o">+=</span> <span class="n">discriminatorAccuracyTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">generatorCost</span> <span class="o">+=</span> <span class="n">generatorCostTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">generatorAccuracy</span> <span class="o">+=</span> <span class="n">generatorAccuracyTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">10</span> == 0:
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> D-acc </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-acc </span><span class="si">{:6.4f}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorAccuracy</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorAccuracy</span><span class="p">)))</span>
+            <span class="n">validationNoiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span>
+            <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">validationNoiseVector</span><span class="p">)</span>
+            <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1">#print(validationOutput)</span>
+
+<span class="k">class</span> <span class="nc">Discriminator</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Discriminator</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d4</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d4</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Generator</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">784</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+    
+<span class="k">def</span> <span class="nf">generateNoise</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         10 D-cost 1.2726 D-acc 0.5844 G-cost 0.9265 G-acc 0.5844 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_1.png" src="../_images/tensorflow_8_3_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         20 D-cost 1.3890 D-acc 0.5565 G-cost 0.7543 G-acc 0.5565 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_3.png" src="../_images/tensorflow_8_3_3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         30 D-cost 1.2272 D-acc 0.5446 G-cost 0.7550 G-acc 0.5446 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_5.png" src="../_images/tensorflow_8_3_5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         40 D-cost 1.2776 D-acc 0.5394 G-cost 0.9228 G-acc 0.5394 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_7.png" src="../_images/tensorflow_8_3_7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         50 D-cost 1.4153 D-acc 0.5346 G-cost 0.6583 G-acc 0.5346 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_9.png" src="../_images/tensorflow_8_3_9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         60 D-cost 1.5300 D-acc 0.5321 G-cost 0.5926 G-acc 0.5321 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_11.png" src="../_images/tensorflow_8_3_11.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         70 D-cost 1.4459 D-acc 0.5311 G-cost 0.6737 G-acc 0.5311 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_13.png" src="../_images/tensorflow_8_3_13.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         80 D-cost 1.3899 D-acc 0.5287 G-cost 0.7185 G-acc 0.5287 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_15.png" src="../_images/tensorflow_8_3_15.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch         90 D-cost 1.5133 D-acc 0.5277 G-cost 0.7649 G-acc 0.5277 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_17.png" src="../_images/tensorflow_8_3_17.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        100 D-cost 1.3504 D-acc 0.5256 G-cost 0.7021 G-acc 0.5256 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_19.png" src="../_images/tensorflow_8_3_19.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        110 D-cost 1.2578 D-acc 0.5244 G-cost 0.7651 G-acc 0.5244 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_21.png" src="../_images/tensorflow_8_3_21.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        120 D-cost 1.4185 D-acc 0.5233 G-cost 0.7428 G-acc 0.5233 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_23.png" src="../_images/tensorflow_8_3_23.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        130 D-cost 1.4180 D-acc 0.5220 G-cost 0.7132 G-acc 0.5220 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_25.png" src="../_images/tensorflow_8_3_25.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        140 D-cost 1.4666 D-acc 0.5214 G-cost 0.6562 G-acc 0.5214 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_27.png" src="../_images/tensorflow_8_3_27.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        150 D-cost 1.4338 D-acc 0.5199 G-cost 0.7531 G-acc 0.5199 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_29.png" src="../_images/tensorflow_8_3_29.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        160 D-cost 1.3396 D-acc 0.5194 G-cost 0.7431 G-acc 0.5194 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_31.png" src="../_images/tensorflow_8_3_31.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        170 D-cost 1.3535 D-acc 0.5186 G-cost 0.7257 G-acc 0.5186 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_33.png" src="../_images/tensorflow_8_3_33.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        180 D-cost 1.3984 D-acc 0.5177 G-cost 0.7120 G-acc 0.5177 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_35.png" src="../_images/tensorflow_8_3_35.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        190 D-cost 1.4021 D-acc 0.5173 G-cost 0.7093 G-acc 0.5173 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_37.png" src="../_images/tensorflow_8_3_37.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        200 D-cost 1.3497 D-acc 0.5166 G-cost 0.7177 G-acc 0.5166 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_39.png" src="../_images/tensorflow_8_3_39.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        210 D-cost 1.3508 D-acc 0.5161 G-cost 0.7430 G-acc 0.5161 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_41.png" src="../_images/tensorflow_8_3_41.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        220 D-cost 1.3228 D-acc 0.5163 G-cost 0.7699 G-acc 0.5163 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_43.png" src="../_images/tensorflow_8_3_43.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        230 D-cost 1.3574 D-acc 0.5162 G-cost 0.7607 G-acc 0.5162 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_45.png" src="../_images/tensorflow_8_3_45.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        240 D-cost 1.3330 D-acc 0.5160 G-cost 0.7533 G-acc 0.5160 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_47.png" src="../_images/tensorflow_8_3_47.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        250 D-cost 1.3433 D-acc 0.5161 G-cost 0.7611 G-acc 0.5161 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_49.png" src="../_images/tensorflow_8_3_49.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        260 D-cost 1.3479 D-acc 0.5160 G-cost 0.7489 G-acc 0.5160 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_51.png" src="../_images/tensorflow_8_3_51.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        270 D-cost 1.3192 D-acc 0.5160 G-cost 0.7769 G-acc 0.5160 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_53.png" src="../_images/tensorflow_8_3_53.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        280 D-cost 1.3327 D-acc 0.5162 G-cost 0.7632 G-acc 0.5162 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_55.png" src="../_images/tensorflow_8_3_55.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        290 D-cost 1.3537 D-acc 0.5163 G-cost 0.7726 G-acc 0.5163 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_57.png" src="../_images/tensorflow_8_3_57.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        300 D-cost 1.3020 D-acc 0.5164 G-cost 0.7927 G-acc 0.5164 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_59.png" src="../_images/tensorflow_8_3_59.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        310 D-cost 1.3024 D-acc 0.5166 G-cost 0.7921 G-acc 0.5166 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_61.png" src="../_images/tensorflow_8_3_61.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        320 D-cost 1.2806 D-acc 0.5168 G-cost 0.8187 G-acc 0.5168 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_63.png" src="../_images/tensorflow_8_3_63.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        330 D-cost 1.3252 D-acc 0.5171 G-cost 0.7933 G-acc 0.5171 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_65.png" src="../_images/tensorflow_8_3_65.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        340 D-cost 1.3035 D-acc 0.5173 G-cost 0.8106 G-acc 0.5173 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_67.png" src="../_images/tensorflow_8_3_67.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        350 D-cost 1.3142 D-acc 0.5175 G-cost 0.8018 G-acc 0.5175 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_69.png" src="../_images/tensorflow_8_3_69.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        360 D-cost 1.3156 D-acc 0.5177 G-cost 0.7870 G-acc 0.5177 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_71.png" src="../_images/tensorflow_8_3_71.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        370 D-cost 1.3109 D-acc 0.5179 G-cost 0.8035 G-acc 0.5179 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_73.png" src="../_images/tensorflow_8_3_73.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        380 D-cost 1.3189 D-acc 0.5178 G-cost 0.7935 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_75.png" src="../_images/tensorflow_8_3_75.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        390 D-cost 1.3114 D-acc 0.5178 G-cost 0.7784 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_77.png" src="../_images/tensorflow_8_3_77.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        400 D-cost 1.3123 D-acc 0.5178 G-cost 0.7757 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_79.png" src="../_images/tensorflow_8_3_79.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        410 D-cost 1.3141 D-acc 0.5178 G-cost 0.7889 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_81.png" src="../_images/tensorflow_8_3_81.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        420 D-cost 1.3177 D-acc 0.5178 G-cost 0.7974 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_83.png" src="../_images/tensorflow_8_3_83.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        430 D-cost 1.3100 D-acc 0.5178 G-cost 0.7909 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_85.png" src="../_images/tensorflow_8_3_85.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        440 D-cost 1.3100 D-acc 0.5178 G-cost 0.8032 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_87.png" src="../_images/tensorflow_8_3_87.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        450 D-cost 1.3068 D-acc 0.5178 G-cost 0.7801 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_89.png" src="../_images/tensorflow_8_3_89.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        460 D-cost 1.3066 D-acc 0.5178 G-cost 0.7973 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_91.png" src="../_images/tensorflow_8_3_91.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        470 D-cost 1.3214 D-acc 0.5178 G-cost 0.7996 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_93.png" src="../_images/tensorflow_8_3_93.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        480 D-cost 1.3083 D-acc 0.5178 G-cost 0.7978 G-acc 0.5178 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_95.png" src="../_images/tensorflow_8_3_95.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        490 D-cost 1.2989 D-acc 0.5179 G-cost 0.7989 G-acc 0.5179 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_97.png" src="../_images/tensorflow_8_3_97.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch        500 D-cost 1.3062 D-acc 0.5179 G-cost 0.8041 G-acc 0.5179 
+</pre></div>
+</div>
+<img alt="../_images/tensorflow_8_3_99.png" src="../_images/tensorflow_8_3_99.png" />
+</div>
+</div>
 <p>敵対的生成ネットワークとは</p>
 <div class="section" id="id3">
 <h3><span class="section-number">9.1.1. </span>原理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>生成器，識別器，生成器のコスト関数，識別器のコスト関数</p>
 <p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
 <p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
 <p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションという技術が利用されます．</p>
@@ -425,6 +761,147 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id5">
 <h2><span class="section-number">9.2. </span>基本的な構造<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>最も基本的な GAN の構造は以下のプログラムに含まれるものです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ハイパーパラメータの設定</span>
+    <span class="n">MiniBatchSize</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">NoiseSize</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># GANはランダムなノイズベクトルから何かを生成する方法なので，そのノイズベクトルのサイズを設定する．</span>
+    <span class="n">MaxEpoch</span> <span class="o">=</span> <span class="mi">500</span>
+    
+    <span class="c1"># データセットの読み込み</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">learnX</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">784</span><span class="p">])</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="p">(</span><span class="n">learnX</span> <span class="o">-</span> <span class="mf">127.5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">127.5</span>
+    
+    <span class="c1"># 生成器と識別器の構築</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">()</span> <span class="c1"># 下のクラスを参照．</span>
+    <span class="n">discriminator</span> <span class="o">=</span> <span class="n">Discriminator</span><span class="p">()</span> <span class="c1"># 下のクラスを参照．</span>
+    
+    <span class="c1"># コスト関数と正確度を計算する関数の生成</span>
+    <span class="n">costComputer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
+    <span class="n">accuracyComputer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>
+    
+    <span class="c1"># オプティマイザは生成器と識別器で別々のものを利用</span>
+    <span class="n">optimizerGenerator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+    <span class="n">optimizerDiscriminator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.00004</span><span class="p">)</span>
+    
+    <span class="c1"># 生成器を成長させるためのコストを計算する関数</span>
+    <span class="k">def</span> <span class="nf">generatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="p">):</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="n">costComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span> <span class="c1"># 生成器のコストの引数は生成器の出力を識別器に入れた結果．生成器としては全部正解を出しているはずなので教師はすべて1となるはず．そのように学習すべき．</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracyComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span>
+    
+    <span class="c1"># 識別器を成長させるためのコストを計算する関数</span>
+    <span class="k">def</span> <span class="nf">discriminatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="p">,</span><span class="n">discriminatorOutputFromGenerated</span><span class="p">):</span> <span class="c1"># 識別器のコストの引数は本物の情報を識別器に入れた結果と生成器の出力を識別器に入れた結果．</span>
+        <span class="n">realCost</span> <span class="o">=</span> <span class="n">costComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromReal</span><span class="p">)</span> <span class="c1"># 本物の情報の場合はすべて正例（1）と判断すべき．これが例のコスト関数の左の項に相当．</span>
+        <span class="n">fakeCost</span> <span class="o">=</span> <span class="n">costComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span> <span class="c1"># 偽物の情報の場合はすべて負例（0）と判断すべき．これが例のコスト関数の右の項に相当．</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="n">realCost</span> <span class="o">+</span> <span class="n">fakeCost</span>
+        <span class="n">realAccuracy</span> <span class="o">=</span> <span class="n">accuracyComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromReal</span><span class="p">)</span>
+        <span class="n">fakeAccuracy</span> <span class="o">=</span> <span class="n">accuracyComputer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+        <span class="n">accuracy</span><span class="o">=</span><span class="p">(</span><span class="n">realAccuracy</span> <span class="o">+</span> <span class="n">fakeAccuracy</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span>
+    
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realVector</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">generatorTape</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">discriminatorTape</span><span class="p">:</span>
+            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">discriminatorOutputFromGenerated</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="n">discriminatorOutputFromReal</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">realVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
+            <span class="c1"># 識別器の成長</span>
+            <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span> <span class="o">=</span> <span class="n">discriminatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="p">,</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+            <span class="n">gradientDiscriminator</span> <span class="o">=</span> <span class="n">discriminatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．</span>
+            <span class="n">optimizerDiscriminator</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradientDiscriminator</span><span class="p">,</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="c1"># 生成器の成長</span>
+            <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span> <span class="o">=</span> <span class="n">generatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
+            <span class="n">gradientGenerator</span> <span class="o">=</span> <span class="n">generatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 生成器のパラメータで勾配を計算．</span>
+            <span class="n">optimizerGenerator</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradientGenerator</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span><span class="p">,</span> <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span>
+    
+    <span class="c1"># ミニバッチセットの生成</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">learnX</span><span class="p">)</span> <span class="c1"># このような方法を使うと簡単にミニバッチを実装することが可能．</span>
+    <span class="n">learnT</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">learnT</span><span class="p">)</span>
+    <span class="n">learnA</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">zip</span><span class="p">((</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">))</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">60000</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">)</span> <span class="c1"># 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．</span>
+    <span class="n">miniBatchNumber</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">learnA</span><span class="o">.</span><span class="n">as_numpy_iterator</span><span class="p">()))</span>
+    <span class="c1"># 学習ループ</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">MaxEpoch</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span><span class="p">,</span> <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">learnx</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">learnA</span><span class="p">:</span>
+            <span class="n">noiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span> <span class="c1"># ミニバッチサイズで100個の要素からなるノイズベクトルを生成．</span>
+            <span class="n">discriminatorCostTmp</span><span class="p">,</span> <span class="n">discriminatorAccuracyTmp</span><span class="p">,</span> <span class="n">generatorCostTmp</span><span class="p">,</span> <span class="n">generatorAccuracyTmp</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">learnx</span><span class="p">)</span>
+            <span class="n">discriminatorCost</span> <span class="o">+=</span> <span class="n">discriminatorCostTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">discriminatorAccuracy</span> <span class="o">+=</span> <span class="n">discriminatorAccuracyTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">generatorCost</span> <span class="o">+=</span> <span class="n">generatorCostTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">generatorAccuracy</span> <span class="o">+=</span> <span class="n">generatorAccuracyTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+        <span class="c1"># 疑似的なテスト</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">10</span> == 0:
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> D-acc </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-acc </span><span class="si">{:6.4f}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorAccuracy</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorAccuracy</span><span class="p">)))</span>
+            <span class="n">validationNoiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span>
+            <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">validationNoiseVector</span><span class="p">)</span>
+            <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 入力されたデータを0か1に分類するネットワーク</span>
+<span class="k">class</span> <span class="nc">Discriminator</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Discriminator</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d4</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d4</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="c1"># 入力されたベクトルから別のベクトルを生成するネットワーク</span>
+<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Generator</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">784</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">generateNoise</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span> <span class="n">randomNoiseSize</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．</p>
 <div class="section" id="id6">
 <h3><span class="section-number">9.2.1. </span>感情分析<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
