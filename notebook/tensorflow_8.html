@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="8. Hugging Face の利用方法" href="tensorflow_7.html" />
@@ -269,7 +271,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     9.1.1. 原理と利用方法
+     9.1.1. 原理と活用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -335,7 +337,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     9.1.1. 原理と利用方法
+     9.1.1. 原理と活用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -397,31 +399,37 @@ const thebe_selector_output = ".output, .cell_output"
 <p>GAN の構造には必ずしもニューラルネットワークが含まれる必要はありません．</p>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">9.1.1. </span>原理と利用方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.1.1. </span>原理と活用方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>GAN の構成要素はふたつです．生成器（generator）と識別器（discriminator）です．識別器は以下で紹介するワッサースタイン GAN を利用する場合は critic と名前を変えます．これの和訳は多分ありません．ここではクリティックと表記します．GAN はデータを生成（その派生として変換）する人工知能を作る方法です．最終的に得たいのは性能良く育った生成器です．識別器の役割は生成器をより良く育てることです．</p>
 <p>GAN の学習は，より良い質の偽札を作ろうとする紙幣の偽造者とその偽札を見破る警察によるイタチごっこに例えられます．GAN においては偽造者が生成器で，警察が識別器です．GAN は以下のような構造をしています．生成器にはランダムに発生させられたノイズデータが入力されます．このランダムノイズを入力にして生成器は質の良い偽札を生成しようとします．これに対して，識別器には生成器から出力された偽札データ（偽物のデータ）または，本物の札（本物のデータ）のどちらかが入力されます．このどちらかのデータを入力にして識別器は入力データが本物か偽物かの値を出力します．例えば，生成したいデータが画像である場合，生成器から出力されるものは画像で，識別器から出力されるものは <code class="docutils literal notranslate"><span class="pre">0</span></code> または <code class="docutils literal notranslate"><span class="pre">1</span></code> です．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" style="width: 100%;" /></a>
 <p>学習の最中に，生成器の性能と識別器の性能がどちらも良くなるようにそれらを育てます．よって生成器が良い感じに成長するとより質の高い偽札が生成されます．これに対して，識別器も偽札と本物の札を見分ける能力が高まるので，生成器は識別器に見破られないためにはさらに性能を向上させなければなりません．GAN の学習ではこのようなイタチごっこを行うことで生成器の性能を極限まで高めようとしています．</p>
-<p>GAN の学習において，</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>実用上，配列を入力にして配列を返す構造とだけ覚えておけば問題はないと思います．</p>
+<p>GAN の学習においては生成器と識別器のどちらもを成長させなければなりません．具体的には以下のようなふたつのパラメータ更新を別々に行います．</p>
+<ul class="simple">
+<li><p>生成器を成長させる際には，ノイズを入力にして出力された偽物のデータを識別器の入力として識別器が真偽を識別した結果得られる出力に対して計算したコストから生成器のパラメータについて勾配を計算し，これを用いて生成器だけのパラメータの更新を行います．</p></li>
+<li><p>識別器を成長させる際には，生成器から得られた偽物のデータか本物のデータを入力として識別器が真偽を識別した結果得られる出力に対して計算したコストから識別器のパラメータについて勾配を計算し，これを用いて識別器だけのパラメータ更新を行います．</p></li>
+</ul>
+<p>生成器のコスト関数を <span class="math notranslate nohighlight">\(P\)</span>，識別器のコスト関数を <span class="math notranslate nohighlight">\(Q\)</span> で表したとき，生成器を成長させるためのコストを計算するコスト関数は以下のように表されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle P(\boldsymbol{\theta})=\frac{1}{N}\sum_{i=1}^{N}\log(1-D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i)))
+\)</span></p>
+<p>ここで，生成器は <span class="math notranslate nohighlight">\(G\)</span>，識別器は <span class="math notranslate nohighlight">\(D\)</span> で表しています．それぞれのニューラルネットワークのパラメータは <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> と <span class="math notranslate nohighlight">\(\boldsymbol{\phi}\)</span> で，また，生成器と識別器へ入力されたデータの個数（サイズ）は <span class="math notranslate nohighlight">\(N\)</span> です．生成器への入力データである <span class="math notranslate nohighlight">\(N\)</span> 個のノイズの <span class="math notranslate nohighlight">\(i\)</span> 番目のデータを <span class="math notranslate nohighlight">\(\boldsymbol{z}_i\)</span> と表し，識別器への <span class="math notranslate nohighlight">\(i\)</span> 番目の入力データを <span class="math notranslate nohighlight">\(\boldsymbol{x}_i\)</span> と表記しています．識別器は入力されたデータが偽である場合 <code class="docutils literal notranslate"><span class="pre">0</span></code> を出力し，真である場合 <code class="docutils literal notranslate"><span class="pre">1</span></code> を出力するものとします．この場合，生成器の出力は全て真であると識別してほしいので，この <span class="math notranslate nohighlight">\(P\)</span> を小さくすれば目的に適うわけです．一方で，識別器のコスト関数は以下のように表されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle Q(\boldsymbol{\phi})=\frac{1}{N}\sum_{i=1}^{N}(\log D(\boldsymbol{\phi},\boldsymbol{x}_i)+\log(1-D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i))))
+\)</span></p>
+<p>本物のデータに対しては <code class="docutils literal notranslate"><span class="pre">0</span></code> を出力してほしいし，偽物のデータに対しては <code class="docutils literal notranslate"><span class="pre">1</span></code> を出力してほしいので，この <span class="math notranslate nohighlight">\(Q\)</span> を小さくすれば良いのですね．</p>
+<p>ここでは，このように生成器と識別器のコスト関数を分けて書きましたが，元の論文には以下のように書かれています．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle \min_G \max_D V(D,G) = \min_G \max_D \mathbb E_{x \sim p_{data}(x)}[\log{D(x)}]+ \mathbb E_{z \sim p_z(z)}[\log{(1-D(G(z)))}]
+\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>元論文の式，これ厳密でしょうか？これだけ見せられたら意味わからないです．</p>
 </div>
 </div>
 <div class="section" id="gan">
 <h3><span class="section-number">9.1.2. </span>色々な GAN<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h3>
-<p>Hugging Face で扱うことができるタスクは以下に示すものがあります．これ以外にもありますが自然言語処理に関する代表的なタスクを抽出しました．括弧内の文字列は実際に Hugging Face を利用する際に指定するオプションです（後で利用します．）．</p>
-<ul class="simple">
-<li><p>感情分析（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）：入力した文章が有する感情を予測</p></li>
-<li><p>特徴抽出（<code class="docutils literal notranslate"><span class="pre">feature-extraction</span></code>）：入力した文章をその特徴を示すベクトルに変換</p></li>
-<li><p>穴埋め（<code class="docutils literal notranslate"><span class="pre">fill-mask</span></code>）：文章中のマスクされた単語を予測</p></li>
-<li><p>固有表現抽出（<code class="docutils literal notranslate"><span class="pre">ner</span></code>）：入力した文章中の固有表現（名前とか場所とか）にラベルをつける</p></li>
-<li><p>質問応答（<code class="docutils literal notranslate"><span class="pre">question-answering</span></code>）：質問文とその答えが含まれる何らかの説明文を入力として解答文を生成</p></li>
-<li><p>要約（<code class="docutils literal notranslate"><span class="pre">summarization</span></code>）：入力した文章を要約</p></li>
-<li><p>文章生成（<code class="docutils literal notranslate"><span class="pre">text-generation</span></code>）：文章を入力にして，その文章に続く文章を生成</p></li>
-<li><p>翻訳（<code class="docutils literal notranslate"><span class="pre">translation</span></code>）：文章を他の言語に翻訳</p></li>
-<li><p>ゼロショット文章分類（<code class="docutils literal notranslate"><span class="pre">zero-shot-classification</span></code>）：文章とそれが属する可能性があるいくつかのカテゴリを入力にしてその文章をひとつのカテゴリに分類</p></li>
-</ul>
+<p>GAN は色々なところで使われています．</p>
 </div>
 </div>
 <div class="section" id="id4">
