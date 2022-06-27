@@ -13,7 +13,7 @@
 
 # 敵対的生成ネットワークとは英語では generative adversarial network（GAN）と言う（主に）ニューラルネットワークを用いて
 
-# ```attention
+# ```{attention}
 # GAN の構造には必ずしもニューラルネットワークが含まれる必要はありません．
 # ```
 
