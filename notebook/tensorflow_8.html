@@ -264,7 +264,7 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   9.1. 原理とできること
+   9.1. 基本的な事柄
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -280,12 +280,12 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   9.2. 基本的な構造
+  <a class="reference internal nav-link" href="#gan">
+   9.2. 基本的な GAN
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id5">
      9.2.1. 感情分析
     </a>
    </li>
@@ -297,7 +297,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id6">
      9.3.1. 他のモデルの利用
     </a>
    </li>
@@ -305,7 +305,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#conditional-gan">
-   9.4. Conditional GAN
+   9.4. Conditional GAN の実装
   </a>
  </li>
 </ul>
@@ -330,7 +330,7 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   9.1. 原理とできること
+   9.1. 基本的な事柄
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -346,12 +346,12 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   9.2. 基本的な構造
+  <a class="reference internal nav-link" href="#gan">
+   9.2. 基本的な GAN
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id5">
      9.2.1. 感情分析
     </a>
    </li>
@@ -363,7 +363,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id6">
      9.3.1. 他のモデルの利用
     </a>
    </li>
@@ -371,7 +371,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#conditional-gan">
-   9.4. Conditional GAN
+   9.4. Conditional GAN の実装
   </a>
  </li>
 </ul>
@@ -390,7 +390,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>作成途中！！！！！！！</p>
 </div>
 <div class="section" id="id2">
-<h2><span class="section-number">9.1. </span>原理とできること<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.1. </span>基本的な事柄<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -901,6 +901,168 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ハイパーパラメータの設定</span>
+    <span class="n">MiniBatchSize</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">NoiseSize</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># GANはランダムなノイズベクトルから何かを生成する方法なので，そのノイズベクトルのサイズを設定する．</span>
+    <span class="n">MaxEpoch</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">CriticLearningNumber</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">GradientPenaltyCoefficient</span> <span class="o">=</span> <span class="mi">10</span>
+    
+    <span class="c1"># データセットの読み込み</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">learnX</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">784</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="p">(</span><span class="n">learnX</span> <span class="o">-</span> <span class="mf">127.5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">127.5</span>
+    
+    <span class="c1"># 生成器と識別器の構築</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">()</span> <span class="c1"># 下のクラスを参照．</span>
+    <span class="n">critic</span> <span class="o">=</span> <span class="n">Critic</span><span class="p">()</span> <span class="c1"># 下のクラスを参照．</span>
+    
+    <span class="c1"># オプティマイザは生成器と識別器で同じで良い．が，ハイパーパラメータを変えたくなるかもしれないからふたつ用意．</span>
+    <span class="n">optimizerGenerator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">beta_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">beta_2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="n">optimizerCritic</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">beta_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">beta_2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">runCritic</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realInputVector</span><span class="p">,</span> <span class="n">realConditionVector</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">criticTape</span><span class="p">:</span>
+            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">,</span> <span class="n">realConditionVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">criticOutputFromGenerated</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">,</span> <span class="n">realConditionVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="n">criticOutputFromReal</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">realInputVector</span><span class="p">,</span> <span class="n">realConditionVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
+            <span class="n">epsilon</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">generatedVector</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">minval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">intermediateVector</span> <span class="o">=</span> <span class="n">generatedVector</span> <span class="o">+</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">(</span><span class="n">realInputVector</span> <span class="o">-</span> <span class="n">generatedVector</span><span class="p">)</span>
+            <span class="c1"># 勾配ペナルティ</span>
+            <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">gradientPenaltyTape</span><span class="p">:</span>
+                <span class="n">gradientPenaltyTape</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">intermediateVector</span><span class="p">)</span>
+                <span class="n">criticOutputFromIntermediate</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">intermediateVector</span><span class="p">,</span> <span class="n">realConditionVector</span><span class="p">)</span>
+                <span class="n">gradientVector</span> <span class="o">=</span> <span class="n">gradientPenaltyTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">criticOutputFromIntermediate</span><span class="p">,</span> <span class="n">intermediateVector</span><span class="p">)</span>
+                <span class="n">gradientNorm</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">gradientVector</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># gradientNorm = tf.sqrt(tf.reduce_sum(tf.square(gradientVector), axis=1)) と書いても良い．</span>
+                <span class="n">gradientPenalty</span> <span class="o">=</span> <span class="p">(</span><span class="n">gradientNorm</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+            <span class="c1"># 識別器の成長</span>
+            <span class="n">criticCost</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">criticOutputFromGenerated</span> <span class="o">-</span> <span class="n">criticOutputFromReal</span> <span class="o">+</span> <span class="n">GradientPenaltyCoefficient</span> <span class="o">*</span> <span class="n">gradientPenalty</span><span class="p">)</span> <span class="c1"># 識別器を成長させるためのコストを計算．WGANの元論文の式そのまま．</span>
+            <span class="n">gradientCritic</span> <span class="o">=</span> <span class="n">criticTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">criticCost</span><span class="p">,</span> <span class="n">critic</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．</span>
+            <span class="n">optimizerCritic</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradientCritic</span><span class="p">,</span> <span class="n">critic</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">criticCost</span>
+    
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">runGenerator</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">generatedConditionVector</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">generatorTape</span><span class="p">:</span>
+            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">,</span> <span class="n">generatedConditionVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">criticOutputFromGenerated</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">,</span> <span class="n">generatedConditionVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="c1"># 生成器の成長</span>
+            <span class="n">generatorCost</span> <span class="o">=</span> <span class="o">-</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">criticOutputFromGenerated</span><span class="p">)</span> <span class="c1"># 生成器を成長させるためのコストを計算．</span>
+            <span class="n">gradientGenerator</span> <span class="o">=</span> <span class="n">generatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 生成器のパラメータで勾配を計算．</span>
+            <span class="n">optimizerGenerator</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradientGenerator</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">generatorCost</span>
+    
+    <span class="c1"># ミニバッチセットの生成</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">learnX</span><span class="p">)</span> <span class="c1"># このような方法を使うと簡単にミニバッチを実装することが可能．</span>
+    <span class="n">learnT</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">learnT</span><span class="p">)</span>
+    <span class="n">learnA</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">zip</span><span class="p">((</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">))</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">60000</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">)</span> <span class="c1"># 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．</span>
+    <span class="n">miniBatchNumber</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">learnA</span><span class="o">.</span><span class="n">as_numpy_iterator</span><span class="p">()))</span>
+    <span class="c1"># 学習ループ</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">MaxEpoch</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">criticCost</span><span class="p">,</span> <span class="n">generatorCost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span> <span class="ow">in</span> <span class="n">learnA</span><span class="p">:</span>
+            <span class="c1"># WGAN-gpでは識別器1回に対して生成器を複数回学習させるのでそのためのループ．</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">CriticLearningNumber</span><span class="p">):</span>
+                <span class="n">noiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span> <span class="c1"># ミニバッチサイズで100個の要素からなるノイズベクトルを生成．</span>
+                <span class="n">criticCostPiece</span> <span class="o">=</span> <span class="n">runCritic</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+                <span class="n">criticCost</span> <span class="o">+=</span> <span class="n">criticCostPiece</span> <span class="o">/</span> <span class="p">(</span><span class="n">CriticLearningNumber</span> <span class="o">*</span> <span class="n">miniBatchNumber</span><span class="p">)</span>
+            <span class="c1"># WGAN-gpでは識別器1回に対して生成器を複数回学習させるのでそのためのループ．</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">noiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span> <span class="c1"># ミニバッチサイズで100個の要素からなるノイズベクトルを生成．</span>
+                <span class="n">generatedConditionVector</span> <span class="o">=</span> <span class="n">generateConditionVector</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">)</span>
+                <span class="n">generatorCostPiece</span> <span class="o">=</span> <span class="n">runGenerator</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">generatedConditionVector</span><span class="p">)</span>
+                <span class="n">generatorCost</span> <span class="o">+=</span> <span class="n">generatorCostPiece</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+        <span class="c1"># 疑似的なテスト</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">10</span> == 0:
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">criticCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">)))</span>
+            <span class="n">validationNoiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span>
+            <span class="n">validationConditionVector</span> <span class="o">=</span> <span class="n">generateConditionVector</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">validationNoiseVector</span><span class="p">,</span> <span class="n">validationConditionVector</span><span class="p">)</span>
+            <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">validationConditionVector</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 入力されたデータを0か1に分類するネットワーク</span>
+<span class="k">class</span> <span class="nc">Critic</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Critic</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d4</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">mask_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d4</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="c1"># 入力されたベクトルから別のベクトルを生成するネットワーク</span>
+<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Generator</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d4</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">784</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">mask_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d4</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">generateNoise</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span> <span class="n">randomNoiseSize</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">generateConditionVector</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>敵対的生成ネットワークとは</p>
 <div class="section" id="id3">
 <h3><span class="section-number">9.1.1. </span>原理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -934,8 +1096,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
-<div class="section" id="id5">
-<h2><span class="section-number">9.2. </span>基本的な構造<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gan">
+<h2><span class="section-number">9.2. </span>基本的な GAN<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h2>
 <p>最も基本的な GAN の構造は以下のプログラムに含まれるものです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1078,8 +1240,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．</p>
-<div class="section" id="id6">
-<h3><span class="section-number">9.2.1. </span>感情分析<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">9.2.1. </span>感情分析<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>最も簡単な <code class="docutils literal notranslate"><span class="pre">tranformers</span></code> の利用方法は以下のようになると思います．<code class="docutils literal notranslate"><span class="pre">pipeline</span></code> を読み込んで，そこに取り組みたいタスク（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1269,8 +1431,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3><span class="section-number">9.3.1. </span>他のモデルの利用<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">9.3.1. </span>他のモデルの利用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>これまでに，Hugging Face が自動でダウンロードしてくれたデフォルトの事前学習済みモデルを利用した予測を行いましたが，そうでなくて，モデルを指定することもできます．以下のページをご覧ください．Model Hub と言います．</p>
 <p><a class="reference external" href="https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads">https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads</a></p>
 <p>この Model Hub の Tasks というところでタグを選択できます．例えば，Text Generation の <code class="docutils literal notranslate"><span class="pre">distilgpt2</span></code> を利用するには以下のように書きます．</p>
@@ -1294,7 +1456,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="conditional-gan">
-<h2><span class="section-number">9.4. </span>Conditional GAN<a class="headerlink" href="#conditional-gan" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.4. </span>Conditional GAN の実装<a class="headerlink" href="#conditional-gan" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
