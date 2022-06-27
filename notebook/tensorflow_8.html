@@ -273,19 +273,19 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gan-zoo">
-     9.1.2. GAN Zoo
+    <a class="reference internal nav-link" href="#gan">
+     9.1.2. 色々な GAN
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gan">
+  <a class="reference internal nav-link" href="#id4">
    9.2. 基本的な GAN の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      9.2.1. 感情分析
     </a>
    </li>
@@ -297,7 +297,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id6">
      9.3.1. 他のモデルの利用
     </a>
    </li>
@@ -339,19 +339,19 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gan-zoo">
-     9.1.2. GAN Zoo
+    <a class="reference internal nav-link" href="#gan">
+     9.1.2. 色々な GAN
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gan">
+  <a class="reference internal nav-link" href="#id4">
    9.2. 基本的な GAN の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      9.2.1. 感情分析
     </a>
    </li>
@@ -363,7 +363,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id6">
      9.3.1. 他のモデルの利用
     </a>
    </li>
@@ -399,21 +399,17 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id3">
 <h3><span class="section-number">9.1.1. </span>原理と利用方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>生成器，識別器，生成器のコスト関数，識別器のコスト関数</p>
-<p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
-<p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
-<p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションという技術が利用されます．</p>
+<p>GAN の構成要素はふたつです．生成器（generator）と識別器（discriminator）です．識別器は以下で紹介するワッサースタイン GAN を利用する場合は critic と名前を変えます．これの和訳は多分ありません．ここではクリティックと表記します．GAN はデータを生成（その派生として変換）する人工知能を作る方法です．最終的に得たいのは性能良く育った生成器です．識別器の役割は生成器をより良く育てることです．</p>
+<p>GAN の学習は，より良い質の偽札を作ろうとする紙幣の偽造者とその偽札を見破る警察によるイタチごっこに例えられます．GAN においては偽造者が生成器で，警察が識別器です．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" style="width: 100%;" /></a>
-<p>エンコーダーとデコーダー間のアテンション以外にも，エンコーダーとデコーダーの内部でもそれぞれアテンション（セルフアテンション）が計算されます．アテンションは文字列内における文字の関連性を計算します．</p>
-<p>トランスフォーマーは再帰型ニューラルネットワークで行うような文字の逐次的な処理が不要です．よって，計算機の並列化性能をより引き出せます．扱える文脈の長さも無限です（再帰型ニューラルネットワークでも理論上無限です．）．</p>
-<p>このトランスフォーマーはものすごい性能を発揮しており，これまでに作られてきた様々な構造を過去のものとしました．特に応用の範囲が広いのはトランスフォーマーのエンコーダーの部分です．BERT と呼ばれる方法を筆頭に自然言語からなる配列を入力にして何らかの分散表現を出力する方法として自然言語処理に関わる様々な研究開発に利用されています．</p>
-<p>（会話でトランスフォーマーという場合は，トランスフォーマーのエンコーダーまたはデコーダーのことを言っている場合があります．エンコーダー・デコーダー，エンコーダー，デコーダー，この3個でそれぞれできることが異なります．）</p>
+<p>GAN の学習において，</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>実用上，配列を入力にして配列を返す構造とだけ覚えておけば問題はないと思います．</p>
 </div>
 </div>
-<div class="section" id="gan-zoo">
-<h3><span class="section-number">9.1.2. </span>GAN Zoo<a class="headerlink" href="#gan-zoo" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="gan">
+<h3><span class="section-number">9.1.2. </span>色々な GAN<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h3>
 <p>Hugging Face で扱うことができるタスクは以下に示すものがあります．これ以外にもありますが自然言語処理に関する代表的なタスクを抽出しました．括弧内の文字列は実際に Hugging Face を利用する際に指定するオプションです（後で利用します．）．</p>
 <ul class="simple">
 <li><p>感情分析（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）：入力した文章が有する感情を予測</p></li>
@@ -428,8 +424,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
-<div class="section" id="gan">
-<h2><span class="section-number">9.2. </span>基本的な GAN の実装<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">9.2. </span>基本的な GAN の実装<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>最も基本的な GAN の構造は以下のプログラムに含まれるものです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -572,8 +568,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．</p>
-<div class="section" id="id4">
-<h3><span class="section-number">9.2.1. </span>感情分析<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">9.2.1. </span>感情分析<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>最も簡単な <code class="docutils literal notranslate"><span class="pre">tranformers</span></code> の利用方法は以下のようになると思います．<code class="docutils literal notranslate"><span class="pre">pipeline</span></code> を読み込んで，そこに取り組みたいタスク（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -763,8 +759,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h3><span class="section-number">9.3.1. </span>他のモデルの利用<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">9.3.1. </span>他のモデルの利用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>これまでに，Hugging Face が自動でダウンロードしてくれたデフォルトの事前学習済みモデルを利用した予測を行いましたが，そうでなくて，モデルを指定することもできます．以下のページをご覧ください．Model Hub と言います．</p>
 <p><a class="reference external" href="https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads">https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads</a></p>
 <p>この Model Hub の Tasks というところでタグを選択できます．例えば，Text Generation の <code class="docutils literal notranslate"><span class="pre">distilgpt2</span></code> を利用するには以下のように書きます．</p>
