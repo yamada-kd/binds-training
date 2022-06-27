@@ -420,6 +420,9 @@ if __name__ == "__main__":
 
 # ## Conditional GAN の実装
 
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1" width="100%" />
+# 
+
 # ```{note}
 # 終わりです．
 # ```
