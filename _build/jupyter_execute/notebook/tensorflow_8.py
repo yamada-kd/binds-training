@@ -680,7 +680,7 @@ if __name__ == "__main__":
 
 # ### CGAN の実装
 
-# 
+# CGAN を実装します．ただし，この CGAN では基本的な GAN の学習法ではなくて WGAN-gp の方法を使っています．WGAN-gp が非常に強力な方法だからです．よって，これは元々の CGAN でなくて CWGAN-gp とでも呼ぶべきものです．このプログラムでも MNIST の学習データセットを読み込んで，類似した数字画像を出力する人工知能を構築します．以下のように書きます．
 
 # In[ ]:
 
@@ -727,9 +727,9 @@ def main():
                 criticOutputFromIntermediate = critic(intermediateVector, realConditionVector)
                 gradientVector = gradientPenaltyTape.gradient(criticOutputFromIntermediate, intermediateVector)
                 gradientNorm = tf.norm(gradientVector, ord="euclidean", axis=1) # gradientNorm = tf.sqrt(tf.reduce_sum(tf.square(gradientVector), axis=1)) と書いても良い．
-                gradientPenalty = (gradientNorm - 1)**2
+                gradientPenalty = GradientPenaltyCoefficient * (gradientNorm - 1)**2
             # 識別器の成長
-            criticCost = tf.reduce_mean(criticOutputFromGenerated - criticOutputFromReal + GradientPenaltyCoefficient * gradientPenalty) # 識別器を成長させるためのコストを計算．WGANの元論文の式そのまま．
+            criticCost = tf.reduce_mean(criticOutputFromGenerated - criticOutputFromReal + gradientPenalty) # 識別器を成長させるためのコストを計算．WGANの元論文の式そのまま．
             gradientCritic = criticTape.gradient(criticCost, critic.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
             optimizerCritic.apply_gradients(zip(gradientCritic, critic.trainable_variables))
             return criticCost
@@ -748,7 +748,7 @@ def main():
     # ミニバッチセットの生成
     learnX = tf.data.Dataset.from_tensor_slices(learnX) # このような方法を使うと簡単にミニバッチを実装することが可能．
     learnT = tf.data.Dataset.from_tensor_slices(learnT)
-    learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．
+    learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # インプットデータもターゲットデータも両方使うため．
     miniBatchNumber = len(list(learnA.as_numpy_iterator()))
     # 学習ループ
     for epoch in range(1,MaxEpoch+1):
@@ -842,6 +842,43 @@ def generateConditionVector(miniBatchSize):
 if __name__ == "__main__":
     main()
 
+
+# 実行した結果として生成される画像の中心から左上の辺りに数字が表示されていると思います．これはランダムに発生させた条件です．ランダムに 0 から 9 の範囲内にある整数が選択されます．この整数で指定した条件と同じような手書き数字（のようなもの）を出力してほしいのですが，結果を確認すると意図通りにできていますよね．
+
+# CGAN の説明はこれまでのプログラムが理解できている人には不要かもしれません．WGAN-gp の実装変わっている点は 1 点だけです．以下はクリティックのコストを求めるための記述ですが，引数がひとつ増えています．`realConditionVector` が増えているのですが，これは条件を指定するためのベクトルです．生成器とクリティックの入力ベクトルとして条件データを入力する必要があるため，これが新たに加わっただけです．その他の計算は WGAN-gp のものと全く同じです．
+# 
+# ```python
+#     @tf.function()
+#     def runCritic(generator, critic, noiseVector, realInputVector, realConditionVector):
+#         with tf.GradientTape() as criticTape:
+#             generatedInputVector = generator(noiseVector, realConditionVector) # 生成器によるデータの生成．
+#             criticOutputFromGenerated = critic(generatedInputVector, realConditionVector) # その生成データを識別器に入れる．
+#             criticOutputFromReal = critic(realInputVector, realConditionVector) # 本物データを識別器に入れる．
+#             epsilon = tf.random.uniform(generatedInputVector.shape, minval=0, maxval=1)
+#             intermediateVector = generatedInputVector + epsilon * (realInputVector - generatedInputVector)
+#             # 勾配ペナルティ
+#             with tf.GradientTape() as gradientPenaltyTape:
+#                 gradientPenaltyTape.watch(intermediateVector)
+#                 criticOutputFromIntermediate = critic(intermediateVector, realConditionVector)
+#                 gradientVector = gradientPenaltyTape.gradient(criticOutputFromIntermediate, intermediateVector)
+#                 gradientNorm = tf.norm(gradientVector, ord="euclidean", axis=1) # gradientNorm = tf.sqrt(tf.reduce_sum(tf.square(gradientVector), axis=1)) と書いても良い．
+#                 gradientPenalty = GradientPenaltyCoefficient * (gradientNorm - 1)**2
+#             # 識別器の成長
+#             criticCost = tf.reduce_mean(criticOutputFromGenerated - criticOutputFromReal + gradientPenalty) # 識別器を成長させるためのコストを計算．WGANの元論文の式そのまま．
+#             gradientCritic = criticTape.gradient(criticCost, critic.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
+#             optimizerCritic.apply_gradients(zip(gradientCritic, critic.trainable_variables))
+#             return criticCost
+# ```
+
+# 以下のミニバッチを構築するための記述の `learnA` からはじまる行のコメントに注目してください．これまではここに，「今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．」と書いていましたが，ここでは，「インプットデータもターゲットデータも両方使うため．」と書きました．CGAN では MNIST の教師データを学習ループ内で使うためです．
+# 
+# ```python
+#     # ミニバッチセットの生成
+#     learnX = tf.data.Dataset.from_tensor_slices(learnX) # このような方法を使うと簡単にミニバッチを実装することが可能．
+#     learnT = tf.data.Dataset.from_tensor_slices(learnT)
+#     learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # インプットデータもターゲットデータも両方使うため．
+#     miniBatchNumber = len(list(learnA.as_numpy_iterator()))
+# ```
 
 # ```{note}
 # 終わりです．
