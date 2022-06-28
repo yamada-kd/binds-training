@@ -17,6 +17,10 @@
 # GAN の構造には必ずしもニューラルネットワークが含まれる必要はありません．
 # ```
 
+# ```{hint}
+# 計算終了までとても時間がかかるので全てのコードセルを最初に実行すると良いと思います．
+# ```
+
 # ### 原理と活用方法
 
 # GAN の構成要素はふたつです．生成器（generator）と識別器（discriminator）です．識別器は以下で紹介する Wasserstein GAN（WGAN）を利用する場合は critic と名前を変えます．これの和訳は多分ありません．ここではクリティックと表記します．GAN はデータを生成（その派生として変換）する人工知能を作る方法です．最終的に得たいのは性能良く育った生成器です．識別器の役割は生成器をより良く育てることです．
@@ -70,9 +74,22 @@
 
 # ## 基本的な GAN
 
+# ### GAN の学習の手順
+
+# GAN の学習は以下のような手順で行われます．
+# 
+# 1.   ノイズを入力にして生成器が偽物のデータを生成する．
+# 2.   偽物のデータを識別器に入力し，識別器からの出力値を得る．
+# 3.   識別器の出力値を用いて計算したコスト関数 $P$ の値に基づいて生成器のパラメータを更新．
+# 4.   偽物のデータと本物のデータを識別器に入力し，識別器からの出力値を得る．
+# 5.   識別器の出力値を用いて計算したコスト関数 $Q$ の値に基づいて識別器のパラメータを更新．
+# 6.   識別器の評価指標が収束した場合，学習を終了．それ以外の場合，最初に戻る．
+# 
+# 実際の学習の際には適した最適化法を選ぶとか，生成器と識別器の学習回数を変えるとか，真とラベルを $1$ ではなくて $[0.8,1.2]$ の範囲に含まれる値にするとかのテクニックが存在しますが，そのようなものは以下の実装の部分で紹介します．
+
 # ### GAN の実装
 
-# 最も基本的な GAN の構造は以下のプログラムに含まれるものです．
+# 最も基本的な GAN を実装します．このプログラムでは MNIST の学習データセットを読み込んで，類似した数字画像を出力する人工知能を構築します．以下のように書きます．
 
 # In[ ]:
 
@@ -92,7 +109,7 @@ def main():
     
     # データセットの読み込み
     (learnX, learnT), (_, _) = tf.keras.datasets.mnist.load_data()
-    learnX = learnX.reshape([60000, 784])
+    learnX = np.asarray(learnX.reshape([60000, 784]), dtype="float32")
     learnX = (learnX - 127.5) / 127.5
     
     # 生成器と識別器の構築
@@ -124,11 +141,11 @@ def main():
         return cost, accuracy
     
     @tf.function()
-    def run(generator, discriminator, noiseVector, realVector):
+    def run(generator, discriminator, noiseVector, realInputVector):
         with tf.GradientTape() as generatorTape, tf.GradientTape() as discriminatorTape:
-            generatedVector = generator(noiseVector) # 生成器によるデータの生成．
-            discriminatorOutputFromGenerated = discriminator(generatedVector) # その生成データを識別器に入れる．
-            discriminatorOutputFromReal = discriminator(realVector) # 本物データを識別器に入れる．
+            generatedInputVector = generator(noiseVector) # 生成器によるデータの生成．
+            discriminatorOutputFromGenerated = discriminator(generatedInputVector) # その生成データを識別器に入れる．
+            discriminatorOutputFromReal = discriminator(realInputVector) # 本物データを識別器に入れる．
             # 識別器の成長
             discriminatorCost, discriminatorAccuracy = discriminatorCostFunction(discriminatorOutputFromReal, discriminatorOutputFromGenerated)
             gradientDiscriminator = discriminatorTape.gradient(discriminatorCost, discriminator.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
@@ -149,14 +166,14 @@ def main():
         discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy = 0, 0, 0, 0
         for learnx, _ in learnA:
             noiseVector = generateNoise(MiniBatchSize, NoiseSize) # ミニバッチサイズで100個の要素からなるノイズベクトルを生成．
-            discriminatorCostTmp, discriminatorAccuracyTmp, generatorCostTmp, generatorAccuracyTmp = run(generator, discriminator, noiseVector, learnx)
-            discriminatorCost += discriminatorCostTmp / miniBatchNumber
-            discriminatorAccuracy += discriminatorAccuracyTmp / miniBatchNumber
-            generatorCost += generatorCostTmp / miniBatchNumber
-            generatorAccuracy += generatorAccuracyTmp / miniBatchNumber
+            discriminatorCostPiece, discriminatorAccuracyPiece, generatorCostPiece, generatorAccuracyPiece = run(generator, discriminator, noiseVector, learnx)
+            discriminatorCost += discriminatorCostPiece / miniBatchNumber
+            discriminatorAccuracy += discriminatorAccuracyPiece / miniBatchNumber
+            generatorCost += generatorCostPiece / miniBatchNumber
+            generatorAccuracy += generatorAccuracyPiece / miniBatchNumber
         # 疑似的なテスト
         if epoch%10 == 0:
-            print("Epoch {:10d} D-cost {:6.4f} D-acc {:6.4f} G-cost {:6.4f} G-acc {:6.4f} ".format(epoch,float(discriminatorCost),float(discriminatorAccuracy),float(generatorCost),float(generatorAccuracy)))
+            print("Epoch {:10d} D-cost {:6.4f} D-acc {:6.4f} G-cost {:6.4f} G-acc {:6.4f}".format(epoch,float(discriminatorCost),float(discriminatorAccuracy),float(generatorCost),float(generatorAccuracy)))
             validationNoiseVector = generateNoise(1, NoiseSize)
             validationOutput = generator(validationNoiseVector)
             validationOutput = np.asarray(validationOutput).reshape([1, 28, 28])
@@ -204,58 +221,47 @@ class Generator(tf.keras.Model):
         y = self.a(y)
         y = self.b2(y)
         y = self.d3(y)
+        y = tf.keras.activations.tanh(y)
         return y
 
 def generateNoise(miniBatchSize, randomNoiseSize):
-    return np.random.uniform(-1,1,size=(miniBatchSize,randomNoiseSize)).astype("float32")
+    return np.random.uniform(-1, 1, size=(miniBatchSize,randomNoiseSize)).astype("float32")
 
 if __name__ == "__main__":
     main()
 
 
-# とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．
+# 実行した結果，エポックを経るに従って数字が含まれたような画像が生成されたはずです．
 
 # ### GAN の問題点
 
-# 最も簡単な `tranformers` の利用方法は以下のようになると思います．`pipeline` を読み込んで，そこに取り組みたいタスク（`sentiment-analysis`）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．
-
-# In[ ]:
-
-
-#!/usr/bin/env python3
-from transformers import pipeline
- 
-def main():
-    classifier = pipeline("sentiment-analysis")
-    text = "I have a pen."
-    result = classifier(text)
-    print(result)
-
-if __name__ == "__main__":
-    main()
-
-
 # 入力した文章がポジティブな文章なのかネガティブな文章なのかを分類できます．ここでは1個の文章を入力しましたが，以下のように2個以上の文章も入力可能です．
-
-# In[ ]:
-
-
-#!/usr/bin/env python3
-from transformers import pipeline
- 
-def main():
-    classifier = pipeline("sentiment-analysis")
-    litext = ["I've been waiting for a HuggingFace course my whole life.", "I hate this so much!"]
-    result = classifier(litext)
-    print(result)
-
-if __name__ == "__main__":
-    main()
-
 
 # ## WGAN-gp の実装
 
-# これまでに利用したものとは異なるモデルを利用したいとか，自身が持っているデータセットにより適合させたいとかの応用的な利用方法を紹介します．
+# ### WGAN-gp とは
+
+# 上のプログラムを実行した際には観測できなかったかもしれませんが，GAN の学習を行った結果得られる人工知能（学習済み生成器）が同じような出力しかしなくなる現象があります．MNIST を例にすると1が含まれる画像しか生成しなくなるような現象です．この現象のことをモード崩壊と言います．英語では mode collpase と書きます．データを生成するために利用する GAN なので，利用目的にも依りますが，この現象は普通好ましくないものであると考えられます．
+# 
+# WGAN-gp はこの問題を解決しようとした方法です．GAN では何らかの分布に従ってデータが生成していると考えますが，この分布と本物のデータが生成される分布を近づけようとします．基本的な GAN の学習で行っている行為はそのふたつの分布間のヤンセン・シャノンダイバージェンスと言う値を小さくしようとすることに相当します．これに対して WGAN-gp ではより収束性能に優れたワッサースタイン距離を小さくしようとします．詳しくは元の論文を参照してください．
+# 
+# WGAN-gp の学習における生成器のコスト関数は以下の式で表されます．
+# 
+# $
+# \displaystyle P(\boldsymbol{\theta})=-\frac{1}{N}\sum_{i=1}^{N}D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i))
+# $
+# 
+# また，WGAN-gp において識別器は真か偽の二値を識別して出力するものではなくて，実数を出力するものへと変わるため，これを識別器と呼ばず，クリティックと呼ぶ場合があるため，ここでもそのように呼びます．クリティックのコスト関数は以下の式で表されます．
+# 
+# $
+# \displaystyle Q(\boldsymbol{\phi})=\frac{1}{N}\sum_{i=1}^{N}(D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i))-D(\boldsymbol{\phi},\boldsymbol{x}_i)+\lambda(\|\boldsymbol{g}(\boldsymbol{\phi},\boldsymbol{\hat{x}}_i)\|_2-1)^2)
+# $
+# 
+# ここでも，生成器を $G$，クリティックを $D$ で表します．それぞれのニューラルネットワークのパラメータは $\boldsymbol{\theta}$ と $\boldsymbol{\phi}$ で，また，生成器とクリティックへ入力されたデータの個数を $N$ とします．生成器への入力データである $N$ 個のノイズの $i$ 番目のデータを $\boldsymbol{z}_i$ と表し，クリティックへの $i$ 番目の入力データを $\boldsymbol{x}_i$ と表します．最後に，生成器のコスト関数を $P$，クリティックのコスト関数を $Q$ で表します．このクリティックのコスト関数にあるラムダを含む項は勾配ペナルティです．英語では gradient penalty（gp）です．このラムダはハイパーパラメータであり元の論文では10に設定されています．
+
+# ### WGAN-gp の実装
+
+# 
 
 # In[ ]:
 
@@ -289,13 +295,13 @@ def main():
     optimizerCritic = tf.keras.optimizers.Adam(learning_rate=0.0001,beta_1=0,beta_2=0.9)
     
     @tf.function()
-    def runCritic(generator, critic, noiseVector, realVector):
+    def runCritic(generator, critic, noiseVector, realInputVector):
         with tf.GradientTape() as criticTape:
-            generatedVector = generator(noiseVector) # 生成器によるデータの生成．
-            criticOutputFromGenerated = critic(generatedVector) # その生成データを識別器に入れる．
-            criticOutputFromReal = critic(realVector) # 本物データを識別器に入れる．
-            epsilon = tf.random.uniform(generatedVector.shape, minval=0, maxval=1)
-            intermediateVector = generatedVector + epsilon * (realVector - generatedVector)
+            generatedInputVector = generator(noiseVector) # 生成器によるデータの生成．
+            criticOutputFromGenerated = critic(generatedInputVector) # その生成データを識別器に入れる．
+            criticOutputFromReal = critic(realInputVector) # 本物データを識別器に入れる．
+            epsilon = tf.random.uniform(generatedInputVector.shape, minval=0, maxval=1)
+            intermediateVector = generatedInputVector + epsilon * (realInputVector - generatedInputVector)
             # 勾配ペナルティ
             with tf.GradientTape() as gradientPenaltyTape:
                 gradientPenaltyTape.watch(intermediateVector)
@@ -312,8 +318,8 @@ def main():
     @tf.function()
     def runGenerator(generator, critic, noiseVector):
         with tf.GradientTape() as generatorTape:
-            generatedVector = generator(noiseVector) # 生成器によるデータの生成．
-            criticOutputFromGenerated = critic(generatedVector) # その生成データを識別器に入れる．
+            generatedInputVector = generator(noiseVector) # 生成器によるデータの生成．
+            criticOutputFromGenerated = critic(generatedInputVector) # その生成データを識別器に入れる．
             # 生成器の成長
             generatorCost = -tf.reduce_mean(criticOutputFromGenerated) # 生成器を成長させるためのコストを計算．
             gradientGenerator = generatorTape.gradient(generatorCost,generator.trainable_variables) # 生成器のパラメータで勾配を計算．
@@ -341,14 +347,14 @@ def main():
                 generatorCost += generatorCostPiece / miniBatchNumber
         # 疑似的なテスト
         if epoch%10 == 0:
-            print("Epoch {:10d} D-cost {:6.4f} G-cost {:6.4f} ".format(epoch,float(criticCost),float(generatorCost)))
+            print("Epoch {:10d} D-cost {:6.4f} G-cost {:6.4f}".format(epoch,float(criticCost),float(generatorCost)))
             validationNoiseVector = generateNoise(1, NoiseSize)
             validationOutput = generator(validationNoiseVector)
             validationOutput = np.asarray(validationOutput).reshape([1, 28, 28])
             plt.imshow(validationOutput[0], cmap = "gray")
             plt.pause(1)
 
-# 入力されたデータを0か1に分類するネットワーク
+# 入力されたデータを評価するネットワーク
 class Critic(tf.keras.Model):
     def __init__(self):
         super(Critic,self).__init__()
@@ -398,38 +404,11 @@ class Generator(tf.keras.Model):
         return y
 
 def generateNoise(miniBatchSize, randomNoiseSize):
-    return np.random.uniform(-1,1,size=(miniBatchSize,randomNoiseSize)).astype("float32")
+    return np.random.uniform(-1, 1, size=(miniBatchSize,randomNoiseSize)).astype("float32")
 
 if __name__ == "__main__":
     main()
 
-
-# ### WGAN-gp とは
-
-# これまでに，Hugging Face が自動でダウンロードしてくれたデフォルトの事前学習済みモデルを利用した予測を行いましたが，そうでなくて，モデルを指定することもできます．以下のページをご覧ください．Model Hub と言います．
-# 
-# https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads
-# 
-# 
-# この Model Hub の Tasks というところでタグを選択できます．例えば，Text Generation の `distilgpt2` を利用するには以下のように書きます．
-
-# In[ ]:
-
-
-#!/usr/bin/env python3
-from transformers import pipeline
- 
-def main():
-    generator = pipeline("text-generation", model="distilgpt2")
-    text = "In this course, we will teach you how to"
-    result = generator(text)
-    print(result)
-
-if __name__ == "__main__":
-    main()
-
-
-# ### WGAN-gp の実装
 
 # ## CGAN の実装
 

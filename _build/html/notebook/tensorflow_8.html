@@ -288,12 +288,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     9.2.1. GAN の実装
+     9.2.1. GAN の学習の手順
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     9.2.2. GAN の問題点
+     9.2.2. GAN の実装
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     9.2.3. GAN の問題点
     </a>
    </li>
   </ul>
@@ -304,12 +309,12 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id8">
      9.3.1. WGAN-gp とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id9">
      9.3.2. WGAN-gp の実装
     </a>
    </li>
@@ -321,12 +326,12 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id10">
      9.4.1. CGAN とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id11">
      9.4.2. CGAN の実装
     </a>
    </li>
@@ -376,12 +381,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     9.2.1. GAN の実装
+     9.2.1. GAN の学習の手順
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     9.2.2. GAN の問題点
+     9.2.2. GAN の実装
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     9.2.3. GAN の問題点
     </a>
    </li>
   </ul>
@@ -392,12 +402,12 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id8">
      9.3.1. WGAN-gp とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id9">
      9.3.2. WGAN-gp の実装
     </a>
    </li>
@@ -409,12 +419,12 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id10">
      9.4.1. CGAN とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id11">
      9.4.2. CGAN の実装
     </a>
    </li>
@@ -441,6 +451,10 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>GAN の構造には必ずしもニューラルネットワークが含まれる必要はありません．</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>計算終了までとても時間がかかるので全てのコードセルを最初に実行すると良いと思います．</p>
 </div>
 <div class="section" id="id3">
 <h3><span class="section-number">9.1.1. </span>原理と活用方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -481,8 +495,21 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id4">
 <h2><span class="section-number">9.2. </span>基本的な GAN<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id5">
-<h3><span class="section-number">9.2.1. </span>GAN の実装<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>最も基本的な GAN の構造は以下のプログラムに含まれるものです．</p>
+<h3><span class="section-number">9.2.1. </span>GAN の学習の手順<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>GAN の学習は以下のような手順で行われます．</p>
+<ol class="simple">
+<li><p>ノイズを入力にして生成器が偽物のデータを生成する．</p></li>
+<li><p>偽物のデータを識別器に入力し，識別器からの出力値を得る．</p></li>
+<li><p>識別器の出力値を用いて計算したコスト関数 <span class="math notranslate nohighlight">\(P\)</span> の値に基づいて生成器のパラメータを更新．</p></li>
+<li><p>偽物のデータと本物のデータを識別器に入力し，識別器からの出力値を得る．</p></li>
+<li><p>識別器の出力値を用いて計算したコスト関数 <span class="math notranslate nohighlight">\(Q\)</span> の値に基づいて識別器のパラメータを更新．</p></li>
+<li><p>識別器の評価指標が収束した場合，学習を終了．それ以外の場合，最初に戻る．</p></li>
+</ol>
+<p>実際の学習の際には適した最適化法を選ぶとか，生成器と識別器の学習回数を変えるとか，真とラベルを <span class="math notranslate nohighlight">\(1\)</span> ではなくて <span class="math notranslate nohighlight">\([0.8,1.2]\)</span> の範囲に含まれる値にするとかのテクニックが存在しますが，そのようなものは以下の実装の部分で紹介します．</p>
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">9.2.2. </span>GAN の実装<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>最も基本的な GAN を実装します．このプログラムでは MNIST の学習データセットを読み込んで，類似した数字画像を出力する人工知能を構築します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -500,7 +527,7 @@ const thebe_selector_output = ".output, .cell_output"
     
     <span class="c1"># データセットの読み込み</span>
     <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-    <span class="n">learnX</span> <span class="o">=</span> <span class="n">learnX</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">784</span><span class="p">])</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">learnX</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">784</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
     <span class="n">learnX</span> <span class="o">=</span> <span class="p">(</span><span class="n">learnX</span> <span class="o">-</span> <span class="mf">127.5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">127.5</span>
     
     <span class="c1"># 生成器と識別器の構築</span>
@@ -532,11 +559,11 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">return</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span>
     
     <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realVector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realInputVector</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">generatorTape</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">discriminatorTape</span><span class="p">:</span>
-            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
-            <span class="n">discriminatorOutputFromGenerated</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
-            <span class="n">discriminatorOutputFromReal</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">realVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
+            <span class="n">generatedInputVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">discriminatorOutputFromGenerated</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">generatedInputVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="n">discriminatorOutputFromReal</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">realInputVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
             <span class="c1"># 識別器の成長</span>
             <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span> <span class="o">=</span> <span class="n">discriminatorCostFunction</span><span class="p">(</span><span class="n">discriminatorOutputFromReal</span><span class="p">,</span> <span class="n">discriminatorOutputFromGenerated</span><span class="p">)</span>
             <span class="n">gradientDiscriminator</span> <span class="o">=</span> <span class="n">discriminatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．</span>
@@ -557,14 +584,14 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">discriminatorCost</span><span class="p">,</span> <span class="n">discriminatorAccuracy</span><span class="p">,</span> <span class="n">generatorCost</span><span class="p">,</span> <span class="n">generatorAccuracy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">learnx</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">learnA</span><span class="p">:</span>
             <span class="n">noiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="n">MiniBatchSize</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span> <span class="c1"># ミニバッチサイズで100個の要素からなるノイズベクトルを生成．</span>
-            <span class="n">discriminatorCostTmp</span><span class="p">,</span> <span class="n">discriminatorAccuracyTmp</span><span class="p">,</span> <span class="n">generatorCostTmp</span><span class="p">,</span> <span class="n">generatorAccuracyTmp</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">learnx</span><span class="p">)</span>
-            <span class="n">discriminatorCost</span> <span class="o">+=</span> <span class="n">discriminatorCostTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
-            <span class="n">discriminatorAccuracy</span> <span class="o">+=</span> <span class="n">discriminatorAccuracyTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
-            <span class="n">generatorCost</span> <span class="o">+=</span> <span class="n">generatorCostTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
-            <span class="n">generatorAccuracy</span> <span class="o">+=</span> <span class="n">generatorAccuracyTmp</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">discriminatorCostPiece</span><span class="p">,</span> <span class="n">discriminatorAccuracyPiece</span><span class="p">,</span> <span class="n">generatorCostPiece</span><span class="p">,</span> <span class="n">generatorAccuracyPiece</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">learnx</span><span class="p">)</span>
+            <span class="n">discriminatorCost</span> <span class="o">+=</span> <span class="n">discriminatorCostPiece</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">discriminatorAccuracy</span> <span class="o">+=</span> <span class="n">discriminatorAccuracyPiece</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">generatorCost</span> <span class="o">+=</span> <span class="n">generatorCostPiece</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
+            <span class="n">generatorAccuracy</span> <span class="o">+=</span> <span class="n">generatorAccuracyPiece</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
         <span class="c1"># 疑似的なテスト</span>
         <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">10</span> == 0:
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> D-acc </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-acc </span><span class="si">{:6.4f}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorAccuracy</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorAccuracy</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> D-acc </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-acc </span><span class="si">{:6.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">discriminatorAccuracy</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorAccuracy</span><span class="p">)))</span>
             <span class="n">validationNoiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span>
             <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">validationNoiseVector</span><span class="p">)</span>
             <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">])</span>
@@ -612,10 +639,11 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">y</span>
 
 <span class="k">def</span> <span class="nf">generateNoise</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span> <span class="n">randomNoiseSize</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -623,51 +651,31 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．</p>
+<p>実行した結果，エポックを経るに従って数字が含まれたような画像が生成されたはずです．</p>
 </div>
-<div class="section" id="id6">
-<h3><span class="section-number">9.2.2. </span>GAN の問題点<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>最も簡単な <code class="docutils literal notranslate"><span class="pre">tranformers</span></code> の利用方法は以下のようになると思います．<code class="docutils literal notranslate"><span class="pre">pipeline</span></code> を読み込んで，そこに取り組みたいタスク（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I have a pen.&quot;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
+<div class="section" id="id7">
+<h3><span class="section-number">9.2.3. </span>GAN の問題点<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>入力した文章がポジティブな文章なのかネガティブな文章なのかを分類できます．ここでは1個の文章を入力しましたが，以下のように2個以上の文章も入力可能です．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">)</span>
-    <span class="n">litext</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;I&#39;ve been waiting for a HuggingFace course my whole life.&quot;</span><span class="p">,</span> <span class="s2">&quot;I hate this so much!&quot;</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">litext</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="wgan-gp">
 <h2><span class="section-number">9.3. </span>WGAN-gp の実装<a class="headerlink" href="#wgan-gp" title="Permalink to this headline">¶</a></h2>
-<p>これまでに利用したものとは異なるモデルを利用したいとか，自身が持っているデータセットにより適合させたいとかの応用的な利用方法を紹介します．</p>
+<div class="section" id="id8">
+<h3><span class="section-number">9.3.1. </span>WGAN-gp とは<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>上のプログラムを実行した際には観測できなかったかもしれませんが，GAN の学習を行った結果得られる人工知能（学習済み生成器）が同じような出力しかしなくなる現象があります．MNIST を例にすると1が含まれる画像しか生成しなくなるような現象です．この現象のことをモード崩壊と言います．英語では mode collpase と書きます．データを生成するために利用する GAN なので，利用目的にも依りますが，この現象は普通好ましくないものであると考えられます．</p>
+<p>WGAN-gp はこの問題を解決しようとした方法です．GAN では何らかの分布に従ってデータが生成していると考えますが，この分布と本物のデータが生成される分布を近づけようとします．基本的な GAN の学習で行っている行為はそのふたつの分布間のヤンセン・シャノンダイバージェンスと言う値を小さくしようとすることに相当します．これに対して WGAN-gp ではより収束性能に優れたワッサースタイン距離を小さくしようとします．詳しくは元の論文を参照してください．</p>
+<p>WGAN-gp の学習における生成器のコスト関数は以下の式で表されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle P(\boldsymbol{\theta})=-\frac{1}{N}\sum_{i=1}^{N}D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i))
+\)</span></p>
+<p>また，WGAN-gp において識別器は真か偽の二値を識別して出力するものではなくて，実数を出力するものへと変わるため，これを識別器と呼ばず，クリティックと呼ぶ場合があるため，ここでもそのように呼びます．クリティックのコスト関数は以下の式で表されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle Q(\boldsymbol{\phi})=\frac{1}{N}\sum_{i=1}^{N}(D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i))-D(\boldsymbol{\phi},\boldsymbol{x}_i)+\lambda(\|\boldsymbol{g}(\boldsymbol{\phi},\boldsymbol{\hat{x}}_i)\|_2-1)^2)
+\)</span></p>
+<p>ここでも，生成器を <span class="math notranslate nohighlight">\(G\)</span>，クリティックを <span class="math notranslate nohighlight">\(D\)</span> で表します．それぞれのニューラルネットワークのパラメータは <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> と <span class="math notranslate nohighlight">\(\boldsymbol{\phi}\)</span> で，また，生成器とクリティックへ入力されたデータの個数を <span class="math notranslate nohighlight">\(N\)</span> とします．生成器への入力データである <span class="math notranslate nohighlight">\(N\)</span> 個のノイズの <span class="math notranslate nohighlight">\(i\)</span> 番目のデータを <span class="math notranslate nohighlight">\(\boldsymbol{z}_i\)</span> と表し，クリティックへの <span class="math notranslate nohighlight">\(i\)</span> 番目の入力データを <span class="math notranslate nohighlight">\(\boldsymbol{x}_i\)</span> と表します．最後に，生成器のコスト関数を <span class="math notranslate nohighlight">\(P\)</span>，クリティックのコスト関数を <span class="math notranslate nohighlight">\(Q\)</span> で表します．このクリティックのコスト関数にあるラムダを含む項は勾配ペナルティです．英語では gradient penalty（gp）です．このラムダはハイパーパラメータであり元の論文では10に設定されています．</p>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">9.3.2. </span>WGAN-gp の実装<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -699,13 +707,13 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">optimizerCritic</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">beta_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">beta_2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
     
     <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">runCritic</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realVector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">runCritic</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">,</span> <span class="n">realInputVector</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">criticTape</span><span class="p">:</span>
-            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
-            <span class="n">criticOutputFromGenerated</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
-            <span class="n">criticOutputFromReal</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">realVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
-            <span class="n">epsilon</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">generatedVector</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">minval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">intermediateVector</span> <span class="o">=</span> <span class="n">generatedVector</span> <span class="o">+</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">(</span><span class="n">realVector</span> <span class="o">-</span> <span class="n">generatedVector</span><span class="p">)</span>
+            <span class="n">generatedInputVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">criticOutputFromGenerated</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">generatedInputVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="n">criticOutputFromReal</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">realInputVector</span><span class="p">)</span> <span class="c1"># 本物データを識別器に入れる．</span>
+            <span class="n">epsilon</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">generatedInputVector</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">minval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">intermediateVector</span> <span class="o">=</span> <span class="n">generatedInputVector</span> <span class="o">+</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">(</span><span class="n">realInputVector</span> <span class="o">-</span> <span class="n">generatedInputVector</span><span class="p">)</span>
             <span class="c1"># 勾配ペナルティ</span>
             <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">gradientPenaltyTape</span><span class="p">:</span>
                 <span class="n">gradientPenaltyTape</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">intermediateVector</span><span class="p">)</span>
@@ -722,8 +730,8 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">runGenerator</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">critic</span><span class="p">,</span> <span class="n">noiseVector</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">generatorTape</span><span class="p">:</span>
-            <span class="n">generatedVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
-            <span class="n">criticOutputFromGenerated</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">generatedVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
+            <span class="n">generatedInputVector</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">noiseVector</span><span class="p">)</span> <span class="c1"># 生成器によるデータの生成．</span>
+            <span class="n">criticOutputFromGenerated</span> <span class="o">=</span> <span class="n">critic</span><span class="p">(</span><span class="n">generatedInputVector</span><span class="p">)</span> <span class="c1"># その生成データを識別器に入れる．</span>
             <span class="c1"># 生成器の成長</span>
             <span class="n">generatorCost</span> <span class="o">=</span> <span class="o">-</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">criticOutputFromGenerated</span><span class="p">)</span> <span class="c1"># 生成器を成長させるためのコストを計算．</span>
             <span class="n">gradientGenerator</span> <span class="o">=</span> <span class="n">generatorTape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">,</span><span class="n">generator</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 生成器のパラメータで勾配を計算．</span>
@@ -751,14 +759,14 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="n">generatorCost</span> <span class="o">+=</span> <span class="n">generatorCostPiece</span> <span class="o">/</span> <span class="n">miniBatchNumber</span>
         <span class="c1"># 疑似的なテスト</span>
         <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">10</span> == 0:
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">criticCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:10d}</span><span class="s2"> D-cost </span><span class="si">{:6.4f}</span><span class="s2"> G-cost </span><span class="si">{:6.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">criticCost</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">generatorCost</span><span class="p">)))</span>
             <span class="n">validationNoiseVector</span> <span class="o">=</span> <span class="n">generateNoise</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NoiseSize</span><span class="p">)</span>
             <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">validationNoiseVector</span><span class="p">)</span>
             <span class="n">validationOutput</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">])</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">validationOutput</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;gray&quot;</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># 入力されたデータを0か1に分類するネットワーク</span>
+<span class="c1"># 入力されたデータを評価するネットワーク</span>
 <span class="k">class</span> <span class="nc">Critic</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Critic</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -808,7 +816,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">return</span> <span class="n">y</span>
 
 <span class="k">def</span> <span class="nf">generateNoise</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span> <span class="n">randomNoiseSize</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">miniBatchSize</span><span class="p">,</span><span class="n">randomNoiseSize</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -816,41 +824,16 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3><span class="section-number">9.3.1. </span>WGAN-gp とは<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>これまでに，Hugging Face が自動でダウンロードしてくれたデフォルトの事前学習済みモデルを利用した予測を行いましたが，そうでなくて，モデルを指定することもできます．以下のページをご覧ください．Model Hub と言います．</p>
-<p><a class="reference external" href="https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads">https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads</a></p>
-<p>この Model Hub の Tasks というところでタグを選択できます．例えば，Text Generation の <code class="docutils literal notranslate"><span class="pre">distilgpt2</span></code> を利用するには以下のように書きます．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">generator</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;text-generation&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;distilgpt2&quot;</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;In this course, we will teach you how to&quot;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">9.3.2. </span>WGAN-gp の実装<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="cgan">
 <h2><span class="section-number">9.4. </span>CGAN の実装<a class="headerlink" href="#cgan" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3><span class="section-number">9.4.1. </span>CGAN とは<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">9.4.1. </span>CGAN とは<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1" style="width: 100%;" /></a>
 </div>
-<div class="section" id="id10">
-<h3><span class="section-number">9.4.2. </span>CGAN の実装<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">9.4.2. </span>CGAN の実装<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
