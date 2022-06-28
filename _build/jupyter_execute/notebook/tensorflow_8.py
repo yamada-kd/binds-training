@@ -414,10 +414,181 @@ if __name__ == "__main__":
 
 # ### CGAN とは
 
+# GAN のプログラムで確認したように，0から9までの手書き数字の文字が含まれた画像を入力データとして学習させた学習済みのGANの生成器は，ランダムに生成されたノイズを入力データとして，ランダムに0から9までの数字が描かれた画像を生成することができます．生成される数字はノイズに応じたランダムなものであり，特定の数字が描かれた画像を意図的に出力させることはできません．これに対して，CGAN は生成器への入力データとしてノイズに加えて，何らかの条件を入力情報として与えることができる方法です．この条件を例えば0から9までの数字として設定して学習すれば，学習済みの生成器に特定の数字を条件として入力することで特定の数字を含む画像だけを生成させることができます．CGAN の全体像は以下の図に示す通りです．ほぼ GAN と同様なのですが，条件データを生成器と識別器に入れることができます．
+
 # <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1" width="100%" />
 # 
 
+# 基本的な GAN は新たなデータを生成することが可能でしたが，CGANを利用すれば，データの変換を行うことができます．例えば，人の顔画像を出力すように学習させた生成器に「笑う」，「怒る」，「悲しむ」のような条件を同時に与えることで画像中の人の表情を変化させることができます．また，風景画を出力するように学習させた生成器に「歌川広重」，「フェルメール」，「レンブラント」等のような画家（転じて画風）の条件を与えることで，指定した画家が描いたような風景画を出力させることができます．
+
+# ```{note}
+# 上手に使えば色々なことを実現できます．
+# ```
+
 # ### CGAN の実装
+
+# 
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+tf.random.set_seed(0)
+np.random.seed(0)
+
+def main():
+    # ハイパーパラメータの設定
+    MiniBatchSize = 300
+    NoiseSize = 100 # GANはランダムなノイズベクトルから何かを生成する方法なので，そのノイズベクトルのサイズを設定する．
+    MaxEpoch = 300
+    CriticLearningNumber = 5
+    GradientPenaltyCoefficient = 10
+    
+    # データセットの読み込み
+    (learnX, learnT), (_, _) = tf.keras.datasets.mnist.load_data()
+    learnX = np.asarray(learnX.reshape([60000, 784]), dtype="float32")
+    learnX = (learnX - 127.5) / 127.5
+    
+    # 生成器と識別器の構築
+    generator = Generator() # 下のクラスを参照．
+    critic = Critic() # 下のクラスを参照．
+    
+    # オプティマイザは生成器と識別器で同じで良い．が，ハイパーパラメータを変えたくなるかもしれないからふたつ用意．
+    optimizerGenerator = tf.keras.optimizers.Adam(learning_rate=0.0001,beta_1=0,beta_2=0.9)
+    optimizerCritic = tf.keras.optimizers.Adam(learning_rate=0.0001,beta_1=0,beta_2=0.9)
+    
+    @tf.function()
+    def runCritic(generator, critic, noiseVector, realInputVector, realConditionVector):
+        with tf.GradientTape() as criticTape:
+            generatedInputVector = generator(noiseVector, realConditionVector) # 生成器によるデータの生成．
+            criticOutputFromGenerated = critic(generatedInputVector, realConditionVector) # その生成データを識別器に入れる．
+            criticOutputFromReal = critic(realInputVector, realConditionVector) # 本物データを識別器に入れる．
+            epsilon = tf.random.uniform(generatedInputVector.shape, minval=0, maxval=1)
+            intermediateVector = generatedInputVector + epsilon * (realInputVector - generatedInputVector)
+            # 勾配ペナルティ
+            with tf.GradientTape() as gradientPenaltyTape:
+                gradientPenaltyTape.watch(intermediateVector)
+                criticOutputFromIntermediate = critic(intermediateVector, realConditionVector)
+                gradientVector = gradientPenaltyTape.gradient(criticOutputFromIntermediate, intermediateVector)
+                gradientNorm = tf.norm(gradientVector, ord="euclidean", axis=1) # gradientNorm = tf.sqrt(tf.reduce_sum(tf.square(gradientVector), axis=1)) と書いても良い．
+                gradientPenalty = (gradientNorm - 1)**2
+            # 識別器の成長
+            criticCost = tf.reduce_mean(criticOutputFromGenerated - criticOutputFromReal + GradientPenaltyCoefficient * gradientPenalty) # 識別器を成長させるためのコストを計算．WGANの元論文の式そのまま．
+            gradientCritic = criticTape.gradient(criticCost, critic.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
+            optimizerCritic.apply_gradients(zip(gradientCritic, critic.trainable_variables))
+            return criticCost
+    
+    @tf.function()
+    def runGenerator(generator, critic, noiseVector, generatedConditionVector):
+        with tf.GradientTape() as generatorTape:
+            generatedInputVector = generator(noiseVector, generatedConditionVector) # 生成器によるデータの生成．
+            criticOutputFromGenerated = critic(generatedInputVector, generatedConditionVector) # その生成データを識別器に入れる．
+            # 生成器の成長
+            generatorCost = -tf.reduce_mean(criticOutputFromGenerated) # 生成器を成長させるためのコストを計算．
+            gradientGenerator = generatorTape.gradient(generatorCost,generator.trainable_variables) # 生成器のパラメータで勾配を計算．
+            optimizerGenerator.apply_gradients(zip(gradientGenerator,generator.trainable_variables))
+            return generatorCost
+    
+    # ミニバッチセットの生成
+    learnX = tf.data.Dataset.from_tensor_slices(learnX) # このような方法を使うと簡単にミニバッチを実装することが可能．
+    learnT = tf.data.Dataset.from_tensor_slices(learnT)
+    learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．
+    miniBatchNumber = len(list(learnA.as_numpy_iterator()))
+    # 学習ループ
+    for epoch in range(1,MaxEpoch+1):
+        criticCost, generatorCost = 0, 0
+        for learnx, learnt in learnA:
+            # WGAN-gpでは識別器1回に対して生成器を複数回学習させるのでそのためのループ．
+            for _ in range(CriticLearningNumber):
+                noiseVector = generateNoise(MiniBatchSize, NoiseSize) # ミニバッチサイズで100個の要素からなるノイズベクトルを生成．
+                criticCostPiece = runCritic(generator, critic, noiseVector, learnx, learnt)
+                criticCost += criticCostPiece / (CriticLearningNumber * miniBatchNumber)
+            # WGAN-gpでは識別器1回に対して生成器を複数回学習させるのでそのためのループ．
+            for _ in range(1):
+                noiseVector = generateNoise(MiniBatchSize, NoiseSize) # ミニバッチサイズで100個の要素からなるノイズベクトルを生成．
+                generatedConditionVector = generateConditionVector(MiniBatchSize)
+                generatorCostPiece = runGenerator(generator, critic, noiseVector, generatedConditionVector)
+                generatorCost += generatorCostPiece / miniBatchNumber
+        # 疑似的なテスト
+        if epoch%10 == 0:
+            print("Epoch {:10d} D-cost {:6.4f} G-cost {:6.4f}".format(epoch,float(criticCost),float(generatorCost)))
+            validationNoiseVector = generateNoise(1, NoiseSize)
+            validationConditionVector = generateConditionVector(1)
+            validationOutput = generator(validationNoiseVector, validationConditionVector)
+            validationOutput = np.asarray(validationOutput).reshape([1, 28, 28])
+            plt.imshow(validationOutput[0], cmap = "gray")
+            plt.text(1, 2.5, int(validationConditionVector[0]), fontsize=20, color="white")
+            plt.pause(1)
+
+# 入力されたデータを評価するネットワーク
+class Critic(tf.keras.Model):
+    def __init__(self):
+        super(Critic,self).__init__()
+        self.d1 = tf.keras.layers.Dense(units=128)
+        self.d2 = tf.keras.layers.Dense(units=128)
+        self.d3 = tf.keras.layers.Dense(units=128)
+        self.d4 = tf.keras.layers.Dense(units=1)
+        self.a = tf.keras.layers.LeakyReLU()
+        self.dropout = tf.keras.layers.Dropout(0.5)
+        self.embed = tf.keras.layers.Embedding(input_dim=10, output_dim=64, mask_zero=False)
+        self.concatenate = tf.keras.layers.Concatenate()
+    def call(self,x,c):
+        y = self.d1(x)
+        c = self.embed(c)
+        y = self.concatenate([y, c])
+        y = self.a(y)
+        y = self.dropout(y)
+        y = self.d2(y)
+        y = self.a(y)
+        y = self.dropout(y)
+        y = self.d3(y)
+        y = self.a(y)
+        y = self.dropout(y)
+        y = self.d4(y)
+        return y
+
+# 入力されたベクトルから別のベクトルを生成するネットワーク
+class Generator(tf.keras.Model):
+    def __init__(self):
+        super(Generator,self).__init__()
+        self.d1 = tf.keras.layers.Dense(units=128)
+        self.d2 = tf.keras.layers.Dense(units=128)
+        self.d3 = tf.keras.layers.Dense(units=128)
+        self.d4 = tf.keras.layers.Dense(units=784)
+        self.a = tf.keras.layers.LeakyReLU()
+        self.b1 = tf.keras.layers.BatchNormalization()
+        self.b2 = tf.keras.layers.BatchNormalization()
+        self.b3 = tf.keras.layers.BatchNormalization()
+        self.embed = tf.keras.layers.Embedding(input_dim=10, output_dim=64, mask_zero=False)
+        self.concatenate = tf.keras.layers.Concatenate()
+    def call(self,x,c):
+        y = self.d1(x)
+        c = self.embed(c)
+        y = self.concatenate([y, c])
+        y = self.a(y)
+        y = self.b1(y)
+        y = self.d2(y)
+        y = self.a(y)
+        y = self.b2(y)
+        y = self.d3(y)
+        y = self.a(y)
+        y = self.b3(y)
+        y = self.d4(y)
+        y = tf.keras.activations.tanh(y)
+        return y
+
+def generateNoise(miniBatchSize, randomNoiseSize):
+    return np.random.uniform(-1, 1, size=(miniBatchSize,randomNoiseSize)).astype("float32")
+
+def generateConditionVector(miniBatchSize):
+    return np.random.choice(range(10), size=(miniBatchSize))
+
+if __name__ == "__main__":
+    main()
+
 
 # ```{note}
 # 終わりです．
