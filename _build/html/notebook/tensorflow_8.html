@@ -490,6 +490,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id4">
 <h2><span class="section-number">9.2. </span>基本的な GAN<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>この節では基本的な GAN の実装方法を紹介します．また，GAN に関してどのような問題が存在しているのかについてまとめます．</p>
 <div class="section" id="id5">
 <h3><span class="section-number">9.2.1. </span>GAN の学習の手順<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>GAN の学習は以下のような手順で行われます．</p>
@@ -787,6 +788,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="wgan-gp">
 <h2><span class="section-number">9.3. </span>WGAN-gp の実装<a class="headerlink" href="#wgan-gp" title="Permalink to this headline">¶</a></h2>
+<p>基本的な GAN の改良版である WGAN-gp の実装方法を紹介します．</p>
 <div class="section" id="id8">
 <h3><span class="section-number">9.3.1. </span>WGAN-gp とは<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>WGAN-gp は基本的な GAN で起こりやすく問題となるモード崩壊を解決しようとした方法です．GAN では何らかの分布に従ってデータが生成していると考えますが，この分布と本物のデータが生成される分布を近づけようとします．基本的な GAN の学習で行っている行為はそのふたつの分布間のヤンセン・シャノンダイバージェンスと言う値を小さくしようとすることに相当します．これに対して WGAN-gp ではより収束性能に優れたワッサースタイン距離を小さくしようとします．詳しくは元の論文を参照してください．</p>
@@ -955,6 +957,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="cgan">
 <h2><span class="section-number">9.4. </span>CGAN の実装<a class="headerlink" href="#cgan" title="Permalink to this headline">¶</a></h2>
+<p>この節では条件を指定することで条件に合ったデータを生成することができる GAN の改良版である CGAN の実装方法を紹介します．</p>
 <div class="section" id="id10">
 <h3><span class="section-number">9.4.1. </span>CGAN とは<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>GAN のプログラムで確認したように，0から9までの手書き数字の文字が含まれた画像を入力データとして学習させた学習済みのGANの生成器は，ランダムに生成されたノイズを入力データとして，ランダムに0から9までの数字が描かれた画像を生成することができます．生成される数字はノイズに応じたランダムなものであり，特定の数字が描かれた画像を意図的に出力させることはできません．これに対して，CGAN は生成器への入力データとしてノイズに加えて，何らかの条件を入力情報として与えることができる方法です．この条件を例えば0から9までの数字として設定して学習すれば，学習済みの生成器に特定の数字を条件として入力することで特定の数字を含む画像だけを生成させることができます．CGAN の全体像は以下の図に示す通りです．ほぼ GAN と同様なのですが，条件データを生成器と識別器に入れることができます．</p>
