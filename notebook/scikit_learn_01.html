@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. 教師あり学習法 &#8212; 実践データ科学</title>
+    <title>4. scikit-learn の基本操作 &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5. 教師なし学習法" href="scikit_learn_02.html" />
+    <link rel="next" title="8. 教師なし学習法" href="scikit_learn_02.html" />
     <link rel="prev" title="3. Python の発展的な使用方法" href="python_02.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -130,12 +130,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. 教師あり学習法
+   4. scikit-learn の基本操作
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_02.html">
-   5. 教師なし学習法
+   8. 教師なし学習法
   </a>
  </li>
 </ul>
@@ -147,22 +147,22 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_01.html">
-   6. TensorFlow の基本的な利用方法
+   9. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_02.html">
-   7. 多層パーセプトロン
+   10. 多層パーセプトロン
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_07.html">
-   8. Hugging Face の利用方法
+   11. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_08.html">
-   9. 敵対的生成ネットワーク
+   12. 敵対的生成ネットワーク
   </a>
  </li>
 </ul>
@@ -265,73 +265,73 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scikit-learn">
-   4.1. scikit-learn の基本操作
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4. scikit-learn の基本操作
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     4.1. インポート
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
-     4.1.1. インポート
+     4.2. データセット
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     4.1.2. データセット
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     4.1.3. 決定木による予測器の構築
+     4.3. 決定木による予測器の構築
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   5. 予測器の性能評価
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   4.2. 予測器の性能評価
+   6. 他のアルゴリズムの利用
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   4.3. 他のアルゴリズムの利用
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     6.1. サポートベクトルマシン
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     4.3.1. サポートベクトルマシン
+     6.2. 多層パーセプトロン
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     4.3.2. 多層パーセプトロン
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     4.3.3. ロジスティック回帰法
+     6.3. ロジスティック回帰法
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
-   4.4. 実際の解析で必要なこと
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   7. 実際の解析で必要なこと
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     7.1. モデルの保存と呼び出し
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     4.4.1. モデルの保存と呼び出し
+     7.2. ハイパーパラメータの探索
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     4.4.2. ハイパーパラメータの探索
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     4.4.3. 方法の選択
+     7.3. 方法の選択
     </a>
    </li>
   </ul>
@@ -346,7 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>教師あり学習法</h1>
+                <h1>scikit-learn の基本操作</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -356,73 +356,73 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scikit-learn">
-   4.1. scikit-learn の基本操作
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4. scikit-learn の基本操作
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     4.1. インポート
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
-     4.1.1. インポート
+     4.2. データセット
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     4.1.2. データセット
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     4.1.3. 決定木による予測器の構築
+     4.3. 決定木による予測器の構築
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   5. 予測器の性能評価
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   4.2. 予測器の性能評価
+   6. 他のアルゴリズムの利用
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   4.3. 他のアルゴリズムの利用
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     6.1. サポートベクトルマシン
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     4.3.1. サポートベクトルマシン
+     6.2. 多層パーセプトロン
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     4.3.2. 多層パーセプトロン
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     4.3.3. ロジスティック回帰法
+     6.3. ロジスティック回帰法
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
-   4.4. 実際の解析で必要なこと
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   7. 実際の解析で必要なこと
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     7.1. モデルの保存と呼び出し
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     4.4.1. モデルの保存と呼び出し
+     7.2. ハイパーパラメータの探索
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     4.4.2. ハイパーパラメータの探索
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     4.4.3. 方法の選択
+     7.3. 方法の選択
     </a>
    </li>
   </ul>
@@ -436,13 +436,11 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">4. </span>教師あり学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="scikit-learn">
-<h2><span class="section-number">4.1. </span>scikit-learn の基本操作<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="scikit-learn">
+<h1><span class="section-number">4. </span>scikit-learn の基本操作<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h1>
 <p>このコンテンツで紹介する scikit-learn とは様々な機械学習アルゴリズムをとても簡単な記述で実現することができる Python のライブラリです．最初に scikit-learn の基本的な操作方法を紹介した後にいくつかの教師あり学習法を紹介します．</p>
-<div class="section" id="id2">
-<h3><span class="section-number">4.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h2><span class="section-number">4.1. </span>インポート<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>scikit-learn は以下のようにインポートします．以下のコードではインポートした scikit-learn のバージョンを表示させています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -459,8 +457,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3><span class="section-number">4.1.2. </span>データセット<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h2><span class="section-number">4.2. </span>データセット<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>ここでは，scikit-learn が備えているデータセットを利用して機械学習アルゴリズムの実装法を紹介します．アイリスというアヤメの咢と花弁のサイズの情報からなる，世界中で利用されてきたとても有名なデータセットを利用します．以下のようにすることでデータセットをダウンロードして中身を表示することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -504,8 +502,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
 <p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
 </div>
-<div class="section" id="id4">
-<h3><span class="section-number">4.1.3. </span>決定木による予測器の構築<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h2><span class="section-number">4.3. </span>決定木による予測器の構築<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>決定木という機械学習アルゴリズムを用いて人工知能を構築します．最初にデータを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の2割にします（何割でも良いのですが2割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -601,8 +599,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2><span class="section-number">4.2. </span>予測器の性能評価<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h1><span class="section-number">5. </span>予測器の性能評価<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
 <p>上のコードではテストデータセットの入力データを入力したときの予測器の出力とテストデータセットの教師データの比較を並べて目視で行いました．予測器の性能を評価する方法があります．評価を行うために混同行列（confusion matrix）というものを計算させます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -657,11 +655,11 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2><span class="section-number">4.3. </span>他のアルゴリズムの利用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h1><span class="section-number">6. </span>他のアルゴリズムの利用<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
 <p>これまでに決定木を用いて人工知能を構築しましたが，この節では別の機械学習アルゴリズムを利用して人工知能を構築します．</p>
-<div class="section" id="id7">
-<h3><span class="section-number">4.3.1. </span>サポートベクトルマシン<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h2><span class="section-number">6.1. </span>サポートベクトルマシン<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>サポートベクトルマシンの分類に利用可能な方法 SVC を利用します（回帰問題には SVR を利用します）．以下のように書きます．この場合の正確度は 0.9667 となりました．決定木を用いた場合と（ほぼ）同じ結果です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -689,8 +687,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>たった1行を書き換えるだけで別の機械学習法を利用できました．これが scikit-learn の強みです．</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h3><span class="section-number">4.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h2><span class="section-number">6.2. </span>多層パーセプトロン<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>多層パーセプトロンを利用します．英語では multilayer perceptron（MLP）というものです．深層学習で利用されるニューラルネットワークの最も基礎的な手法です．この場合，正確度は 1.0 と計算されました．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -714,8 +712,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h3><span class="section-number">4.3.3. </span>ロジスティック回帰法<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h2><span class="section-number">6.3. </span>ロジスティック回帰法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>ロジスティック回帰法を利用します．ロジスティック回帰は名前に回帰という文字が入っていますが分類問題に用いられる方法です．この場合も大体同じような正確度が得られました．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -741,11 +739,11 @@ const thebe_selector_output = ".output, .cell_output"
 <p>このように scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
 </div>
 </div>
-<div class="section" id="id10">
-<h2><span class="section-number">4.4. </span>実際の解析で必要なこと<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h1><span class="section-number">7. </span>実際の解析で必要なこと<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
 <p>上では学習とテストを同時に行いましたが，予測器を利用する度に学習を行うのは良い方法ではありません．というか通常，想像を絶する悪手です．普通はひとつめのコードで与えられたデータを利用して人工知能を構築して，また別の新たなコードでその人工知能を利用する，というのが実際の解析で行うことではないでしょうか．その方法を紹介します．</p>
-<div class="section" id="id11">
-<h3><span class="section-number">4.4.1. </span>モデルの保存と呼び出し<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h2><span class="section-number">7.1. </span>モデルの保存と呼び出し<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>これまでにとても簡単に scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -808,8 +806,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>このプログラムでは SVC をインポートすらしていないし，学習データセットの学習をするためにコードも書いていないのに，しっかりと予測器が動いていることを確認できます．つまり，学習済み決定木を読み込めたということを意味しています．</p>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">4.4.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h2><span class="section-number">7.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは <span class="math notranslate nohighlight">\(w_1\)</span>，<span class="math notranslate nohighlight">\(w_2\)</span>，<span class="math notranslate nohighlight">\(w_3\)</span>，<span class="math notranslate nohighlight">\(b\)</span> です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
 <p><span class="math notranslate nohighlight">\(
 f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
@@ -882,15 +880,14 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 <p>サポートベクトルマシンとかはデータセットのサイズが大きくなるとかなり計算時間的にきつくなります．</p>
 </div>
 </div>
-<div class="section" id="id13">
-<h3><span class="section-number">4.4.3. </span>方法の選択<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h2><span class="section-number">7.3. </span>方法の選択<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
 <a class="reference internal image-reference" href="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H"><img alt="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" style="width: 80%;" /></a>
 <p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
-</div>
 </div>
 </div>
 </div>
@@ -930,7 +927,7 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
     <a class='right-next' id="next-link" href="scikit_learn_02.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>教師なし学習法</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>教師なし学習法</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

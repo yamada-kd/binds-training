@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6. TensorFlow の基本的な利用方法 &#8212; 実践データ科学</title>
+    <title>9. TensorFlow の基本的な利用方法 &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. 多層パーセプトロン" href="tensorflow_02.html" />
-    <link rel="prev" title="5. 教師なし学習法" href="scikit_learn_02.html" />
+    <link rel="next" title="10. 多層パーセプトロン" href="tensorflow_02.html" />
+    <link rel="prev" title="8. 教師なし学習法" href="scikit_learn_02.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -130,12 +130,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_01.html">
-   4. 教師あり学習法
+   4. scikit-learn の基本操作
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_02.html">
-   5. 教師なし学習法
+   8. 教師なし学習法
   </a>
  </li>
 </ul>
@@ -147,22 +147,22 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   6. TensorFlow の基本的な利用方法
+   9. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_02.html">
-   7. 多層パーセプトロン
+   10. 多層パーセプトロン
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_07.html">
-   8. Hugging Face の利用方法
+   11. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_08.html">
-   9. 敵対的生成ネットワーク
+   12. 敵対的生成ネットワーク
   </a>
  </li>
 </ul>
@@ -267,54 +267,54 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   6.1. 基本操作
+   9.1. 基本操作
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
-     6.1.1. インポート
+     9.1.1. インポート
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     6.1.2. テンソル
+     9.1.2. テンソル
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     6.1.3. 四則計算
+     9.1.3. 四則計算
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     6.1.4. 特殊な操作
+     9.1.4. 特殊な操作
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     6.1.5. 変数の変換
+     9.1.5. 変数の変換
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
-   6.2. 最急降下法
+   9.2. 最急降下法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     6.2.1. 単一の変数に対する勾配
+     9.2.1. 単一の変数に対する勾配
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     6.2.2. 複数の変数に対する勾配
+     9.2.2. 複数の変数に対する勾配
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     6.2.3. 最急降下法の実装
+     9.2.3. 最急降下法の実装
     </a>
    </li>
   </ul>
@@ -341,54 +341,54 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   6.1. 基本操作
+   9.1. 基本操作
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
-     6.1.1. インポート
+     9.1.1. インポート
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     6.1.2. テンソル
+     9.1.2. テンソル
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     6.1.3. 四則計算
+     9.1.3. 四則計算
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     6.1.4. 特殊な操作
+     9.1.4. 特殊な操作
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     6.1.5. 変数の変換
+     9.1.5. 変数の変換
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
-   6.2. 最急降下法
+   9.2. 最急降下法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     6.2.1. 単一の変数に対する勾配
+     9.2.1. 単一の変数に対する勾配
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     6.2.2. 複数の変数に対する勾配
+     9.2.2. 複数の変数に対する勾配
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     6.2.3. 最急降下法の実装
+     9.2.3. 最急降下法の実装
     </a>
    </li>
   </ul>
@@ -403,12 +403,12 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="tensorflow">
-<h1><span class="section-number">6. </span>TensorFlow の基本的な利用方法<a class="headerlink" href="#tensorflow" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9. </span>TensorFlow の基本的な利用方法<a class="headerlink" href="#tensorflow" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2><span class="section-number">6.1. </span>基本操作<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.1. </span>基本操作<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>この節では TensorFlow の基本的な操作方法を紹介します．</p>
 <div class="section" id="id2">
-<h3><span class="section-number">6.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>NumPy と同じように TensorFlow をインポートします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -427,7 +427,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">6.1.2. </span>テンソル<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.1.2. </span>テンソル<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>TensorFlow では「テンソル」と呼ばれる NumPy の多次元配列に類似したデータ構造を用います．2行目で TensorFlow をインポートします．5行目のテンソルを生成するためのコマンドは <code class="docutils literal notranslate"><span class="pre">tf.zeros()</span></code> で，これによって，全要素が <code class="docutils literal notranslate"><span class="pre">0</span></code> であるテンソルが生成されます．最初の引数には生成されるテンソルの次元数を指定します．また，データのタイプを指定することができますが以下の場合は32ビットのフロートの値を生成しています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -549,7 +549,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>これに関しては以下の四則計算のところでその挙動を確認します．</p>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">6.1.3. </span>四則計算<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.1.3. </span>四則計算<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>テンソルの四則計算は以下のように行います．最初に足し算を行います．NumPy と同じようにやはり element-wise な計算です．実行結果は <code class="docutils literal notranslate"><span class="pre">tf.Tensor([3</span> <span class="pre">7],</span> <span class="pre">shape=(2,),</span> <span class="pre">dtype=int32)</span></code> となっており，配列の計算の結果が tf.Tensor に変換されていることが確認できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -692,7 +692,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">6.1.4. </span>特殊な操作<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.1.4. </span>特殊な操作<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>以下のようなスライスの実装も NumPy と同じです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -738,7 +738,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>以上のプログラムの6行目では4行5列の行列が生成されています．これを，20要素からなるベクトルに変換するのが7行目の記述です．また，8行目の記述では1行20列の行列を生成できます．また，9行目は5行4列の行列を生成するためのものです．同じく10行目も5行4列の行列を生成します．ここでは，<code class="docutils literal notranslate"><span class="pre">tf.reshape()</span></code> の shape を指定するオプションの最初の引数に <code class="docutils literal notranslate"><span class="pre">-1</span></code> が指定されていますが，これのように書くと自動でその値が推測されます．この場合，<code class="docutils literal notranslate"><span class="pre">5</span></code> であると推測されています．</p>
 </div>
 <div class="section" id="id6">
-<h3><span class="section-number">6.1.5. </span>変数の変換<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.1.5. </span>変数の変換<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>これまでに，NumPyの 多次元配列を TensorFlow のテンソルに変換する方法は確認しました．テンソルを NumPy 配列に変換するには明示的に <code class="docutils literal notranslate"><span class="pre">numpy()</span></code> を指定する方法があります．6行目は NumPy 配列を生成します．8行目はその NumPy 配列をテンソルに変換します．さらに，NumPy 配列に戻すためには10行目のように <code class="docutils literal notranslate"><span class="pre">.numpy()</span></code> を利用します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -784,10 +784,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id7">
-<h2><span class="section-number">6.2. </span>最急降下法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.2. </span>最急降下法<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>深層ニューラルネットワークのパラメータを更新するためには何らかの最適化法が利用されます．最も簡単な最適化法である最急降下法を実装します．</p>
 <div class="section" id="id8">
-<h3><span class="section-number">6.2.1. </span>単一の変数に対する勾配<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.2.1. </span>単一の変数に対する勾配<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>深層学習法におけるアルゴリズムの中身を分解すると行列の掛け算と微分から構成されていることがわかります．TensorFlow はこの行列の掛け算と微分を行うライブラリです．自動微分機能を提供します．ここでは勾配の計算を紹介するため，以下の式を考えます．</p>
 <p><span class="math notranslate nohighlight">\(y = x^2 + 2\)</span></p>
 <p>これに対して以下の偏微分を計算することができます．</p>
@@ -816,7 +816,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">6.2.2. </span>複数の変数に対する勾配<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.2.2. </span>複数の変数に対する勾配<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>上の程度の微分だとこの自動微分機能はさほど有難くないかもしれませんが，以下のような計算となると，そこそこ有難くなってきます．以下では，(1, 2) の行列 <code class="docutils literal notranslate"><span class="pre">ts</span></code> と (2, 2) の行列 <code class="docutils literal notranslate"><span class="pre">tt</span></code> と (2, 1) の行列 <code class="docutils literal notranslate"><span class="pre">tu</span></code> を順に掛けることで，最終的に (1, 1) の行列の値，スカラー値を得ますが，それを <code class="docutils literal notranslate"><span class="pre">tt</span></code> で微分した値を計算しています（<code class="docutils literal notranslate"><span class="pre">tt</span></code> で偏微分したので得られる行列のシェイプは <code class="docutils literal notranslate"><span class="pre">tt</span></code> と同じ）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -877,7 +877,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id10">
-<h3><span class="section-number">6.2.3. </span>最急降下法の実装<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.2.3. </span>最急降下法の実装<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>なぜ微分を求めたいかというと，勾配法（深層学習の場合，普通，最急降下法）でパラメータをアップデートしたいからです．以下では最急降下法を実装してみます．最急降下法は関数の最適化法です．ある関数に対して極小値（極大値）を計算するためのものです．以下のような手順で計算が進みます．</p>
 <ol class="simple">
 <li><p>初期パラメータ（<span class="math notranslate nohighlight">\(\theta_0\)</span>）をランダムに生成します．</p></li>
@@ -962,13 +962,13 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">5. </span>教師なし学習法</p>
+            <p class="prev-next-title"><span class="section-number">8. </span>教師なし学習法</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="tensorflow_02.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>多層パーセプトロン</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>多層パーセプトロン</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
