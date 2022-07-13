@@ -1,0 +1,959 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4. 教師あり学習法 &#8212; 実践データ科学</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. 教師なし学習法" href="scikit_learn_02.html" />
+    <link rel="prev" title="3. Python の発展的な使用方法" href="python_02.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/neko.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">実践データ科学</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  データ科学を学ぶにあたって
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   1. 機械学習とその周辺事項
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  プログラミングの基礎
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_01.html">
+   2. Python の基本的な使用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_02.html">
+   3. Python の発展的な使用方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  scikit-learn を利用した機械学習
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. 教師あり学習法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="scikit_learn_02.html">
+   5. 教師なし学習法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深層学習
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_01.html">
+   6. TensorFlow の基本的な利用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_02.html">
+   7. 多層パーセプトロン
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_07.html">
+   8. Hugging Face の利用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_08.html">
+   9. 敵対的生成ネットワーク
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebook/scikit_learn_01.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/yamada-kd/binds-training/tree/main/notebook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/yamada-kd/binds-training/blob/main/notebook/scikit_learn_01.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scikit-learn">
+   4.1. scikit-learn の基本操作
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.1.1. インポート
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     4.1.2. データセット
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     4.1.3. 決定木による予測器の構築
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   4.2. 予測器の性能評価
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   4.3. 他のアルゴリズムの利用
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     4.3.1. サポートベクトルマシン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     4.3.2. 多層パーセプトロン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     4.3.3. ロジスティック回帰法
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   4.4. 実際の解析で必要なこと
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     4.4.1. モデルの保存と呼び出し
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     4.4.2. ハイパーパラメータの探索
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     4.4.3. 方法の選択
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>教師あり学習法</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scikit-learn">
+   4.1. scikit-learn の基本操作
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.1.1. インポート
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     4.1.2. データセット
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     4.1.3. 決定木による予測器の構築
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   4.2. 予測器の性能評価
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   4.3. 他のアルゴリズムの利用
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     4.3.1. サポートベクトルマシン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     4.3.2. 多層パーセプトロン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     4.3.3. ロジスティック回帰法
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   4.4. 実際の解析で必要なこと
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     4.4.1. モデルの保存と呼び出し
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     4.4.2. ハイパーパラメータの探索
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     4.4.3. 方法の選択
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">4. </span>教師あり学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="scikit-learn">
+<h2><span class="section-number">4.1. </span>scikit-learn の基本操作<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
+<p>このコンテンツで紹介する scikit-learn とは様々な機械学習アルゴリズムをとても簡単な記述で実現することができる Python のライブラリです．最初に scikit-learn の基本的な操作方法を紹介した後にいくつかの教師あり学習法を紹介します．</p>
+<div class="section" id="id2">
+<h3><span class="section-number">4.1.1. </span>インポート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>scikit-learn は以下のようにインポートします．以下のコードではインポートした scikit-learn のバージョンを表示させています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">4.1.2. </span>データセット<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>ここでは，scikit-learn が備えているデータセットを利用して機械学習アルゴリズムの実装法を紹介します．アイリスというアヤメの咢と花弁のサイズの情報からなる，世界中で利用されてきたとても有名なデータセットを利用します．以下のようにすることでデータセットをダウンロードして中身を表示することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">diris</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ダウンロードしたデータセットは以下のように表示されているはずです．</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{&#39;data&#39;: array([[5.1, 3.5, 1.4, 0.2],
+       [4.9, 3. , 1.4, 0.2],
+       [4.7, 3.2, 1.3, 0.2],
+       ・
+       ・
+       略
+       ・
+       ・
+       [6.3, 2.5, 5. , 1.9],
+       [6.5, 3. , 5.2, 2. ],
+       [6.2, 3.4, 5.4, 2.3],
+       [5.9, 3. , 5.1, 1.8]]), &#39;target&#39;: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), &#39;frame&#39;: None, &#39;target_names&#39;: array([&#39;setosa&#39;, &#39;versicolor&#39;, ．．．略
+</pre></div>
+</div>
+<p>最初の行に表示されている <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4,</span> <span class="pre">0.2]</span></code> が最初のデータです．4個の要素からなるベクトルデータです．このような4個の要素からなるインスタンスが150個あります．すべてのインスタンスの後に表示されている target という項目がありますが，これは，各インスタンスがどのアヤメの種類に属しているかを示しています．アヤメには種類があるらしく，<code class="docutils literal notranslate"><span class="pre">0</span></code> は setosa，<code class="docutils literal notranslate"><span class="pre">1</span></code> は versicolor，<code class="docutils literal notranslate"><span class="pre">2</span></code> は virginica という種類を意味しています．それぞれ均等にデータが取得されており，全部で150個のインスタンスの内，50個が setosa，別の50個が versicolor，残りの50個が virginica です．各インスタンスは4個の要素からなるベクトルデータであることを紹介しましたが，各要素はそのインスタンスの属性（アトリビュート）と言います．このデータの場合，最初の要素は咢の長さです．咢というのは以下の写真の茎ではない緑色の部分を示すものらしいです．単位は cm です．次の要素は咢の幅，次の要素は花弁（花びら）の長さ，最後の要素は花弁の幅です．どれも単位は cm です．</p>
+<a class="reference internal image-reference" href="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1"><img alt="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1" src="https://drive.google.com/uc?id=1RoIncS19BL3lHm1WKnccWf1DhFbQid-1" style="width: 20%;" /></a>
+<p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
+<p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">4.1.3. </span>決定木による予測器の構築<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>決定木という機械学習アルゴリズムを用いて人工知能を構築します．最初にデータを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の2割にします（何割でも良いのですが2割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span> <span class="c1"># このような関数がある</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># このように書くと分割できる．ランダムに並べ替えてくれる．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">learnx</span><span class="p">)</span> <span class="c1"># 学習データセットの入力データ．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">learnt</span><span class="p">)</span> <span class="c1"># 学習データセットの教師データ．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">testx</span><span class="p">)</span> <span class="c1"># テストデータセットの入力データ．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">testt</span><span class="p">)</span> <span class="c1"># テストデータセットの教師データ．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下のように書くと決定木による予測器を構築することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 予測器を生成．ここも乱数の種に注意．</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span> <span class="c1"># 学習．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testx</span><span class="p">))</span> <span class="c1"># テストデータセットの入力データを予測器に入れて結果を予測．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">testt</span><span class="p">)</span> <span class="c1"># 教師データ．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果として出力された上段の値とそれに対応する教師データが完全に一致しています．高性能な予測器が作れたということです．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>出力の1行目は予測器がテストデータセットの入力値に対して予測した予測値です．1行目はテストデータセットの教師データです．</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>予測器の性能を定量的に示す方法は後で紹介します．</p>
+</div>
+<p>決定木がどのようなものなのかを把握するために，構築された予測器，すなわち，学習済みの決定木を可視化します．以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">export_graphviz</span>
+<span class="kn">import</span> <span class="nn">pydotplus</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display_png</span>
+<span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">StringIO</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="n">treedata</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+    <span class="n">export_graphviz</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">out_file</span> <span class="o">=</span> <span class="n">treedata</span><span class="p">,</span> <span class="n">feature_names</span> <span class="o">=</span> <span class="n">diris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">class_names</span> <span class="o">=</span> <span class="n">diris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">pydotplus</span><span class="o">.</span><span class="n">graph_from_dot_data</span><span class="p">(</span><span class="n">treedata</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+    <span class="n">display_png</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">(),</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">760</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>決定木はこのような選択肢の分岐を繰り返すことで入力データを分類する手法です．最上段からスタートします．この場合，咢の幅が <code class="docutils literal notranslate"><span class="pre">0.8</span></code> 以下であるなら（<code class="docutils literal notranslate"><span class="pre">True</span></code> の方向へ進む），データは <code class="docutils literal notranslate"><span class="pre">setosa</span></code> と分類されます．</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>画像中に <code class="docutils literal notranslate"><span class="pre">gini</span></code> とありますが，これは決定木の目的関数です．決定木はこれを指標にしてデータが分割します．気になった場合は「ジニ不純度」のようなキーワードで検索してみてください．</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>このように決定木で得られた結果はとても解釈性が高いです．決定木はそれだけで利用すると（集団学習という性能を向上するものがありますが，そういったものを利用せずにという意味）予測性能は良い方ではありませんが，解釈性が高いためビジネスの分野でよく用いられます．</p>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">4.2. </span>予測器の性能評価<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>上のコードではテストデータセットの入力データを入力したときの予測器の出力とテストデータセットの教師データの比較を並べて目視で行いました．予測器の性能を評価する方法があります．評価を行うために混同行列（confusion matrix）というものを計算させます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># 全部正解してしまうから，乱数の種を変えてみた．</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testx</span><span class="p">)</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">testt</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">dy</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果は以下のようになりました．</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">14</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mi">0</span>  <span class="mi">7</span>  <span class="mi">1</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">7</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>すべての数字を合計するとテストデータセットのサイズである30となります．1行目は，最初の要素から，本当は setosa であるものを setosa と予測したものの数，versicolor と予測したものの数，virginica と予測したものの数です．2行目は，本当は versicolor であるものに対するそれぞれの予測結果の数，3行目は，本当は virginica であるものに対するそれぞれの予測結果の数が示されています．すなわち，この行列の対角要素の個数は予測器の正解個数です．よってこの予測器の正確度は，28 を 30 で割った値，0.9333 と計算されます．正確度は以下のように計算することも可能です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># 全部正解してしまうから，乱数の種を変えてみた．</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">testx</span><span class="p">,</span> <span class="n">testt</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">4.3. </span>他のアルゴリズムの利用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>これまでに決定木を用いて人工知能を構築しましたが，この節では別の機械学習アルゴリズムを利用して人工知能を構築します．</p>
+<div class="section" id="id7">
+<h3><span class="section-number">4.3.1. </span>サポートベクトルマシン<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>サポートベクトルマシンの分類に利用可能な方法 SVC を利用します（回帰問題には SVR を利用します）．以下のように書きます．この場合の正確度は 0.9667 となりました．決定木を用いた場合と（ほぼ）同じ結果です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span> <span class="c1"># 決定木ではなくて SVC をインポートする．</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># SVC を利用する．</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">testx</span><span class="p">,</span> <span class="n">testt</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>たった1行を書き換えるだけで別の機械学習法を利用できました．これが scikit-learn の強みです．</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">4.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>多層パーセプトロンを利用します．英語では multilayer perceptron（MLP）というものです．深層学習で利用されるニューラルネットワークの最も基礎的な手法です．この場合，正確度は 1.0 と計算されました．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span> <span class="c1"># 変更する．</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># MLP を利用する．</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">testx</span><span class="p">,</span> <span class="n">testt</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">4.3.3. </span>ロジスティック回帰法<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>ロジスティック回帰法を利用します．ロジスティック回帰は名前に回帰という文字が入っていますが分類問題に用いられる方法です．この場合も大体同じような正確度が得られました．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span> <span class="c1"># 変更する．</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># MLP を利用する．</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">testx</span><span class="p">,</span> <span class="n">testt</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このように scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><span class="section-number">4.4. </span>実際の解析で必要なこと<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>上では学習とテストを同時に行いましたが，予測器を利用する度に学習を行うのは良い方法ではありません．というか通常，想像を絶する悪手です．普通はひとつめのコードで与えられたデータを利用して人工知能を構築して，また別の新たなコードでその人工知能を利用する，というのが実際の解析で行うことではないでしょうか．その方法を紹介します．</p>
+<div class="section" id="id11">
+<h3><span class="section-number">4.4.1. </span>モデルの保存と呼び出し<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>これまでにとても簡単に scikit-learn を利用した機械学習法の実装法を紹介しました．実際のデータ解析を行う際には，もう少し別の作業が必要です．例えば，構築した予測器は未知の新たなデータに対して利用したいため，どこかに置いて使える状態にしておきたいと思います．このためには，構築した予測器をファイルとして保存できなければなりません．モデル（予測器）の保存は以下のように行います．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">import</span> <span class="nn">pickle</span> <span class="c1"># インポートする．</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./predictor.sav&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="c1"># wは書き込みを意味します．bはバイナリを意味します．</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">fout</span><span class="p">)</span> <span class="c1"># 予測器のファイルへの保存．</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>これで予測器の情報がファイル，predictor.sav としてが保存されました．以下のようにすることでこの計算機上（Google Colaboratory が動いている Google の所有物のどこか遠くにある計算機上）に保存されたファイルを確認することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> ls
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>これは Python のコマンドではありません．Google Colaboratory のコードセルは通常，Python を実行させるためのものです．<code class="docutils literal notranslate"><span class="pre">!</span></code> をコマンドの前に付けて実行すると，この計算機のシェルを動かすことができます．</p>
+</div>
+<p>上のコマンドを実行すると確かに predictor.sav というファイルが保存されていることが確認できました．次はこのファイルを別のプログラムから呼び出して利用します．以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./predictor.sav&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="c1"># rは読み込みを意味します．</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fin</span><span class="p">)</span> <span class="c1"># 予測器の読み込み．</span>
+    <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">testx</span><span class="p">,</span> <span class="n">testt</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このプログラムでは SVC をインポートすらしていないし，学習データセットの学習をするためにコードも書いていないのに，しっかりと予測器が動いていることを確認できます．つまり，学習済み決定木を読み込めたということを意味しています．</p>
+</div>
+<div class="section" id="id12">
+<h3><span class="section-number">4.4.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>機械学習では未学習の決定木やニューラルネットワークやサポートベクトルマシンに学習データセットを学習させます．これらの手法は学習によって何を成長（変化）させているかというと，パラメータと呼ばれる値です．例えば，以下のような線形回帰式のパラメータは <span class="math notranslate nohighlight">\(w_1\)</span>，<span class="math notranslate nohighlight">\(w_2\)</span>，<span class="math notranslate nohighlight">\(w_3\)</span>，<span class="math notranslate nohighlight">\(b\)</span> です．この値を学習データセットに適合させることが各機械学習アルゴリズムが行っていることです．</p>
+<p><span class="math notranslate nohighlight">\(
+f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
+\)</span></p>
+<p>機械学習アルゴリズムは学習の過程においてパラメータの値を変化させます．これに対して，学習によって決定されないパラメータをハイパーパラメータと言います．例えば，決定木においてはその分岐の深さをあらかじめ決めて分岐の仕方を学習させることができますが，これはハイパーパラメータのひとつです．また，機械学習アルゴリズムに持たせるパラメータのサイズもハイパーパラメータであるし，そのパラメータを学習させる最適化法もハイパーパラメータと言えます．このようなハイパーパラメータは各機械学習アルゴリズムが固有に持っているものです．</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>学習によって決定されないパラメータをハイパーパラメータと言い，これをうまく設定することが開発者の腕の見せ所のひとつです．</p>
+</div>
+<p>ハイパーパラメータを決定するための探索法には様々なものがあります．例えば，ランダムに決定したハイパーパラメータを利用して学習を完了させ，その性能を擬似的なテストデータセット（バリデーションデータセット）を用いて評価し，最も性能が良くなるハイパーパラメータを最終的なハイパーパラメータとする方法があります．また，ランダム探索より効率的に探索するために，ベイズ最適化法（以前のハイパーパラメータを利用した学習の結果を利用してより良さそうなハイパーパラメータを探索する方法）や進化計算法（離散最適化法の一種）が利用されています．そんな中において，最もナイーブですが強力な探索法としてグリッドサーチがあります．しらみつぶし的にあり得そうなハイパーパラメータの組み合わせを全部計算してしまう方法です．例えば，ハイパーパラメータをふたつ持つ機械学習アルゴリズムについて，最初のハイパーパラメータの値の候補として10点が考えられるとして，また，もうひとつのハイパーパラメータの値の候補として5点が考えられるとした場合，それらを掛け算した組み合わせ分，すなわち50種類のハイパーパラメータの組み合わせすべてで学習を行う方法です．グリッドサーチは以下のように行います．ここではサポートベクトルマシンのハイパーパラメータである「カーネル」と「ガンマ」と「C」の値の組み合わせを探索しています（どのような性質を持つものか興味があったら調べてみてください）．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span> <span class="c1"># インポートする</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">diparameter</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;kernel&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rbf&quot;</span><span class="p">],</span> <span class="c1"># 1点</span>
+        <span class="s2">&quot;gamma&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="c1"># 5点．</span>
+        <span class="s2">&quot;C&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)],</span> <span class="c1"># 6点</span>
+        <span class="s2">&quot;random_state&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="c1"># 1点</span>
+        <span class="p">}</span> <span class="c1"># 探索するハイパーパラメータの候補をディクショナリで指定する．この場合，合計30点探索する．</span>
+    <span class="n">licv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">diparameter</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># SVCを使うことを指定．上のハイパーパラメータ候補を探索する．</span>
+    <span class="n">licv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span> <span class="c1"># グリッドサーチ．</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">licv</span><span class="o">.</span><span class="n">best_estimator_</span> <span class="c1"># グリッドサーチの結果，最も良い予測器を最終的な予測器とする．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">testx</span><span class="p">,</span> <span class="n">testt</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>グリッドサーチの際には，クロスバリデーションによる評価を行っています．ここでは，<code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">=</span> <span class="pre">5</span></code> と指定しています．学習データセットを5分割にし，それらの内の4分割分で学習を行い，残りの1分割分で擬似テストをし，次に別の4分割分で学習を行い，残りの1分割分で擬似テストをする，という行為を合計5回行うという操作です．最終的なハイパーパラメータとしてどのような値が選択されたのかは以下のように書くことでわかります．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">diparameter</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;kernel&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rbf&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;gamma&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
+        <span class="s2">&quot;C&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)],</span>
+        <span class="s2">&quot;random_state&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="n">licv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">diparameter</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">licv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">licv</span><span class="o">.</span><span class="n">best_estimator_</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">predictor</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span> <span class="c1"># 選択されたハイパーパラメータを確認．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>サポートベクトルマシンとかはデータセットのサイズが大きくなるとかなり計算時間的にきつくなります．</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h3><span class="section-number">4.4.3. </span>方法の選択<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
+<a class="reference internal image-reference" href="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H"><img alt="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" src="https://drive.google.com/uc?id=1FUTedjoFUz8SU4EqypWF6UfnaXCR7Z6H" style="width: 80%;" /></a>
+<p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>終わりです．</p>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebook"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="python_02.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">3. </span>Python の発展的な使用方法</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="scikit_learn_02.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>教師なし学習法</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      <div class="extra_footer">
+        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img style="0;margin-bottom:0.2em;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> © Copyright 2022 Graduate School of Information Sciences, Tohoku University．
+
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

@@ -8,15 +8,15 @@ parts:
   - file: notebook/introduction
 - caption: プログラミングの基礎
   chapters:
-  - file: notebook/python_1
-  - file: notebook/python_2
+  - file: notebook/python_01
+  - file: notebook/python_02
 - caption: scikit-learn を利用した機械学習
   chapters:
-  - file: notebook/scikit_learn_1
-  - file: notebook/scikit_learn_2
+  - file: notebook/scikit_learn_01
+  - file: notebook/scikit_learn_02
 - caption: 深層学習
   chapters:
-  - file: notebook/tensorflow_1
-  - file: notebook/tensorflow_2
-  - file: notebook/tensorflow_7
-  - file: notebook/tensorflow_8
+  - file: notebook/tensorflow_01
+  - file: notebook/tensorflow_02
+  - file: notebook/tensorflow_07
+  - file: notebook/tensorflow_08
