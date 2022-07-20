@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7. 多層パーセプトロン &#8212; 実践データ科学</title>
+    <title>10. 多層パーセプトロン &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. Hugging Face の利用方法" href="tensorflow_07.html" />
-    <link rel="prev" title="6. TensorFlow の基本的な利用方法" href="tensorflow_01.html" />
+    <link rel="next" title="11. Hugging Face の利用方法" href="tensorflow_07.html" />
+    <link rel="prev" title="9. TensorFlow の基本的な利用方法" href="tensorflow_01.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -130,12 +130,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_01.html">
-   4. 教師あり学習法
+   4. scikit-learn の基本操作
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_02.html">
-   5. 教師なし学習法
+   8. 教師なし学習法
   </a>
  </li>
 </ul>
@@ -147,27 +147,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_01.html">
-   6. TensorFlow の基本的な利用方法
+   9. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   7. 多層パーセプトロン
+   10. 多層パーセプトロン
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_07.html">
-   8. Hugging Face の利用方法
+   11. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_08.html">
-   9. 敵対的生成ネットワーク
+   12. 敵対的生成ネットワーク
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_10.html">
-   10. 強化学習法
+   13. 強化学習法
   </a>
  </li>
 </ul>
@@ -272,49 +272,49 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   7.1. 扱うデータの紹介
+   10.1. 扱うデータの紹介
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mnist">
-     7.1.1. MNIST について
+     10.1.1. MNIST について
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     7.1.2. ダウンロードと可視化
+     10.1.2. ダウンロードと可視化
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mlp">
-   7.2. MLP の実装
+   10.2. MLP の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     7.2.1. 簡単な MLP の実装
+     10.2.1. 簡単な MLP の実装
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     7.2.2. MNIST を利用した学習
+     10.2.2. MNIST を利用した学習
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     7.2.3. 学習曲線の描画
+     10.2.3. 学習曲線の描画
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     7.2.4. 早期終了
+     10.2.4. 早期終了
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     7.2.5. モデルの保存と利用
+     10.2.5. モデルの保存と利用
     </a>
    </li>
   </ul>
@@ -341,49 +341,49 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   7.1. 扱うデータの紹介
+   10.1. 扱うデータの紹介
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mnist">
-     7.1.1. MNIST について
+     10.1.1. MNIST について
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     7.1.2. ダウンロードと可視化
+     10.1.2. ダウンロードと可視化
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mlp">
-   7.2. MLP の実装
+   10.2. MLP の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     7.2.1. 簡単な MLP の実装
+     10.2.1. 簡単な MLP の実装
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     7.2.2. MNIST を利用した学習
+     10.2.2. MNIST を利用した学習
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     7.2.3. 学習曲線の描画
+     10.2.3. 学習曲線の描画
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     7.2.4. 早期終了
+     10.2.4. 早期終了
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     7.2.5. モデルの保存と利用
+     10.2.5. モデルの保存と利用
     </a>
    </li>
   </ul>
@@ -398,16 +398,16 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">7. </span>多層パーセプトロン<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">10. </span>多層パーセプトロン<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">7.1. </span>扱うデータの紹介<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">10.1. </span>扱うデータの紹介<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>このコンテンツでは最も基本的な深層学習アルゴリズムである多層パーセプトロンを実装する方法を紹介します．多層パーセプトロンは英語では multilayer perceptron（MLP）と言います．ニューラルネットワークの一種です．層という概念があり，この層を幾重にも重ねることで深層ニューラルネットワークを構築することができます．MLP を実装するためにとても有名なデータセットを利用しますが，この節ではそのデータセットの紹介をします．</p>
 <div class="section" id="mnist">
-<h3><span class="section-number">7.1.1. </span>MNIST について<a class="headerlink" href="#mnist" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.1.1. </span>MNIST について<a class="headerlink" href="#mnist" title="Permalink to this headline">¶</a></h3>
 <p>MLP に処理させるデータセットとして，機械学習界隈で最も有名なデータセットである MNIST（Mixed National Institute of Standards and Technology database）を解析対象に用います．「エムニスト」と発音します．MNIST は縦横28ピクセル，合計784ピクセルよりなる画像データです．画像には手書きの一桁の数字（0から9）が含まれています．公式ウェブサイトでは，学習データセット6万個とテストデータセット1万個，全部で7万個の画像からなるデータセットが無償で提供されています．</p>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">7.1.2. </span>ダウンロードと可視化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.1.2. </span>ダウンロードと可視化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>公式サイトよりダウンロードしてきても良いのですが，TensorFlow がダウンロードするためのユーティリティを準備してくれているため，それを用います．以下の <code class="docutils literal notranslate"><span class="pre">tf.keras.datasets.mnist.load_data()</span></code> を用いることで可能です．MNIST は合計7万インスタンスからなるデータセットです．5行目でふたつのタプルにデータをダウンロードしていますが，最初のタプルは学習データセット，次のタプルはテストデータセットのためのものです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -460,10 +460,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="mlp">
-<h2><span class="section-number">7.2. </span>MLP の実装<a class="headerlink" href="#mlp" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">10.2. </span>MLP の実装<a class="headerlink" href="#mlp" title="Permalink to this headline">¶</a></h2>
 <p>この節では MLP を実装します．MLP を実装することに加えて，どのように学習を進めるとより良い人工知能を構築できるのかについて紹介します．</p>
 <div class="section" id="id4">
-<h3><span class="section-number">7.2.1. </span>簡単な MLP の実装<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.2.1. </span>簡単な MLP の実装<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>実際に MNIST を処理する MLP を実装する前に，とても簡単なデータを処理するための MLP を実装します．ここでは，以下のようなデータを利用します．これが学習セットです．ここでは MLP の実装の方法を紹介するだけなのでバリデーションセットもテストセットも使用しません．</p>
 <table class="colwidths-auto table">
 <thead>
@@ -700,7 +700,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">7.2.2. </span>MNIST を利用した学習<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.2.2. </span>MNIST を利用した学習<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>次に，MNIST を処理して「0から9の数字が書かれた（描かれた）手書き文字を入力にして，その手書き文字が0から9のどれなのかを判別する人工知能」を構築します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -873,7 +873,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>これは各エポックのときの人工知能の性能です．エポックが50のとき，トレーニングのコストはとても小さい値です．コストは小さければ小さいほど良いので，学習はしっかりされていることが確認されます．しかし，これはトレーニングデータに対する人工知能の性能です．もしかしたらトレーニングデータに対してのみ性能を発揮できる，トレーニングデータに過剰に適合してしまった人工知能である可能性があります．だから，そうなっていないかどうかを確認する別のデータ，つまり，バリデーションデータセットにおけるコストも確認する必要があります．エポックが50のときのバリデーションのコストはエポック20くらいのときのコストより大きくなっています．すなわち，この人工知能はトレーニングデータに過剰に適合しています．おそらくエポック20くらいの人工知能が最も良い人工知能であって，これを最終的なプロダクトとして選択する必要があります．次の操作ではこれを行います．</p>
 </div>
 <div class="section" id="id6">
-<h3><span class="section-number">7.2.3. </span>学習曲線の描画<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.2.3. </span>学習曲線の描画<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>学習曲線とは横軸にエポック，縦軸にコストの値をプロットした図です．これを観察することで，どれくらいのエポックで学習が進み始めたか，人工知能の成長が止まったか，どのくらいのエポックで過剰適合が起きたか等を視覚的に理解することができます（慣れたら前述の結果のような数字を読むだけでこの図を想像できるようになるのだと思います）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1013,7 +1013,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>結果を観ると，トレーニングセットにおけるコストの値はエポックを経るにつれて小さくなっていることがわかります．これは，人工知能が与えられたデータに適合していることを示しています．一方で，バリデーションセットにおけるコストの値は大体エポックが10と20の間くらいで下げ止まり，その後はコストが増加に転じています．このコストの増加，人工知能がこのデータセットに適合するのとは逆の方向に成長を始めたことを意味しています．この現象が起こった原因は，この人工知能がその成長に利用するデータセット（トレーニングデータセット）に（のみ）過剰に適合し，汎化性能を失ったことにあります．この曲線を観察する限り，エポックは大体10から20の間くらいに留めておいた方が良さそうです．このような画像を観て，大体20で学習を止める，みたいに決めても悪くはありませんが，もっと体系的な方法があるので次にその方法を紹介します．</p>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">7.2.4. </span>早期終了<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.2.4. </span>早期終了<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>学習の早期終了（early stopping）とは過学習を防ぐための方法です．ここでは，ペイシェンス（patience）を利用した早期終了を紹介します．この方法では最も良い値のバリデーションコストを記録し続けます．そして学習を続け，そのベストなバリデーションコストを <span class="math notranslate nohighlight">\(n\)</span> 回連続で更新できなかった場合，そこで学習を打ち切ります．この <span class="math notranslate nohighlight">\(n\)</span> がペイシェンスと呼ばれる値です．ペイシェンスには我慢とか忍耐とかそのような意味があります．コードは以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1169,7 +1169,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>結果を観ると，過学習が起こっていなさそうなところで学習が停止されているのが解ります．</p>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">7.2.5. </span>モデルの保存と利用<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.2.5. </span>モデルの保存と利用<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>これまでに，早期終了を利用して良い人工知能が生成できるエポックが判明しました．機械学習の目的は当然，良い人工知能を開発することです．開発した人工知能は普通，別のサーバーとかトレーニングした時とは別の時間に利用したいはずです．ここで，この学習で発見した人工知能を保存して別のプログラムから，独立した人工知能として利用する方法を紹介します．最後に，テストセットでのその人工知能の性能を評価します．コードは以下のように変更します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1439,13 +1439,13 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>TensorFlow の基本的な利用方法</p>
+            <p class="prev-next-title"><span class="section-number">9. </span>TensorFlow の基本的な利用方法</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="tensorflow_07.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Hugging Face の利用方法</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Hugging Face の利用方法</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

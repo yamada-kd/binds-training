@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8. Hugging Face の利用方法 &#8212; 実践データ科学</title>
+    <title>11. Hugging Face の利用方法 &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. 敵対的生成ネットワーク" href="tensorflow_08.html" />
-    <link rel="prev" title="7. 多層パーセプトロン" href="tensorflow_02.html" />
+    <link rel="next" title="12. 敵対的生成ネットワーク" href="tensorflow_08.html" />
+    <link rel="prev" title="10. 多層パーセプトロン" href="tensorflow_02.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -128,12 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_01.html">
-   4. 教師あり学習法
+   4. scikit-learn の基本操作
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_02.html">
-   5. 教師なし学習法
+   8. 教師なし学習法
   </a>
  </li>
 </ul>
@@ -145,27 +145,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_01.html">
-   6. TensorFlow の基本的な利用方法
+   9. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_02.html">
-   7. 多層パーセプトロン
+   10. 多層パーセプトロン
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   8. Hugging Face の利用方法
+   11. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_08.html">
-   9. 敵対的生成ネットワーク
+   12. 敵対的生成ネットワーク
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_10.html">
-   10. 強化学習法
+   13. 強化学習法
   </a>
  </li>
 </ul>
@@ -270,106 +270,106 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   8.1. Hugging Face とは
+   11.1. Hugging Face とは
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
-     8.1.1. トランスフォーマー
+     11.1.1. トランスフォーマー
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     8.1.2. できること
+     11.1.2. できること
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#hugging-face-course">
-     8.1.3. Hugging Face Course
+     11.1.3. Hugging Face Course
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     8.1.4. インストール
+     11.1.4. インストール
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   8.2. 基本的な使い方
+   11.2. 基本的な使い方
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     8.2.1. 感情分析
+     11.2.1. 感情分析
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     8.2.2. 特徴抽出
+     11.2.2. 特徴抽出
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     8.2.3. ゼロショット文章分類
+     11.2.3. ゼロショット文章分類
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     8.2.4. 文章生成
+     11.2.4. 文章生成
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     8.2.5. 穴埋め
+     11.2.5. 穴埋め
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     8.2.6. 固有表現抽出
+     11.2.6. 固有表現抽出
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     8.2.7. 質問応答
+     11.2.7. 質問応答
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     8.2.8. 要約
+     11.2.8. 要約
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     8.2.9. 翻訳
+     11.2.9. 翻訳
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id15">
-   8.3. 応用的な使い方
+   11.3. 応用的な使い方
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     8.3.1. 他のモデルの利用
+     11.3.1. 他のモデルの利用
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     8.3.2. 日本語の解析
+     11.3.2. 日本語の解析
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     8.3.3. モデルの設定変更
+     11.3.3. モデルの設定変更
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     8.3.4. ファインチューニング
+     11.3.4. ファインチューニング
     </a>
    </li>
   </ul>
@@ -396,106 +396,106 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   8.1. Hugging Face とは
+   11.1. Hugging Face とは
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
-     8.1.1. トランスフォーマー
+     11.1.1. トランスフォーマー
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     8.1.2. できること
+     11.1.2. できること
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#hugging-face-course">
-     8.1.3. Hugging Face Course
+     11.1.3. Hugging Face Course
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     8.1.4. インストール
+     11.1.4. インストール
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   8.2. 基本的な使い方
+   11.2. 基本的な使い方
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     8.2.1. 感情分析
+     11.2.1. 感情分析
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     8.2.2. 特徴抽出
+     11.2.2. 特徴抽出
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     8.2.3. ゼロショット文章分類
+     11.2.3. ゼロショット文章分類
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     8.2.4. 文章生成
+     11.2.4. 文章生成
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     8.2.5. 穴埋め
+     11.2.5. 穴埋め
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     8.2.6. 固有表現抽出
+     11.2.6. 固有表現抽出
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     8.2.7. 質問応答
+     11.2.7. 質問応答
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     8.2.8. 要約
+     11.2.8. 要約
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     8.2.9. 翻訳
+     11.2.9. 翻訳
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id15">
-   8.3. 応用的な使い方
+   11.3. 応用的な使い方
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     8.3.1. 他のモデルの利用
+     11.3.1. 他のモデルの利用
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     8.3.2. 日本語の解析
+     11.3.2. 日本語の解析
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     8.3.3. モデルの設定変更
+     11.3.3. モデルの設定変更
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     8.3.4. ファインチューニング
+     11.3.4. ファインチューニング
     </a>
    </li>
   </ul>
@@ -510,12 +510,12 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="hugging-face">
-<h1><span class="section-number">8. </span>Hugging Face の利用方法<a class="headerlink" href="#hugging-face" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11. </span>Hugging Face の利用方法<a class="headerlink" href="#hugging-face" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2><span class="section-number">8.1. </span>Hugging Face とは<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.1. </span>Hugging Face とは<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Hugging Face とは主に Transformer（トランスフォーマー）に関連する深層学習モデルやそれに付随する技術の提供を行っているサービスです．トランスフォーマー（のエンコーダーとデコーダー）はニューラルネットワーク等からなる，様々なタイプのデータを処理できる機械学習モデルです．トランスフォーマーは色々な問題を解決するために少しずつ違う構造を持ちますが，そのようなものをまとめてコマンド一発で利用可能にしてくれているのが Hugging Face です．また，自然言語処理の分野で扱うデータのサイズはとても大きい場合があるのですが，どこかの誰かがあらかじめ何かのデータを利用して学習済みのデータを提供してくれていることがあり，そのような学習済みモデルも簡単に利用できるように整備してくれています．Hugging Face を利用すれば，特に自然言語処理に関する問題を簡単に解けるようになるため紹介します．</p>
 <div class="section" id="id2">
-<h3><span class="section-number">8.1.1. </span>トランスフォーマー<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>トランスフォーマー<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
 <p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
 <p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションという技術が利用されます．</p>
@@ -530,7 +530,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">8.1.2. </span>できること<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.2. </span>できること<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Hugging Face で扱うことができるタスクは以下に示すものがあります．これ以外にもありますが自然言語処理に関する代表的なタスクを抽出しました．括弧内の文字列は実際に Hugging Face を利用する際に指定するオプションです（後で利用します．）．</p>
 <ul class="simple">
 <li><p>感情分析（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）：入力した文章が有する感情を予測</p></li>
@@ -545,12 +545,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 <div class="section" id="hugging-face-course">
-<h3><span class="section-number">8.1.3. </span>Hugging Face Course<a class="headerlink" href="#hugging-face-course" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.3. </span>Hugging Face Course<a class="headerlink" href="#hugging-face-course" title="Permalink to this headline">¶</a></h3>
 <p>Hugging Face の利用方法は以下のウェブサイト，Hugging Face Course の Transformer models の部分を読めば大体のことが把握できると思います．</p>
 <p><a class="reference external" href="https://huggingface.co/course/">https://huggingface.co/course/</a></p>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">8.1.4. </span>インストール<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.4. </span>インストール<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Hugging Face（のトランスフォーマー）は TensorFlow または PyTorch とあわせて利用可能なライブラリです．本来は TensorFlow か PyTorch をあらかじめインストールする必要があります．グーグルコラボラトリーには既に TensorFlow がインストールされているため不要です．以下のように <code class="docutils literal notranslate"><span class="pre">transformers</span></code> のみをインストールすれば利用可能です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -566,10 +566,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">8.2. </span>基本的な使い方<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.2. </span>基本的な使い方<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>とても簡単に自然言語処理を実現することができる利用方法を紹介します．世界最高性能を求めたいとかでないなら，ここで紹介する方法を利用して様々なことを達成できると思います．</p>
 <div class="section" id="id6">
-<h3><span class="section-number">8.2.1. </span>感情分析<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.1. </span>感情分析<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>最も簡単な <code class="docutils literal notranslate"><span class="pre">tranformers</span></code> の利用方法は以下のようになると思います．<code class="docutils literal notranslate"><span class="pre">pipeline</span></code> を読み込んで，そこに取り組みたいタスク（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）を指定します．初回の起動の際には事前学習済みモデルがダウンロードされるため時間がかかります．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -608,7 +608,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">8.2.2. </span>特徴抽出<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.2. </span>特徴抽出<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>文字列の特徴を抽出して何らかの分散表現にしたい場合は <code class="docutils literal notranslate"><span class="pre">feature-extraction</span></code> を指定します．文字列の長さに依存した配列が出力されますが，同じ長さのベクトルにしたい場合は配列長に渡って要素の値を足し算すること等で特徴量を得ることができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -633,7 +633,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">8.2.3. </span>ゼロショット文章分類<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.3. </span>ゼロショット文章分類<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>ゼロショット文章分類は以下のように利用します．ゼロショットとは訓練中に一度も出現しなかったクラスの分類タスクです．ラベルが未定義の問題に利用することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -659,7 +659,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">8.2.4. </span>文章生成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.4. </span>文章生成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>文章の生成は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -680,7 +680,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id10">
-<h3><span class="section-number">8.2.5. </span>穴埋め<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.5. </span>穴埋め<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>穴埋めは以下のように行います．以下のコードでは可能性が高いものふたつを表示させます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -701,7 +701,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id11">
-<h3><span class="section-number">8.2.6. </span>固有表現抽出<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.6. </span>固有表現抽出<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>固有表現抽出は以下のように行います．結果の <code class="docutils literal notranslate"><span class="pre">PER</span></code> は人名，<code class="docutils literal notranslate"><span class="pre">ORG</span></code> は組織名，<code class="docutils literal notranslate"><span class="pre">LOC</span></code> は地名です．それらの固有表現の文書中における位置も <code class="docutils literal notranslate"><span class="pre">start</span></code> と <code class="docutils literal notranslate"><span class="pre">end</span></code> で示されています．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -722,7 +722,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id12">
-<h3><span class="section-number">8.2.7. </span>質問応答<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.7. </span>質問応答<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>SQuAD のような機械学習コンテストで行われる質問応答は質問だけを入力にして何かを出力する問題ではありません．質問文と何らかの説明文を入力にして解答を出力される問題です．以下のように利用します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -744,7 +744,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id13">
-<h3><span class="section-number">8.2.8. </span>要約<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.8. </span>要約<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>文章の要約は以下のように行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -784,7 +784,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">8.2.9. </span>翻訳<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.9. </span>翻訳<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>翻訳はこれまでと少しだけ指定方法が異なります．以下のように <code class="docutils literal notranslate"><span class="pre">translation_XX_to_YY</span></code> としなければなりません．ここでは，英語からフランス語への翻訳を行います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -806,10 +806,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id15">
-<h2><span class="section-number">8.3. </span>応用的な使い方<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.3. </span>応用的な使い方<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
 <p>これまでに利用したものとは異なるモデルを利用したいとか，自身が持っているデータセットにより適合させたいとかの応用的な利用方法を紹介します．</p>
 <div class="section" id="id16">
-<h3><span class="section-number">8.3.1. </span>他のモデルの利用<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.1. </span>他のモデルの利用<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>これまでに，Hugging Face が自動でダウンロードしてくれたデフォルトの事前学習済みモデルを利用した予測を行いましたが，そうでなくて，モデルを指定することもできます．以下のページをご覧ください．Model Hub と言います．</p>
 <p><a class="reference external" href="https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads">https://huggingface.co/models?pipeline_tag=text-generation&amp;sort=downloads</a></p>
 <p>この Model Hub の Tasks というところでタグを選択できます．例えば，Text Generation の <code class="docutils literal notranslate"><span class="pre">distilgpt2</span></code> を利用するには以下のように書きます．</p>
@@ -832,7 +832,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id17">
-<h3><span class="section-number">8.3.2. </span>日本語の解析<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.2. </span>日本語の解析<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>日本語も扱うことができます．ここでは，日本語で書かれた文章の感情分析を行います．最初に，必要なライブラリをダウンロードしてインストールします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -889,7 +889,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id18">
-<h3><span class="section-number">8.3.3. </span>モデルの設定変更<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.3. </span>モデルの設定変更<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>上で紹介したのと同様に，モデルとトークナイザーをそれぞれ，<code class="docutils literal notranslate"><span class="pre">TFAutoModelForSequenceClassification</span></code> と <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code> で読み込むことができます．以下の通りです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -953,7 +953,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id19">
-<h3><span class="section-number">8.3.4. </span>ファインチューニング<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.4. </span>ファインチューニング<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>事前学習モデルを自分の解きたい問題に合わせてファインチューニングすることができます．ここでは，インターネット上の映画レビューのデータセット IMDb に対してモデルのファインチューニングを行います．最初に Hugging Face が提供してくれているデータセットを利用するためのモジュールをインストールします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1240,13 +1240,13 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7. </span>多層パーセプトロン</p>
+            <p class="prev-next-title"><span class="section-number">10. </span>多層パーセプトロン</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="tensorflow_08.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>敵対的生成ネットワーク</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>敵対的生成ネットワーク</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
