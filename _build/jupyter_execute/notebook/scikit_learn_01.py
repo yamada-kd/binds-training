@@ -461,7 +461,7 @@ if __name__ == "__main__":
 
 # 機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．
 
-# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cheatShet.png?raw=1" width="100%" />
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" width="100%" />
 # 
 
 # 出典：https://scikit-learn.org/
