@@ -67,7 +67,7 @@ if __name__ == "__main__":
 # ```
 # 最初の行に表示されている `[5.1, 3.5, 1.4, 0.2]` が最初のデータです．4個の要素からなるベクトルデータです．このような4個の要素からなるインスタンスが150個あります．すべてのインスタンスの後に表示されている target という項目がありますが，これは，各インスタンスがどのアヤメの種類に属しているかを示しています．アヤメには種類があるらしく，`0` は setosa，`1` は versicolor，`2` は virginica という種類を意味しています．それぞれ均等にデータが取得されており，全部で150個のインスタンスの内，50個が setosa，別の50個が versicolor，残りの50個が virginica です．各インスタンスは4個の要素からなるベクトルデータであることを紹介しましたが，各要素はそのインスタンスの属性（アトリビュート）と言います．このデータの場合，最初の要素は咢の長さです．咢というのは以下の写真の茎ではない緑色の部分を示すものらしいです．単位は cm です．次の要素は咢の幅，次の要素は花弁（花びら）の長さ，最後の要素は花弁の幅です．どれも単位は cm です．
 
-# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" width="100%" />
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" />
 # 
 # 出典：https://ja.wikipedia.org/
 # 
@@ -461,7 +461,7 @@ if __name__ == "__main__":
 
 # 機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．
 
-# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" width="100%" />
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" />
 # 
 
 # 出典：https://scikit-learn.org/

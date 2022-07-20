@@ -505,7 +505,7 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 <p>最初の行に表示されている <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4,</span> <span class="pre">0.2]</span></code> が最初のデータです．4個の要素からなるベクトルデータです．このような4個の要素からなるインスタンスが150個あります．すべてのインスタンスの後に表示されている target という項目がありますが，これは，各インスタンスがどのアヤメの種類に属しているかを示しています．アヤメには種類があるらしく，<code class="docutils literal notranslate"><span class="pre">0</span></code> は setosa，<code class="docutils literal notranslate"><span class="pre">1</span></code> は versicolor，<code class="docutils literal notranslate"><span class="pre">2</span></code> は virginica という種類を意味しています．それぞれ均等にデータが取得されており，全部で150個のインスタンスの内，50個が setosa，別の50個が versicolor，残りの50個が virginica です．各インスタンスは4個の要素からなるベクトルデータであることを紹介しましたが，各要素はそのインスタンスの属性（アトリビュート）と言います．このデータの場合，最初の要素は咢の長さです．咢というのは以下の写真の茎ではない緑色の部分を示すものらしいです．単位は cm です．次の要素は咢の幅，次の要素は花弁（花びら）の長さ，最後の要素は花弁の幅です．どれも単位は cm です．</p>
-<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" style="width: 100%;" /></a>
+<img alt="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" />
 <p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
 <p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
 </div>
@@ -890,7 +890,7 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 <div class="section" id="id13">
 <h3><span class="section-number">4.4.3. </span>方法の選択<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>機械学習アルゴリズムにはとてもたくさんの種類があります．どのような場合に（どのようなデータセットに対して，また，どのような問題に対して）どの方法を使えば良いかを scikit-learn がまとめてくれています．以下のチートシートです．これは経験に基づいた選択方法です．実際にはデータセットの性質によって最適な手法は変わるものであるため必ずしも正しいとは限りません．</p>
-<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" style="width: 100%;" /></a>
+<img alt="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/cheatSheet.png?raw=1" />
 <p>出典：<a class="reference external" href="https://scikit-learn.org/">https://scikit-learn.org/</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
