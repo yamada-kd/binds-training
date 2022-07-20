@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. 教師なし学習法 &#8212; 実践データ科学</title>
+    <title>8. 教師なし学習法 &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. TensorFlow の基本的な利用方法" href="tensorflow_01.html" />
-    <link rel="prev" title="4. 教師あり学習法" href="scikit_learn_01.html" />
+    <link rel="next" title="9. TensorFlow の基本的な利用方法" href="tensorflow_01.html" />
+    <link rel="prev" title="4. scikit-learn の基本操作" href="scikit_learn_01.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -130,12 +130,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="scikit_learn_01.html">
-   4. 教師あり学習法
+   4. scikit-learn の基本操作
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   5. 教師なし学習法
+   8. 教師なし学習法
   </a>
  </li>
 </ul>
@@ -147,27 +147,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_01.html">
-   6. TensorFlow の基本的な利用方法
+   9. TensorFlow の基本的な利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_02.html">
-   7. 多層パーセプトロン
+   10. 多層パーセプトロン
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_07.html">
-   8. Hugging Face の利用方法
+   11. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_08.html">
-   9. 敵対的生成ネットワーク
+   12. 敵対的生成ネットワーク
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_10.html">
-   10. 強化学習法
+   13. 強化学習法
   </a>
  </li>
 </ul>
@@ -272,103 +272,103 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   5.1. 教師なし学習法の種類
+   8.1. 教師なし学習法の種類
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#k-means">
-   5.2. K-means 法
+   8.2. K-means 法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     5.2.1. 基本的な事柄
+     8.2.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     5.2.2. クラスタリングの実行
+     8.2.2. クラスタリングの実行
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     5.2.3. クラスタ数の決定方法
+     8.2.3. クラスタ数の決定方法
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   5.3. 階層的クラスタリング法
+   8.3. 階層的クラスタリング法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     5.3.1. 基本的な事柄
+     8.3.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     5.3.2. クラスタリングの実行
+     8.3.2. クラスタリングの実行
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     5.3.3. 樹形図の描画
+     8.3.3. 樹形図の描画
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
-   5.4. 主成分分析法
+   8.4. 主成分分析法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     5.4.1. 基本的な事柄
+     8.4.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     5.4.2. 主成分分析法の限界
+     8.4.2. 主成分分析法の限界
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     5.4.3. 次元の削減
+     8.4.3. 次元の削減
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     5.4.4. 次元削減データの説明力
+     8.4.4. 次元削減データの説明力
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id15">
-   5.5. カーネル密度推定法
+   8.5. カーネル密度推定法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     5.5.1. 基本的な事柄
+     8.5.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     5.5.2. 発展的な利用方法
+     8.5.2. 発展的な利用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     5.5.3. 元の確率分布の推定
+     8.5.3. 元の確率分布の推定
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     5.5.4. 生成モデルとしての利用
+     8.5.4. 生成モデルとしての利用
     </a>
    </li>
   </ul>
@@ -395,103 +395,103 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   5.1. 教師なし学習法の種類
+   8.1. 教師なし学習法の種類
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#k-means">
-   5.2. K-means 法
+   8.2. K-means 法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     5.2.1. 基本的な事柄
+     8.2.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     5.2.2. クラスタリングの実行
+     8.2.2. クラスタリングの実行
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     5.2.3. クラスタ数の決定方法
+     8.2.3. クラスタ数の決定方法
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   5.3. 階層的クラスタリング法
+   8.3. 階層的クラスタリング法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     5.3.1. 基本的な事柄
+     8.3.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     5.3.2. クラスタリングの実行
+     8.3.2. クラスタリングの実行
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     5.3.3. 樹形図の描画
+     8.3.3. 樹形図の描画
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
-   5.4. 主成分分析法
+   8.4. 主成分分析法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     5.4.1. 基本的な事柄
+     8.4.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     5.4.2. 主成分分析法の限界
+     8.4.2. 主成分分析法の限界
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     5.4.3. 次元の削減
+     8.4.3. 次元の削減
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     5.4.4. 次元削減データの説明力
+     8.4.4. 次元削減データの説明力
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id15">
-   5.5. カーネル密度推定法
+   8.5. カーネル密度推定法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     5.5.1. 基本的な事柄
+     8.5.1. 基本的な事柄
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     5.5.2. 発展的な利用方法
+     8.5.2. 発展的な利用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     5.5.3. 元の確率分布の推定
+     8.5.3. 元の確率分布の推定
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     5.5.4. 生成モデルとしての利用
+     8.5.4. 生成モデルとしての利用
     </a>
    </li>
   </ul>
@@ -506,9 +506,9 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">5. </span>教師なし学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">8. </span>教師なし学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">5.1. </span>教師なし学習法の種類<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.1. </span>教師なし学習法の種類<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>教師なし学習法には様々な種類があります．<a class="reference external" href="https://scikit-learn.org/stable/unsupervised_learning.html">https://scikit-learn.org/stable/unsupervised_learning.html</a> にはそれらがまとめられています．リンク先のページには以下に示すものが列挙されています．</p>
 <ul class="simple">
 <li><p>混合ガウスモデル</p></li>
@@ -529,10 +529,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p>次の節では scikit-learn を利用して，K-means 法（非階層的クラスタリング法の代表的な手法），階層的クラスタリング法，主成分分析法，カーネル密度推定法を実装します．</p>
 </div>
 <div class="section" id="k-means">
-<h2><span class="section-number">5.2. </span>K-means 法<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.2. </span>K-means 法<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
 <p>階層的クラスタリングと異なり K-means 法は非階層的にデータをクラスタ化する手法です．</p>
 <div class="section" id="id3">
-<h3><span class="section-number">5.2.1. </span>基本的な事柄<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.2.1. </span>基本的な事柄<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>K-means 法はあらかじめ決めた <span class="math notranslate nohighlight">\(k\)</span> 個のクラスタにデータを分割する方法です．K-means 法は以下のような手順で計算します．</p>
 <ol class="simple">
 <li><p>ランダムに <span class="math notranslate nohighlight">\(k\)</span> 個のクラスタの中心（<span class="math notranslate nohighlight">\(\mu_k\)</span>）を決定します．</p></li>
@@ -553,7 +553,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><span class="math notranslate nohighlight">\(\displaystyle E=\sum_{i=1}^kI_k\)</span></p>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">5.2.2. </span>クラスタリングの実行<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.2.2. </span>クラスタリングの実行<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>ここでは K-means 法を実行しますが，そのためのデータセットを生成します．scikit-learn にはクラスタリング法用に擬似的なデータセットを生成するためのユーティリティが備わっています．以下のようにすることで，3個のクラスタに分けられるべき150個のインスタンスを生成することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -652,7 +652,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">5.2.3. </span>クラスタ数の決定方法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.2.3. </span>クラスタ数の決定方法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>上の例だと正解のクラスタ数を知っているので <span class="math notranslate nohighlight">\(k\)</span> を上手に設定することができました．実際のデータをクラスタリングしたいときには何個に分割すれば良いか分からない場合が多いと思います．そのときに，<span class="math notranslate nohighlight">\(k\)</span> の値を決定するための指標があります．シルエットスコアと言います．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -694,10 +694,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id6">
-<h2><span class="section-number">5.3. </span>階層的クラスタリング法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.3. </span>階層的クラスタリング法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>与えられたデータをクラスター化する階層的クラスタリング法の利用方法を紹介します．階層的クラスタリング法でクラスター化した各クラスターは階層構造を有します．</p>
 <div class="section" id="id7">
-<h3><span class="section-number">5.3.1. </span>基本的な事柄<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.1. </span>基本的な事柄<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>階層的クラスタリングは与えられたデータを任意の数のクラスタに分割する方法です．その計算の過程において各クラスタが階層構造を持つように分割することができるため「階層的」という名前がついています．階層的クラスタリング法は各クラスタリング法の総称です．単連結（最短距離）法，完全連結（最長距離）法，群平均法，ウォード法等のいくつかの方法が階層的クラスタリング法に属します．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -729,7 +729,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">5.3.2. </span>クラスタリングの実行<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.2. </span>クラスタリングの実行<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>ここではアヤメのデータをウォード法で分割します．以下のように書きます．各インスタンスがどのクラスタに分類されているか出力します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -751,7 +751,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">5.3.3. </span>樹形図の描画<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.3. </span>樹形図の描画<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>このように scikit-learn でも簡単に階層的クラスタリングが実装できるのですが，階層構造を視覚的に理解するために便利な樹形図を簡単に描くことができないので，SciPy を利用して同様のことをやります．アヤメのデータは10個おきにサンプリングして合計15個のみ利用します（結果を見やすくするためです）．よって，0から4が setosa，5から9がversicolor，10から14が virginica です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -782,10 +782,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id10">
-<h2><span class="section-number">5.4. </span>主成分分析法<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.4. </span>主成分分析法<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>主成分分析法の進め方を紹介します．</p>
 <div class="section" id="id11">
-<h3><span class="section-number">5.4.1. </span>基本的な事柄<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.4.1. </span>基本的な事柄<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>与えられたデータに対して主成分分析を行う理由は，人が目で見て理解するには複雑なデータを人が理解しやすい形式に整えたいためです．4個以上の要素からなるベクトル形式のデータを2個または3個（または稀に1個）の要素からなるベクトル形式のデータに変換し2次元または3次元（または1次元）平面上にインスタンスをプロットし直すことでデータの関連性を把握することができます．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -801,11 +801,11 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id12">
-<h3><span class="section-number">5.4.2. </span>主成分分析法の限界<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.4.2. </span>主成分分析法の限界<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>主成分分析は変数を元の変数の線形結合で表される新たな変数へと変換させる方法です．元々何らかの非線形平面で関係を持っていたデータを別の平面へと変換した場合において，元々の非線形な関係性が維持されているとは限りません．非線形な関係を含めて次元削減をしたい場合は他の方法を利用する方法があります．主成分分析法を非線形で行う方法には非線形カーネル関数を利用したカーネル主成分分析法があります．scikit-learn でも利用することが可能です．</p>
 </div>
 <div class="section" id="id13">
-<h3><span class="section-number">5.4.3. </span>次元の削減<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.4.3. </span>次元の削減<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>アヤメのデータセットに対して次元の削減を行います．以下のようにこのデータセットにおける各インスタンスは4個の要素からなるベクトル形式のデータです．よってこれを4次元平面上にプロットしたとしてもその関係性を人は理解できません．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -917,7 +917,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">5.4.4. </span>次元削減データの説明力<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.4.4. </span>次元削減データの説明力<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>これまでの計算で4つの要素からなるベクトルデータを2つの要素からなるベクトルデータへと変換しました．そのインスタンスを特徴付ける4つの要素を半分にしたのですから元々インスタンスが持っていた情報は少なくなっているはずです．この主成分分析の操作でどれくらいの情報が失われたのか，どれくらいの情報が維持されているのかは以下のコードで確認できます．元々の情報を1としたときに各軸が持つ説明力の割合を出力することができます．また，それらの値を合計することで元々の情報を2つの軸だけでどれくらい説明できるかを計算できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -949,10 +949,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id15">
-<h2><span class="section-number">5.5. </span>カーネル密度推定法<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.5. </span>カーネル密度推定法<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
 <p>カーネル密度推定法の利用方法を紹介します．簡単な利用方法に加えて生成モデルとして利用する方法を紹介します．</p>
 <div class="section" id="id16">
-<h3><span class="section-number">5.5.1. </span>基本的な事柄<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.5.1. </span>基本的な事柄<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は与えられたデータの分布を推定する方法です．与えられたデータ中の疎なインスタンスを入力としてそのデータが従うと思われる分布を推定する方法です．<span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n\)</span> を何らかの確率分布から得られたサンプルとします．このときにカーネル密度推定量 <span class="math notranslate nohighlight">\(f\)</span> は以下のように計算されます．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle f(x)=\frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)
@@ -967,7 +967,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id17">
-<h3><span class="section-number">5.5.2. </span>発展的な利用方法<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.5.2. </span>発展的な利用方法<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>昨今の深層学習ブームで専ら利用されている深層ニューラルネットワークは通常たくさんのハイパーパラメータを持ちます．良いハイパーパラメータを同定することは良い人工知能を構築するために重要なことであるため，その探索方法の開発が活発です．ブルートフォース（しらみつぶし）な探索，ランダムな探索，手動による探索，進化戦略法を利用した探索，ベイズ探索等の様々な方法が利用されていますが，その中でも最も有効なもののひとつに代理モデルを利用した逐次最適化法（sequential model-based optimization（SMBO））と呼ばれるベイズ最適化法の範疇に入る方法があります．ハイパーパラメータが従うであろう分布を推定して（この推定した分布を代理モデルと言います），その分布から予想したハイパーパラメータを利用して構築した人工知能の評価を行い，さらにその評価結果から分布の推定を繰り返す，というようなハイパーパラメータの従う分布の推定と人工知能の評価を交互に繰り返すことで最適なハイパーパラメータを持つ人工知能を同定しようとする方法です．この SMBO を行う際の代理モデルの構築にカーネル密度推定法が利用されることがあります．そして，カーネル密度推定法を利用した SMBO は従来の代理モデルの推定法（例えば，ガウス過程回帰法）より良い性能を示すことがあります．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -979,7 +979,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id18">
-<h3><span class="section-number">5.5.3. </span>元の確率分布の推定<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.5.3. </span>元の確率分布の推定<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>ここでは，母数の異なるふたつの正規分布からいくつかのインスタンスをサンプリングして，そのサンプリングしたデータから元の正規分布ふたつからなる二峰性の確率分布を再現できるかということを試します．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -1065,7 +1065,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id19">
-<h3><span class="section-number">5.5.4. </span>生成モデルとしての利用<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.5.4. </span>生成モデルとしての利用<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は何もないところからデータを生成する生成モデルとして利用することができます．何らかのデータを入力にしてそのデータが出力される確率分布をカーネル密度推定法で推定します．次に，その確率密度分布に基づいてデータを生成する，といった手順です．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -1159,13 +1159,13 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4. </span>教師あり学習法</p>
+            <p class="prev-next-title"><span class="section-number">4. </span>scikit-learn の基本操作</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="tensorflow_01.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>TensorFlow の基本的な利用方法</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>TensorFlow の基本的な利用方法</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
