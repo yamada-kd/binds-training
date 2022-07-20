@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 敵対的生成ネットワーク
+# # 強化学習法
 
 # ## 基本的な事柄
 # 
