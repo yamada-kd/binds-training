@@ -499,16 +499,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>この節ではフィールド上を動いてゴールを目指すオブジェクトの動きをコントロールするというタスクを通じて Q 学習の利用方法を理解します．</p>
 <div class="section" id="id5">
 <h3><span class="section-number">10.2.1. </span>解きたい問題<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>GAN の学習は以下のような手順で行われます．</p>
-<ol class="simple">
-<li><p>ノイズを入力にして生成器が偽物のデータを生成する．</p></li>
-<li><p>偽物のデータを識別器に入力し，識別器からの出力値を得る．</p></li>
-<li><p>識別器の出力値を用いて計算したコスト関数 <span class="math notranslate nohighlight">\(P\)</span> の値に基づいて生成器のパラメータを更新．</p></li>
-<li><p>偽物のデータと本物のデータを識別器に入力し，識別器からの出力値を得る．</p></li>
-<li><p>識別器の出力値を用いて計算したコスト関数 <span class="math notranslate nohighlight">\(Q\)</span> の値に基づいて識別器のパラメータを更新．</p></li>
-<li><p>識別器の評価指標が収束した場合，学習を終了．それ以外の場合，最初に戻る．</p></li>
-</ol>
-<p>実際の学習の際には適した最適化法を選ぶとか，生成器と識別器の学習回数を変えるとか，真とラベルを 1 ではなくて 0.8 から 1.2 の範囲に含まれる値にするとかのテクニックが存在しますが，そのようなものは以下の実装の部分で紹介します．</p>
+<p>以下のような 5 行 4 列の行列を考えます．これはフィールドです．このフィールド上で何らかのオブジェクト（人でも犬でも何でも良いです）を動かしてゴール（G）を目指すこととします．フィールドは壁に囲まれているとします．つまり，オブジェクトはこの 5 行 4 列のフィールドの外には出られません．また，フィールドには障害物（X）があり，障害物が存在する位置にオブジェクトは行けないこととします．</p>
+<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" style="width: 100%;" /></a>
 </div>
 <div class="section" id="id6">
 <h3><span class="section-number">10.2.2. </span>Q 学習で行うこと<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
