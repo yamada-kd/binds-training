@@ -526,12 +526,12 @@ const thebe_selector_output = ".output, .cell_output"
 <p>この式において，<span class="math notranslate nohighlight">\(\max Q(s',a')\)</span> は現在の行動によって遷移した状態において取り得るすべての行動（この場合上下左右の 4 個）に対する Q 値の中で最も大きな値のことです．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>TD 誤差の部分を確認していただければわかるように，Q 値の更新式はある状態から次の状態に宣したとき，最初の状態の Q 値を次の状態の最も大きな Q 値と報酬の和に近づけることを意味しています．例えば，ゴール直前の状態とそのひとつ前の状態を考えたとき，ひとつ前の状態の Q 値はゴール直前の状態に遷移しようとするように値が大きくなります．</p>
+<p>TD 誤差の部分を確認していただければわかるように，Q 値の更新式はある状態から次の状態に遷移したとき，最初の状態の Q 値を次の状態の最も大きな Q 値と報酬の和に近づけることを意味しています．例えば，ゴール直前の状態とそのひとつ前の状態を考えたとき，ひとつ前の状態の Q 値はゴール直前の状態に遷移しようとするように値が大きくなります．</p>
 </div>
 </div>
 <div class="section" id="id7">
 <h3><span class="section-number">10.2.3. </span>Q 学習の実装<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>Q 学習は以下のように行われます．</p>
+<p>実際の Q 学習は以下の手順で行われます．</p>
 <ol class="simple">
 <li><p>ほげ</p></li>
 <li><p>リスト項目</p></li>
