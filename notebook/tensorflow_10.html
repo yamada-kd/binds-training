@@ -477,8 +477,6 @@ const thebe_selector_output = ".output, .cell_output"
 <h3><span class="section-number">10.1.1. </span>強化学習法とは<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>ほげ</p>
 <p>ほげ</p>
-<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" style="width: 100%;" /></a>
-<p>生成器のコスト関数を <span class="math notranslate nohighlight">\(P\)</span>，識別器のコスト関数を <span class="math notranslate nohighlight">\(Q\)</span> で表したとき，生成器を成長させるためのコストを計算するコスト関数は以下のように表されます．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle P(\boldsymbol{\theta})=\frac{1}{N}\sum_{i=1}^{N}\log(1-D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i)))
 \)</span></p>
@@ -489,9 +487,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id4">
 <h3><span class="section-number">10.1.2. </span>強化学習法の種類<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>GAN は色々なところで使われています．元々の GAN は 2014 年に開発されたのですが，その後もその改良は様々な研究者によって行われてきました．GAN の特有の問題を解決するための研究や GAN の適用先を画像解析分野や文字列解析分野にした研究や GAN に新たな機能を加える研究等です．数多くの GAN が開発されており，それらの GAN をまとめて GAN Zoo という場合があります．GAN Zoo は以下のウェブサイトにまとめられています．</p>
-<p><a class="reference external" href="https://github.com/hindupuravinash/the-gan-zoo">https://github.com/hindupuravinash/the-gan-zoo</a></p>
-<p>全ての GAN について説明することはできないため，ここでは，最も基本的な GAN を紹介した後に，GAN の特有の問題であるモード崩壊を抑制するために開発された方法である WGAN-gp と GAN の入力に何らかの条件を加えることで，その条件にあった出力をさせることができるようになる Conditional GAN（CGAN）の紹介を行います．</p>
+<p>ほげ</p>
 </div>
 </div>
 <div class="section" id="q">
@@ -505,8 +501,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Hint</p>
 <p>左上のマスを <span class="math notranslate nohighlight">\((0,0)\)</span> として右下のマスを <span class="math notranslate nohighlight">\((4,3)\)</span> とします．つまり行列の要素の呼び方と同じですね．</p>
 </div>
-<div class="highlight-note notranslate"><div class="highlight"><pre><span></span>この動かす対象であるオブジェクトのことをエージェントとして記載している記事がインターネット上にたくさんあります．例えば，囲碁における碁に相当するような存在だと思いますが，それをエージェントと呼ぶことはないと思います．エージェントとはプレイヤーであって，ゲームで言うところの環境の一部であるキャラクターや碁等のオブジェクトを移動させたりオブジェクトに何かをさせたりする存在であると思います．よってここではオブジェクトとエージェントを明確に使い分けます．
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>この動かす対象であるオブジェクトのことをエージェントとして記載している記事がインターネット上にたくさんあります．例えば，囲碁における碁に相当するような存在だと思いますが，それをエージェントと呼ぶことはないと思います．エージェントとはプレイヤーであって，ゲームで言うところの環境の一部であるキャラクターや碁等のオブジェクトを移動させたりオブジェクトに何かをさせたりする存在であると思います．よってここではオブジェクトとエージェントを明確に使い分けます．</p>
 </div>
 </div>
 <div class="section" id="id6">
