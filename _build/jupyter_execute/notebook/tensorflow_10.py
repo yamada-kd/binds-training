@@ -47,7 +47,7 @@
 # <img src="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" width="100%" />
 
 # ```{hint}
-# 左上のマスを $(0,0)$ として右下のマスを $(4,3)$ とします．つまり行列の要素の呼び方と同じですね．
+# 左上のマスを `(0, 0)` として右下のマスを `(4, 3)` とします．つまり行列の要素の呼び方と同じですね．
 # ```
 
 # ```{note}
