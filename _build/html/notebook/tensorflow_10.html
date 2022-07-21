@@ -499,8 +499,12 @@ const thebe_selector_output = ".output, .cell_output"
 <p>この節ではフィールド上を動いてゴールを目指すオブジェクトの動きをコントロールするというタスクを通じて Q 学習の利用方法を理解します．</p>
 <div class="section" id="id5">
 <h3><span class="section-number">10.2.1. </span>解きたい問題<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>以下のような 5 行 4 列の行列を考えます．これはフィールドです．このフィールド上で何らかのオブジェクト（人でも犬でも何でも良いです）を動かしてゴール（G）を目指すこととします．フィールドは壁に囲まれているとします．つまり，オブジェクトはこの 5 行 4 列のフィールドの外には出られません．また，フィールドには障害物（X）があり，障害物が存在する位置にオブジェクトは行けないこととします．</p>
+<p>以下のような 5 行 4 列の行列を考えます．これはフィールドです．このフィールド上で何らかのオブジェクト（人でも犬でも何でも良いです）を動かしてゴール（G）を目指すこととします．フィールドは壁に囲まれているとします．つまり，オブジェクトはこの 5 行 4 列のフィールドの外には出られません．また，フィールドには障害物（X）があり，障害物が存在する位置（これ以降はマスと呼びます）にオブジェクトは行けないこととします．オブジェクトは最初ゴールでも障害物でもない他のマスである座標にして <span class="math notranslate nohighlight">\((4,0)\)</span> に位置しているものとします．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" style="width: 100%;" /></a>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>左上のマスを <span class="math notranslate nohighlight">\((0,0)\)</span> として右下のマスを <span class="math notranslate nohighlight">\((4,3)\)</span> とします．つまり行列の要素の呼び方と同じですね．</p>
+</div>
 </div>
 <div class="section" id="id6">
 <h3><span class="section-number">10.2.2. </span>Q 学習で行うこと<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
