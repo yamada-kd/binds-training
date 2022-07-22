@@ -84,148 +84,135 @@
 
 # ### Q 学習の実装
 
-# 実際の Q 学習は以下の手順で行われます．
+# 実際の Q 学習は以下の手順で行われます．以下の項目の括弧内の記述はこの節で扱う問題に関する記述です．
 # 
-# 1.   ほげ
-# 2.   リスト項目
+# 1.   環境の初期化（オブジェクトをスタートのマスに置く）．
+# 2.   エージェントによる行動選択（オブジェクトを動かす方向である上下左右を選択する）．
+# 3.   環境の更新（オブジェクトを動かそうとする）．
+# 4.   環境の更新がそれ以上され得るかの終了条件の判定（ゴールに到達したかどうかを確認）．
+# 5.   Q テーブルの更新．
+# 6.   上記 1 から 5 の繰り返し．
 # 
+# 繰り返し作業の単位をエピソードと言います．上の 1 から 5 で 1 エピソードの計算です．学習の最中に epsilon-greedy 法という方法を利用して行動選択を行っています．epsilon-greedy 法とは $\epsilon$ の確率でランダムに行動選択をし，それ以外の $(1-\epsilon)$ の確率では最も Q 値の高い行動を選択する方法です．
+# 
+# 以上の Q 学習を実行するためのコードは以下のものです．
 # 
 
 # In[ ]:
 
 
 #!/usr/bin/env python3
-import tensorflow as tf
 import numpy as np
-import matplotlib.pyplot as plt
-tf.random.set_seed(0)
 np.random.seed(0)
 
 def main():
-    # ハイパーパラメータの設定
-    MiniBatchSize = 300
-    NoiseSize = 100 # GANはランダムなノイズベクトルから何かを生成する方法なので，そのノイズベクトルのサイズを設定する．
-    MaxEpoch = 500
+    env = Environment()
+    observation = env.reset()
+    agent = Agent(alpha=0.1, epsilon=0.3, gamma=0.9, actions=np.arange(4), observation=observation)
     
-    # データセットの読み込み
-    (learnX, learnT), (_, _) = tf.keras.datasets.mnist.load_data()
-    learnX = np.asarray(learnX.reshape([60000, 784]), dtype="float32")
-    learnX = (learnX - 127.5) / 127.5
-    
-    # 生成器と識別器の構築
-    generator = Generator() # 下のクラスを参照．
-    discriminator = Discriminator() # 下のクラスを参照．
-    
-    # コスト関数と正確度を計算する関数の生成
-    costComputer = tf.keras.losses.SparseCategoricalCrossentropy()
-    accuracyComputer = tf.keras.metrics.SparseCategoricalAccuracy()
-    
-    # オプティマイザは生成器と識別器で別々のものを利用
-    optimizerGenerator = tf.keras.optimizers.Adam(learning_rate=0.0001)
-    optimizerDiscriminator = tf.keras.optimizers.Adam(learning_rate=0.00004)
-    
-    # 生成器を成長させるためのコストを計算する関数
-    def generatorCostFunction(discriminatorOutputFromGenerated):
-        cost = costComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 生成器のコストの引数は生成器の出力を識別器に入れた結果．生成器としては全部正解を出しているはずなので教師はすべて1となるはず．そのように学習すべき．
-        accuracy = accuracyComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
-        return cost, accuracy
-    
-    # 識別器を成長させるためのコストを計算する関数
-    def discriminatorCostFunction(discriminatorOutputFromReal,discriminatorOutputFromGenerated): # 識別器のコストの引数は本物の情報を識別器に入れた結果と生成器の出力を識別器に入れた結果．
-        realCost = costComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal) # 本物の情報の場合はすべて正例（1）と判断すべき．これが例のコスト関数の左の項に相当．
-        fakeCost = costComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 偽物の情報の場合はすべて負例（0）と判断すべき．これが例のコスト関数の右の項に相当．
-        cost = realCost + fakeCost
-        realAccuracy = accuracyComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal)
-        fakeAccuracy = accuracyComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
-        accuracy=(realAccuracy + fakeAccuracy) / 2
-        return cost, accuracy
-    
-    @tf.function()
-    def run(generator, discriminator, noiseVector, realInputVector):
-        with tf.GradientTape() as generatorTape, tf.GradientTape() as discriminatorTape:
-            generatedInputVector = generator(noiseVector) # 生成器によるデータの生成．
-            discriminatorOutputFromGenerated = discriminator(generatedInputVector) # その生成データを識別器に入れる．
-            discriminatorOutputFromReal = discriminator(realInputVector) # 本物データを識別器に入れる．
-            # 識別器の成長
-            discriminatorCost, discriminatorAccuracy = discriminatorCostFunction(discriminatorOutputFromReal, discriminatorOutputFromGenerated)
-            gradientDiscriminator = discriminatorTape.gradient(discriminatorCost, discriminator.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
-            optimizerDiscriminator.apply_gradients(zip(gradientDiscriminator, discriminator.trainable_variables))
-            # 生成器の成長
-            generatorCost, generatorAccuracy = generatorCostFunction(discriminatorOutputFromGenerated)
-            gradientGenerator = generatorTape.gradient(generatorCost,generator.trainable_variables) # 生成器のパラメータで勾配を計算．
-            optimizerGenerator.apply_gradients(zip(gradientGenerator,generator.trainable_variables))
-            return discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy
-    
-    # ミニバッチセットの生成
-    learnX = tf.data.Dataset.from_tensor_slices(learnX) # このような方法を使うと簡単にミニバッチを実装することが可能．
-    learnT = tf.data.Dataset.from_tensor_slices(learnT)
-    learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．
-    miniBatchNumber = len(list(learnA.as_numpy_iterator()))
-    # 学習ループ
-    for epoch in range(1,MaxEpoch+1):
-        discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy = 0, 0, 0, 0
-        for learnx, _ in learnA:
-            noiseVector = generateNoise(MiniBatchSize, NoiseSize) # ミニバッチサイズで100個の要素からなるノイズベクトルを生成．
-            discriminatorCostPiece, discriminatorAccuracyPiece, generatorCostPiece, generatorAccuracyPiece = run(generator, discriminator, noiseVector, learnx)
-            discriminatorCost += discriminatorCostPiece / miniBatchNumber
-            discriminatorAccuracy += discriminatorAccuracyPiece / miniBatchNumber
-            generatorCost += generatorCostPiece / miniBatchNumber
-            generatorAccuracy += generatorAccuracyPiece / miniBatchNumber
-        # 疑似的なテスト
-        if epoch%10 == 0:
-            print("Epoch {:10d} D-cost {:6.4f} D-acc {:6.4f} G-cost {:6.4f} G-acc {:6.4f}".format(epoch,float(discriminatorCost),float(discriminatorAccuracy),float(generatorCost),float(generatorAccuracy)))
-            validationNoiseVector = generateNoise(1, NoiseSize)
-            validationOutput = generator(validationNoiseVector)
-            validationOutput = np.asarray(validationOutput).reshape([1, 28, 28])
-            plt.imshow(validationOutput[0], cmap = "gray")
-            plt.pause(1)
+    for episode in range(1, 50+1):
+        rewards = []
+        observation = env.reset() # 環境の初期化．
+        while True:
+            action = agent.act(observation) # エージェントによってオブジェクトにさせるアクションを選択する．
+            observation, reward, done = env.step(action) # 環境を進める．
+            agent.update(observation, action, reward) # Qテーブルの更新．
+            rewards.append(reward)
+            if done: break
+        print("Episode: {:3d}, number of steps: {:3d}, mean reward: {:6.3f}".format(episode, len(rewards), np.mean(rewards)))
 
-# 入力されたデータを0か1に分類するネットワーク
-class Discriminator(tf.keras.Model):
+class Environment:
     def __init__(self):
-        super(Discriminator,self).__init__()
-        self.d1 = tf.keras.layers.Dense(units=128)
-        self.d2 = tf.keras.layers.Dense(units=128)
-        self.d3 = tf.keras.layers.Dense(units=128)
-        self.d4 = tf.keras.layers.Dense(units=2, activation="softmax")
-        self.a = tf.keras.layers.LeakyReLU()
-        self.d = tf.keras.layers.Dropout(0.5)
-    def call(self,x):
-        y = self.d1(x)
-        y = self.a(y)
-        y = self.d(y)
-        y = self.d2(y)
-        y = self.a(y)
-        y = self.d(y)
-        y = self.d3(y)
-        y = self.a(y)
-        y = self.d(y)
-        y = self.d4(y)
-        return y
+        self.actions = {"up": 0, "down": 1, "left": 2, "right": 3}
+        self.field = [["X", "X", "O", "G"],
+                      ["O", "O", "O", "O"],
+                      ["X", "O", "O", "O"],
+                      ["O", "O", "X", "O"],
+                      ["O", "O", "O", "O"]]
+        self.done = False
+        self.reward = None
+        self.iteration = None
+    
+    # 以下は環境を初期化する関数．
+    def reset(self):
+        self.objectPosition = 4, 0
+        self.done = False
+        self.reward = None
+        self.iteration = 0
+        return self.objectPosition
+    
+    # 以下は環境を進める関数．
+    def step(self, action):
+        self.iteration += 1
+        y, x = self.objectPosition
+        if self.checkMovable(x, y, action) == False: # オブジェクトの移動が可能かどうかを判定．
+            return self.objectPosition, -1, False # 移動できないときの報酬は-1．
+        else:
+            if action == self.actions["up"]:
+                y += -1 # フィールドと座標の都合上，上への移動の場合は-1をする．
+            elif action == self.actions["down"]:
+                y += 1
+            elif action == self.actions["left"]:
+                x += -1
+            elif action == self.actions["right"]:
+                x += 1
+            # 以下のifは報酬の計算とオブジェクトがゴールに到達してゲーム終了となるかどうかの判定のため．
+            if self.field[y][x] == "O":
+                self.reward = 0
+            elif self.field[y][x] == "G":
+                self.done = True
+                self.reward = 100
+            self.objectPosition = y, x
+            return self.objectPosition, self.reward, self.done
+    
+    # 以下は移動が可能かどうかを判定する関数．
+    def checkMovable(self, x, y, action):
+        if action == self.actions["up"]:
+            y += -1
+        elif action == self.actions["down"]:
+            y += 1
+        elif action == self.actions["left"]:
+            x += -1
+        elif action == self.actions["right"]:
+            x += 1
+        if y < 0 or y >= len(self.field):
+            return False
+        elif x < 0 or x >= len(self.field[0]):
+            return False
+        elif self.field[y][x] == "X":
+            return False
+        else:
+            return True
 
-# 入力されたベクトルから別のベクトルを生成するネットワーク
-class Generator(tf.keras.Model):
-    def __init__(self):
-        super(Generator,self).__init__()
-        self.d1=tf.keras.layers.Dense(units=256)
-        self.d2=tf.keras.layers.Dense(units=256)
-        self.d3=tf.keras.layers.Dense(units=784)
-        self.a=tf.keras.layers.LeakyReLU()
-        self.b1=tf.keras.layers.BatchNormalization()
-        self.b2=tf.keras.layers.BatchNormalization()
-    def call(self,x):
-        y = self.d1(x)
-        y = self.a(y)
-        y = self.b1(y)
-        y = self.d2(y)
-        y = self.a(y)
-        y = self.b2(y)
-        y = self.d3(y)
-        y = tf.keras.activations.tanh(y)
-        return y
-
-def generateNoise(miniBatchSize, randomNoiseSize):
-    return np.random.uniform(-1, 1, size=(miniBatchSize,randomNoiseSize)).astype("float32")
+class Agent:
+    def __init__(self, alpha=0.1, epsilon=0.3, gamma=0.9, actions=None, observation=None):
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
+        self.actions = actions
+        self.observation = str(observation)
+        self.previous_action = None
+        self.qValues = {} # Qテーブル
+        self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
+    
+    # 以下の関数は行動を選択する関数．
+    def act(self, observation):
+        self.observation = str(observation)
+        if np.random.uniform() < self.epsilon:
+            action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
+        else:
+            action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
+        self.previous_action = action
+        return action
+    
+    # 以下はQテーブルを更新する関数．
+    def update(self, objectNewPosition, action, reward):
+        objectNewPosition = str(objectNewPosition)
+        if objectNewPosition not in self.qValues:  # 始めて訪れる状態であれば
+            self.qValues[objectNewPosition] = np.repeat(0.0, len(self.actions))
+        q = self.qValues[self.observation][action]  # Q(s,a)の計算．
+        maxQ = max(self.qValues[objectNewPosition])  # max(Q(s',a'))の計算．
+        self.qValues[self.observation][action] = q + (self.alpha * (reward + (self.gamma * maxQ) - q)) # Q'(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s',a') - Q(s, a))の計算．
 
 if __name__ == "__main__":
     main()
