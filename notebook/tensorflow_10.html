@@ -651,7 +651,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="c1"># 以下はQテーブルを更新する関数．</span>
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objectNewPosition</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
         <span class="n">objectNewPosition</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">objectNewPosition</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">objectNewPosition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">:</span>  <span class="c1"># 始めて訪れる状態であれば</span>
+        <span class="k">if</span> <span class="n">objectNewPosition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">:</span> <span class="c1"># Qテーブルのキーを新たに作る．</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="n">objectNewPosition</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">))</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">observation</span><span class="p">][</span><span class="n">action</span><span class="p">]</span>  <span class="c1"># Q(s,a)の計算．</span>
         <span class="n">maxQ</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="n">objectNewPosition</span><span class="p">])</span>  <span class="c1"># max(Q(s&#39;,a&#39;))の計算．</span>
@@ -663,7 +663,11 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>実行した結果，エポックを経るに従って数字が含まれたような画像が生成されたはずです．GAN の学習の過程では，生成器と識別器の性能は拮抗するはずなので，生成器の正確度と識別器の正確度はどちらも 0.5 に収束すると良いと考えられます．</p>
+<p>実行した結果，エピソードを経るに従ってゴールに到達するまでに要した環境の更新数（<code class="docutils literal notranslate"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">steps</span></code>）が小さくなり，その更新回数に渡って平均した報酬値（<code class="docutils literal notranslate"><span class="pre">mean</span> <span class="pre">reward</span></code>）が大きくなったことがわかります．つまり，学習（Q テーブルの更新）がうまく進みエージェントが成長したことがわかります．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>この出力だけ見るとこのプログラムを実行して何が起こったのかわかりませんね．次の項でオブジェクトがフィールドをどのように動いたかを可視化します．</p>
+</div>
 <p>以下の部分ではハイパーパラメータを設定します．ミニバッチに含まれるデータのサイズは 300 個にしました．GAN はランダムに発生させたノイズから何らかのデータを生成するものですが，このノイズのサイズ <code class="docutils literal notranslate"><span class="pre">NoiseSize</span></code> を 100 に設定しました．変更しても良いです．学習は今回の場合，500 回行うことにしました．実際はコストの値を観察しながら過学習が起こっていないエポックで学習を止めると良いと思います．</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># ハイパーパラメータの設定</span>
     <span class="n">MiniBatchSize</span> <span class="o">=</span> <span class="mi">300</span>
