@@ -208,7 +208,7 @@ class Agent:
     # 以下はQテーブルを更新する関数．
     def update(self, objectNewPosition, action, reward):
         objectNewPosition = str(objectNewPosition)
-        if objectNewPosition not in self.qValues:  # 始めて訪れる状態であれば
+        if objectNewPosition not in self.qValues: # Qテーブルのキーを新たに作る．
             self.qValues[objectNewPosition] = np.repeat(0.0, len(self.actions))
         q = self.qValues[self.observation][action]  # Q(s,a)の計算．
         maxQ = max(self.qValues[objectNewPosition])  # max(Q(s',a'))の計算．
@@ -218,7 +218,11 @@ if __name__ == "__main__":
     main()
 
 
-# 実行した結果，エポックを経るに従って数字が含まれたような画像が生成されたはずです．GAN の学習の過程では，生成器と識別器の性能は拮抗するはずなので，生成器の正確度と識別器の正確度はどちらも 0.5 に収束すると良いと考えられます．
+# 実行した結果，エピソードを経るに従ってゴールに到達するまでに要した環境の更新数（`number of steps`）が小さくなり，その更新回数に渡って平均した報酬値（`mean reward`）が大きくなったことがわかります．つまり，学習（Q テーブルの更新）がうまく進みエージェントが成長したことがわかります．
+
+# ```{note}
+# この出力だけ見るとこのプログラムを実行して何が起こったのかわかりませんね．次の項でオブジェクトがフィールドをどのように動いたかを可視化します．
+# ```
 
 # 以下の部分ではハイパーパラメータを設定します．ミニバッチに含まれるデータのサイズは 300 個にしました．GAN はランダムに発生させたノイズから何らかのデータを生成するものですが，このノイズのサイズ `NoiseSize` を 100 に設定しました．変更しても良いです．学習は今回の場合，500 回行うことにしました．実際はコストの値を観察しながら過学習が起こっていないエポックで学習を止めると良いと思います．
 # 
