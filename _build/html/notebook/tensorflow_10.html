@@ -1027,9 +1027,225 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+<p>プログラムを実行した結果，フィールドが表示され，環境遷移のイタレーションの度に <code class="docutils literal notranslate"><span class="pre">8</span></code> で表示されるオブジェクトがスタート位置からゴール位置へと移動している様子が可視化されました．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>エピソードの数値が小さいとき，つまり，Q テーブルの性能が低い場合は <code class="docutils literal notranslate"><span class="pre">8</span></code> はフラフラしていますね．</p>
+</div>
+<p>このプログラムが上のプログラムと変わっている点は環境のレンダリングをしているところです．プログラムでは以下の部分に <code class="docutils literal notranslate"><span class="pre">env.render()</span></code> という記述が加わっています．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">rewards</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># 環境の初期化．</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span> <span class="c1"># エージェントによってオブジェクトにさせるアクションを選択する．</span>
+            <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="c1"># 環境を進める．</span>
+            <span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span> <span class="c1"># Qテーブルの更新．</span>
+            <span class="n">rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Episode: </span><span class="si">{:3d}</span><span class="s2">, number of steps: </span><span class="si">{:3d}</span><span class="s2">, mean reward: </span><span class="si">{:6.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Environment</span></code> の部分に，<code class="docutils literal notranslate"><span class="pre">env.render()</span></code> がしていることの記述があります．フィールドにオブジェクトの位置を代入してそれを表示するだけですね．</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 以下はフィールドとオブジェクト（8）の様子を可視化する関数．</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">]]</span>
+        <span class="n">field</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;8&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iteration = </span><span class="si">{:3d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iteration</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id9">
 <h3><span class="section-number">10.2.5. </span>Q テーブルの出力<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>最後に Q テーブルがどんなように成長したのかを以下のプログラムで確認します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Qテーブルを出力可能にしたもの．</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+    <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">observation</span><span class="o">=</span><span class="n">observation</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">rewards</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># 環境の初期化．</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span> <span class="c1"># エージェントによってオブジェクトにさせるアクションを選択する．</span>
+            <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="c1"># 環境を進める．</span>
+            <span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span> <span class="c1"># Qテーブルの更新．</span>
+            <span class="n">rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Episode: </span><span class="si">{:3d}</span><span class="s2">, number of steps: </span><span class="si">{:3d}</span><span class="s2">, mean reward: </span><span class="si">{:6.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">)))</span>
+        <span class="n">agent</span><span class="o">.</span><span class="n">outputQTable</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Environment</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;up&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;down&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iteration</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="c1"># 以下は環境を初期化する関数．</span>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span>
+    
+    <span class="c1"># 以下は環境を進める関数．</span>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iteration</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkMovable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="c1"># オブジェクトの移動が可能かどうかを判定．</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span> <span class="c1"># 移動できないときの報酬は-1．</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]:</span>
+                <span class="n">y</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># フィールドと座標の都合上，上への移動の場合は-1をする．</span>
+            <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]:</span>
+                <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]:</span>
+                <span class="n">x</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]:</span>
+                <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># 以下のifは報酬の計算とオブジェクトがゴールに到達してゲーム終了となるかどうかの判定のため．</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reward</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reward</span> <span class="o">=</span> <span class="mi">100</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">done</span>
+    
+    <span class="c1"># 以下は移動が可能かどうかを判定する関数．</span>
+    <span class="k">def</span> <span class="nf">checkMovable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]:</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]:</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]:</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]:</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    
+    <span class="c1"># 以下はフィールドとオブジェクト（8）の様子を可視化する関数．</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectPosition</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">]]</span>
+        <span class="n">field</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;8&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iteration = </span><span class="si">{:3d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iteration</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Agent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="n">actions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># Qテーブル</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">observation</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">))</span>
+    
+    <span class="c1"># 以下の関数は行動を選択する関数．</span>
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">))</span> <span class="c1"># イプシロンの確率でランダムに行動する．</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">observation</span><span class="p">])</span> <span class="c1"># 最もQ値が高い行動を選択．</span>
+        <span class="k">return</span> <span class="n">action</span>
+    
+    <span class="c1"># 以下はQテーブルを更新する関数．</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objectNewPosition</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+        <span class="n">objectNewPosition</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">objectNewPosition</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">objectNewPosition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">:</span> <span class="c1"># Qテーブルのキーを新たに作る．</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="n">objectNewPosition</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">))</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">observation</span><span class="p">][</span><span class="n">action</span><span class="p">]</span>  <span class="c1"># Q(s,a)の計算．</span>
+        <span class="n">maxQ</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="n">objectNewPosition</span><span class="p">])</span>  <span class="c1"># max(Q(s&#39;,a&#39;))の計算．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">observation</span><span class="p">][</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">maxQ</span><span class="p">)</span> <span class="o">-</span> <span class="n">q</span><span class="p">))</span> <span class="c1"># Q&#39;(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s&#39;,a&#39;) - Q(s, a))の計算．</span>
+    
+    <span class="c1"># 以下はQテーブルを出力する関数．</span>
+    <span class="k">def</span> <span class="nf">outputQTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q-table:    Up   Down   Left  Right&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:7.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">j</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>これは Q テーブルを出力する記述を加えただけなので説明は不要かもしれませんが，Q テーブルを出力するための記述はクラス <code class="docutils literal notranslate"><span class="pre">Agent</span></code> の以下の部分に追加しました．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 以下はQテーブルを出力する関数．</span>
+    <span class="k">def</span> <span class="nf">outputQTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q-table:    Up   Down   Left  Right&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:7.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qValues</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">j</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>全てのエピソードが終了した後の Q テーブルは以下のようなものとなりました．例えば，ゴール付近のマスである，<code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">2)</span></code> や <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">3)</span></code> ではどのような行動が高い Q 値を持つかと確認してみると，オブジェクトが <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">2)</span></code> のときは「右」に移動させることが，<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">3)</span></code> のときは「上」に移動させることが最も高い Q 値を示していました．良い Q テーブルへと成長したことが確認できます．</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span><span class="o">-</span><span class="n">table</span><span class="p">:</span>    <span class="n">Up</span>   <span class="n">Down</span>   <span class="n">Left</span>  <span class="n">Right</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="mf">10.674</span>  <span class="mf">1.824</span> <span class="o">-</span><span class="mf">0.190</span> <span class="mf">99.030</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>   <span class="mf">0.000</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="o">-</span><span class="mf">0.100</span> <span class="o">-</span><span class="mf">0.100</span> <span class="o">-</span><span class="mf">0.100</span>  <span class="mf">7.221</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="mf">27.443</span>  <span class="mf">0.433</span>  <span class="mf">0.238</span> <span class="mf">68.646</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="mf">84.938</span>  <span class="mf">7.338</span> <span class="mf">18.591</span> <span class="mf">12.410</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="mf">46.856</span>  <span class="mf">0.000</span>  <span class="mf">6.858</span>  <span class="mf">1.610</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="mf">48.270</span>  <span class="mf">0.997</span>  <span class="mf">9.978</span> <span class="mf">10.193</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="mf">44.444</span>  <span class="mf">0.453</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="mf">1.532</span>  <span class="mf">1.509</span>  <span class="mf">2.382</span> <span class="mf">20.779</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="mf">32.544</span>  <span class="mf">0.346</span>  <span class="mf">0.864</span>  <span class="mf">3.671</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="mf">12.940</span> <span class="o">-</span><span class="mf">0.254</span>  <span class="mf">1.262</span>  <span class="mf">0.341</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>   <span class="mf">0.457</span> <span class="o">-</span><span class="mf">0.171</span>  <span class="mf">3.350</span>  <span class="mf">0.000</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="o">-</span><span class="mf">0.271</span> <span class="o">-</span><span class="mf">0.100</span>  <span class="mf">0.041</span>  <span class="mf">0.000</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="openai-gym">

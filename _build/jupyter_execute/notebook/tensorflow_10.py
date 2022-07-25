@@ -602,7 +602,232 @@ if __name__ == "__main__":
     main()
 
 
+# プログラムを実行した結果，フィールドが表示され，環境遷移のイタレーションの度に `8` で表示されるオブジェクトがスタート位置からゴール位置へと移動している様子が可視化されました．
+
+# ```{note}
+# エピソードの数値が小さいとき，つまり，Q テーブルの性能が低い場合は `8` はフラフラしていますね．
+# ```
+
+# このプログラムが上のプログラムと変わっている点は環境のレンダリングをしているところです．プログラムでは以下の部分に `env.render()` という記述が加わっています．
+# 
+# ```python
+#     for episode in range(1, 50+1):
+#         rewards = []
+#         observation = env.reset() # 環境の初期化．
+#         env.render()
+#         while True:
+#             action = agent.act(observation) # エージェントによってオブジェクトにさせるアクションを選択する．
+#             observation, reward, done = env.step(action) # 環境を進める．
+#             env.render()
+#             agent.update(observation, action, reward) # Qテーブルの更新．
+#             rewards.append(reward)
+#             if done: break
+#         print("Episode: {:3d}, number of steps: {:3d}, mean reward: {:6.3f}".format(episode, len(rewards), np.mean(rewards)))
+# ```
+
+# クラス `Environment` の部分に，`env.render()` がしていることの記述があります．フィールドにオブジェクトの位置を代入してそれを表示するだけですね．
+# 
+# ```
+#     # 以下はフィールドとオブジェクト（8）の様子を可視化する関数．
+#     def render(self):
+#         y, x = self.objectPosition
+#         field = [["X", "X", "O", "G"],
+#                  ["O", "O", "O", "O"],
+#                  ["X", "O", "O", "O"],
+#                  ["O", "O", "X", "O"],
+#                  ["O", "O", "O", "O"]]
+#         field[y][x] = "8"
+#         print("Iteration = {:3d}".format(self.iteration))
+#         for i in range(5):
+#             for j in range(4):
+#                 print(field[i][j], end=" ")
+#             print()
+# ```
+
 # ### Q テーブルの出力
+
+# 最後に Q テーブルがどんなように成長したのかを以下のプログラムで確認します．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+np.random.seed(0)
+
+# Qテーブルを出力可能にしたもの．
+
+def main():
+    env = Environment()
+    observation = env.reset()
+    agent = Agent(alpha=0.1, epsilon=0.3, gamma=0.9, actions=np.arange(4), observation=observation)
+    
+    for episode in range(1, 50+1):
+        rewards = []
+        observation = env.reset() # 環境の初期化．
+        env.render()
+        while True:
+            action = agent.act(observation) # エージェントによってオブジェクトにさせるアクションを選択する．
+            observation, reward, done = env.step(action) # 環境を進める．
+            env.render()
+            agent.update(observation, action, reward) # Qテーブルの更新．
+            rewards.append(reward)
+            if done: break
+        print("Episode: {:3d}, number of steps: {:3d}, mean reward: {:6.3f}".format(episode, len(rewards), np.mean(rewards)))
+        agent.outputQTable()
+
+class Environment:
+    def __init__(self):
+        self.actions = {"up": 0, "down": 1, "left": 2, "right": 3}
+        self.field = [["X", "X", "O", "G"],
+                      ["O", "O", "O", "O"],
+                      ["X", "O", "O", "O"],
+                      ["O", "O", "X", "O"],
+                      ["O", "O", "O", "O"]]
+        self.done = False
+        self.reward = None
+        self.iteration = None
+    
+    # 以下は環境を初期化する関数．
+    def reset(self):
+        self.objectPosition = 4, 0
+        self.done = False
+        self.reward = None
+        self.iteration = 0
+        return self.objectPosition
+    
+    # 以下は環境を進める関数．
+    def step(self, action):
+        self.iteration += 1
+        y, x = self.objectPosition
+        if self.checkMovable(x, y, action) == False: # オブジェクトの移動が可能かどうかを判定．
+            return self.objectPosition, -1, False # 移動できないときの報酬は-1．
+        else:
+            if action == self.actions["up"]:
+                y += -1 # フィールドと座標の都合上，上への移動の場合は-1をする．
+            elif action == self.actions["down"]:
+                y += 1
+            elif action == self.actions["left"]:
+                x += -1
+            elif action == self.actions["right"]:
+                x += 1
+            # 以下のifは報酬の計算とオブジェクトがゴールに到達してゲーム終了となるかどうかの判定のため．
+            if self.field[y][x] == "O":
+                self.reward = 0
+            elif self.field[y][x] == "G":
+                self.done = True
+                self.reward = 100
+            self.objectPosition = y, x
+            return self.objectPosition, self.reward, self.done
+    
+    # 以下は移動が可能かどうかを判定する関数．
+    def checkMovable(self, x, y, action):
+        if action == self.actions["up"]:
+            y += -1
+        elif action == self.actions["down"]:
+            y += 1
+        elif action == self.actions["left"]:
+            x += -1
+        elif action == self.actions["right"]:
+            x += 1
+        if y < 0 or y >= len(self.field):
+            return False
+        elif x < 0 or x >= len(self.field[0]):
+            return False
+        elif self.field[y][x] == "X":
+            return False
+        else:
+            return True
+    
+    # 以下はフィールドとオブジェクト（8）の様子を可視化する関数．
+    def render(self):
+        y, x = self.objectPosition
+        field = [["X", "X", "O", "G"],
+                 ["O", "O", "O", "O"],
+                 ["X", "O", "O", "O"],
+                 ["O", "O", "X", "O"],
+                 ["O", "O", "O", "O"]]
+        field[y][x] = "8"
+        print("Iteration = {:3d}".format(self.iteration))
+        for i in range(5):
+            for j in range(4):
+                print(field[i][j], end=" ")
+            print()
+
+class Agent:
+    def __init__(self, alpha=0.1, epsilon=0.3, gamma=0.9, actions=None, observation=None):
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
+        self.actions = actions
+        self.observation = str(observation)
+        self.qValues = {} # Qテーブル
+        self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
+    
+    # 以下の関数は行動を選択する関数．
+    def act(self, observation):
+        self.observation = str(observation)
+        if np.random.uniform() < self.epsilon:
+            action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
+        else:
+            action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
+        return action
+    
+    # 以下はQテーブルを更新する関数．
+    def update(self, objectNewPosition, action, reward):
+        objectNewPosition = str(objectNewPosition)
+        if objectNewPosition not in self.qValues: # Qテーブルのキーを新たに作る．
+            self.qValues[objectNewPosition] = np.repeat(0.0, len(self.actions))
+        q = self.qValues[self.observation][action]  # Q(s,a)の計算．
+        maxQ = max(self.qValues[objectNewPosition])  # max(Q(s',a'))の計算．
+        self.qValues[self.observation][action] = q + (self.alpha * (reward + (self.gamma * maxQ) - q)) # Q'(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s',a') - Q(s, a))の計算．
+    
+    # 以下はQテーブルを出力する関数．
+    def outputQTable(self):
+        print("Q-table:    Up   Down   Left  Right")
+        for key in sorted(self.qValues.keys()):
+            print(key, end=" ")
+            for j in range(4):
+                print("{:7.3f}".format(self.qValues[key][j]), end="")
+            print()
+        print()
+
+if __name__ == "__main__":
+    main()
+
+
+# これは Q テーブルを出力する記述を加えただけなので説明は不要かもしれませんが，Q テーブルを出力するための記述はクラス `Agent` の以下の部分に追加しました．
+# 
+# ```python
+#     # 以下はQテーブルを出力する関数．
+#     def outputQTable(self):
+#         print("Q-table:    Up   Down   Left  Right")
+#         for key in sorted(self.qValues.keys()):
+#             print(key, end=" ")
+#             for j in range(4):
+#                 print("{:7.3f}".format(self.qValues[key][j]), end="")
+#             print()
+#         print()
+# ```
+
+# 全てのエピソードが終了した後の Q テーブルは以下のようなものとなりました．例えば，ゴール付近のマスである，`(0, 2)` や `(1, 3)` ではどのような行動が高い Q 値を持つかと確認してみると，オブジェクトが `(0, 2)` のときは「右」に移動させることが，`(1, 3)` のときは「上」に移動させることが最も高い Q 値を示していました．良い Q テーブルへと成長したことが確認できます．
+# 
+# ```
+# Q-table:    Up   Down   Left  Right
+# (0, 2)  10.674  1.824 -0.190 99.030
+# (0, 3)   0.000  0.000  0.000  0.000
+# (1, 0)  -0.100 -0.100 -0.100  7.221
+# (1, 1)  27.443  0.433  0.238 68.646
+# (1, 2)  84.938  7.338 18.591 12.410
+# (1, 3)  46.856  0.000  6.858  1.610
+# (2, 1)  48.270  0.997  9.978 10.193
+# (2, 2)  44.444  0.453  0.000  0.000
+# (3, 0)   1.532  1.509  2.382 20.779
+# (3, 1)  32.544  0.346  0.864  3.671
+# (4, 0)  12.940 -0.254  1.262  0.341
+# (4, 1)   0.457 -0.171  3.350  0.000
+# (4, 2)  -0.271 -0.100  0.041  0.000
+# ```
 
 # ## OpenAI Gym
 
