@@ -191,7 +191,6 @@ class Agent:
         self.epsilon = epsilon
         self.actions = actions
         self.observation = str(observation)
-        self.previous_action = None
         self.qValues = {} # Qテーブル
         self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
     
@@ -202,7 +201,6 @@ class Agent:
             action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
         else:
             action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
-        self.previous_action = action
         return action
     
     # 以下はQテーブルを更新する関数．
@@ -377,7 +375,7 @@ if __name__ == "__main__":
 #             return True
 # ```
 
-# 次にエージェントのクラス `Agent` は以下に示す通りです．
+# 次にエージェントのクラス `Agent` は以下に示す通りです．以降で中身の説明をします．
 # 
 # ```python
 # class Agent:
@@ -387,7 +385,6 @@ if __name__ == "__main__":
 #         self.epsilon = epsilon
 #         self.actions = actions
 #         self.observation = str(observation)
-#         self.previous_action = None
 #         self.qValues = {} # Qテーブル
 #         self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
 #     
@@ -398,7 +395,6 @@ if __name__ == "__main__":
 #             action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
 #         else:
 #             action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
-#         self.previous_action = action
 #         return action
 #     
 #     # 以下はQテーブルを更新する関数．
@@ -411,13 +407,200 @@ if __name__ == "__main__":
 #         self.qValues[self.observation][action] = q + (self.alpha * (reward + (self.gamma * maxQ) - q)) # Q'(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s',a') - Q(s, a))の計算．
 # ```
 
+# 最初の記述は，エージェントが持つ変数を生成するためのものです．`self.alpha` や `self.gamma` は Q 値の更新式で利用するものです．`self.epsilon` は epsilon-greedy 法に利用する値です．`self.observation` は上の Q 値の更新式における `s` に相当するものです．マスの座標です．その後の Q テーブル構築の際のディクショナリのキーとなる値です．これを文字列化します．その次のディクショナリ `self.qValues` が Q テーブルです．ここに，ある状態におけるそれぞれの行動の Q 値を格納し，それを学習の過程で更新します．
+# 
+# ```python
+#     def __init__(self, alpha=0.1, epsilon=0.3, gamma=0.9, actions=None, observation=None):
+#         self.alpha = alpha
+#         self.gamma = gamma
+#         self.epsilon = epsilon
+#         self.actions = actions
+#         self.observation = str(observation)
+#         self.qValues = {} # Qテーブル
+#         self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
+# ```
+
+# 以下の部分はエージェントが行動を選択するための記述です．epsilon-greedy 法を利用しています．確率的にランダムな行動を選択するか，または，これまでの Q テーブルを参照して最も Q 値が高い行動をとります．
+# 
+# ```python
+#     # 以下の関数は行動を選択する関数．
+#     def act(self, observation):
+#         self.observation = str(observation)
+#         if np.random.uniform() < self.epsilon:
+#             action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
+#         else:
+#             action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
+#         return action
+# ```
+
+# 最後の以下の部分は Q テーブルを更新するための記述です．行動選択によって新たなマスへの移動が行われる場合は新たに Q テーブルのキーを生成します．その後，現在の Q 値を計算（参照）し，また，環境遷移後の最も高い Q 値を示す行動の Q 値の値を計算します．これらは，上述の Q 値の更新式で利用する値です．これらを利用して Q 値を更新します．
+# 
+# ```python
+#     # 以下はQテーブルを更新する関数．
+#     def update(self, objectNewPosition, action, reward):
+#         objectNewPosition = str(objectNewPosition)
+#         if objectNewPosition not in self.qValues: # Qテーブルのキーを新たに作る．
+#             self.qValues[objectNewPosition] = np.repeat(0.0, len(self.actions))
+#         q = self.qValues[self.observation][action]  # Q(s,a)の計算．
+#         maxQ = max(self.qValues[objectNewPosition])  # max(Q(s',a'))の計算．
+#         self.qValues[self.observation][action] = q + (self.alpha * (reward + (self.gamma * maxQ) - q)) # Q'(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s',a') - Q(s, a))の計算．
+# ```
+
+# 最後に，`main()` に戻って以下の部分の説明をします．エピソードは 50 回分計算します．環境の初期化をした後に，`agent.act()` によってオブジェクトにさせる行動を選択します．その行動を基に `env.step()` で環境を勧めます．引き続いて Q テーブルの更新を行います．もし，オブジェクトがゴールに達している場合はそれ以上のオブジェクトの移動や Q テーブルの更新を停止します．最後に，ゴールに到達するまでに要した環境遷移の回数と各エピソード毎に得られた報酬の平均値を出力します．
+# 
+# ```python
+#     for episode in range(1, 50+1):
+#         rewards = []
+#         observation = env.reset() # 環境の初期化．
+#         while True:
+#             action = agent.act(observation) # エージェントによってオブジェクトにさせるアクションを選択する．
+#             observation, reward, done = env.step(action) # 環境を進める．
+#             agent.update(observation, action, reward) # Qテーブルの更新．
+#             rewards.append(reward)
+#             if done: break
+#         print("Episode: {:3d}, number of steps: {:3d}, mean reward: {:6.3f}".format(episode, len(rewards), np.mean(rewards)))
+# ```
+
 # ### 環境の可視化
 
-# 上のプログラムを実行した際には観測できなかったかもしれませんが，GAN の学習を行った結果得られる人工知能（学習済み生成器）が同じような出力しかしなくなる現象があります．MNIST を例にすると 1 が含まれる画像しか生成しなくなるような現象です．この現象のことをモード崩壊と言います．英語では mode collpase と書きます．データを生成するために利用する GAN なので，利用目的にも依りますが，この現象は普通好ましくないものであると考えられます．これを解決しようとした WGAN-gp を以下で紹介します．
-# 
-# また，生成器の学習がとても進みにくいという問題もあります．最適化法を変更するとか，ハイパーパラメータの設定を慎重に行うとか，学習データサイズを増やすとかの色々な対策をとる必要があります．GAN の学習をうまく進めるために様々なテクニックがインターネット上でまとめられていますが，それらを自分の問題に合わせて取捨選択すると良いと思います．
-# 
-# その他の GAN の問題点としては，上のプログラムを実行した結果から確認できたと思いますが，生成したいデータの条件を指定できないことです．例えば，MNIST のような数字が含まれた画像の中でも 2 が含まれる画像のみを生成したい場合，上のプログラムではかなり蕪雑な方法を使わないとできません．これを解決しようとした方法を以下で紹介します．
+# 上のプログラムを実行しただけではエージェントによる行動の選択や環境の遷移によってどのようなことが起こっているのかがよくわかりませんでした．以下のプログラムを動かすとどのように環境が遷移したのかを観察することができます．フィールドの様子を可視化している点以外は上のブログラムと同じものです．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import numpy as np
+np.random.seed(0)
+
+# 環境をステップ毎に描画するようにしたもの．
+
+def main():
+    env = Environment()
+    observation = env.reset()
+    agent = Agent(alpha=0.1, epsilon=0.3, gamma=0.9, actions=np.arange(4), observation=observation)
+    
+    for episode in range(1, 50+1):
+        rewards = []
+        observation = env.reset() # 環境の初期化．
+        env.render()
+        while True:
+            action = agent.act(observation) # エージェントによってオブジェクトにさせるアクションを選択する．
+            observation, reward, done = env.step(action) # 環境を進める．
+            env.render()
+            agent.update(observation, action, reward) # Qテーブルの更新．
+            rewards.append(reward)
+            if done: break
+        print("Episode: {:3d}, number of steps: {:3d}, mean reward: {:6.3f}".format(episode, len(rewards), np.mean(rewards)))
+
+class Environment:
+    def __init__(self):
+        self.actions = {"up": 0, "down": 1, "left": 2, "right": 3}
+        self.field = [["X", "X", "O", "G"],
+                      ["O", "O", "O", "O"],
+                      ["X", "O", "O", "O"],
+                      ["O", "O", "X", "O"],
+                      ["O", "O", "O", "O"]]
+        self.done = False
+        self.reward = None
+        self.iteration = None
+    
+    # 以下は環境を初期化する関数．
+    def reset(self):
+        self.objectPosition = 4, 0
+        self.done = False
+        self.reward = None
+        self.iteration = 0
+        return self.objectPosition
+    
+    # 以下は環境を進める関数．
+    def step(self, action):
+        self.iteration += 1
+        y, x = self.objectPosition
+        if self.checkMovable(x, y, action) == False: # オブジェクトの移動が可能かどうかを判定．
+            return self.objectPosition, -1, False # 移動できないときの報酬は-1．
+        else:
+            if action == self.actions["up"]:
+                y += -1 # フィールドと座標の都合上，上への移動の場合は-1をする．
+            elif action == self.actions["down"]:
+                y += 1
+            elif action == self.actions["left"]:
+                x += -1
+            elif action == self.actions["right"]:
+                x += 1
+            # 以下のifは報酬の計算とオブジェクトがゴールに到達してゲーム終了となるかどうかの判定のため．
+            if self.field[y][x] == "O":
+                self.reward = 0
+            elif self.field[y][x] == "G":
+                self.done = True
+                self.reward = 100
+            self.objectPosition = y, x
+            return self.objectPosition, self.reward, self.done
+    
+    # 以下は移動が可能かどうかを判定する関数．
+    def checkMovable(self, x, y, action):
+        if action == self.actions["up"]:
+            y += -1
+        elif action == self.actions["down"]:
+            y += 1
+        elif action == self.actions["left"]:
+            x += -1
+        elif action == self.actions["right"]:
+            x += 1
+        if y < 0 or y >= len(self.field):
+            return False
+        elif x < 0 or x >= len(self.field[0]):
+            return False
+        elif self.field[y][x] == "X":
+            return False
+        else:
+            return True
+    
+    # 以下はフィールドとオブジェクト（8）の様子を可視化する関数．
+    def render(self):
+        y, x = self.objectPosition
+        field = [["X", "X", "O", "G"],
+                 ["O", "O", "O", "O"],
+                 ["X", "O", "O", "O"],
+                 ["O", "O", "X", "O"],
+                 ["O", "O", "O", "O"]]
+        field[y][x] = "8"
+        print("Iteration = {:3d}".format(self.iteration))
+        for i in range(5):
+            for j in range(4):
+                print(field[i][j], end=" ")
+            print()
+
+class Agent:
+    def __init__(self, alpha=0.1, epsilon=0.3, gamma=0.9, actions=None, observation=None):
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
+        self.actions = actions
+        self.observation = str(observation)
+        self.qValues = {} # Qテーブル
+        self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
+    
+    # 以下の関数は行動を選択する関数．
+    def act(self, observation):
+        self.observation = str(observation)
+        if np.random.uniform() < self.epsilon:
+            action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
+        else:
+            action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
+        return action
+    
+    # 以下はQテーブルを更新する関数．
+    def update(self, objectNewPosition, action, reward):
+        objectNewPosition = str(objectNewPosition)
+        if objectNewPosition not in self.qValues: # Qテーブルのキーを新たに作る．
+            self.qValues[objectNewPosition] = np.repeat(0.0, len(self.actions))
+        q = self.qValues[self.observation][action]  # Q(s,a)の計算．
+        maxQ = max(self.qValues[objectNewPosition])  # max(Q(s',a'))の計算．
+        self.qValues[self.observation][action] = q + (self.alpha * (reward + (self.gamma * maxQ) - q)) # Q'(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s',a') - Q(s, a))の計算．
+
+if __name__ == "__main__":
+    main()
+
 
 # ### Q テーブルの出力
 
