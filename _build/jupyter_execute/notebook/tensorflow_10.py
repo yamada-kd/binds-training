@@ -224,155 +224,191 @@ if __name__ == "__main__":
 # この出力だけ見るとこのプログラムを実行して何が起こったのかわかりませんね．次の項でオブジェクトがフィールドをどのように動いたかを可視化します．
 # ```
 
-# 以下の部分ではハイパーパラメータを設定します．ミニバッチに含まれるデータのサイズは 300 個にしました．GAN はランダムに発生させたノイズから何らかのデータを生成するものですが，このノイズのサイズ `NoiseSize` を 100 に設定しました．変更しても良いです．学習は今回の場合，500 回行うことにしました．実際はコストの値を観察しながら過学習が起こっていないエポックで学習を止めると良いと思います．
+# プログラム最初から順に説明しますが，以下の部分では環境（マスとか移動するオブジェクトとかそのオブジェクトの位置とか）のインスタンスを生成します．その後，生成した環境を初期化します．次に環境中のオブジェクトを操作するエージェントのインスタンスを生成します．
 # 
 # ```python
-#     # ハイパーパラメータの設定
-#     MiniBatchSize = 300
-#     NoiseSize = 100 # GANはランダムなノイズベクトルから何かを生成する方法なので，そのノイズベクトルのサイズを設定する．
-#     MaxEpoch = 500
+#     env = Environment()
+#     observation = env.reset()
+#     agent = Agent(alpha=0.1, epsilon=0.3, gamma=0.9, actions=np.arange(4), observation=observation)
 # ```
 
-# データセットの読み込みの部分ですが，TensorFlow が提要してくれる MNIST は 0 から 255 の値からなるデータなので，これを -1 から 1 の範囲からなるデータに変換しています．
+# 環境のクラス `Environment` は以下に示す通りです．以降で中身の要素の説明をします．
 # 
 # ```python
-#     # データセットの読み込み
-#     (learnX, learnT), (_, _) = tf.keras.datasets.mnist.load_data()
-#     learnX = np.asarray(learnX.reshape([60000, 784]), dtype="float32")
-#     learnX = (learnX - 127.5) / 127.5
-# ```
-
-# 以下の部分では生成器と識別器を生成しています．
-# 
-# ```python
-#     # 生成器と識別器の構築
-#     generator = Generator() # 下のクラスを参照．
-#     discriminator = Discriminator() # 下のクラスを参照．
-# ```
-# 
-# 生成器を生成するためのクラスは以下に示す通りです．入力されたノイズデータに対して 3 層の全結合層の計算がされます．各層の活性化関数は Leaky ReLU です．また，バッチノーマライゼーションも利用しています．最終層のユニットサイズは 784 ですが，これは MNIST 画像のピクセル数に相当します．
-# 
-# ```python
-# # 入力されたベクトルから別のベクトルを生成するネットワーク
-# class Generator(tf.keras.Model):
+# class Environment:
 #     def __init__(self):
-#         super(Generator,self).__init__()
-#         self.d1=tf.keras.layers.Dense(units=256)
-#         self.d2=tf.keras.layers.Dense(units=256)
-#         self.d3=tf.keras.layers.Dense(units=784)
-#         self.a=tf.keras.layers.LeakyReLU()
-#         self.b1=tf.keras.layers.BatchNormalization()
-#         self.b2=tf.keras.layers.BatchNormalization()
-#     def call(self,x):
-#         y = self.d1(x)
-#         y = self.a(y)
-#         y = self.b1(y)
-#         y = self.d2(y)
-#         y = self.a(y)
-#         y = self.b2(y)
-#         y = self.d3(y)
-#         y = tf.keras.activations.tanh(y)
-#         return y
+#         self.actions = {"up": 0, "down": 1, "left": 2, "right": 3}
+#         self.field = [["X", "X", "O", "G"],
+#                       ["O", "O", "O", "O"],
+#                       ["X", "O", "O", "O"],
+#                       ["O", "O", "X", "O"],
+#                       ["O", "O", "O", "O"]]
+#         self.done = False
+#         self.reward = None
+#         self.iteration = None
+#     
+#     # 以下は環境を初期化する関数．
+#     def reset(self):
+#         self.objectPosition = 4, 0
+#         self.done = False
+#         self.reward = None
+#         self.iteration = 0
+#         return self.objectPosition
+#     
+#     # 以下は環境を進める関数．
+#     def step(self, action):
+#         self.iteration += 1
+#         y, x = self.objectPosition
+#         if self.checkMovable(x, y, action) == False: # オブジェクトの移動が可能かどうかを判定．
+#             return self.objectPosition, -1, False # 移動できないときの報酬は-1．
+#         else:
+#             if action == self.actions["up"]:
+#                 y += -1 # フィールドと座標の都合上，上への移動の場合は-1をする．
+#             elif action == self.actions["down"]:
+#                 y += 1
+#             elif action == self.actions["left"]:
+#                 x += -1
+#             elif action == self.actions["right"]:
+#                 x += 1
+#             # 以下のifは報酬の計算とオブジェクトがゴールに到達してゲーム終了となるかどうかの判定のため．
+#             if self.field[y][x] == "O":
+#                 self.reward = 0
+#             elif self.field[y][x] == "G":
+#                 self.done = True
+#                 self.reward = 100
+#             self.objectPosition = y, x
+#             return self.objectPosition, self.reward, self.done
+#     
+#     # 以下は移動が可能かどうかを判定する関数．
+#     def checkMovable(self, x, y, action):
+#         if action == self.actions["up"]:
+#             y += -1
+#         elif action == self.actions["down"]:
+#             y += 1
+#         elif action == self.actions["left"]:
+#             x += -1
+#         elif action == self.actions["right"]:
+#             x += 1
+#         if y < 0 or y >= len(self.field):
+#             return False
+#         elif x < 0 or x >= len(self.field[0]):
+#             return False
+#         elif self.field[y][x] == "X":
+#             return False
+#         else:
+#             return True
 # ```
-# 
-# 識別器を生成するためのクラスは以下に示す通りです．今回の場合，識別器の入力データは 784 ピクセルの画像データです．これを入力にして，このデータが真か偽かを識別します．よって，最終層のユニットサイズは 2 です．
+
+# 以下の部分は環境の初期化をする記述です．最初に `self.actions` ですが，この環境が取りするコマンドはオブジェクトを上下左右に動かすためのもので，その記述です．次の `self.field` ですが，これは上に画像で示したフィールドを生成するためのものです．`X` が障害物，`G` がゴール，それ以外の `O` がオブジェクトが自由に移動できるマスです．`self.done` はオブジェクトがゴールに到達することでこのゲーム（オブジェクトをゴールまで動かすゲーム）が終了したかどうかを判定するための変数です．`self.reward` は報酬を格納する変数です．`self.iteration` はこのプログラムでは使わないのですが，後のレンダリングの際に必要なので加えています．
 # 
 # ```python
-# # 入力されたデータを0か1に分類するネットワーク
-# class Discriminator(tf.keras.Model):
 #     def __init__(self):
-#         super(Discriminator,self).__init__()
-#         self.d1 = tf.keras.layers.Dense(units=128)
-#         self.d2 = tf.keras.layers.Dense(units=128)
-#         self.d3 = tf.keras.layers.Dense(units=128)
-#         self.d4 = tf.keras.layers.Dense(units=2, activation="softmax")
-#         self.a = tf.keras.layers.LeakyReLU()
-#         self.d = tf.keras.layers.Dropout(0.5)
-#     def call(self,x):
-#         y = self.d1(x)
-#         y = self.a(y)
-#         y = self.d(y)
-#         y = self.d2(y)
-#         y = self.a(y)
-#         y = self.d(y)
-#         y = self.d3(y)
-#         y = self.a(y)
-#         y = self.d(y)
-#         y = self.d4(y)
-#         return y
-# ```
-
-# 最適化法は生成器と識別器で異なるものを利用した方が良い場合があります．経験的に識別器の方が性能が出やすいので，ここでは学習率を少し小さく設定しています．
-# 
-# ```python
-#     # オプティマイザは生成器と識別器で別々のものを利用
-#     optimizerGenerator = tf.keras.optimizers.Adam(learning_rate=0.0001)
-#     optimizerDiscriminator = tf.keras.optimizers.Adam(learning_rate=0.00004)
-# ```
-
-# 以下の部分は生成器を成長させるためのコストを計算するコスト関数を含む記述です．これの引数は `discriminatorOutputFromGenerated` と書いていますが，これは生成器がノイズから生成したデータを識別器に入力したときに識別器が出力した値です．つまり，`0` または `1` です．`cost` からはじまる行では `tf.ones` で `1` という値からなるデータをミニバッチのサイズ分生成しています．それを `discriminatorOutputFromGenerated` と比較しています．この差を小さくしたいわけなので，つまり，生成器から出力されたデータはすべて真であると学習させるということを意味しています．
-# 
-# ```python
-#     # 生成器を成長させるためのコストを計算する関数
-#     def generatorCostFunction(discriminatorOutputFromGenerated):
-#         cost = costComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 生成器のコストの引数は生成器の出力を識別器に入れた結果．生成器としては全部正解を出しているはずなので教師はすべて1となるはず．そのように学習すべき．
-#         accuracy = accuracyComputer(tf.ones(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
-#         return cost, accuracy
-# ```
-
-# 以下は識別器を成長させるためのコストを計算するコスト関数を含む記述です．識別器の引数は `discriminatorOutputFromReal` と `discriminatorOutputFromGenerated` で，それぞれ，本物のデータを入力されたときの識別器の出力値と偽物のデータを入力されたときの識別器の出力値です．上の生成器の場合と同じ書き方をしているので確認してほしいのですが，識別器は本物のデータが入力されたら本物と識別するように，また，偽物のデータが入力されたら偽物と識別するように成長させられます．
-# 
-# ```python
-#     # 識別器を成長させるためのコストを計算する関数
-#     def discriminatorCostFunction(discriminatorOutputFromReal,discriminatorOutputFromGenerated): # 識別器のコストの引数は本物の情報を識別器に入れた結果と生成器の出力を識別器に入れた結果．
-#         realCost = costComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal) # 本物の情報の場合はすべて正例（1）と判断すべき．これが例のコスト関数の左の項に相当．
-#         fakeCost = costComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated) # 偽物の情報の場合はすべて負例（0）と判断すべき．これが例のコスト関数の右の項に相当．
-#         cost = realCost + fakeCost
-#         realAccuracy = accuracyComputer(tf.ones(discriminatorOutputFromReal.shape[0]), discriminatorOutputFromReal)
-#         fakeAccuracy = accuracyComputer(tf.zeros(discriminatorOutputFromGenerated.shape[0]), discriminatorOutputFromGenerated)
-#         accuracy=(realAccuracy + fakeAccuracy) / 2
-#         return cost, accuracy
-# ```
-
-# 以下は 1 回あたりの学習のための記述です．`tf.GradientTape()` を 2 個利用している点がちょっと珍しい書き方かもしれません．`generatedInputVector` からはじまる行はノイズデータからデータを生成する記述です．そしてそのデータを識別器に入力して得られる値が次の行の `discriminatorOutputFromGenerated` で，また，本物のデータを識別器に入力して得られる値が次の行の `discriminatorOutputFromReal` です．
-# 
-# ```python
-#     @tf.function()
-#     def run(generator, discriminator, noiseVector, realInputVector):
-#         with tf.GradientTape() as generatorTape, tf.GradientTape() as discriminatorTape:
-#             generatedInputVector = generator(noiseVector) # 生成器によるデータの生成．
-#             discriminatorOutputFromGenerated = discriminator(generatedInputVector) # その生成データを識別器に入れる．
-#             discriminatorOutputFromReal = discriminator(realInputVector) # 本物データを識別器に入れる．
-#             # 識別器の成長
-#             discriminatorCost, discriminatorAccuracy = discriminatorCostFunction(discriminatorOutputFromReal, discriminatorOutputFromGenerated)
-#             gradientDiscriminator = discriminatorTape.gradient(discriminatorCost, discriminator.trainable_variables) # 識別器のパラメータだけで勾配を計算．つまり生成器のパラメータは行わない．
-#             optimizerDiscriminator.apply_gradients(zip(gradientDiscriminator, discriminator.trainable_variables))
-#             # 生成器の成長
-#             generatorCost, generatorAccuracy = generatorCostFunction(discriminatorOutputFromGenerated)
-#             gradientGenerator = generatorTape.gradient(generatorCost,generator.trainable_variables) # 生成器のパラメータで勾配を計算．
-#             optimizerGenerator.apply_gradients(zip(gradientGenerator,generator.trainable_variables))
-#             return discriminatorCost, discriminatorAccuracy, generatorCost, generatorAccuracy
-# ```
-
-# 以下の記述はミニバッチセットを生成するために TensorFlow が用意してくれたユーティリティを使うためのものです．
-# 
-# ```python
-#     # ミニバッチセットの生成
-#     learnX = tf.data.Dataset.from_tensor_slices(learnX) # このような方法を使うと簡単にミニバッチを実装することが可能．
-#     learnT = tf.data.Dataset.from_tensor_slices(learnT)
-#     learnA = tf.data.Dataset.zip((learnX, learnT)).shuffle(60000).batch(MiniBatchSize) # 今回はインプットデータしか使わないけど後にターゲットデータを使う場合があるため．
-#     miniBatchNumber = len(list(learnA.as_numpy_iterator()))
+#         self.actions = {"up": 0, "down": 1, "left": 2, "right": 3}
+#         self.field = [["X", "X", "O", "G"],
+#                       ["O", "O", "O", "O"],
+#                       ["X", "O", "O", "O"],
+#                       ["O", "O", "X", "O"],
+#                       ["O", "O", "O", "O"]]
+#         self.done = False
+#         self.reward = None
+#         self.iteration = None
 # ```
 
 # ```{note}
-# 便利ですねこれ．
+# `self.reward` はインスタンス変数にしなくても良かったかもしれません．
 # ```
 
-# 学習ループに関しては特に説明しませんが，ループ内で用いられている `generateNoise` という名の関数はランダムなノイズを発生させるためのものです．
+# 環境はエピソード毎にリセットする必要がありますが，そのための記述です．オブジェクトは `(4, 0)` のマスに置きます．このメソッドは戻り値としてオブジェクトの位置を返します．
 # 
 # ```python
-# def generateNoise(miniBatchSize, randomNoiseSize):
-#     return np.random.uniform(-1, 1, size=(miniBatchSize,randomNoiseSize)).astype("float32")
+#     # 以下は環境を初期化する関数．
+#     def reset(self):
+#         self.objectPosition = 4, 0
+#         self.done = False
+#         self.reward = None
+#         self.iteration = 0
+#         return self.objectPosition
+# ```
+
+# 以下は環境を進めるための記述です．最初に `self.checkMovable` でオブジェクトを移動させることができるかを判定します．オブジェクトは壁の外に移動させることができないし，また，障害物のあるマスには移動させることができません．そのような場合は，報酬としては `-1` の値を与えて，また，オブジェクトの存在するマスを変化させません．それ以外の場合は，入力された上下左右のコマンド（`action`）に従ってオブジェクトの位置を変化させます．さらに，報酬は障害物やゴール以外のマスにオブジェクトが位置する場合は `0` でゴールの場合は `100` を与えるようにします．ゴールにオブジェクトが到達している場合は `self.done` に `True` を入れます．
+# 
+# ```python
+#     # 以下は環境を進める関数．
+#     def step(self, action):
+#         self.iteration += 1
+#         y, x = self.objectPosition
+#         if self.checkMovable(x, y, action) == False: # オブジェクトの移動が可能かどうかを判定．
+#             return self.objectPosition, -1, False # 移動できないときの報酬は-1．
+#         else:
+#             if action == self.actions["up"]:
+#                 y += -1 # フィールドと座標の都合上，上への移動の場合は-1をする．
+#             elif action == self.actions["down"]:
+#                 y += 1
+#             elif action == self.actions["left"]:
+#                 x += -1
+#             elif action == self.actions["right"]:
+#                 x += 1
+#             # 以下のifは報酬の計算とオブジェクトがゴールに到達してゲーム終了となるかどうかの判定のため．
+#             if self.field[y][x] == "O":
+#                 self.reward = 0
+#             elif self.field[y][x] == "G":
+#                 self.done = True
+#                 self.reward = 100
+#             self.objectPosition = y, x
+#             return self.objectPosition, self.reward, self.done
+#     
+#     # 以下は移動が可能かどうかを判定する関数．
+#     def checkMovable(self, x, y, action):
+#         if action == self.actions["up"]:
+#             y += -1
+#         elif action == self.actions["down"]:
+#             y += 1
+#         elif action == self.actions["left"]:
+#             x += -1
+#         elif action == self.actions["right"]:
+#             x += 1
+#         if y < 0 or y >= len(self.field):
+#             return False
+#         elif x < 0 or x >= len(self.field[0]):
+#             return False
+#         elif self.field[y][x] == "X":
+#             return False
+#         else:
+#             return True
+# ```
+
+# 次にエージェントのクラス `Agent` は以下に示す通りです．
+# 
+# ```python
+# class Agent:
+#     def __init__(self, alpha=0.1, epsilon=0.3, gamma=0.9, actions=None, observation=None):
+#         self.alpha = alpha
+#         self.gamma = gamma
+#         self.epsilon = epsilon
+#         self.actions = actions
+#         self.observation = str(observation)
+#         self.previous_action = None
+#         self.qValues = {} # Qテーブル
+#         self.qValues[self.observation] = np.repeat(0.0, len(self.actions))
+#     
+#     # 以下の関数は行動を選択する関数．
+#     def act(self, observation):
+#         self.observation = str(observation)
+#         if np.random.uniform() < self.epsilon:
+#             action = np.random.randint(0, len(self.actions)) # イプシロンの確率でランダムに行動する．
+#         else:
+#             action = np.argmax(self.qValues[self.observation]) # 最もQ値が高い行動を選択．
+#         self.previous_action = action
+#         return action
+#     
+#     # 以下はQテーブルを更新する関数．
+#     def update(self, objectNewPosition, action, reward):
+#         objectNewPosition = str(objectNewPosition)
+#         if objectNewPosition not in self.qValues: # Qテーブルのキーを新たに作る．
+#             self.qValues[objectNewPosition] = np.repeat(0.0, len(self.actions))
+#         q = self.qValues[self.observation][action]  # Q(s,a)の計算．
+#         maxQ = max(self.qValues[objectNewPosition])  # max(Q(s',a'))の計算．
+#         self.qValues[self.observation][action] = q + (self.alpha * (reward + (self.gamma * maxQ) - q)) # Q'(s, a) = Q(s, a) + alpha * (reward + gamma * maxQ(s',a') - Q(s, a))の計算．
 # ```
 
 # ### 環境の可視化
