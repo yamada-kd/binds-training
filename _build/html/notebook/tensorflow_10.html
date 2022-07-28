@@ -1309,7 +1309,7 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </div>
 <div class="section" id="id11">
 <h3><span class="section-number">10.3.1. </span>インストール<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>以下のようなコマンドを打つことで OpenAI Gym をインストールすることができます．Google Colaboratory にはあらかじめインストールされているためこのコマンドは打つ必要はありません．打っても良いです．</p>
+<p>以下のようなコマンドを打つことで OpenAI Gym をインストールすることができます．グーグルコラボラトリーにはあらかじめインストールされているためこのコマンドは打つ必要はありません．打っても良いです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install gym
@@ -1364,6 +1364,20 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </div>
 <div class="section" id="id13">
 <h3><span class="section-number">10.3.3. </span>可視化と画像化<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>グーグルコラボラトリー可視化を行うためには特殊なコマンドを打って準備をする必要があります．以下のコマンドを打ちます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> apt update
+<span class="o">!</span> apt install xvfb
+<span class="o">!</span> pip install pyvirtualdisplay
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p><strong>描画をする前にこのコマンドを打たなければなりません．これを打つ前に以下にあるプログラムを実行するとエラーが出ます．気をつけてください．その場合はグーグルコラボラトリーのランタイムを削除して再起動することで解決してください．</strong></p>
+</div>
 </div>
 <div class="section" id="id14">
 <h3><span class="section-number">10.3.4. </span>環境のインポート<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
