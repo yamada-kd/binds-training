@@ -1000,7 +1000,42 @@ if __name__ == "__main__":
     main()
 
 
-# 上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，
+# 上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，次のプログラムを実行すると動画を GIF ファイルとして保存することができます．
+
+# In[ ]:
+
+
+import gym
+from IPython import display
+import matplotlib.pyplot as plt
+from matplotlib import animation
+
+def main():
+    env = gym.make('CartPole-v1')
+
+    images = []
+    figure = plt.figure()
+    ax = plt.gca()
+    ax.axes.xaxis.set_visible(False)
+    ax.axes.yaxis.set_visible(False)
+    observation = env.reset()
+    for _ in range(100):
+        action = env.action_space.sample()
+        observation, reward, done, info = env.step(action)
+
+        image = plt.imshow(env.render(mode="rgb_array"))
+        images.append([image])
+
+        if done: env.reset()
+
+    generatedAnimation = animation.ArtistAnimation(figure, images, interval=15, blit=True)
+    generatedAnimation.save("cartpole-01.gif", writer="pillow", fps=50) # ここだけ変化．
+
+if __name__ == "__main__":
+    main()
+
+
+# グーグルコラボラトリーの左にあるサイドバー上のフォルダのアイコンをクリックすると保存されたファイルを確認することができます．そのファイル名をダブルクリックすると画面右に動画が表示されます．
 
 # ### 環境のインポート
 
