@@ -524,12 +524,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p><span class="math notranslate nohighlight">\(
 R_t=r_{t+1}+\gamma R_{t+1}
 \)</span></p>
+<p>未来の報酬の重要度が下がるということになります．この値を調節することで未来の報酬をどれだけ重要視するかということを決めることができます．</p>
 <p>**グリーディ（greedy）**な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．</p>
 </div>
 <div class="section" id="id5">
 <h3><span class="section-number">10.1.3. </span>強化学習法の種類<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>強化学習法を実行する方法には様々な分類の方法があります．モデルに基づく方法か価値または方策に基づく方法か等の分類方法です．強化学習法の種類は現在開発が活発であり，どの方法がどのような分類となるかを整理して言及することをこの教材では避けます．</p>
-<p>最初に，モデルに基づく方法かそうでないかの観点から分類をすると，<strong>動的計画法</strong>はモデルに基づく方法です．動的計画法は正確な環境モデルを持っている場合に最適な方策を決定することが可能な方法です．エピソードを終了せずとも方策を最適化しようとすることが可能です．これ以降で紹介する方法はモデルに基づく方法ではありません．</p>
+<p>最初に，モデルに基づく方法かそうでないかの観点から分類をすると，<strong>動的計画法</strong>はモデルに基づく方法です．動的計画法は正確な環境モデルを持っている場合に最適な方策を決定することが可能な方法です．例えば，何らかの格子世界を移動するオブジェクトが右に移動すればある報酬を得られるし，格子世界を出ようとするならペナルティが加えられる等というような環境の性質が完全に判明している場合に利用可能です．エピソードを終了せずとも方策を最適化しようとすることが可能です．これ以降で紹介する方法はモデルに基づく方法ではありません．</p>
 <p>モデルフリーの方法をさらに分類すると，価値ベース法，方策ベース法，アクター・クリティック法の 3 個に大別されます．</p>
 <p>モデルフリーの方法であり，価値ベース法としては<strong>モンテカルロ法</strong>があります．モンテカルロ法はモデルに基づく方法である動的計画法とは異なり，完全な環境モデルを持たない場合，行動の結果として報酬が得られるかどうかが不明な際に用いられる方法です．エージェントの行動に応じて学習を進めます．エピソードを終了させることではじめて報酬を計算します．これを実績ベースであると言います．</p>
 <p>モデルフリーの方法であり，価値ベースの方法であり，実績ベースでない方法としては<strong>時間的差分法</strong>（Temporal Difference（TD）法）があります．時間的差分法は上述のふたつを組み合わせたような方法です．行動に対して得られる実際の報酬から環境遷移の度に評価関数を改善することで最適な方策を見つけようとする方法です．この 3 個の方法の中では時間的差分法が最も現実的な学習法であると思います．時間的差分法はさらに，アルゴリズムの実装の違いにより細分化されます．エージェントの行動を決定する方策と評価関数の更新に用いる方策が異なる方策オフ型の方法である <strong>Q 学習法</strong>と，エージェントの行動を決定する方策と評価関数の更新に用いる方策が同じ方策オン型の方法である <strong>SARSA</strong> です．この章で紹介する方法は Q 学習です．</p>
@@ -1322,7 +1323,7 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>以下のようなコマンドを打つことで OpenAI Gym をインストールすることができます．グーグルコラボラトリーにはあらかじめインストールされているためこのコマンドは打つ必要はありません．打っても良いです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install gym
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip install gym
 </pre></div>
 </div>
 </div>
@@ -1333,7 +1334,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>どのような環境（ゲーム）が利用可能であるかは以下のようなコードによって確認できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gym</span> <span class="kn">import</span> <span class="n">envs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">gym</span> <span class="kn">import</span> <span class="n">envs</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">envids</span> <span class="o">=</span> <span class="p">[</span><span class="n">spec</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">envs</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span>
@@ -1350,7 +1352,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>この中の <code class="docutils literal notranslate"><span class="pre">CartPole-v1</span></code> というものを呼び出します．また，環境を初期化し，ランダムな入力から行動選択し，その行動によって環境を遷移させます．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
@@ -1366,10 +1369,49 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </div>
 </div>
 </div>
-<p>観測値として出力されている値は 4 個の要素からなるリストですが，最初から「カートの位置」，「カートの速さ」，「棒の角度」，「棒の角速度」です．何のことを言っているのかわからないと思いますが，次の項で可視化すると意味がわかると思います．</p>
+<p>観測値として出力されている値は 4 個の要素からなるリストですが，最初から「台車の位置」，「台車の速さ」，「棒の角度」，「棒の角速度」です．何のことを言っているのかわからないと思いますが，次の項で可視化すると意味がわかると思います．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>この gym を利用した場合に，<code class="docutils literal notranslate"><span class="pre">.reset()</span></code> とか <code class="docutils literal notranslate"><span class="pre">.step()</span></code> のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス <code class="docutils literal notranslate"><span class="pre">Enviroment</span></code> にも同様の方法がありましたが，あれは gym の挙動に似せて作ったものです．</p>
+<p>インターネット上の記事で速度と速さの使い分けがされていなさすぎて驚きました．</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>この gym を利用した場合に，<code class="docutils literal notranslate"><span class="pre">reset()</span></code> とか <code class="docutils literal notranslate"><span class="pre">step()</span></code> のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス <code class="docutils literal notranslate"><span class="pre">Enviroment</span></code> にも同様の方法がありましたが，あれは gym の挙動に似せて作ったものです．</p>
+</div>
+<p>状態空間，行動空間，報酬空間は以下のようにすることで確認できます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">reward_range</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下のようにすると複数の環境を一度に実行することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">asynchronous</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="id13">
@@ -1387,7 +1429,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>以下のプログラムを実行して描画に必要なディスプレイの起動をします．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyvirtualdisplay</span> <span class="kn">import</span> <span class="n">Display</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">pyvirtualdisplay</span> <span class="kn">import</span> <span class="n">Display</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">gymDisplay</span> <span class="o">=</span> <span class="n">Display</span><span class="p">()</span>
@@ -1406,7 +1449,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>以下のようなプログラムでゲームの実行画面を描画することができます．ここでは描画の方法を 2 個紹介しますが，その 1 個目です．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
 <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
@@ -1441,7 +1485,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>表示された動画を確認するとわかるように，このゲームは車の上に棒が設置されているもので，その棒が倒れないように車をうまく動かすというものです．次に，もう 1 個の描画方法を紹介します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
 <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
@@ -1481,7 +1526,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，次のプログラムを実行すると動画を GIF ファイルとして保存することができます．画像の保存方法も 2 個紹介しますが，その 1 個目です．グーグルコラボラトリーの左にあるサイドバー上のフォルダのアイコンをクリックすると保存されたファイルを確認することができます．そのファイル名をダブルクリックすると画面右に動画が表示されます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
 <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
@@ -1516,7 +1562,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>もう 1 個の画像の生成方法です．以下のようなプログラムを実行します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
 <span class="kn">import</span> <span class="nn">imageio</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -1547,8 +1594,7 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p class="admonition-title">Note</p>
 <p>この項の記述はこの教材を実行する際に必要なものではありません．もし他の色々なゲームを導入したい場合にやってみてください．</p>
 </div>
-<p>この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．Atari の ROM を入手してそれを呼び出したい場合は以下のようにします．</p>
-<p>最初に以下のコマンドで Atari Learning Environment をインストールします．</p>
+<p>この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．Atari の ROM を入手してそれを呼び出したい場合は以下のようにします．最初に以下のコマンドで Atari Learning Environment をインストールします．</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! pip install ale-py
 </pre></div>
 </div>
@@ -1568,7 +1614,8 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </pre></div>
 </div>
 <p>この結果，以下のような Atari に由来する環境を呼び出せるようになります．</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">gym</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;MontezumaRevengeDeterministic-v4&quot;</span><span class="p">)</span>

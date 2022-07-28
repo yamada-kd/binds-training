@@ -46,13 +46,15 @@
 # R_t=r_{t+1}+\gamma R_{t+1}
 # $
 # 
+# 未来の報酬の重要度が下がるということになります．この値を調節することで未来の報酬をどれだけ重要視するかということを決めることができます．
+# 
 # **グリーディ（greedy）**な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．
 
 # ### 強化学習法の種類
 
 # 強化学習法を実行する方法には様々な分類の方法があります．モデルに基づく方法か価値または方策に基づく方法か等の分類方法です．強化学習法の種類は現在開発が活発であり，どの方法がどのような分類となるかを整理して言及することをこの教材では避けます．
 # 
-# 最初に，モデルに基づく方法かそうでないかの観点から分類をすると，**動的計画法**はモデルに基づく方法です．動的計画法は正確な環境モデルを持っている場合に最適な方策を決定することが可能な方法です．エピソードを終了せずとも方策を最適化しようとすることが可能です．これ以降で紹介する方法はモデルに基づく方法ではありません．
+# 最初に，モデルに基づく方法かそうでないかの観点から分類をすると，**動的計画法**はモデルに基づく方法です．動的計画法は正確な環境モデルを持っている場合に最適な方策を決定することが可能な方法です．例えば，何らかの格子世界を移動するオブジェクトが右に移動すればある報酬を得られるし，格子世界を出ようとするならペナルティが加えられる等というような環境の性質が完全に判明している場合に利用可能です．エピソードを終了せずとも方策を最適化しようとすることが可能です．これ以降で紹介する方法はモデルに基づく方法ではありません．
 # 
 # モデルフリーの方法をさらに分類すると，価値ベース法，方策ベース法，アクター・クリティック法の 3 個に大別されます．
 # 
@@ -887,7 +889,7 @@ if __name__ == "__main__":
 # In[ ]:
 
 
-get_ipython().system('pip install gym')
+get_ipython().system(' pip install gym')
 
 
 # ### 環境の生成
@@ -897,6 +899,7 @@ get_ipython().system('pip install gym')
 # In[ ]:
 
 
+#!/usr/bin/env python3
 from gym import envs
 
 def main():
@@ -914,6 +917,7 @@ if __name__ == "__main__":
 # In[ ]:
 
 
+#!/usr/bin/env python3
 import gym
 
 def main():
@@ -928,11 +932,50 @@ if __name__ == "__main__":
     main()
 
 
-# 観測値として出力されている値は 4 個の要素からなるリストですが，最初から「カートの位置」，「カートの速さ」，「棒の角度」，「棒の角速度」です．何のことを言っているのかわからないと思いますが，次の項で可視化すると意味がわかると思います．
+# 観測値として出力されている値は 4 個の要素からなるリストですが，最初から「台車の位置」，「台車の速さ」，「棒の角度」，「棒の角速度」です．何のことを言っているのかわからないと思いますが，次の項で可視化すると意味がわかると思います．
 
 # ```{note}
-# この gym を利用した場合に，`.reset()` とか `.step()` のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス `Enviroment` にも同様の方法がありましたが，あれは gym の挙動に似せて作ったものです．
+# インターネット上の記事で速度と速さの使い分けがされていなさすぎて驚きました．
 # ```
+
+# ```{note}
+# この gym を利用した場合に，`reset()` とか `step()` のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス `Enviroment` にも同様の方法がありましたが，あれは gym の挙動に似せて作ったものです．
+# ```
+
+# 状態空間，行動空間，報酬空間は以下のようにすることで確認できます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import gym
+
+def main():
+    env = gym.make("CartPole-v1")
+    env.seed(0)
+    print(env.observation_space)
+    print(env.action_space)
+    print(env.action_space.n)
+    print(env.reward_range)
+
+if __name__ == "__main__":
+    main()
+
+
+# 以下のようにすると複数の環境を一度に実行することができます．
+
+# In[3]:
+
+
+#!/usr/bin/env python3
+import gym
+
+def main():
+    env = gym.vector.make("CartPole-v1", 3, asynchronous=True)
+
+if __name__ == "__main__":
+    main()
+
 
 # ### 環境遷移の再生
 
@@ -951,6 +994,7 @@ get_ipython().system(' pip install pyvirtualdisplay')
 # In[2]:
 
 
+#!/usr/bin/env python3
 from pyvirtualdisplay import Display
 
 def main():
@@ -970,6 +1014,7 @@ if __name__ == "__main__":
 # In[ ]:
 
 
+#!/usr/bin/env python3
 import gym
 from IPython import display
 import matplotlib.pyplot as plt
@@ -1005,6 +1050,7 @@ if __name__ == "__main__":
 # In[ ]:
 
 
+#!/usr/bin/env python3
 import gym
 from IPython import display
 import matplotlib.pyplot as plt
@@ -1044,6 +1090,7 @@ if __name__ == "__main__":
 # In[ ]:
 
 
+#!/usr/bin/env python3
 import gym
 from IPython import display
 import matplotlib.pyplot as plt
@@ -1079,6 +1126,7 @@ if __name__ == "__main__":
 # In[14]:
 
 
+#!/usr/bin/env python3
 import gym
 import imageio
 
@@ -1107,9 +1155,7 @@ if __name__ == "__main__":
 # この項の記述はこの教材を実行する際に必要なものではありません．もし他の色々なゲームを導入したい場合にやってみてください．
 # ```
 
-# この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．Atari の ROM を入手してそれを呼び出したい場合は以下のようにします．
-# 
-# 最初に以下のコマンドで Atari Learning Environment をインストールします．
+# この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．Atari の ROM を入手してそれを呼び出したい場合は以下のようにします．最初に以下のコマンドで Atari Learning Environment をインストールします．
 # 
 # ```
 # ! pip install ale-py
@@ -1137,6 +1183,7 @@ if __name__ == "__main__":
 # この結果，以下のような Atari に由来する環境を呼び出せるようになります．
 # 
 # ```python
+# #!/usr/bin/env python3
 # import gym
 # 
 # def main():
