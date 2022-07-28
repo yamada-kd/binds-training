@@ -934,7 +934,7 @@ if __name__ == "__main__":
 # この gym を利用した場合に，`.reset()` とか `.step()` のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス `Enviroment` にも同様の方法がありましたが，あれは gym の挙動に似せて作ったものです．
 # ```
 
-# ### 可視化と画像化
+# ### 環境遷移の再生
 
 # グーグルコラボラトリー可視化を行うためには特殊なコマンドを打って準備をする必要があります．以下のコマンドを打ちます．
 
@@ -962,7 +962,7 @@ if __name__ == "__main__":
 
 
 # ```{hint}
-# **描画をする前にこのコマンドを打たなければなりません．これを打つ前に以下にあるプログラムを実行するとエラーが出ます．気をつけてください．**やってしまった場合はグーグルコラボラトリーのランタイムを削除して再起動してやり直してください．
+# 描画をする前にこのコマンドを打たなければなりません．これを打つ前に以下にあるプログラムを実行するとエラーが出ます．気をつけてください．やってしまった場合はグーグルコラボラトリーのランタイムを削除して再起動してやり直してください．
 # ```
 
 # 以下のようなプログラムでゲームの実行画面を描画することができます．ここでは描画の方法を 2 個紹介しますが，その 1 個目です．
@@ -1000,7 +1000,46 @@ if __name__ == "__main__":
     main()
 
 
-# 上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，次のプログラムを実行すると動画を GIF ファイルとして保存することができます．
+# もう 1 個の描画方法を紹介します．以下のように書きます．
+
+# In[ ]:
+
+
+import gym
+from IPython import display
+import matplotlib.pyplot as plt
+from matplotlib import animation
+
+def main():
+    env = gym.make("MountainCar-v0")
+
+    images = [] # 描画のための記述
+    observation = env.reset()
+    for _ in range(100):
+        action = env.action_space.sample()
+        observation, reward, done, info = env.step(action)
+
+        display.clear_output(wait=True) # 描画のための記述
+        images.append(env.render(mode="rgb_array")) # 描画のための記述
+
+        if done: env.reset()
+
+    dpi = 72 # 描画のための記述
+    plt.figure(figsize=(images[0].shape[1]/dpi, images[0].shape[0]/dpi), dpi=dpi) # 描画のための記述
+    plt.figure() # 描画のための記述
+    patch = plt.imshow(images[0]) # 描画のための記述
+    plt.axis=("off") # 描画のための記述
+    animate = lambda i: patch.set_data(images[i]) # 描画のための記述
+    generatedAnimation = animation.FuncAnimation(plt.gcf(), animate, frames=len(images), interval=50) # 描画のための記述
+    display.display(display.HTML(generatedAnimation.to_jshtml())) # 描画のための記述
+
+if __name__ == "__main__":
+    main()
+
+
+# ### 環境遷移の画像化
+
+# 上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，次のプログラムを実行すると動画を GIF ファイルとして保存することができます．画像の保存方法も 2 個紹介しますが，その 1 個目です．グーグルコラボラトリーの左にあるサイドバー上のフォルダのアイコンをクリックすると保存されたファイルを確認することができます．そのファイル名をダブルクリックすると画面右に動画が表示されます．
 
 # In[ ]:
 
@@ -1035,7 +1074,32 @@ if __name__ == "__main__":
     main()
 
 
-# グーグルコラボラトリーの左にあるサイドバー上のフォルダのアイコンをクリックすると保存されたファイルを確認することができます．そのファイル名をダブルクリックすると画面右に動画が表示されます．
+# もう 1 個の画像の生成方法です．以下のようなプログラムを実行します．
+
+# In[14]:
+
+
+import gym
+import imageio
+
+def main():
+    env = gym.make("MountainCar-v0")
+
+    images = []
+    observation = env.reset()
+    for _ in range(100):
+        action = env.action_space.sample()
+        observation, reward, done, info = env.step(action)
+
+        images.append(env.render(mode="rgb_array"))
+
+        if done: env.reset()
+
+    imageio.mimsave("cartpole-02.gif", images, "GIF", **{'duration': 1/50})
+
+if __name__ == "__main__":
+    main()
+
 
 # ### 環境のインポート
 
