@@ -946,9 +946,61 @@ get_ipython().system(' apt install xvfb')
 get_ipython().system(' pip install pyvirtualdisplay')
 
 
+# 以下のプログラムを実行して描画に必要なディスプレイの起動をします．
+
+# In[2]:
+
+
+from pyvirtualdisplay import Display
+
+def main():
+    gymDisplay = Display()
+    gymDisplay.start()
+
+if __name__ == "__main__":
+    main()
+
+
 # ```{hint}
-# **描画をする前にこのコマンドを打たなければなりません．これを打つ前に以下にあるプログラムを実行するとエラーが出ます．気をつけてください．その場合はグーグルコラボラトリーのランタイムを削除して再起動することで解決してください．**
+# **描画をする前にこのコマンドを打たなければなりません．これを打つ前に以下にあるプログラムを実行するとエラーが出ます．気をつけてください．**やってしまった場合はグーグルコラボラトリーのランタイムを削除して再起動してやり直してください．
 # ```
+
+# 以下のようなプログラムでゲームの実行画面を描画することができます．ここでは描画の方法を 2 個紹介しますが，その 1 個目です．
+
+# In[ ]:
+
+
+import gym
+from IPython import display
+import matplotlib.pyplot as plt
+from matplotlib import animation
+
+def main():
+    env = gym.make('CartPole-v1')
+
+    images = [] # 描画のための記述
+    figure = plt.figure() # 描画のための記述
+    ax = plt.gca() # 描画をきれいにするための記述
+    ax.axes.xaxis.set_visible(False) # 描画をきれいにするための記述
+    ax.axes.yaxis.set_visible(False) # 描画をきれいにするための記述
+    observation = env.reset()
+    for _ in range(100):
+        action = env.action_space.sample()
+        observation, reward, done, info = env.step(action)
+
+        image = plt.imshow(env.render(mode="rgb_array")) # 描画のための記述
+        images.append([image]) # 描画のための記述
+
+        if done: env.reset()
+
+    generatedAnimation = animation.ArtistAnimation(figure, images, interval=15, blit=True) # 描画のための記述
+    display.display(display.HTML(generatedAnimation.to_jshtml())) # 描画のための記述
+
+if __name__ == "__main__":
+    main()
+
+
+# 上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，
 
 # ### 環境のインポート
 
