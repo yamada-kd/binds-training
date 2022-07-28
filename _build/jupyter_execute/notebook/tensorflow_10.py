@@ -901,8 +901,7 @@ from gym import envs
 
 def main():
     envids = [spec.id for spec in envs.registry.all()]
-    print(len(envs.registry.all()))
-
+    print("The number of environments:", len(envs.registry.all())) # 全ての環境の個数を出力．
     for envid in envids:
         print(envid)
 
@@ -932,8 +931,10 @@ if __name__ == "__main__":
 # 観測値として出力されている値は 4 個の要素からなるリストですが，最初から「カートの位置」，「カートの速さ」，「棒の角度」，「棒の角速度」です．何のことを言っているのかわからないと思いますが，次の項で可視化すると意味がわかると思います．
 
 # ```{note}
-# この gym を利用した場合に，`.reset()` とか `.step()` のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス `Enviroment` にも同様の方法がありましたが，あれは gym の挙動に似せて作ったのです．
+# この gym を利用した場合に，`.reset()` とか `.step()` のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス `Enviroment` にも同様の方法がありましたが，あれは gym の挙動に似せて作ったものです．
 # ```
+
+# ### 可視化と画像化
 
 # ### 環境のインポート
 
@@ -941,7 +942,44 @@ if __name__ == "__main__":
 # この項の記述はこの教材を実行する際に必要なものではありません．もし他の色々なゲームを導入したい場合にやってみてください．
 # ```
 
-# この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．
+# この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．Atari の ROM を入手してそれを呼び出したい場合は以下のようにします．
+# 
+# 最初に以下のコマンドで Atari Learning Environment をインストールします．
+# 
+# ```
+# ! pip install ale-py
+# ```
+# 
+# 次に ROM ファイルを入れたフォルダをグーグルコラボラトリーを利用しているユーザーのグーグルドライブに置きます．グーグルドライブのフォルダをグーグルコラボラトリーから参照できるように以下のコードを実行します．
+# 
+# ```python
+# #!/usr/bin/env python3
+# from google.colab import drive
+# 
+# def main():
+#     drive.mount("/content/drive", force_remount=True)
+# 
+# if __name__ == "__main__":
+#     main()
+# ```
+# 
+# そのフォルダの名前が `atari2600` であったとします．その場合，以下のようなコマンドで ROM ファイルをインポートします．
+# 
+# ```
+# ! ale-import-roms drive/MyDrive/atari2600/
+# ```
+# 
+# この結果，以下のような Atari に由来する環境を呼び出せるようになります．
+# 
+# ```python
+# import gym
+# 
+# def main():
+#     env = gym.make("MontezumaRevengeDeterministic-v4")
+# 
+# if __name__ == "__main__":
+#     main()
+# ```
 
 # ## 深層 Q 学習
 
