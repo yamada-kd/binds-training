@@ -338,15 +338,20 @@ const thebe_selector_output = ".output, .cell_output"
      10.3.2. 環境の生成
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     10.3.3. 環境のインポート
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id13">
+  <a class="reference internal nav-link" href="#id14">
    10.4. 深層 Q 学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id15">
      10.4.1. 深層学習と Q 学習
     </a>
    </li>
@@ -441,15 +446,20 @@ const thebe_selector_output = ".output, .cell_output"
      10.3.2. 環境の生成
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     10.3.3. 環境のインポート
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id13">
+  <a class="reference internal nav-link" href="#id14">
    10.4. 深層 Q 学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id15">
      10.4.1. 深層学習と Q 学習
     </a>
    </li>
@@ -1282,20 +1292,81 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </div>
 <div class="section" id="openai-gym">
 <h2><span class="section-number">10.3. </span>OpenAI Gym<a class="headerlink" href="#openai-gym" title="Permalink to this headline">¶</a></h2>
-<p>OpenAI Gym を利用すると様々なゲームを Python からコントロールできるようになります．スーパーマリオブラザーズ等の有名なゲームも Python コード上で構築したエージェントが動かすことができるようになります．</p>
+<p>OpenAI Gym を利用すると様々なゲームを Python からコントロールできるようになります．スーパーマリオブラザーズ等の有名なゲームも Python コード上で構築したエージェントが動かすことができるようになります．たくさんの Atari のゲームも動かすことができます．</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>ただし，現在の OpenAI Gym には ROM ファイルは同梱されていません．著作権の問題なのかもしれませんが，詳しい事情は知りません．よって，マリオのゲームや Atari のゲームを利用したい場合はどこかからか ROM ファイルを入手する必要があります．</p>
+</div>
 <div class="section" id="id11">
 <h3><span class="section-number">10.3.1. </span>インストール<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>以下のようなコマンドを打つことで OpenAI Gym をインストールすることができます．Google Colaboratory にはあらかじめインストールされているためこのコマンドは打つ必要はありません．打っても良いです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install gym
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="id12">
 <h3><span class="section-number">10.3.2. </span>環境の生成<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<p>環境の遷移</p>
+<p>どのような環境（ゲーム）が利用可能であるかは以下のようなコードによって確認できます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gym</span> <span class="kn">import</span> <span class="n">envs</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">envids</span> <span class="o">=</span> <span class="p">[</span><span class="n">spec</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">envs</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">envs</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">all</span><span class="p">()))</span>
+
+    <span class="k">for</span> <span class="n">envid</span> <span class="ow">in</span> <span class="n">envids</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">envid</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この中の <code class="docutils literal notranslate"><span class="pre">CartPole-v1</span></code> というものを呼び出します．また，環境を初期化し，ランダムな入力から行動選択し，その行動によって環境を遷移させます．以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
+    <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># 環境の初期化，リセット．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">observation</span><span class="p">)</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span> <span class="c1"># ランダムな行動選択．強化学習をする際はここはエージェントによる行動選択となる．</span>
+    <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="c1"># 環境の遷移．現在の状況に対して行動を行って，次の状態，報酬，停止条件の真偽，ゲーム状態を出力．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">observation</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>観測値として出力されている値は 4 個の要素からなるリストですが，最初から「カートの位置」，「カートの速さ」，「棒の角度」，「棒の角速度」です．何のことを言っているのかわからないと思いますが，次の項で可視化すると意味がわかると思います．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>この gym を利用した場合に，<code class="docutils literal notranslate"><span class="pre">.reset()</span></code> とか <code class="docutils literal notranslate"><span class="pre">.step()</span></code> のような書き方があります．上の節で紹介した Q 学習の部分で環境のクラス <code class="docutils literal notranslate"><span class="pre">Enviroment</span></code> にも同様の方法がありましたが，あれは gym の挙動に似せて作ったのです．</p>
 </div>
 </div>
 <div class="section" id="id13">
-<h2><span class="section-number">10.4. </span>深層 Q 学習<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
-<p>Q 学習に深層学習法を利用した深層 Q 学習という方法を紹介します．</p>
+<h3><span class="section-number">10.3.3. </span>環境のインポート<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>この項の記述はこの教材を実行する際に必要なものではありません．もし他の色々なゲームを導入したい場合にやってみてください．</p>
+</div>
+<p>この gym で実際に呼び出せる環境はデフォルトのままだととても少ないです．</p>
+</div>
+</div>
 <div class="section" id="id14">
-<h3><span class="section-number">10.4.1. </span>深層学習と Q 学習<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">10.4. </span>深層 Q 学習<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>Q 学習に深層学習法を利用した深層 Q 学習という方法を紹介します．</p>
+<div class="section" id="id15">
+<h3><span class="section-number">10.4.1. </span>深層学習と Q 学習<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
