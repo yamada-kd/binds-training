@@ -48,7 +48,7 @@
 # 
 # 未来の報酬の重要度が下がるということになります．この値を調節することで未来の報酬をどれだけ重要視するかということを決めることができます．
 # 
-# **グリーディ**（**greedy**）な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．
+# **グリーディ**（greedy）な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．貪欲法と言います．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．
 # 
 
 # ### 強化学習法の種類
@@ -982,7 +982,7 @@ if __name__ == "__main__":
 
 # グーグルコラボラトリー可視化を行うためには特殊なコマンドを打って準備をする必要があります．以下のコマンドを打ちます．
 
-# In[ ]:
+# In[1]:
 
 
 get_ipython().system(' apt update')
@@ -1025,7 +1025,6 @@ def main():
     env = gym.make('CartPole-v1')
 
     images = [] # 描画のための記述
-    figure = plt.figure() # 描画のための記述
     ax = plt.gca() # 描画をきれいにするための記述
     ax.axes.xaxis.set_visible(False) # 描画をきれいにするための記述
     ax.axes.yaxis.set_visible(False) # 描画をきれいにするための記述
@@ -1039,7 +1038,7 @@ def main():
 
         if done: env.reset()
 
-    generatedAnimation = animation.ArtistAnimation(figure, images, interval=15, blit=True) # 描画のための記述
+    generatedAnimation = animation.ArtistAnimation(plt.gcf(), images, interval=15, blit=True) # 描画のための記述
     display.display(display.HTML(generatedAnimation.to_jshtml())) # 描画のための記述
 
 if __name__ == "__main__":
@@ -1071,13 +1070,11 @@ def main():
 
         if done: env.reset()
 
-    dpi = 72 # 描画のための記述
-    plt.figure(figsize=(images[0].shape[1]/dpi, images[0].shape[0]/dpi), dpi=dpi) # 描画のための記述
     plt.figure() # 描画のための記述
-    patch = plt.imshow(images[0]) # 描画のための記述
-    plt.axis=("off") # 描画のための記述
-    animate = lambda i: patch.set_data(images[i]) # 描画のための記述
-    generatedAnimation = animation.FuncAnimation(plt.gcf(), animate, frames=len(images), interval=50) # 描画のための記述
+    moment = plt.imshow(images[0]) # 描画のための記述
+    def update(i):
+        moment.set_data(images[i])
+    generatedAnimation = animation.FuncAnimation(plt.gcf(), update, frames=len(images), interval=50) # 描画のための記述
     display.display(display.HTML(generatedAnimation.to_jshtml())) # 描画のための記述
 
 if __name__ == "__main__":
@@ -1101,7 +1098,6 @@ def main():
     env = gym.make('CartPole-v1')
 
     images = []
-    figure = plt.figure()
     ax = plt.gca()
     ax.axes.xaxis.set_visible(False)
     ax.axes.yaxis.set_visible(False)
@@ -1115,7 +1111,7 @@ def main():
 
         if done: env.reset()
 
-    generatedAnimation = animation.ArtistAnimation(figure, images, interval=15, blit=True)
+    generatedAnimation = animation.ArtistAnimation(plt.gcf(), images, interval=15, blit=True)
     generatedAnimation.save("cartpole-01.gif", writer="pillow", fps=50) # ここだけ変化．
 
 if __name__ == "__main__":
