@@ -525,7 +525,7 @@ const thebe_selector_output = ".output, .cell_output"
 R_t=r_{t+1}+\gamma R_{t+1}
 \)</span></p>
 <p>未来の報酬の重要度が下がるということになります．この値を調節することで未来の報酬をどれだけ重要視するかということを決めることができます．</p>
-<p><strong>グリーディ</strong>（<strong>greedy</strong>）な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．</p>
+<p><strong>グリーディ</strong>（greedy）な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．貪欲法と言います．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．</p>
 </div>
 <div class="section" id="id5">
 <h3><span class="section-number">10.1.3. </span>強化学習法の種類<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
@@ -1425,6 +1425,82 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+<span class=" -Color -Color-Yellow">0% [Working]</span>
+            
+Get:1 https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/ InRelease [3,626 B]
+
+<span class=" -Color -Color-Yellow">0% [Connecting to archive.ubuntu.com] [Connecting to security.ubuntu.com (91.18</span>
+<span class=" -Color -Color-Yellow">0% [1 InRelease gpgv 3,626 B] [Connecting to archive.ubuntu.com] [Connecting to</span>
+                                                                               
+Get:2 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease [1,581 B]
+
+<span class=" -Color -Color-Yellow">0% [1 InRelease gpgv 3,626 B] [Connecting to archive.ubuntu.com] [Waiting for h</span>
+<span class=" -Color -Color-Yellow">0% [1 InRelease gpgv 3,626 B] [Connecting to archive.ubuntu.com] [Waiting for h</span>
+                                                                               
+Get:3 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+
+<span class=" -Color -Color-Yellow">0% [1 InRelease gpgv 3,626 B] [Connecting to archive.ubuntu.com] [3 InRelease 1</span>
+                                                                               
+Ign:4 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  InRelease
+
+<span class=" -Color -Color-Yellow">0% [1 InRelease gpgv 3,626 B] [Connecting to archive.ubuntu.com (91.189.91.38)]</span>
+                                                                               
+Hit:5 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Release
+
+<span class=" -Color -Color-Yellow">0% [1 InRelease gpgv 3,626 B] [Connecting to archive.ubuntu.com (91.189.91.38)]</span>
+                                                                               
+Hit:6 http://archive.ubuntu.com/ubuntu bionic InRelease
+Get:7 http://ppa.launchpad.net/c2d4u.team/c2d4u4.0+/ubuntu bionic InRelease [15.9 kB]
+Get:8 https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/ Packages [85.6 kB]
+Get:9 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+Get:10 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  Packages [824 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
+Hit:13 http://ppa.launchpad.net/cran/libgit2/ubuntu bionic InRelease
+Get:14 http://ppa.launchpad.net/deadsnakes/ppa/ubuntu bionic InRelease [15.9 kB]
+Get:15 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [1,065 kB]
+Hit:16 http://ppa.launchpad.net/graphics-drivers/ppa/ubuntu bionic InRelease
+Get:17 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [2,905 kB]
+Get:18 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1,527 kB]
+Get:19 http://ppa.launchpad.net/c2d4u.team/c2d4u4.0+/ubuntu bionic/main Sources [2,075 kB]
+Get:20 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [1,107 kB]
+Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2,306 kB]
+Get:22 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [3,336 kB]
+Get:23 http://ppa.launchpad.net/c2d4u.team/c2d4u4.0+/ubuntu bionic/main amd64 Packages [1,063 kB]
+Get:24 http://ppa.launchpad.net/deadsnakes/ppa/ubuntu bionic/main amd64 Packages [45.3 kB]
+Fetched 16.6 MB in 4s (3,932 kB/s)
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+73 packages can be upgraded. Run &#39;apt list --upgradable&#39; to see them.
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following package was automatically installed and is no longer required:
+  libnvidia-common-460
+Use &#39;apt autoremove&#39; to remove it.
+The following NEW packages will be installed:
+  xvfb
+0 upgraded, 1 newly installed, 0 to remove and 73 not upgraded.
+Need to get 785 kB of archives.
+After this operation, 2,271 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 xvfb amd64 2:1.19.6-1ubuntu4.11 [785 kB]
+Fetched 785 kB in 1s (1,456 kB/s)
+Selecting previously unselected package xvfb.
+(Reading database ... 155653 files and directories currently installed.)
+Preparing to unpack .../xvfb_2%3a1.19.6-1ubuntu4.11_amd64.deb ...
+Unpacking xvfb (2:1.19.6-1ubuntu4.11) ...
+Setting up xvfb (2:1.19.6-1ubuntu4.11) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Collecting pyvirtualdisplay
+  Downloading PyVirtualDisplay-3.0-py3-none-any.whl (15 kB)
+Installing collected packages: pyvirtualdisplay
+Successfully installed pyvirtualdisplay-3.0
+</pre></div>
+</div>
+</div>
 </div>
 <p>以下のプログラムを実行して描画に必要なディスプレイの起動をします．</p>
 <div class="cell docutils container">
@@ -1459,7 +1535,6 @@ R_t=r_{t+1}+\gamma R_{t+1}
     <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;CartPole-v1&#39;</span><span class="p">)</span>
 
     <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># 描画のための記述</span>
-    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> <span class="c1"># 描画のための記述</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span> <span class="c1"># 描画をきれいにするための記述</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 描画をきれいにするための記述</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 描画をきれいにするための記述</span>
@@ -1473,7 +1548,7 @@ R_t=r_{t+1}+\gamma R_{t+1}
 
         <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
-    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">figure</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
+    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">images</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
     <span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">generatedAnimation</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">()))</span> <span class="c1"># 描画のための記述</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -1505,13 +1580,11 @@ R_t=r_{t+1}+\gamma R_{t+1}
 
         <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
-    <span class="n">dpi</span> <span class="o">=</span> <span class="mi">72</span> <span class="c1"># 描画のための記述</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">dpi</span><span class="p">,</span> <span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">dpi</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> <span class="c1"># 描画のための記述</span>
-    <span class="n">patch</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># 描画のための記述</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
-    <span class="n">animate</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">patch</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="c1"># 描画のための記述</span>
-    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
+    <span class="n">moment</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># 描画のための記述</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="n">moment</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">update</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
     <span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">generatedAnimation</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">()))</span> <span class="c1"># 描画のための記述</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -1536,7 +1609,6 @@ R_t=r_{t+1}+\gamma R_{t+1}
     <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;CartPole-v1&#39;</span><span class="p">)</span>
 
     <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -1550,7 +1622,7 @@ R_t=r_{t+1}+\gamma R_{t+1}
 
         <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
-    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">figure</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">images</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">generatedAnimation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;cartpole-01.gif&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># ここだけ変化．</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
