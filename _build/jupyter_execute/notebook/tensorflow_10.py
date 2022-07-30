@@ -1090,7 +1090,6 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import gym
-from IPython import display
 import matplotlib.pyplot as plt
 from matplotlib import animation
 
