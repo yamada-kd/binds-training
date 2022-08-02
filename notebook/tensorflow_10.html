@@ -1702,6 +1702,11 @@ Successfully installed pyvirtualdisplay-3.0
 <p>Q 学習に深層学習法を利用した深層 Q 学習という方法を紹介します．</p>
 <div class="section" id="id17">
 <h3><span class="section-number">10.4.1. </span>深層学習と Q 学習<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>Q 値の更新式を再掲します．更新された Q 値を <span class="math notranslate nohighlight">\(Q'\)</span>，環境遷移前の Q 値を <span class="math notranslate nohighlight">\(Q\)</span>，状態を <span class="math notranslate nohighlight">\(s\)</span>，行動を <span class="math notranslate nohighlight">\(a\)</span>，獲得した報酬を <span class="math notranslate nohighlight">\(r\)</span>，環境遷移後の状態を <span class="math notranslate nohighlight">\(s'\)</span>，環境遷移後にとり得る行動を <span class="math notranslate nohighlight">\(a'\)</span> と書きます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle Q'(s,a)=Q(s,a)+\alpha(r+\gamma\max Q(s',a')-Q(s,a))
+\)</span></p>
+<p>これにたいしてニューラルネットワークの学習に用いる教師データは <span class="math notranslate nohighlight">\(r+\gamma\max Q(s',a')\)</span> の部分です．停止条件に到達した場合は，<span class="math notranslate nohighlight">\(s'\)</span> も <span class="math notranslate nohighlight">\(a'\)</span> もないので，<span class="math notranslate nohighlight">\(r\)</span> のみが教師データになります．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
