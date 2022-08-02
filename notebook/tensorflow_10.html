@@ -1676,7 +1676,7 @@ R_t=r_{t+1}+\gamma R_{t+1}
 <p>Q 学習に深層学習法を利用した深層 Q 学習という方法を紹介します．</p>
 <div class="section" id="id17">
 <h3><span class="section-number">10.4.1. </span>深層学習と Q 学習<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
-<p>上の節で紹介した Q 学習法は環境（や行動）のサイズが大きくなるととても大きな計算時間が必要となります．すべての場合における Q テーブルを作成するからです．それを避けるために，Q テーブルを深層学習法を用いて近似しようという試みがありますが，それが深層 Q 学習法．英語だと Deep Q Network（DQN）と言います．</p>
+<p>上の節で紹介した Q 学習法は環境（や行動）のサイズが大きくなるととても大きな計算時間が必要となります．すべての場合における Q テーブルを作成するからです．それを避けるために，Q テーブルを深層学習法を用いて近似しようという試みがありますが，それが深層 Q 学習法です．英語だと Deep Q Network（DQN）と言います．</p>
 </div>
 <div class="section" id="id18">
 <h3><span class="section-number">10.4.2. </span>教師データ<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
@@ -1686,23 +1686,333 @@ R_t=r_{t+1}+\gamma R_{t+1}
 \displaystyle Q'(s,a)=Q(s,a)+\alpha(r+\gamma\max Q(s',a')-Q(s,a))
 \)</span></p>
 <p>これにたいしてニューラルネットワークの学習に用いる教師データは <span class="math notranslate nohighlight">\(r+\gamma\max Q(s',a')\)</span> の部分です．停止条件に到達した場合は，<span class="math notranslate nohighlight">\(s'\)</span> も <span class="math notranslate nohighlight">\(a'\)</span> もないので，<span class="math notranslate nohighlight">\(r\)</span> のみが教師データになります．深層 Q 学習に登場するニューラルネットワークはこの教師データと同じような出力ができるように成長します．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>強化学習なのに教師あり学習．不思議ですね．</p>
+</div>
 </div>
 <div class="section" id="id19">
 <h3><span class="section-number">10.4.3. </span>計算の概要<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
-<p>深層 Q 学習がどのように計算されるかについて紹介します．エージェントは 2 個のニューラルネットワークを持ちます．ひとつは Q ネットワークと呼ばれるもので，もうひとつはターゲットネットワークと呼ばれるものです．</p>
+<p>深層 Q 学習がどのように計算されるかについて紹介します．エージェントは 2 個のニューラルネットワークを持ちます．ひとつは Q ネットワークと呼ばれるもので，もうひとつはターゲットネットワークと呼ばれるものです．Q ネットワークは Q 値を学習するためのネットワークです．学習の最中にもニューラルネットワークによって Q 値は常に計算され続けるのですが，その計算にこのネットワークを使うのは良くなさそうです．常に別の条件（パラメータ）によって Q 値を計算してしまうからです．よって，パラメータ更新の頻度が少ない別のネットワークを利用して Q 値を計算しますが，それがターゲットネットワークです．</p>
 <ol class="simple">
 <li><p>環境の初期化をする．</p></li>
-<li><p>エージェント</p></li>
+<li><p>エージェントによる行動選択をする．このときのネットワークにはターゲットネットワークを利用する．</p></li>
+<li><p>環境を進めて状態を得る．また，状態を経験バッファ（後で説明）に溜める．</p></li>
+<li><p>経験バッファに溜めたデータを用いて Q ネットワークを学習させる．</p></li>
+<li><p>停止条件に達したら環境を停止．</p></li>
+<li><p>ターゲットネットワークの更新（Q ネットワークのパラメータに同期）．</p></li>
+<li><p>上の 1 から 6 を繰り返す．</p></li>
 </ol>
+<p>実際の実装においては，性能を向上させるためのいくつかのテクニックを利用します．次の項でそれらを紹介します．</p>
 </div>
 <div class="section" id="id20">
 <h3><span class="section-number">10.4.4. </span>性能向上テクニック<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>前述のように<strong>ターゲットネットワークの利用</strong>をすることで常にパラメータが成長させられる Q ネットワークによって Q 値を生成するという不安定さを関係することができます．ターゲットネットワークの構造は Q ネットワークと完全に一致します．</p>
+<p><strong>経験再生法</strong>（<strong>Experience Replay</strong>）は強化学習の最中にミニバッチ学習法を利用すための方法です．環境を進めることで，状態やそのときの行動や停止判定の情報を得ることができますが，その都度にネットワークのパラメータを更新するのではなく，ある一定の情報（経験）が収集された時点ではじめて学習を行う方法です．この経験をどれだけ蓄積するかはハイパーパラメータです．その経験を溜めるものを経験バッファと呼びます．以下のコードでは最大で 512 個の経験を溜めます．新しい経験を記憶した時点で古い記憶を消します．</p>
+<p>イプシロングリーディ法はイプシロンの確率でエージェントにランダムな行動を選択させる方法ですが，この<strong>イプシロンの減衰</strong>をさせることで学習を経るにつれてランダムな行動を減らすという戦略をとることがあります．</p>
 </div>
 <div class="section" id="id21">
 <h3><span class="section-number">10.4.5. </span>取り組む問題<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>この節では上の節で紹介した CartPole というゲームを解きます．台車の上に設置されている棒が倒れないように台車を動かすゲームです．エージェントが選択できる行動は「台車を右に動かす」または「台車を左に動かす」の 2 個です．環境を進めることで得られる状態は前述のように「台車の位置」，「台車の速さ」，「棒の角度」，「棒の角速度」の 4 個です．ゲームの停止条件は「棒の角度が 12 度，または，-12 度より大きく，または，小さくなったとき」，「台車の位置がディスプレイの端に位置（2.4 または -2.4）したとき」，「500 単位時間ゲームが続いたとき」です．</p>
 </div>
 <div class="section" id="id22">
 <h3><span class="section-number">10.4.6. </span>深層 Q 学習法の実装<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p>この問題を解決するために以下のような深層 Q 学習法の実装コードを実行します．少々行儀が悪いのですが，強化学習が終わった直後にテストを行ってその様子を可視化します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ハイパーパラメータの設定．</span>
+    <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="c1"># イプシロングリーディ法のハイパーパラメータ．</span>
+    <span class="n">epsilonDecayRate</span> <span class="o">=</span> <span class="mf">0.99</span> <span class="c1"># イプシロンの値を学習が進むにつれて小さくするための値．</span>
+    <span class="n">minimumEpsilon</span> <span class="o">=</span> <span class="mf">0.06</span> <span class="c1"># イプシロンの値はこの値以上は維持する．</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.9</span>
+    <span class="n">replaySize</span> <span class="o">=</span> <span class="mi">512</span> <span class="c1"># 記憶を溜めるサイズ．</span>
+    <span class="n">minibatchSize</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">middleUnitSize</span> <span class="o">=</span> <span class="mi">128</span>
+    <span class="n">dropoutRate</span> <span class="o">=</span> <span class="mf">0.2</span>
+    
+    <span class="c1"># 環境の生成．</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 再現性確保のため乱数の種は絶対に指定する．</span>
+    
+    <span class="c1"># 環境情報の取得．</span>
+    <span class="n">actionShape</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span> <span class="c1"># ニューラルネットワークの出力サイズを指定するため取得．</span>
+    <span class="n">observationShape</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># ニューラルネットワークの入力サイズを指定するため取得．</span>
+    
+    <span class="c1"># リプレイバッファの生成．</span>
+    <span class="n">experiences</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">replaySize</span><span class="p">)</span> <span class="c1"># 記憶を溜めるためのリスト．</span>
+    
+    <span class="c1"># エージェントの生成．</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">epsilonDecayRate</span><span class="p">,</span> <span class="n">minimumEpsilon</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">actionShape</span><span class="p">,</span> <span class="n">observationShape</span><span class="p">,</span> <span class="n">middleUnitSize</span><span class="p">,</span> <span class="n">minibatchSize</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">)</span>
+      
+    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">rewards</span><span class="p">,</span> <span class="n">costs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span> <span class="c1"># エピソード毎に報酬とニューラルネットワークの学習コストを溜めるリスト．</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span> <span class="c1"># エージェントによる行動の選択．これはターゲットネットワークによる選択．</span>
+            <span class="n">newObservation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="c1"># 環境を進める．</span>
+            <span class="n">rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+            <span class="n">experiences</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;observation&quot;</span><span class="p">:</span> <span class="n">observation</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="n">action</span><span class="p">,</span> <span class="s2">&quot;reward&quot;</span><span class="p">:</span> <span class="n">reward</span><span class="p">,</span> <span class="s2">&quot;newObservation&quot;</span><span class="p">:</span> <span class="n">newObservation</span><span class="p">,</span> <span class="s2">&quot;done&quot;</span><span class="p">:</span> <span class="n">done</span><span class="p">})</span> <span class="c1"># 経験を蓄積．</span>
+            <span class="n">observation</span> <span class="o">=</span> <span class="n">newObservation</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">experiences</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">minibatchSize</span><span class="p">:</span> <span class="c1"># ミニバッチのサイズに達するまで経験がたまったらニューラルネットワークの学習を開始する．</span>
+                <span class="n">cost</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">experiences</span><span class="p">)</span> <span class="c1"># Qネットワーク（qModel）の学習．</span>
+                <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+        <span class="n">agent</span><span class="o">.</span><span class="n">update</span><span class="p">()</span> <span class="c1"># エピソードの最後にターゲットネットワーク（targetModel）の更新．</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Episode: </span><span class="si">{:3d}</span><span class="s2">, Number of steps: </span><span class="si">{:3d}</span><span class="s2">, Mean reward: </span><span class="si">{:3.1f}</span><span class="s2">, Cost: </span><span class="si">{:5.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">costs</span><span class="p">)))</span>
+        
+    <span class="c1"># 以下はテスト結果を可視化するため．</span>
+    <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;rgb_array&quot;</span><span class="p">))</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[[</span><span class="n">frame</span><span class="p">]]</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span>
+        <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rgb_array&quot;</span><span class="p">))</span> <span class="c1"># 描画のための記述</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">frame</span><span class="p">])</span>
+    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">frames</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">generatedAnimation</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">()))</span> <span class="c1"># 描画のための記述</span>
+    <span class="n">generatedAnimation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;cartpole-01.gif&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Agent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">epsilonDecayRate</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">minimumEpsilon</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">actionShape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observationShape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">middleUnitSize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">minibatchSize</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilonDecayRate</span> <span class="o">=</span> <span class="n">epsilonDecayRate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minimumEpsilon</span> <span class="o">=</span> <span class="n">minimumEpsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span> <span class="o">=</span> <span class="n">actionShape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observationShape</span> <span class="o">=</span> <span class="n">observationShape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">middleUnitSize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">)</span> <span class="c1"># Q値をその都度学習するためのネットワーク．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">middleUnitSize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">)</span> <span class="c1"># Q値を計算するためのネットワーク．エピソードが終わる度にQネットワークと同じパラメータに同期される．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minibatchSize</span> <span class="o">=</span> <span class="n">minibatchSize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mseComputer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">MeanSquaredError</span><span class="p">()</span> <span class="c1"># Q値は右に動かすか左に動かすかの値なのでそれと同じになるように二乗誤差をコストとする．元の論文だとフーバーロスを利用．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+    
+    <span class="c1"># 以下の関数はイプシロングリーディ法を利用して行動を選択する関数．</span>
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span><span class="p">)</span> <span class="c1"># イプシロンの確率でランダムに行動する．</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="p">(</span><span class="n">observation</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="c1"># 最もQ値が高い行動を選択．予測はターゲットネットワークで行う．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilonDecay</span><span class="p">()</span> <span class="c1"># イプシロンの値を少しずつ小さくする．</span>
+        <span class="k">return</span> <span class="n">action</span>
+    
+    <span class="c1"># 以下の関数はイプシロンを少しずつ小さくするためのもの．</span>
+    <span class="k">def</span> <span class="nf">epsilonDecay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilonDecayRate</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimumEpsilon</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimumEpsilon</span>
+    
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="n">flag</span> <span class="c1"># ここで学習させるのはQネットワークの方なのでQネットワークの記述．</span>
+            <span class="n">ty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+            <span class="n">costvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mseComputer</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">ty</span><span class="p">)</span> <span class="c1"># コストを計算．</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">costvalue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 勾配の計算．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span> <span class="c1"># 最適化．</span>
+        <span class="k">return</span> <span class="n">costvalue</span>
+    
+    <span class="c1"># 以下の関数はQネットワークの学習のため．</span>
+    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiences</span><span class="p">):</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">experiences</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minibatchSize</span><span class="p">)</span> <span class="c1"># リプレイバッファからミニバッチサイズ分のデータを抽出．</span>
+        <span class="n">observationInstances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;observation&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">])</span> <span class="c1"># ニューラルネットワークの入力値を取り出しているだけ．</span>
+        <span class="n">qValues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="p">(</span><span class="n">observationInstances</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="c1"># Q値を計算．</span>
+        <span class="n">newObservationInstances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;newObservation&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">])</span> <span class="c1"># ニューラルネットワークの入力値を取り出しているだけ．</span>
+        <span class="n">newQValues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="p">(</span><span class="n">newObservationInstances</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="c1"># Q値を計算．</span>
+        <span class="c1"># 以下のforは教師データを作成するための記述．</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;reward&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">]:</span>
+                <span class="n">qValues</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">qValues</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">newQValues</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">learncostvalue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">observationInstances</span><span class="p">,</span> <span class="n">qValues</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">learncostvalue</span>
+    
+    <span class="c1"># 以下の関数はターゲットネットワークの更新（Qネットワークと同じにすること）のため．</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+
+<span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">middleUnitSize</span><span class="p">,</span> <span class="n">outputSize</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">middleUnitSize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">middleUnitSize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">outputSize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropoutRate</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">learningFlag</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">learningFlag</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">learningFlag</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 出力はソフトマックス関数を使って確率にしても良いかもしれない．</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>実行した結果，エピソードに対して，ゲームを継続することができたステップ数，エピソード毎の平均報酬とニューラルネットワークのコストが出力されました．ステップ数は学習を経るにつれて増えていると思います．また，平均報酬は常に <code class="docutils literal notranslate"><span class="pre">1.0</span></code> となっているはずです．ゲーム終了までの間，1 単位時間ゲームを継続すると報酬が 1 ポイントもらえるというシステムなので，平均報酬は <code class="docutils literal notranslate"><span class="pre">1.0</span></code> となるのです．</p>
+<p>また，テストを実行した結果以下のような動画が出力されたと思います．GPU の利用や乱数の種の状況によっては異なる結果が得られているかもしれません．棒が倒れずに維持されています．</p>
+<p>以下の部分ではハイパーパラメータを設定します．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># ハイパーパラメータの設定．</span>
+    <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="c1"># イプシロングリーディ法のハイパーパラメータ．</span>
+    <span class="n">epsilonDecayRate</span> <span class="o">=</span> <span class="mf">0.99</span> <span class="c1"># イプシロンの値を学習が進むにつれて小さくするための値．</span>
+    <span class="n">minimumEpsilon</span> <span class="o">=</span> <span class="mf">0.06</span> <span class="c1"># イプシロンの値はこの値以上は維持する．</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.9</span>
+    <span class="n">replaySize</span> <span class="o">=</span> <span class="mi">512</span> <span class="c1"># 記憶を溜めるサイズ．</span>
+    <span class="n">minibatchSize</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">middleUnitSize</span> <span class="o">=</span> <span class="mi">128</span>
+    <span class="n">dropoutRate</span> <span class="o">=</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+<p>以下の部分では環境を静止して，環境の情報を取得して，経験バッファを生成します．再現性確保のために乱数の種は指定すべきです．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 環境の生成．</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 再現性確保のため乱数の種は絶対に指定する．</span>
+    
+    <span class="c1"># 環境情報の取得．</span>
+    <span class="n">actionShape</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span> <span class="c1"># ニューラルネットワークの出力サイズを指定するため取得．</span>
+    <span class="n">observationShape</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># ニューラルネットワークの入力サイズを指定するため取得．</span>
+    
+    <span class="c1"># リプレイバッファの生成．</span>
+    <span class="n">experiences</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">replaySize</span><span class="p">)</span> <span class="c1"># 記憶を溜めるためのリスト．</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>何をするにしても乱数の種は絶対に指定しましょう．</p>
+</div>
+<p>以下の部分はエージェントを生成するためのものです．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># エージェントの生成．</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">epsilonDecayRate</span><span class="p">,</span> <span class="n">minimumEpsilon</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">actionShape</span><span class="p">,</span> <span class="n">observationShape</span><span class="p">,</span> <span class="n">middleUnitSize</span><span class="p">,</span> <span class="n">minibatchSize</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>エージェントはクラス <code class="docutils literal notranslate"><span class="pre">Agent</span></code> によって生成されますが，これについて説明します．以下の部分でこのクラスで利用する変数等を生成します．ネットワークは Q ネットワークとターゲットネットワークの 2 個を生成します．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">epsilonDecayRate</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">minimumEpsilon</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">actionShape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observationShape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">middleUnitSize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">minibatchSize</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilonDecayRate</span> <span class="o">=</span> <span class="n">epsilonDecayRate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minimumEpsilon</span> <span class="o">=</span> <span class="n">minimumEpsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span> <span class="o">=</span> <span class="n">actionShape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observationShape</span> <span class="o">=</span> <span class="n">observationShape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">middleUnitSize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">)</span> <span class="c1"># Q値をその都度学習するためのネットワーク．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">middleUnitSize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span><span class="p">,</span> <span class="n">dropoutRate</span><span class="p">)</span> <span class="c1"># Q値を計算するためのネットワーク．エピソードが終わる度にQネットワークと同じパラメータに同期される．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minibatchSize</span> <span class="o">=</span> <span class="n">minibatchSize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mseComputer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">MeanSquaredError</span><span class="p">()</span> <span class="c1"># Q値は右に動かすか左に動かすかの値なのでそれと同じになるように二乗誤差をコストとする．元の論文だとフーバーロスを利用．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>以下の部分はイプシロングリーディ法の記述ですが，このコードにおいてはイプシロン減衰も行うのでその記述もあります．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 以下の関数はイプシロングリーディ法を利用して行動を選択する関数．</span>
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionShape</span><span class="p">)</span> <span class="c1"># イプシロンの確率でランダムに行動する．</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="p">(</span><span class="n">observation</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="c1"># 最もQ値が高い行動を選択．予測はターゲットネットワークで行う．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilonDecay</span><span class="p">()</span> <span class="c1"># イプシロンの値を少しずつ小さくする．</span>
+        <span class="k">return</span> <span class="n">action</span>
+    
+    <span class="c1"># 以下の関数はイプシロンを少しずつ小さくするためのもの．</span>
+    <span class="k">def</span> <span class="nf">epsilonDecay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilonDecayRate</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimumEpsilon</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimumEpsilon</span>
+</pre></div>
+</div>
+<p>以下の部分は Subclassing API のいつもの記述です．注意すべき点は，これで学習させられるネットワークは Q ネットワークの方であるということです．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="n">flag</span> <span class="c1"># ここで学習させるのはQネットワークの方なのでQネットワークの記述．</span>
+            <span class="n">ty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+            <span class="n">costvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mseComputer</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">ty</span><span class="p">)</span> <span class="c1"># コストを計算．</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">costvalue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span> <span class="c1"># 勾配の計算．</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span> <span class="c1"># 最適化．</span>
+        <span class="k">return</span> <span class="n">costvalue</span>
+</pre></div>
+</div>
+<p>以下の記述は Q ネットワークのパラメータ更新のための記述です．経験バッファからミニバッチサイズ分のインスタンスを取り出し，そこから状態と次の状態を抽出し，それに対してターゲットネットワークを利用して Q 値を計算します．その Q 値を教師データとして Q ネットワークを学習させます．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 以下の関数はQネットワークの学習のため．</span>
+    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiences</span><span class="p">):</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">experiences</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minibatchSize</span><span class="p">)</span> <span class="c1"># リプレイバッファからミニバッチサイズ分のデータを抽出．</span>
+        <span class="n">observationInstances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;observation&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">])</span> <span class="c1"># ニューラルネットワークの入力値を取り出しているだけ．</span>
+        <span class="n">qValues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="p">(</span><span class="n">observationInstances</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="c1"># Q値を計算．</span>
+        <span class="n">newObservationInstances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;newObservation&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">])</span> <span class="c1"># ニューラルネットワークの入力値を取り出しているだけ．</span>
+        <span class="n">newQValues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="p">(</span><span class="n">newObservationInstances</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="c1"># Q値を計算．</span>
+        <span class="c1"># 以下のforは教師データを作成するための記述．</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;reward&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">]:</span>
+                <span class="n">qValues</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">qValues</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">newQValues</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">learncostvalue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">observationInstances</span><span class="p">,</span> <span class="n">qValues</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">learncostvalue</span>
+</pre></div>
+</div>
+<p>以下の記述はターゲットネットワークを更新するためのものです．ターゲットネットワークの更新方法は，Q ネットワークのパラメータをそのまま利用するハードアップデートと一部を利用するソフトアップデートがあるのですが，ここではハードアップデートを利用しました．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 以下の関数はターゲットネットワークの更新（Qネットワークと同じにすること）のため．</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetModel</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qModel</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>さらに，<code class="docutils literal notranslate"><span class="pre">main()</span></code> に戻って以下の記述ですが，これが強化学習を進めるためのものです．環境をリセットして，エージェントによる行動の選択，経験バッファに経験を溜めて，Q ネットワークを学習，エピソード終了後にターゲットネットワークを更新します．特に難しいところはないように思います．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">rewards</span><span class="p">,</span> <span class="n">costs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span> <span class="c1"># エピソード毎に報酬とニューラルネットワークの学習コストを溜めるリスト．</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span> <span class="c1"># エージェントによる行動の選択．これはターゲットネットワークによる選択．</span>
+            <span class="n">newObservation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="c1"># 環境を進める．</span>
+            <span class="n">rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+            <span class="n">experiences</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;observation&quot;</span><span class="p">:</span> <span class="n">observation</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="n">action</span><span class="p">,</span> <span class="s2">&quot;reward&quot;</span><span class="p">:</span> <span class="n">reward</span><span class="p">,</span> <span class="s2">&quot;newObservation&quot;</span><span class="p">:</span> <span class="n">newObservation</span><span class="p">,</span> <span class="s2">&quot;done&quot;</span><span class="p">:</span> <span class="n">done</span><span class="p">})</span> <span class="c1"># 経験を蓄積．</span>
+            <span class="n">observation</span> <span class="o">=</span> <span class="n">newObservation</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">experiences</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">minibatchSize</span><span class="p">:</span> <span class="c1"># ミニバッチのサイズに達するまで経験がたまったらニューラルネットワークの学習を開始する．</span>
+                <span class="n">cost</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">experiences</span><span class="p">)</span> <span class="c1"># Qネットワーク（qModel）の学習．</span>
+                <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+        <span class="n">agent</span><span class="o">.</span><span class="n">update</span><span class="p">()</span> <span class="c1"># エピソードの最後にターゲットネットワーク（targetModel）の更新．</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Episode: </span><span class="si">{:3d}</span><span class="s2">, Number of steps: </span><span class="si">{:3d}</span><span class="s2">, Mean reward: </span><span class="si">{:3.1f}</span><span class="s2">, Cost: </span><span class="si">{:5.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">costs</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>最後の以下の部分はテスト結果を可視化するための記述です．本来は学習とテストのコードは分けた方が良いです．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 以下はテスト結果を可視化するため．</span>
+    <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;rgb_array&quot;</span><span class="p">))</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[[</span><span class="n">frame</span><span class="p">]]</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">observation</span><span class="p">)</span>
+        <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rgb_array&quot;</span><span class="p">))</span> <span class="c1"># 描画のための記述</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">frame</span><span class="p">])</span>
+    <span class="n">generatedAnimation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">frames</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 描画のための記述</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">generatedAnimation</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">()))</span> <span class="c1"># 描画のための記述</span>
+    <span class="n">generatedAnimation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;cartpole-01.gif&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
