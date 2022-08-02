@@ -18,6 +18,7 @@ parts:
   chapters:
   - file: notebook/tensorflow_01
   - file: notebook/tensorflow_02
+  - file: notebook/tensorflow_06
   - file: notebook/tensorflow_07
   - file: notebook/tensorflow_08
   - file: notebook/tensorflow_10
