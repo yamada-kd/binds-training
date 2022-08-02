@@ -1402,6 +1402,8 @@ if __name__ == "__main__":
 # また，テストを実行した結果以下のような動画が出力されたと思います．GPU の利用や乱数の種の状況によっては異なる結果が得られているかもしれません．棒が倒れずに維持されています．
 # 
 # <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif?raw=1" width="" />
+# 
+# ![SegmentLocal](https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif "segment")
 
 # 以下の部分ではハイパーパラメータを設定します．
 # 
