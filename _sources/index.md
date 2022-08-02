@@ -82,4 +82,5 @@ Google Colaboratory（グーグルコラボラトリー）は Jupyter Notebook �
 ```python
 print("This is a code cell.")
 ```
-https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif
+
+![giphy](https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif)
