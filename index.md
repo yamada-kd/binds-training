@@ -37,7 +37,7 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-
+![giphy](https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif)
 ---
 **scikit-learn**
 ^^^
