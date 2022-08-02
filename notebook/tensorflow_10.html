@@ -1875,7 +1875,6 @@ R_t=r_{t+1}+\gamma R_{t+1}
 </div>
 <p>実行した結果，エピソードに対して，ゲームを継続することができたステップ数，エピソード毎の平均報酬とニューラルネットワークのコストが出力されました．ステップ数は学習を経るにつれて増えていると思います．また，平均報酬は常に <code class="docutils literal notranslate"><span class="pre">1.0</span></code> となっているはずです．ゲーム終了までの間，1 単位時間ゲームを継続すると報酬が 1 ポイントもらえるというシステムなので，平均報酬は <code class="docutils literal notranslate"><span class="pre">1.0</span></code> となるのです．</p>
 <p>また，テストを実行した結果以下のような動画が出力されたと思います．GPU の利用や乱数の種の状況によっては異なる結果が得られているかもしれません．棒が倒れずに維持されています．</p>
-<p><img alt="SegmentLocal" src="https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif" /></p>
 <p>以下の部分ではハイパーパラメータを設定します．</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># ハイパーパラメータの設定．</span>
     <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="c1"># イプシロングリーディ法のハイパーパラメータ．</span>
