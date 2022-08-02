@@ -1403,7 +1403,7 @@ if __name__ == "__main__":
 # 
 # <img src="https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif?raw=1" width="" />
 # 
-# ![giphy](https://github.com/yamada-kd/binds-training/blob/main/image/cartpole.gif)
+# [rain]:http://2.bp.blogspot.com/-GkAkf2Df5JY/VgJ6ytq6XAI/AAAAAAAAOWE/Vx5l-MeObbo/s1600/rain.gif
 # 
 
 # 以下の部分ではハイパーパラメータを設定します．
