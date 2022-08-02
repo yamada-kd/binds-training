@@ -961,7 +961,7 @@ if __name__ == "__main__":
 
 # 以下のようにすると複数の環境を一度に実行することができます．
 
-# In[3]:
+# In[ ]:
 
 
 #!/usr/bin/env python3
@@ -988,7 +988,7 @@ get_ipython().system(' pip install pyvirtualdisplay')
 
 # 以下のプログラムを実行して描画に必要なディスプレイの起動をします．
 
-# In[2]:
+# In[ ]:
 
 
 #!/usr/bin/env python3
@@ -1115,7 +1115,7 @@ if __name__ == "__main__":
 
 # もう 1 個の画像の生成方法です．以下のようなプログラムを実行します．
 
-# In[14]:
+# In[ ]:
 
 
 #!/usr/bin/env python3
