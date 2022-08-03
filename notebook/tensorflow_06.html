@@ -285,50 +285,45 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     8.1.2. トランスフォーマー
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     8.1.3. できること
+     8.1.2. できること
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id5">
    8.2. トランスフォーマー
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id6">
      8.2.1. トランスフォーマーの構造
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id7">
      8.2.2. 構成要素
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id8">
      8.2.3. 現実世界での利用方法
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id9">
    8.3. エンコーダーの実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id10">
      8.3.1. 普通のアテンション
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id11">
      8.3.2. 線形アテンション
     </a>
    </li>
@@ -366,50 +361,45 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     8.1.2. トランスフォーマー
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     8.1.3. できること
+     8.1.2. できること
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id5">
    8.2. トランスフォーマー
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id6">
      8.2.1. トランスフォーマーの構造
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id7">
      8.2.2. 構成要素
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id8">
      8.2.3. 現実世界での利用方法
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id9">
    8.3. エンコーダーの実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id10">
      8.3.1. 普通のアテンション
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id11">
      8.3.2. 線形アテンション
     </a>
    </li>
@@ -439,22 +429,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>アテンションの実装</p>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">8.1.2. </span>トランスフォーマー<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
-<p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
-<p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションという技術が利用されます．</p>
-<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" style="width: 100%;" /></a>
-<p>エンコーダーとデコーダー間のアテンション以外にも，エンコーダーとデコーダーの内部でもそれぞれアテンション（セルフアテンション）が計算されます．アテンションは文字列内における文字の関連性を計算します．</p>
-<p>トランスフォーマーは再帰型ニューラルネットワークで行うような文字の逐次的な処理が不要です．よって，計算機の並列化性能をより引き出せます．扱える文脈の長さも無限です（再帰型ニューラルネットワークでも理論上無限です．）．</p>
-<p>このトランスフォーマーはものすごい性能を発揮しており，これまでに作られてきた様々な構造を過去のものとしました．特に応用の範囲が広いのはトランスフォーマーのエンコーダーの部分です．BERT と呼ばれる方法を筆頭に自然言語からなる配列を入力にして何らかの分散表現を出力する方法として自然言語処理に関わる様々な研究開発に利用されています．</p>
-<p>（会話でトランスフォーマーという場合は，トランスフォーマーのエンコーダーまたはデコーダーのことを言っている場合があります．エンコーダー・デコーダー，エンコーダー，デコーダー，この3個でそれぞれできることが異なります．）</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>実用上，配列を入力にして配列を返す構造とだけ覚えておけば問題はないと思います．</p>
-</div>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">8.1.3. </span>できること<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.1.2. </span>できること<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Hugging Face で扱うことができるタスクは以下に示すものがあります．これ以外にもありますが自然言語処理に関する代表的なタスクを抽出しました．括弧内の文字列は実際に Hugging Face を利用する際に指定するオプションです（後で利用します．）．</p>
 <ul class="simple">
 <li><p>感情分析（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）：入力した文章が有する感情を予測</p></li>
@@ -469,25 +444,37 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
+<div class="section" id="id5">
+<h2><span class="section-number">8.2. </span>トランスフォーマー<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
-<h2><span class="section-number">8.2. </span>トランスフォーマー<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">8.2.1. </span>トランスフォーマーの構造<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
+<p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
+<p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションという技術が利用されます．</p>
+<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" style="width: 100%;" /></a>
+<p>エンコーダーとデコーダー間のアテンション以外にも，エンコーダーとデコーダーの内部でもそれぞれアテンション（セルフアテンション）が計算されます．アテンションは文字列内における文字の関連性を計算します．</p>
+<p>トランスフォーマーは再帰型ニューラルネットワークで行うような文字の逐次的な処理が不要です．よって，計算機の並列化性能をより引き出せます．扱える文脈の長さも無限です（再帰型ニューラルネットワークでも理論上無限です．）．</p>
+<p>このトランスフォーマーはものすごい性能を発揮しており，これまでに作られてきた様々な構造を過去のものとしました．特に応用の範囲が広いのはトランスフォーマーのエンコーダーの部分です．BERT と呼ばれる方法を筆頭に自然言語からなる配列を入力にして何らかの分散表現を出力する方法として自然言語処理に関わる様々な研究開発に利用されています．</p>
+<p>（会話でトランスフォーマーという場合は，トランスフォーマーのエンコーダーまたはデコーダーのことを言っている場合があります．エンコーダー・デコーダー，エンコーダー，デコーダー，この3個でそれぞれできることが異なります．）</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>実用上，配列を入力にして配列を返す構造とだけ覚えておけば問題はないと思います．</p>
+</div>
+</div>
 <div class="section" id="id7">
-<h3><span class="section-number">8.2.1. </span>トランスフォーマーの構造<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.2.2. </span>構成要素<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">8.2.2. </span>構成要素<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.2.3. </span>現実世界での利用方法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">8.2.3. </span>現実世界での利用方法<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
+<h2><span class="section-number">8.3. </span>エンコーダーの実装<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id10">
-<h2><span class="section-number">8.3. </span>エンコーダーの実装<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id11">
-<h3><span class="section-number">8.3.1. </span>普通のアテンション<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.1. </span>普通のアテンション<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">8.3.2. </span>線形アテンション<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">8.3.2. </span>線形アテンション<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
