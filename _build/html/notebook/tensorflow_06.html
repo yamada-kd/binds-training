@@ -438,7 +438,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>トランスフォーマーはアテンションの最も有用な応用先のひとつです．トランスフォーマーの構造やその構成要素を紹介します．</p>
 <div class="section" id="id6">
 <h3><span class="section-number">8.2.1. </span>基本構造<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>トランスフォーマーとはアテンションとポジショナルエンコードといわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
+<p>トランスフォーマーとはアテンションと位置エンコード（ポジショナルエンコード）といわれる技術を用いて，再帰型ニューラルネットワークとは異なる方法で文字列を処理することができるニューラルネットワークの構造です．機械翻訳や質問応答に利用することができます．</p>
 <p>例えば，機械翻訳の場合，翻訳したい文字列を入力データ，翻訳結果の文字列を教師データとして利用します．構築した人工知能は翻訳したい文字列を入力値として受け取り，配列を出力します．配列の各要素は文字の個数と同じサイズのベクトル（その要素が何の文字なのかを示す確率ベクトル）です．</p>
 <p>トランスフォーマーはエンコーダーとデコーダーという構造からなります．エンコーダーは配列（機械翻訳の場合，翻訳したい配列）を入力にして，同じ長さの配列を出力します．デコーダーも配列（機械翻訳の場合，翻訳で得たい配列）とエンコーダーが出力した配列を入力にして同じ長さの配列（各要素は確率ベクトル）を出力します．エンコーダーが出力した配列情報をデコーダーで処理する際にアテンションが利用されます．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/transformer.svg?raw=1" style="width: 100%;" /></a>
@@ -453,6 +453,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id7">
 <h3><span class="section-number">8.2.2. </span>構成要素<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>トランスフォーマーは大きく分けると 3 個の要素から構成されています．アテンション（セルフアテンション），位置エンコード，ポイントワイズ MLP です．</p>
 </div>
 <div class="section" id="id8">
 <h3><span class="section-number">8.2.3. </span>現実世界での利用方法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
