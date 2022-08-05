@@ -458,7 +458,37 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id5">
 <h3><span class="section-number">8.1.3. </span>セルフアテンション<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>あるベクトル（ソースベクトル）の各要素が別のベクトル（ターゲットベクトル）のどの要素に関連性が強いかということを明らかにしたい際にはソース・ターゲットアテンションというアテンションを計算します．これに対してこの章ではセルフアテンションを主に扱うのでこれを紹介します．セルフアテンションとは配列データの各トークン間の関連性を計算するためのものです．</p>
+<p>セルフアテンションを視覚的に紹介します．ここでは，<span class="math notranslate nohighlight">\(x_1\)</span>，<span class="math notranslate nohighlight">\(x_2\)</span>，<span class="math notranslate nohighlight">\(x_3\)</span> という 3 個のトークン（要素）からなるベクトルを入力として <span class="math notranslate nohighlight">\(y_1\)</span>，<span class="math notranslate nohighlight">\(y_2\)</span>，<span class="math notranslate nohighlight">\(y_3\)</span> という 3 個のトークンからなるベクトルを得ようとします．各々のトークンもベクトルであるとします．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/selfAttention.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/selfAttention.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/selfAttention.svg?raw=1" style="width: 100%;" /></a>
+<p>アテンションの計算では最初に，<span class="math notranslate nohighlight">\(x_1\)</span> に 3 個の別々の重みパラメータを掛け，キー，バリュー，キューという値を得ます．図ではぞれぞれ，<span class="math notranslate nohighlight">\(k_1\)</span>，<span class="math notranslate nohighlight">\(v_1\)</span>，<span class="math notranslate nohighlight">\(q_1\)</span> と表されています．同様の計算を <span class="math notranslate nohighlight">\(x_2\)</span> と <span class="math notranslate nohighlight">\(x_3\)</span> についても行います．この図は既に <span class="math notranslate nohighlight">\(y_1\)</span> の計算は終了して <span class="math notranslate nohighlight">\(y_2\)</span> の計算が行われているところなので，<span class="math notranslate nohighlight">\(x_2\)</span> を例に計算を進めます．<span class="math notranslate nohighlight">\(x_2\)</span> に対して計算したキューの値，<span class="math notranslate nohighlight">\(q_2\)</span> をすべてのキーの値との内積を計算します．図中の <span class="math notranslate nohighlight">\(\odot\)</span> は内積を計算する記号です．これによって得られた 3 個のスカラ値をその合計値が 1 となるように標準化します．これによって，0.7，0.2，0.1 という値が得られています．次にこれらの値をバリューに掛けます．これによって得られた 3 個のベクトルを足し合わせた値が <span class="math notranslate nohighlight">\(y_2\)</span> です．これがセルフアテンションの計算です．キューとキーの内積を計算することで，元のトークンと別のトークンの関係性を計算し，それを元のトークンに由来するバリューに掛けることで最終的に得られるベクトル（ここでは <span class="math notranslate nohighlight">\(y_2\)</span>）は別のすべてのトークンの情報を保持しているということになります．文脈情報を下流のネットワークに伝えることができるということです．</p>
+<p>以下では数式を利用してセルフアテンションを紹介します．入力配列データを <span class="math notranslate nohighlight">\(x\)</span> とします．これは，<span class="math notranslate nohighlight">\(N\)</span> 行 <span class="math notranslate nohighlight">\(m\)</span> 列の行列であるとします．つまり，<span class="math notranslate nohighlight">\(N\)</span> 個のトークンからなる配列データです．各トークンの特徴量は <span class="math notranslate nohighlight">\(m\)</span> の長さからなるということです．セルフアテンションの計算では最初に，キュー，キー，バリューの値を計算するのでした．<span class="math notranslate nohighlight">\(W_q\)</span>，<span class="math notranslate nohighlight">\(W_k\)</span>，<span class="math notranslate nohighlight">\(W_v\)</span> という 3 個の重みパラメータを用いて以下のように計算します．この重みパラメータはそれぞれ <span class="math notranslate nohighlight">\(m\)</span> 行 <span class="math notranslate nohighlight">\(d\)</span> 列であるとします．</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4f789f28-8275-436f-8de9-7688367f5eee">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-4f789f28-8275-436f-8de9-7688367f5eee" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+Q&amp;=&amp;xW_q\\
+K&amp;=&amp;xW_k\\
+V&amp;=&amp;xW_v
+\end{eqnarray}\]</div>
+<p>$</p>
+<p>これらを用いてアテンション <span class="math notranslate nohighlight">\(A\)</span> は以下のように計算します．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle A(x)=\sigma\left(\frac{QK^\mathsf{T}}{\sqrt{d}}\right)V
+\)</span></p>
+<p>この式の <span class="math notranslate nohighlight">\(\sigma\)</span> は <span class="math notranslate nohighlight">\(QK^\mathsf{T}\)</span> の行方向に対して計算するソフトマックス関数です．これでアテンションの計算は終わりなのですが，アテンションの計算に出てくる項の掛け算の順番を変更するという操作でアテンションの計算量を改良した線形アテンションというものがあるのでそれもあわせて紹介します．線形アテンション <span class="math notranslate nohighlight">\(L\)</span> は以下のように計算します．</p>
+<p><span class="math notranslate nohighlight">\(
+L(x)=\tau(Q)(\tau(K)^\mathsf{T}V)
+\)</span></p>
+<p>ここで，<span class="math notranslate nohighlight">\(\tau\)</span> は以下の関数です．</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight" id="equation-853659bd-b4c8-49b3-9b1e-19d6b8cffaf9">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-853659bd-b4c8-49b3-9b1e-19d6b8cffaf9" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+\displaystyle \tau(x)=\begin{cases}
+x+1 &amp; (x &gt; 0) \\
+e^x &amp; (x \leq 0)
+\end{cases}
+\end{eqnarray}\]</div>
+<p>$</p>
+<p>アテンションの時間計算量は配列の長さ <span class="math notranslate nohighlight">\(N\)</span> に対して <span class="math notranslate nohighlight">\(O(N^2)\)</span> なのですが，線形アテンションの時間計算量は線形 <span class="math notranslate nohighlight">\(O(N)\)</span> です．とても簡単な工夫なのに恐ろしくスピードアップしています．</p>
 </div>
 </div>
 <div class="section" id="id6">
