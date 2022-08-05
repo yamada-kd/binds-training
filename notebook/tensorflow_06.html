@@ -456,17 +456,12 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id8">
 <h3><span class="section-number">8.2.3. </span>現実世界での利用方法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>感情分析（<code class="docutils literal notranslate"><span class="pre">sentiment-analysis</span></code>）：入力した文章が有する感情を予測</p></li>
-<li><p>特徴抽出（<code class="docutils literal notranslate"><span class="pre">feature-extraction</span></code>）：入力した文章をその特徴を示すベクトルに変換</p></li>
-<li><p>穴埋め（<code class="docutils literal notranslate"><span class="pre">fill-mask</span></code>）：文章中のマスクされた単語を予測</p></li>
-<li><p>固有表現抽出（<code class="docutils literal notranslate"><span class="pre">ner</span></code>）：入力した文章中の固有表現（名前とか場所とか）にラベルをつける</p></li>
-<li><p>質問応答（<code class="docutils literal notranslate"><span class="pre">question-answering</span></code>）：質問文とその答えが含まれる何らかの説明文を入力として解答文を生成</p></li>
-<li><p>要約（<code class="docutils literal notranslate"><span class="pre">summarization</span></code>）：入力した文章を要約</p></li>
-<li><p>文章生成（<code class="docutils literal notranslate"><span class="pre">text-generation</span></code>）：文章を入力にして，その文章に続く文章を生成</p></li>
-<li><p>翻訳（<code class="docutils literal notranslate"><span class="pre">translation</span></code>）：文章を他の言語に翻訳</p></li>
-<li><p>ゼロショット文章分類（<code class="docutils literal notranslate"><span class="pre">zero-shot-classification</span></code>）：文章とそれが属する可能性があるいくつかのカテゴリを入力にしてその文章をひとつのカテゴリに分類</p></li>
-</ul>
+<p>トランスフォーマーの現実世界での応用先としては，感情分析，特徴抽出，穴埋め，固有表現抽出（文章中の固有表現を見つける），質問応答，要約，文章生成，翻訳等があります．これらの問題を解決しようとする際には，実際には，事前学習モデルを活用する場合が多いです．事前学習モデルとは解きたい問題ではなくて，あらかじめ別の何らかの問題に対して（大量の）データを利用して学習した学習済みのモデルです．学習済みモデルにはそのドメインにおける知識を獲得していることを期待しています．</p>
+<p>事前学習モデルとして有名なものには BERT（bidirectional encoder representations from transformers）があります．上述のようにトランスフォーマーはエンコーダー・デコーダー構造を有しますが，BERT はトランスフォーマーのエンコーダー構造を利用して構築されるものです．BERT は自然言語からなる配列データを入力として何らかの配列データを出力する汎用言語表現モデルです．利用方法は多岐にわたりますが，自然言語の分散表現を生成するモデルと言えます．事前学習モデルとして公開されており，自然言語からなる配列を入力として得られる BERT の出力を別の何らかの問題を解くための人工知能アルゴリズムの入力として用いることで，様々な問題を解決するための基礎として利用することができます．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>次の章では BERT の利用方法を紹介します．</p>
+</div>
 </div>
 </div>
 <div class="section" id="id9">
