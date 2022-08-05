@@ -441,7 +441,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id4">
 <h3><span class="section-number">8.1.2. </span>アテンションの計算方法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>アテンション機構の処理は非常に単純で簡単な式によって定義されます．アテンション機構とは，<span class="math notranslate nohighlight">\([\boldsymbol{h}_1,\boldsymbol{h}_2,\dots,\boldsymbol{h}_I]\)</span> のようなデータに対して以下のような計算をして，<span class="math notranslate nohighlight">\(\boldsymbol{c}\)</span>を得るものです．</p>
+<p>アテンション機構の処理は非常に単純で簡単な式によって定義されます．アテンションの基本的な計算は以下に示す通りです．アテンション機構とは，<span class="math notranslate nohighlight">\([\boldsymbol{h}_1,\boldsymbol{h}_2,\dots,\boldsymbol{h}_I]\)</span> のようなデータに対して以下のような計算をして，<span class="math notranslate nohighlight">\(\boldsymbol{c}\)</span> を得るものです．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle \boldsymbol{c}=\sum_{i=1}^I{\phi}_i\boldsymbol{h}_i
 \)</span></p>
@@ -457,6 +457,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id5">
 <h3><span class="section-number">8.1.3. </span>セルフアテンション<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>あるベクトル（ソースベクトル）の各要素が別のベクトル（ターゲットベクトル）のどの要素に関連性が強いかということを明らかにしたい際にはソース・ターゲットアテンションというアテンションを計算します．これに対してこの章ではセルフアテンションを主に扱うのでこれを紹介します．セルフアテンションとは配列データの各トークン間の関連性を計算するためのものです．</p>
 </div>
 </div>
 <div class="section" id="id6">
