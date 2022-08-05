@@ -39,7 +39,7 @@
 
 # あるベクトル（ソースベクトル）の各要素が別のベクトル（ターゲットベクトル）のどの要素に関連性が強いかということを明らかにしたい際にはソース・ターゲットアテンションというアテンションを計算します．これに対してこの章ではセルフアテンションを主に扱うのでこれを紹介します．セルフアテンションとは配列データの各トークン間の関連性を計算するためのものです．
 # 
-# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/selfAttention.svg?raw=1" width="" />
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/selfAttention.svg?raw=1" width="100%" />
 
 # ## トランスフォーマー
 
