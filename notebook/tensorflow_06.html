@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9. Hugging Face の利用方法" href="tensorflow_07.html" />
@@ -457,7 +459,23 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id7">
 <h3><span class="section-number">8.2.2. </span>構成要素<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>トランスフォーマーは大きく分けると 3 個の要素から構成されています．アテンション（セルフアテンション），位置エンコード，ポイントワイズ MLP です．アテンションは上の節で紹介した通り，入力データのトークン間の関係性を下流のネットワークに伝えるための機構です．</p>
-<p><strong>位置エンコード</strong>は</p>
+<p><strong>位置エンコード</strong>は入力データの各トークンの位置関係を下流のネットワークに伝える仕組みです．RNN では入力された配列情報を最初，または，最後から順番に処理します．よって，人工知能は読み込まれた要素の順序，位置情報を明確に認識できています．これに対して，セルフアテンションを導入して文脈情報を扱えるようにした MLP はその認識ができません．アテンションで計算しているものは要素間の関連性であり，位置関係は考慮されていないのです．例えば，「これ　は　私　の　ラーメン　です」という文を考えた場合，アテンション機構では「これ」に対して「は」，「私」，「の」，「ラーメン」，「です」の関連度を計算していますが，「2 番目のタイムステップのは」や「3 番目のタイムステップの私」を認識しているわけではありません．よって，この文章の要素を並び替え，「は　です　の　私　これ　ラーメン」としても同じ計算結果が得られます．この例においては，そのような処理をしたとしても最終的な結果に影響はないかもしれませんが，例えば，「ラーメン　より　牛丼　が　好き　です　か」のような文章を考えた場合には問題が生じます．この文章では「ラーメンより牛丼が好き」かということを問うているのであって，「牛丼よりラーメンが好き」かということは問うていないのです．「より」の前後にある文字列の登場順が重要な意味を持ちます．このような情報を処理する際には各要素の位置情報を人工知能に認識させる必要があります．これは様々な方法で実現できますが，トランスフォーマーで用いている方法を紹介します．ここでは，以下のような配列情報を処理するものとします．</p>
+<p><span class="math notranslate nohighlight">\(
+\boldsymbol{x}=[[x_{11},x_{12},\dots,x_{1d}],[x_{21},x_{22},\dots,x_{2d}],\dots,[x_{l1},x_{l2},\dots,x_{ld}]]
+\)</span></p>
+<p>すなわち，配列 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> は <span class="math notranslate nohighlight">\(l\)</span> 個の長さからなり，その <span class="math notranslate nohighlight">\(l\)</span> 個の各要素は <span class="math notranslate nohighlight">\(d\)</span> 個の要素からなるベクトルです．この <span class="math notranslate nohighlight">\([x_{11},x_{12},\dots,x_{1d}]\)</span> のような要素は例えば自然言語においては単語のことを示します．単語が <span class="math notranslate nohighlight">\(d\)</span> 個の要素からなる何らかのベクトルとしてエンコードされているとします．このような配列情報に位置情報を持たせるには以下のような位置情報を含んだ配列を用意します．</p>
+<p><span class="math notranslate nohighlight">\(
+\boldsymbol{p}=[[p_{11},p_{12},\dots,p_{1d}],[p_{21},p_{22},\dots,p_{2d}],\dots,[p_{l1},p_{l2},\dots,p_{ld}]]
+\)</span></p>
+<p>この配列は入力配列 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> と同じ形をしています．よって <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> に加算することができます．<span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> に <span class="math notranslate nohighlight">\(\boldsymbol{p}\)</span> を加算することで位置情報を保持した配列を生成することができるのです．トランスフォーマーでは位置情報を含んだ配列の要素 <span class="math notranslate nohighlight">\(p_{ik}\)</span> を <span class="math notranslate nohighlight">\(p_{i(2j)}\)</span> と <span class="math notranslate nohighlight">\(p_{i(2j+1)}\)</span> によって，トークンを示すベクトルの要素の偶数番目と奇数番目で場合分けし，それぞれ正弦関数と余弦関数で定義します．偶数番目は以下のように表されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle p_{i(2j)}=\sin\left(\frac{i}{10000^{\frac{2j}{d}}}\right)
+\)</span></p>
+<p>奇数番目は以下のように表されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\displaystyle  p_{i(2j+1)}=\cos\left(\frac{i}{10000^{\frac{2j}{d}}}\right)
+\)</span></p>
+<p><strong>ポイントワイズ MLP</strong> は可変長の配列データを処理するための MLP です．機械学習モデルを学習させる際には様々なデータをモデルに読み込ませますが，配列データにおいては，それらのデータの長さが不揃いであることがあります．そのような場合において固定長のデータを処理するための方法である MLP を使おうとするとどのような長さのデータに対応させるためにはかなり長い入力層のサイズを用意しなければなりません．かなり長い入力層を利用したとしても，その入力層よりさらに長い入力データを処理しなければならない可能性は排除できません．これに対してポイントワイズ MLP は入力配列の各トークンに対してたったひとつの MLP の計算をする方法です．入力配列のどのトークンに対しても同じパラメータを持った MLP の計算が行われます．10 の長さの入力配列に対しては同じ MLP による計算が 10 回行われ，10 の長さの配列が出力されます．100 の長さの入力配列に対しては同じ MLP による計算が 100 回行われ，100 の長さの配列が出力されます．</p>
 </div>
 <div class="section" id="id8">
 <h3><span class="section-number">8.2.3. </span>現実世界での利用方法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
