@@ -164,7 +164,161 @@
 
 # この節ではトランスフォーマーのエンコーダーに相当する部分の実装をアテンションの計算部分から作ります．
 
+# ### 扱うデータ
+
 # ### 普通のアテンション
+
+# 
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import tensorflow as tf
+import numpy as np
+import math
+tf.random.set_seed(0)
+np.random.seed(0)
+
+def main():
+    # データの生成．
+    trainx = [[1,2,3,4,5,6,7,8,9,1], [3,9,3,4,7], [7,5,8], [1,5,8], [3,9,3,4,6], [7,3,4,1], [1,3], [3,9,3,4,1], [7,5,5,7,7,5]]
+    trainx = tf.keras.preprocessing.sequence.pad_sequences(trainx, padding="post", dtype=np.int32, value=0)
+    traint = np.asarray([0, 0, 0, 1, 1, 1, 2, 2, 2], dtype=np.int32)
+    
+    # ハイパーパラメータの設定．
+    maxEpochSize = 2000
+    embedSize = 16
+    attentionUnitSize = 32
+    middleUnitSize = 32
+    dropoutRate = 0.5
+    minibatchSize = 3
+    
+    # データのサイズや長さの取得．
+    trainSize = trainx.shape[0]
+    outputSize = len(np.unique(traint))
+    vocabNumber = len(np.unique(trainx))
+    minibatchNumber = trainSize // minibatchSize
+    
+    # モデルの生成．
+    model = Network(attentionUnitSize, middleUnitSize, vocabNumber, embedSize, outputSize, dropoutRate)
+    cceComputer = tf.keras.losses.SparseCategoricalCrossentropy()
+    accComputer = tf.keras.metrics.SparseCategoricalAccuracy()
+    optimizer = tf.keras.optimizers.Adam()
+    
+    # tf.keras.Modelを継承したクラスからモデルを生成したとき，以下のように入力データの形に等しいデータを読み込ませてsummary()を利用するとモデルの詳細を表示可能．
+    model(tf.zeros((minibatchSize, trainx.shape[1])), False)
+    model.summary()
+    
+    # デバッグプリント．
+#    dp = model.call(trainx, False)
+#    print(dp)
+#    exit()
+    
+    # 以下は勾配を計算してコストや正確度を計算するための記述．
+    @tf.function
+    def run(tx, tt, flag):
+        with tf.GradientTape() as tape:
+            model.trainable = flag
+            ty = model.call(tx, flag)
+            costvalue = cceComputer(tt, ty)
+        gradient = tape.gradient(costvalue, model.trainable_variables)
+        optimizer.apply_gradients(zip(gradient, model.trainable_variables))
+        accvalue = accComputer(tt, ty)
+        return costvalue, accvalue
+    
+    # 以下は学習のための記述．
+    for epoch in range(1, maxEpochSize+1):
+        trainIndex = np.random.permutation(trainSize) # トレーニングデータセットのサイズに相当する整数からなるランダムな配列を生成．
+        trainCost, trainAcc = 0, 0
+        for subepoch in range(minibatchNumber):
+            startIndex = subepoch * minibatchSize
+            endIndex = (subepoch+1) * minibatchSize
+            miniTrainx = trainx[trainIndex[startIndex:endIndex]] # ランダムに決められた数だけデータを抽出する．
+            miniTraint = traint[trainIndex[startIndex:endIndex]]
+            miniTrainCost, miniTrainAcc = run(miniTrainx, miniTraint, True) # パラメータの更新をするのでフラッグはTrueにする．
+            trainCost += miniTrainCost * minibatchNumber**(-1)
+            trainAcc += miniTrainAcc * minibatchNumber**(-1)
+        if epoch % 50 == 0:
+            print("Epoch {:5d}: Training cost= {:.4f}, Training ACC= {:.4f}".format(epoch, trainCost, trainAcc))
+            prediction = model.call(trainx, False)
+            print("Prediction:", np.argmax(prediction, axis=1)) # 予測値を出力．
+
+class Network(tf.keras.Model):
+    def __init__(self, attentionUnitSize, middleUnitSize, vocabNumber, embedSize, outputSize, dropoutRate):
+        super(Network, self).__init__()
+        self.a = Attention(attentionUnitSize, dropoutRate)
+        self.embed = tf.keras.layers.Embedding(input_dim=vocabNumber, output_dim=embedSize, mask_zero=True)
+        self.pe = PositionalEncoder()
+        self.masker = Masker()
+        self.w1 = tf.keras.layers.Dense(middleUnitSize)
+        self.w2 = tf.keras.layers.Dense(outputSize)
+        self.lr = tf.keras.layers.LeakyReLU()
+        self.dropout = tf.keras.layers.Dropout(dropoutRate)
+    def call(self, x, learningFlag):
+        maskSeq, minNumber = self.masker(x)
+        x = self.embed(x) # エンベッド．質的変数をエンコードする．1を[0.3 0.1 0.7]，2を[0.4 0.9 0.3]のような指定した長さの浮動小数点数からなるベクトルへ変換する行為．
+        x = self.pe(x) # 位置エンコード情報の計算．
+        y = self.a(x, x, maskSeq, minNumber, learningFlag)
+        y = self.lr(y)
+        y = self.dropout(y, training=learningFlag)
+        y = self.w1(y)
+        y = self.lr(y)
+        y = y[:, 0, :] # 入力データの最初のトークンに相当する値だけを用いて以降の計算を行う．
+        y = self.w2(y)
+        y = tf.nn.softmax(y) # 3個の値の分類問題であるため．
+        return y
+
+class Attention(tf.keras.Model):
+    def __init__(self, attentionUnitSize, dropoutRate):
+        super(Attention, self).__init__()
+        self.attentionUnitSize = attentionUnitSize
+        self.queryLayer = tf.keras.layers.Dense(attentionUnitSize, use_bias=False)
+        self.keyLayer = tf.keras.layers.Dense(attentionUnitSize, use_bias=False)
+        self.valueLayer = tf.keras.layers.Dense(attentionUnitSize, use_bias=False)
+        self.outputLayer = tf.keras.layers.Dense(attentionUnitSize, use_bias=False)
+        self.dropout = tf.keras.layers.Dropout(dropoutRate)
+    def call(self, x1, x2, maskSeq, minNumber, learningFlag):
+        q = self.queryLayer(x1) # クエリベクトルの生成．
+        k = self.keyLayer(x2) # キーベクトルの生成．
+        v = self.valueLayer(x2) # バリューベクトルの生成．
+        q = q * self.attentionUnitSize**(-0.5) # 正規化のため．
+        a = tf.matmul(q, k, transpose_b=True)
+        a = a + tf.cast(maskSeq, dtype=tf.float32) * minNumber # 次のソフトマックス関数の操作でゼロパディングした要素の値をゼロと出力するためにとても小さい値を加える．
+        a = tf.nn.softmax(a) # ゼロパティングされたところの値はゼロになる．
+        y = tf.matmul(a, v)
+        y = tf.keras.activations.relu(y)
+        y = self.dropout(y, training=learningFlag)
+        y = self.outputLayer(y)
+        return y
+
+class Masker(tf.keras.Model):
+    # 以下は入力データが質的データのときに利用するもので，ゼロパディングされたトークンの位置（と小さい値）を返すもの．
+    def call(self, x):
+        x = tf.cast(x, dtype=tf.int32) # 浮動小数点数を整数にする．扱うデータがラベルデータのため．入力データが浮動小数点数であるなら不要．
+        inputBatchSize, inputLength = tf.unstack(tf.shape(x)) # バッチサイズと入力データの長さを取得．
+        maskSeq = tf.equal(x, 0) # 元データのゼロパディングした要素をTrue，そうでない要素をFalseとしたデータを生成．
+        maskSeq = tf.reshape(maskSeq, [inputBatchSize, 1, inputLength]) # データの形の整形．
+        return maskSeq, x.dtype.min # 整数の最も小さい値を後で利用するため返す．
+
+class PositionalEncoder(tf.keras.layers.Layer):
+    # 以下は位置エンコードをしたデータを返すもの．
+    def call(self, x):
+        inputBatchSize, inputLength, inputEmbedSize = tf.unstack(tf.shape(x)) # バッチサイズ，入力データの長さ，エンベッドサイズを取得．
+        j = tf.range(inputEmbedSize) // 2 * 2 # 2jの生成．2jではなくjという変数名を利用．
+        j = tf.tile(tf.expand_dims(j, 0),[inputLength, 1]) # データの形の整形．
+        denominator = tf.pow(float(10000), tf.cast(j/inputEmbedSize, x.dtype)) # 10000**(2j/d)の計算．
+        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * math.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．math.piは3.14ラジアン（180度）．
+        phase = tf.tile(tf.expand_dims(phase, 0), [inputLength, 1]) # データの形の整形
+        i = tf.range(inputLength) # iの生成．
+        i = tf.cast(tf.tile(tf.expand_dims(i, 1), [1, inputEmbedSize]), x.dtype) # データの形の整形．
+        encordedPosition = tf.sin(i / denominator + phase) # 位置エンコードの式の計算．
+        encordedPosition = tf.tile(tf.expand_dims(encordedPosition, 0), [inputBatchSize, 1, 1]) # データの形の整形．
+        return x + encordedPosition
+
+if __name__ == "__main__":
+    main()
+
 
 # ### 線形計算量のアテンション
 
