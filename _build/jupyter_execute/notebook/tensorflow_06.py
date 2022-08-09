@@ -191,7 +191,6 @@
 #!/usr/bin/env python3
 import tensorflow as tf
 import numpy as np
-import math
 tf.random.set_seed(0)
 np.random.seed(0)
 
@@ -323,7 +322,7 @@ class PositionalEncoder(tf.keras.layers.Layer):
         j = tf.range(inputEmbedSize) // 2 * 2 # 2jの生成．2jではなくjという変数名を利用．
         j = tf.tile(tf.expand_dims(j, 0),[inputLength, 1]) # データの形の整形．
         denominator = tf.pow(float(10000), tf.cast(j/inputEmbedSize, x.dtype)) # 10000**(2j/d)の計算．
-        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * math.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．math.piは3.14ラジアン（180度）．
+        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * np.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．np.piは3.14ラジアン（180度）．
         phase = tf.tile(tf.expand_dims(phase, 0), [inputLength, 1]) # データの形の整形
         i = tf.range(inputLength) # iの生成．
         i = tf.cast(tf.tile(tf.expand_dims(i, 1), [1, inputEmbedSize]), x.dtype) # データの形の整形．
@@ -484,7 +483,7 @@ if __name__ == "__main__":
 #         j = tf.range(inputEmbedSize) // 2 * 2 # 2jの生成．2jではなくjという変数名を利用．
 #         j = tf.tile(tf.expand_dims(j, 0),[inputLength, 1]) # データの形の整形．
 #         denominator = tf.pow(float(10000), tf.cast(j/inputEmbedSize, x.dtype)) # 10000**(2j/d)の計算．
-#         phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * math.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．math.piは3.14ラジアン（180度）．
+#         phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * np.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．np.piは3.14ラジアン（180度）．
 #         phase = tf.tile(tf.expand_dims(phase, 0), [inputLength, 1]) # データの形の整形
 #         i = tf.range(inputLength) # iの生成．
 #         i = tf.cast(tf.tile(tf.expand_dims(i, 1), [1, inputEmbedSize]), x.dtype) # データの形の整形．
@@ -532,7 +531,6 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
 import tensorflow as tf
 import numpy as np
-import math
 tf.random.set_seed(0)
 np.random.seed(0)
 
@@ -676,7 +674,7 @@ class PositionalEncoder(tf.keras.layers.Layer):
         j = tf.range(inputEmbedSize) // 2 * 2 # 2jの生成．2jではなくjという変数名を利用．
         j = tf.tile(tf.expand_dims(j, 0),[inputLength, 1]) # データの形の整形．
         denominator = tf.pow(float(10000), tf.cast(j/inputEmbedSize, x.dtype)) # 10000**(2j/d)の計算．
-        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * math.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．math.piは3.14ラジアン（180度）．
+        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * np.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．np.piは3.14ラジアン（180度）．
         phase = tf.tile(tf.expand_dims(phase, 0), [inputLength, 1]) # データの形の整形
         i = tf.range(inputLength) # iの生成．
         i = tf.cast(tf.tile(tf.expand_dims(i, 1), [1, inputEmbedSize]), x.dtype) # データの形の整形．
@@ -758,7 +756,6 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
 import tensorflow as tf
 import numpy as np
-import math
 tf.random.set_seed(0)
 np.random.seed(0)
 
@@ -911,7 +908,7 @@ class PositionalEncoder(tf.keras.layers.Layer):
         j = tf.range(inputEmbedSize) // 2 * 2 # 2jの生成．2jではなくjという変数名を利用．
         j = tf.tile(tf.expand_dims(j, 0),[inputLength, 1]) # データの形の整形．
         denominator = tf.pow(float(10000), tf.cast(j/inputEmbedSize, x.dtype)) # 10000**(2j/d)の計算．
-        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * math.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．math.piは3.14ラジアン（180度）．
+        phase = tf.cast(tf.range(inputEmbedSize)%2, x.dtype) * np.pi / 2 # 位相の計算．後でsin(90度+x)=cos(x)を利用するため．np.piは3.14ラジアン（180度）．
         phase = tf.tile(tf.expand_dims(phase, 0), [inputLength, 1]) # データの形の整形
         i = tf.range(inputLength) # iの生成．
         i = tf.cast(tf.tile(tf.expand_dims(i, 1), [1, inputEmbedSize]), x.dtype) # データの形の整形．
