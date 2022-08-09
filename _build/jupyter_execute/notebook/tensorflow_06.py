@@ -180,6 +180,8 @@
 # [3, 9, 3, 4, 1] | [2]
 # [7, 5, 5, 7, 7, 5] | [2]
 # 
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/contextNetwork.svg?raw=1" width="100%" />
+# 
 
 # ### 普通のアテンション
 
