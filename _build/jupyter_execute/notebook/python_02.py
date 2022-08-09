@@ -435,6 +435,189 @@ if __name__ == "__main__":
     main()
 
 
+# ## Matplotlib の利用方法
+
+# Matplotlib とは Python で利用可能な描画ライブラリです．奇麗な描画をすることができます．問題に合わせて行いたい描画はその都度変わると思うので，基本的な利用方法だけ習得してそれ以外はその都度利用方法を調べると良いです．
+
+# ### Matplotlib のインポート
+
+# Matplotlib は以下のようにしてインポートします．読み込んだ Matplotlib には `plt` という略称を与えることが普通です．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import matplotlib.pyplot as plt
+ 
+def main():
+    pass
+ 
+if __name__ == "__main__":
+    main()
+
+
+# グーグルコラボラトリーや Jupyter Notebook で利用する場合には以下のようにします．こうすることでノート内にグラフを表示させることができます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+ 
+def main():
+    pass
+ 
+if __name__ == "__main__":
+    main()
+
+
+# ### 基本的な描画
+
+# 以下のようにすると描画できます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+import numpy as np
+ 
+def main():
+    x = np.linspace(0, 1, 100) * 2 * np.pi
+    y = np.sin(x)
+    plt.plot(x, y)
+    plt.show()
+ 
+if __name__ == "__main__":
+    main()
+
+
+# 線の色は以下のようにすると変更できます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+import numpy as np
+ 
+def main():
+    x = np.linspace(0, 1, 100) * 2 * np.pi
+    y = np.sin(x)
+    plt.plot(x, y, color="forestgreen")
+    plt.show()
+ 
+if __name__ == "__main__":
+    main()
+
+
+# 同一の領域に別のプロットを追加したい場合は以下のように書きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+import numpy as np
+ 
+def main():
+    x = np.linspace(0, 1, 100) * 2 * np.pi
+    y = np.sin(x)
+    z = np.cos(x)
+    plt.plot(x, y, color="forestgreen")
+    plt.plot(x, z, color="orange")
+    plt.show()
+ 
+if __name__ == "__main__":
+    main()
+
+
+# 図に軸の名前，レジェンド，グリッド線を追加し，軸の最大値と最小値を設定するには以下のようにします．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+import numpy as np
+ 
+def main():
+    x = np.linspace(0, 1, 100) * 2 * np.pi
+    y = np.sin(x)
+    z = np.cos(x)
+    plt.plot(x, y, color="forestgreen", label="sin")
+    plt.plot(x, z, color="orange", label="cos")
+    plt.xlim(0, 2*np.pi)
+    plt.ylim(-1, 1)
+    plt.xlabel("Radian")
+    plt.ylabel("Output")
+    plt.grid()
+    plt.legend()
+    plt.show()
+ 
+if __name__ == "__main__":
+    main()
+
+
+# ### 複数個の描画
+
+# 複数の図を並べて描画することができます．`plt.subplot(abc)` という書き方をします．`a` と `b` と `c` にはそれぞれ整数が入ります．プロット領域を縦方向に `a` 個に分割し，横方向に `b` 個に分割したときにおいて，左上の分割領域から右下の分割領域に至るまでの「番号」である `c` を指定します．この `c` は分割領域の ID に相当するものですが，分割領域の上ほど小さく左ほど小さい値です．以下のように書きます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+import numpy as np
+ 
+def main():
+    plt.figure(figsize=(12,6), tight_layout=True)
+    x = np.linspace(0, 1, 100) * 2 * np.pi
+    y = np.sin(x)
+    # 以下は縦に2個横に3個に分割した領域の1番目の図．
+    plt.subplot(231)
+    plt.plot(x, y, label="231")
+    plt.legend()
+    # 以下は縦に2個横に3個に分割した領域の2番目の図．
+    plt.subplot(232)
+    plt.plot(x, y, label="232")
+    plt.legend()
+    # 以下は縦に2個横に3個に分割した領域の3番目の図．
+    plt.subplot(233)
+    plt.plot(x, y, label="233")
+    plt.legend()
+    # 以下は縦に2個横に3個に分割した領域の4番目の図．
+    plt.subplot(234)
+    plt.plot(x, y, label="234")
+    plt.legend()
+    # 以下は縦に2個横に3個に分割した領域の5番目の図．
+    plt.subplot(235)
+    plt.plot(x, y, label="235")
+    plt.legend()
+    # 以下は縦に2個横に3個に分割した領域の6番目の図．
+    plt.subplot(236)
+    plt.plot(x, y, label="236")
+    plt.legend()
+    plt.show()
+ 
+if __name__ == "__main__":
+    main()
+
+
+# ### その他の描画の種類
+
+# 上で紹介した `plt.plot()` 以外には，棒グラフを描くための `plt.bar()`，散布図を描くための `plt.scatter()`，ヒストグラムを描くための `plt.hist()` は研究の分野で利用することがあるかもしれません．
+
+# ```{hint}
+# その都度調べましょう．
+# ```
+
 # ## オブジェクト指向の記法
 
 # 後の章で紹介する TensorFlow を利用する際にオブジェクト指向の書き方ができたほうが良いので紹介します．
