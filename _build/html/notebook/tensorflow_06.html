@@ -601,10 +601,12 @@ e^x &amp; (x \leq 0)
 </tr>
 </tbody>
 </table>
+<p>このような入力データに対してアテンションの計算を行い，その後ポイントワイズ MLP の計算を行った後に，その出力ベクトルの最初の要素（元データの最初のトークンに対応する値）のみに対して MLP の計算を行い，ターゲットベクトルの予測をします．図で示すと以下のようなネットワークです．つまり，この問題はアテンションの出力（の最初の要素）が入力データの全部の文脈情報を保持できていないと解けない問題です．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/contextNetwork.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/contextNetwork.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/contextNetwork.svg?raw=1" style="width: 100%;" /></a>
 </div>
 <div class="section" id="id12">
 <h3><span class="section-number">8.3.2. </span>普通のアテンション<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>普通のアテンションを利用してこの問題を解くには以下のようなコードを書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -756,6 +758,7 @@ e^x &amp; (x \leq 0)
 </div>
 </div>
 </div>
+<p>プログラムを実行すると以下のような結果が得られたと思います．この <code class="docutils literal notranslate"><span class="pre">Prediction</span></code> が入力データに対する予測結果です．正解を導けたことがわかります．</p>
 </div>
 <div class="section" id="id13">
 <h3><span class="section-number">8.3.3. </span>線形計算量のアテンション<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
