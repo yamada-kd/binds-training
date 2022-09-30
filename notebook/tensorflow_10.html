@@ -635,7 +635,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 <p><span class="math notranslate nohighlight">\(
 \displaystyle Q'(s,a)=Q(s,a)+\alpha(r+\gamma\max Q(s',a')-Q(s,a))
 \)</span></p>
-<p>このとき，<span class="math notranslate nohighlight">\(\alpha\)</span> は学習率と呼ばれ，0 から 1 の値をとります．また，<span class="math notranslate nohighlight">\(\gamma\)</span> は割引率であり，0 から 1 の値をとります．この割引率は直後の括弧内の値（TD 誤差という値）をどれくらい更新の際に考慮するかという値です．TD 誤差は目標の価値と現在の価値のずれを示しています．時間的差分法ではこの TD 誤差を小さくすることでより良い行動価値関数を推定する方法と言えます．</p>
+<p>このとき，<span class="math notranslate nohighlight">\(\alpha\)</span> は学習率と呼ばれ，0 から 1 の値をとります．この割引率は直後の括弧内の値（TD 誤差という値）をどれくらい更新の際に考慮するかという値です．TD 誤差は目標の価値と現在の価値のずれを示しています．時間的差分法ではこの TD 誤差を小さくすることでより良い行動価値関数を推定する方法と言えます．また，<span class="math notranslate nohighlight">\(\gamma\)</span> は割引率であり，0 から 1 の値をとります．</p>
 <p>この式において，<span class="math notranslate nohighlight">\(\max Q(s',a')\)</span> は現在の行動によって遷移した状態において取り得るすべての行動（この場合上下左右の 4 個）に対する Q 値の中で最も大きな値のことです．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
