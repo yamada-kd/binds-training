@@ -482,7 +482,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><span class="math notranslate nohighlight">\(
 \displaystyle Q(\boldsymbol{\phi})=\frac{1}{N}\sum_{i=1}^{N}(\log D(\boldsymbol{\phi},\boldsymbol{x}_i)+\log(1-D(\boldsymbol{\phi},G(\boldsymbol{\theta},\boldsymbol{z}_i))))
 \)</span></p>
-<p>本物のデータに対しては <code class="docutils literal notranslate"><span class="pre">0</span></code> を出力してほしいし，偽物のデータに対しては <code class="docutils literal notranslate"><span class="pre">1</span></code> を出力してほしいので，この <span class="math notranslate nohighlight">\(Q\)</span> を小さくすれば良いのですね．</p>
+<p>本物のデータに対しては <code class="docutils literal notranslate"><span class="pre">1</span></code> を出力してほしいし，偽物のデータに対しては <code class="docutils literal notranslate"><span class="pre">0</span></code> を出力してほしいので，この <span class="math notranslate nohighlight">\(Q\)</span> を小さくすれば良いのですね．</p>
 <p>ここでは，このように生成器と識別器のコスト関数を分けて書きましたが，元の論文には以下のように書かれています．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle \min_G \max_D V(D,G) = \min_G \max_D \mathbb E_{x \sim p_{data}(x)}[\log{D(x)}]+ \mathbb E_{z \sim p_z(z)}[\log{(1-D(G(z)))}]
