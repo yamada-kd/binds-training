@@ -984,6 +984,14 @@ get_ipython().system(' apt install xvfb')
 get_ipython().system(' pip install pyvirtualdisplay')
 
 
+# また，2022 年 10 月 5 日に気づいたところ，以下のライブラリをインストールしないといけなくなったようなので，インストールします．
+
+# In[ ]:
+
+
+get_ipython().system(' pip install pygame')
+
+
 # 以下のプログラムを実行して描画に必要なディスプレイの起動をします．
 
 # In[ ]:
