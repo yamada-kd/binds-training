@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="11. 強化学習法" href="tensorflow_10.html" />
@@ -306,7 +308,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     1-4 ほげ
+     1-4 行列の掛け算
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -323,69 +325,84 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     1-1 ほげ
+     2-1 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     1-2 ほげ
+     2-2 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     1-3 ほげ
+     2-3 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     1-4 ほげ
+     2-4 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     2-5 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     2-6 ほげ
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
+  <a class="reference internal nav-link" href="#id14">
    深層学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     1-1 ほげ
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     1-2 ほげ
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
-     1-3 ほげ
+     3-1 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     1-4 ほげ
+     3-2 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     1-1 ほげ
+     3-3 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     1-2 ほげ
+     3-4 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     1-3 ほげ
+     3-5 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id20">
-     1-4 ほげ
+     3-6 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     3-7 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     3-8 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     3-9 ほげ
     </a>
    </li>
   </ul>
@@ -432,7 +449,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     1-4 ほげ
+     1-4 行列の掛け算
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -449,69 +466,84 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     1-1 ほげ
+     2-1 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     1-2 ほげ
+     2-2 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     1-3 ほげ
+     2-3 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     1-4 ほげ
+     2-4 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     2-5 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     2-6 ほげ
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
+  <a class="reference internal nav-link" href="#id14">
    深層学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     1-1 ほげ
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     1-2 ほげ
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
-     1-3 ほげ
+     3-1 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id16">
-     1-4 ほげ
+     3-2 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     1-1 ほげ
+     3-3 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     1-2 ほげ
+     3-4 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     1-3 ほげ
+     3-5 ほげ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id20">
-     1-4 ほげ
+     3-6 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     3-7 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     3-8 ほげ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     3-9 ほげ
     </a>
    </li>
   </ul>
@@ -530,64 +562,159 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id2">
 <h2>プログラミングの基礎<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>「プログラミングの基礎」で触れた事柄に関する問題集です．</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>講義資料に載っていない事柄に関する問題がたくさんありますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．</p>
+</div>
 <div class="section" id="id3">
 <h3>1-1 ほげ<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="id4">
 <h3>1-2 ほげ<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="id5">
 <h3>1-3 ほげ<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="id6">
-<h3>1-4 ほげ<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>1-4 行列の掛け算<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>以下の行列の掛け算を NumPy 等のライブラリを用いずに行ってください．</p>
+<p><span class="math notranslate nohighlight">\(
+  \left[
+    \begin{array}{ccc}
+      1 &amp; 2 &amp; 3 \\
+      3 &amp; 4 &amp; 5\\
+    \end{array}
+  \right]
+  \times
+  \left[
+    \begin{array}{cc}
+      5 &amp; 6 \\
+      6 &amp; 7 \\
+      7 &amp; 8 \\
+    \end{array}
+  \right]
+\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="id7">
 <h3>1-5 ほげ<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="scikit-learn">
 <h2>scikit-learn を利用した機械学習<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">¶</a></h2>
 <p>「scikit-learn を利用した機械学習」で触れた事柄に関する問題集です．</p>
 <div class="section" id="id8">
-<h3>1-1 ほげ<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>2-1 ほげ<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id9">
-<h3>1-2 ほげ<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3>2-2 ほげ<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id10">
-<h3>1-3 ほげ<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3>2-3 ほげ<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id11">
-<h3>1-4 ほげ<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-</div>
+<h3>2-4 ほげ<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id12">
-<h2>深層学習<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
-<p>プログラミングの基礎で触れた事柄に関する問題集です．</p>
+<h3>2-5 ほげ<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+</div>
 <div class="section" id="id13">
-<h3>1-1 ほげ<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3>2-6 ほげ<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="id14">
-<h3>1-2 ほげ<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
-</div>
+<h2>深層学習<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>「深層学習」で触れた事柄に関する問題集です．</p>
 <div class="section" id="id15">
-<h3>1-3 ほげ<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3>3-1 ほげ<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id16">
-<h3>1-4 ほげ<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<h3>3-2 ほげ<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id17">
-<h3>1-1 ほげ<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3>3-3 ほげ<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id18">
-<h3>1-2 ほげ<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<h3>3-4 ほげ<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id19">
-<h3>1-3 ほげ<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<h3>3-5 ほげ<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id20">
-<h3>1-4 ほげ<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<h3>3-6 ほげ<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id21">
+<h3>3-7 ほげ<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id22">
+<h3>3-8 ほげ<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id23">
+<h3>3-9 ほげ<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
