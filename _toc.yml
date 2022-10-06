@@ -22,7 +22,7 @@ parts:
   - file: notebook/tensorflow_07
   - file: notebook/tensorflow_08
   - file: notebook/tensorflow_10
-- caption: 深層学習
+- caption: 付録
   numbered: False
   chapters:
   - file: notebook/worksheet
