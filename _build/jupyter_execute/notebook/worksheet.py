@@ -92,16 +92,63 @@ if __name__ == "__main__":
 
 # ### 2-1 探索的データ解析
 
-# 探索的データ解析とはこれから利用しようとするデータセットを様々な角度から観察してデータの性質を把握しようとする行為のことです．英語では exploratory data analysis（EDA）と呼ばれます．
-
-# ```{hint}
-# なんとなく紹介したくなかったのですが，`pandas` ていうライブラリがあるのですよね…
-# ```
+# 探索的データ解析とはこれから利用しようとするデータセットを様々な角度から観察してデータの性質を把握しようとする行為のことです．英語では exploratory data analysis（EDA）と呼ばれます．ここでは，scikit-learn から利用可能な breast cancer wisconsin (diagnostic) dataset なるデータセットを利用します．以下のように読み込むことができます．
 
 # In[ ]:
 
 
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_breast_cancer
 
+def main():
+    dBreastCancer = load_breast_cancer()
+    print(dBreastCancer)
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{hint}
+# なんとなく紹介したくなくて触れなかったのですが，`pandas` ていうライブラリのデータフレームというものの使い方を調べるとこのデータを上手に扱えるようになると思います．
+# ```
+
+# 最も簡単な解析はデータセットのインスタンスサイズを知ることであったり，各アトリビュートの意味を知ることであったり，教師データの性質を知ることであったりするでしょう．次に，各アトリビュートと教師データの関連性を図で表現することが考えられます．
+
+# 最初に，何か図を利用しない解析を行う何らかのプログラムを書いてください．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_breast_cancer
+
+def main():
+    dBreastCancer = load_breast_cancer()
+    # ここにプログラムを書く．
+
+if __name__ == "__main__":
+    main()
+
+
+# 次に，何か図を描画することでデータの性質を把握するためのプログラムを書いてください．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import sklearn
+from sklearn.datasets import load_breast_cancer
+get_ipython().run_line_magic('matplotlib', 'inline')
+import matplotlib.pyplot as plt
+
+def main():
+    dBreastCancer = load_breast_cancer()
+    # ここにプログラムを書く．
+
+if __name__ == "__main__":
+    main()
 
 
 # ### 2-2 ほげ
@@ -179,6 +226,24 @@ if __name__ == "__main__":
 
 
 
+
+# ## 配点と採点基準
+
+# 配点は各問題についてそれぞれ 10 点です．採点者は以下のような採点基準で点数をつけます．
+# 
+# 0.   解答がないため採点できない．
+# 1.   この解答が良い評価を得るのだとしたら二度と採点者を引き受けない．
+# 2.   この解答が良い評価を得ないために戦う．
+# 3.   この解答が良い評価を得ないことを主張する．
+# 4.   この解答が良い評価を得ないと主張するが，場合によって良い評価を得たとしても許容可能．
+# 5.   この解答が良い評価を得てほしくないものの，そうでなくても問題ない．
+# 6.   この解答が良い評価を得てほしいものの，そうでなくても問題ない．
+# 7.   この解答は良い評価を得るべきであると主張するが，場合によって悪い評価を得たしても許容可能．
+# 8.   この解答が良い評価を得るべきであることを主張する．
+# 9.   この解答が良い評価を得るために戦う．
+# 10.   この解答が良い評価を得ないのであれば二度と採点者を引き受けない．
+# 
+# 
 
 # ```{note}
 # 終わりです．
