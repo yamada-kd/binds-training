@@ -357,6 +357,11 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   配点と採点基準
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -447,6 +452,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   配点と採点基準
+  </a>
  </li>
 </ul>
 
@@ -541,10 +551,63 @@ const thebe_selector_output = ".output, .cell_output"
 <p>「scikit-learn を利用した機械学習」で触れた事柄に関する問題集です．これも講義資料に載っていない事柄に取り組みますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．</p>
 <div class="section" id="id5">
 <h3>2-1 探索的データ解析<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>探索的データ解析とはこれから利用しようとするデータセットを様々な角度から観察してデータの性質を把握しようとする行為のことです．英語では exploratory data analysis（EDA）と呼ばれます．</p>
+<p>探索的データ解析とはこれから利用しようとするデータセットを様々な角度から観察してデータの性質を把握しようとする行為のことです．英語では exploratory data analysis（EDA）と呼ばれます．ここでは，scikit-learn から利用可能な breast cancer wisconsin (diagnostic) dataset なるデータセットを利用します．以下のように読み込むことができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">dBreastCancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dBreastCancer</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>なんとなく紹介したくなかったのですが，<code class="docutils literal notranslate"><span class="pre">pandas</span></code> ていうライブラリがあるのですよね…</p>
+<p>なんとなく紹介したくなくて触れなかったのですが，<code class="docutils literal notranslate"><span class="pre">pandas</span></code> ていうライブラリのデータフレームというものの使い方を調べるとこのデータを上手に扱えるようになると思います．</p>
+</div>
+<p>最も簡単な解析はデータセットのインスタンスサイズを知ることであったり，各アトリビュートの意味を知ることであったり，教師データの性質を知ることであったりするでしょう．次に，各アトリビュートと教師データの関連性を図で表現することが考えられます．</p>
+<p>最初に，何か図を利用しない解析を行う何らかのプログラムを書いてください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">dBreastCancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に，何か図を描画することでデータの性質を把握するためのプログラムを書いてください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">dBreastCancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="id6">
@@ -571,10 +634,27 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id13">
 <h3>3-5 ほげ<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>配点と採点基準<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>配点は各問題についてそれぞれ 10 点です．採点者は以下のような採点基準で点数をつけます．</p>
+<ol class="simple">
+<li><p>解答がないため採点できない．</p></li>
+<li><p>この解答が良い評価を得るのだとしたら二度と採点者を引き受けない．</p></li>
+<li><p>この解答が良い評価を得ないために戦う．</p></li>
+<li><p>この解答が良い評価を得ないことを主張する．</p></li>
+<li><p>この解答が良い評価を得ないと主張するが，場合によって良い評価を得たとしても許容可能．</p></li>
+<li><p>この解答が良い評価を得てほしくないものの，そうでなくても問題ない．</p></li>
+<li><p>この解答が良い評価を得てほしいものの，そうでなくても問題ない．</p></li>
+<li><p>この解答は良い評価を得るべきであると主張するが，場合によって悪い評価を得たしても許容可能．</p></li>
+<li><p>この解答が良い評価を得るべきであることを主張する．</p></li>
+<li><p>この解答が良い評価を得るために戦う．</p></li>
+<li><p>この解答が良い評価を得ないのであれば二度と採点者を引き受けない．</p></li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
-</div>
 </div>
 </div>
 </div>
