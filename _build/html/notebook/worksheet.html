@@ -332,7 +332,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     2-2 ほげ
+     2-2 人工知能の性能比較
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -440,7 +440,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     2-2 ほげ
+     2-2 人工知能の性能比較
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -668,6 +668,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>平均値，中央値，最頻値，最大値，最小値とか色々ありますよね</p>
+</div>
 <p>次に，何か図を描画することでデータの性質を把握するためのプログラムを書いてください．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -687,9 +691,84 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>図示すると変数間の関連性を理解しやすいですよね．</p>
+</div>
 </div>
 <div class="section" id="id9">
-<h3>2-2 ほげ<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3>2-2 人工知能の性能比較<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>データセット breast cancer wisconsin (diagnostic) dataset は肺の良性腫瘍と悪性腫瘍に関するデータを含んでいます．この分類器を決定木を用いて構築してファイルとして保存してください．このとき，以下のことをやってください．</p>
+<ul class="simple">
+<li><p>元のデータセットの 20% をテストデータセットとする．</p></li>
+<li><p>乱数の種を固定する．</p></li>
+<li><p>グリッドサーチとクロスバリデーションでハイパーパラメータを最適化する．</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>上で保存した人工知能を新たに呼び出して，テストデータセットを利用していくつかの評価指標を用いて性能の評価値を出力してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>勾配ブースティングと呼ばれる機械学習モデルを利用して予測器を構築し，上と同様のテストデータセットで同様の評価指標を用いて性能の評価値を出力してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>決定木の性能と勾配ブースティングの性能の差に意味のある差がありそうなのかについて，適切な統計検定法を用いて，有意水準 1% で評価してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>対応のない t 検定，対応のある t 検定，ウィルコクソンの順位和検定，ウィルコクソンの符号順位検定，ダネット検定，チューキー・クレーマー検定，スティール検定，スティール・ドゥワス検定．たくさん検定法があってその比較に適した方法を選ばなければなりませんよね．</p>
+</div>
 </div>
 <div class="section" id="id10">
 <h3>2-3 ほげ<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
