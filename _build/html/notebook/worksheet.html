@@ -337,7 +337,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     2-3 ほげ
+     2-3 計算の速さの比較
     </a>
    </li>
   </ul>
@@ -445,7 +445,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     2-3 ほげ
+     2-3 計算の速さの比較
     </a>
    </li>
   </ul>
@@ -498,7 +498,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>この演習問題集に関する説明をします．</p>
 <div class="section" id="id3">
 <h3>問題について<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>この演習問題集では，簡単に答えが見つからない，回答者に難易度の設定すら委ねるような問題がいくつか含まれています．この講義の対象者がデータ科学的な解析技術を有しないものの，自身の専門を持つ研究者であるからです．データ科学は問題解決のアプローチに過ぎず，既に研究をされている研究者なら解くべき問題に対する調査や取り組み方法を持っていると思ったからこのようにしました．</p>
+<p>この演習問題集では，簡単に答えが見つからない，回答者に難易度の設定すら委ねるような問題がいくつか含まれています．この講義の対象者がデータ科学的な解析技術を有しないものの，自身の専門を持つ研究者であるからです．データ科学は問題解決のアプローチに過ぎず，既に研究をされている研究者なら解くべき問題に対する調査や取り組み方法を持っていると思ったからこのようにしました．解答のためのコードセルは適宜増やしてください．</p>
 </div>
 <div class="section" id="id4">
 <h3>配点と採点基準<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
@@ -651,7 +651,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>なんとなく紹介したくなくて触れなかったのですが，<code class="docutils literal notranslate"><span class="pre">pandas</span></code> ていうライブラリのデータフレームというものの使い方を調べるとこのデータを上手に扱えるようになると思います．</p>
 </div>
 <p>最も簡単な解析はデータセットのインスタンスサイズを知ることであったり，各アトリビュートの意味を知ることであったり，教師データの性質を知ることであったりするでしょう．次に，各アトリビュートと教師データの関連性を図で表現することが考えられます．</p>
-<p>最初に，何か図を利用しない解析を行う何らかのプログラムを書いてください．</p>
+<p>最初に，何か図を利用しない解析を行う何らかのプログラムを書いてください．思いつく限りの解析をたくさん行ってください．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -771,7 +771,61 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id10">
-<h3>2-3 ほげ<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3>2-3 計算の速さの比較<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>以下のようにすると MNIST というデータセットをダウンとロードして読み込むことができます．ここでは MNIST が何であるかに触れませんが，10 個のクラス分類のためのデータセットであり，各インスタンスは 784 の長さのベクトルであり，公式から提供されている学習データセットのサイズは 60000 個であることだけお知らせします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">textX</span><span class="p">,</span> <span class="n">testT</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このデータセットは以下のようにすることで簡単に scikit-learn で利用することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">textX</span><span class="p">,</span> <span class="n">testT</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">learnX</span> <span class="o">=</span> <span class="n">learnX</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+    <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>利用する機械学習モデルを変えるとその評価性能が変わるのと同じように，利用する機械学習モデルによって学習に要する計算時間も変わります．各モデルの計算時間はデータセットのサイズはデータセットに含まれるインスタンスのサイズや実装の方法に依存して変わります．例えば，サポートベクトルマシンはサンプルサイズの 3 乗に依存して計算時間が増加します．計算時間の観点から自身が解析したいデータセットの特性に合わせて機械学習モデルを選択することもあり得るでしょう．この問題では，サポートベクトルマシンを含めて少なくとも 5 個の機械学習モデルを自由に選択してそれらを MNIST を用いて学習させてください．テストデータセットにおける評価値と共にそれぞれの方法が学習に要した時間を出力してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span> <span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">textX</span><span class="p">,</span> <span class="n">testT</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ここではデータセットとして MNIST を利用しました．MNIST のデータセットのサイズが大きいため計算時間に差が出やすいためです．</p>
+</div>
 </div>
 </div>
 <div class="section" id="id11">
