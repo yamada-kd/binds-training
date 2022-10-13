@@ -359,7 +359,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     3-3 ほげ
+     3-3 アテンションの活用
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -467,7 +467,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     3-3 ほげ
+     3-3 アテンションの活用
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -842,7 +842,39 @@ const thebe_selector_output = ".output, .cell_output"
 <h3>3-2 ほげ<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id14">
-<h3>3-3 ほげ<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3>3-3 アテンションの活用<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>サンプルデータセットとして利用してきた MNIST の各インスタンスは画像データではありますが，それらは 784 個の実数の要素からなるベクトルでもあります．アテンション機構によって扱いやすいデータの形式をしています．アテンション機構を含む何らかのニューラルネットワークを利用して MNIST の分類器を構築してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>同程度のパラメータサイズを持つ MLP による予測器も同時に構築して，同程度の予測性能に達するまでの時間を比較してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>やっぱ MLP て使い方次第じゃ最強なんすわ．</p>
+</div>
 </div>
 <div class="section" id="cgan">
 <h3>3-4 普通の CGAN の実装<a class="headerlink" href="#cgan" title="Permalink to this headline">¶</a></h3>
