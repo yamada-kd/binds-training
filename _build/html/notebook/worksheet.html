@@ -354,7 +354,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     3-2 ほげ
+     3-2 感情分析
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -462,7 +462,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     3-2 ほげ
+     3-2 感情分析
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -834,12 +834,86 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id11">
 <h2>深層学習<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
-<p>「深層学習」で触れた事柄に関する問題集です．またしても講義資料に載っていない事柄に取り組みますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．</p>
+<p>「深層学習」で触れた事柄に関する問題集です．またしても講義資料にギリ載っているか載っていないような事柄に取り組みますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．</p>
 <div class="section" id="id12">
 <h3>3-1 ほげ<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id13">
-<h3>3-2 ほげ<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3>3-2 感情分析<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>インターネット上の映画レビューのデータセット IMDb と呼ばれるものを TensorFlow から簡単にダウンロードして利用することができます．以下のようにします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span><span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">testX</span><span class="p">,</span><span class="n">testT</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このデータセットを用いて何らかのニューラルネットワークを学習させ，テストデータセットでその性能を評価してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">learnX</span><span class="p">,</span><span class="n">learnT</span><span class="p">),</span> <span class="p">(</span><span class="n">testX</span><span class="p">,</span><span class="n">testT</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>上のデータセットは既にトークナイズされたデータでしたが，Hugging Face を利用すれば元のデータをダウンロードできるのでした．以下のようにします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip3 install datasets
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">imdb</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このデータセットに対して Hugging Face を利用して感情分析の予測結果を計算し，また，その予測性能の評価値を計算して，上で作ったモデルとの比較をしてください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">imdb</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;imdb&quot;</span><span class="p">)</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>どうでしょう．「Hugging Face めちゃすげー」てなりますかね．</p>
+</div>
 </div>
 <div class="section" id="id14">
 <h3>3-3 アテンションの活用<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>

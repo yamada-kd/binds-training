@@ -325,7 +325,7 @@ if __name__ == "__main__":
 # 
 # 
 
-# 「深層学習」で触れた事柄に関する問題集です．またしても講義資料に載っていない事柄に取り組みますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．
+# 「深層学習」で触れた事柄に関する問題集です．またしても講義資料にギリ載っているか載っていないような事柄に取り組みますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．
 
 # ### 3-1 ほげ
 
@@ -337,15 +337,80 @@ if __name__ == "__main__":
 
 
 
-# ### 3-2 ほげ
+# ### 3-2 感情分析
 
-# 
+# インターネット上の映画レビューのデータセット IMDb と呼ばれるものを TensorFlow から簡単にダウンロードして利用することができます．以下のようにします．
 
 # In[ ]:
 
 
+#!/usr/bin/env python3
+import tensorflow as tf
+
+def main():
+    (learnX,learnT), (testX,testT) = tf.keras.datasets.imdb.load_data()
+
+if __name__ == "__main__":
+    main()
 
 
+# このデータセットを用いて何らかのニューラルネットワークを学習させ，テストデータセットでその性能を評価してください．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import tensorflow as tf
+
+def main():
+    (learnX,learnT), (testX,testT) = tf.keras.datasets.imdb.load_data()
+    # ここにプログラムを書く．
+
+if __name__ == "__main__":
+    main()
+
+
+# 上のデータセットは既にトークナイズされたデータでしたが，Hugging Face を利用すれば元のデータをダウンロードできるのでした．以下のようにします．
+
+# In[ ]:
+
+
+get_ipython().system(' pip3 install datasets')
+
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+from datasets import load_dataset
+
+def main():
+    imdb = load_dataset("imdb")
+    print(imdb["train"][0])
+
+if __name__ == "__main__":
+    main()
+
+
+# このデータセットに対して Hugging Face を利用して感情分析の予測結果を計算し，また，その予測性能の評価値を計算して，上で作ったモデルとの比較をしてください．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+from datasets import load_dataset
+
+def main():
+    imdb = load_dataset("imdb")
+    # ここにプログラムを書く．
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{hint}
+# どうでしょう．「Hugging Face めちゃすげー」てなりますかね．
+# ```
 
 # ### 3-3 アテンションの活用
 
