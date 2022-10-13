@@ -369,7 +369,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
-     3-5 ほげ
+     3-5 強化学習法の実装
     </a>
    </li>
   </ul>
@@ -477,7 +477,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
-     3-5 ほげ
+     3-5 強化学習法の実装
     </a>
    </li>
   </ul>
@@ -862,8 +862,26 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id15">
-<h3>3-5 ほげ<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3>3-5 強化学習法の実装<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>以下のような 5 行 9 列の行列を考えます．このグリッドワールド上で何らかのオブジェクト動かしてゴール（G）を目指すこととします．オブジェクトはフィールド上のグリッド線で囲まれたどこかの位置に存在できることとします．オブジェクトは上下左右に動かせるものとします．ただし，フィールドは壁に囲まれており，オブジェクトはこのグリッドワールドの外には出られません．また，フィールドには障害物（X）があり，障害物が存在する位置にオブジェクトは行けないこととします．オブジェクトは最初ゴールでも障害物でもないオブジェクトが移動可能なマス（S）に位置しているものとします．このオブジェクトをうまく移動させてゴールまで導くエージェントを何らかの強化学習法を用いて作ってください．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/largeField.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/largeField.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/largeField.svg?raw=1" style="width: 100%;" /></a>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>深層 Q ネットワークを利用しても良いし，ニューラルネットワークを用いない Q 学習法でも他の方法でも何でも良いです．</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
