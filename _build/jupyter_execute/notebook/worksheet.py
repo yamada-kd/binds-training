@@ -375,7 +375,7 @@ if __name__ == "__main__":
 
 # ### 3-5 ほげ
 
-# 
+# <img src="https://github.com/yamada-kd/binds-training/blob/main/image/largeField.svg?raw=1" width="100%" />
 
 # In[ ]:
 
