@@ -349,7 +349,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     3-1 ほげ
+     3-1 性能向上テクニック
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -457,7 +457,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     3-1 ほげ
+     3-1 性能向上テクニック
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -836,7 +836,41 @@ const thebe_selector_output = ".output, .cell_output"
 <h2>深層学習<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>「深層学習」で触れた事柄に関する問題集です．またしても講義資料にギリ載っているか載っていないような事柄に取り組みますが，現実世界でプログラミングはそういう課題に取り組むことではじめて実力がつきます．</p>
 <div class="section" id="id12">
-<h3>3-1 ほげ<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3>3-1 性能向上テクニック<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>講義資料では MLP を MNIST で学習させて，その性能評価をしました．MNIST はとても簡単な問題なので，エポックを経ると簡単に評価値が良くなりました．ここでは普通には予測性能を高めることが難しい不均衡データセットを用います．正例と負例のインスタンスサイズが大きく違うデータセットのことです．このようなデータを scikit-learn を用いて以下のように生成します．生成されるデータの <code class="docutils literal notranslate"><span class="pre">wholeX</span></code> はインプットデータで，<code class="docutils literal notranslate"><span class="pre">wholeT</span></code> はターゲットデータです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">wholeX</span><span class="p">,</span> <span class="n">wholeT</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.96</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">],</span> <span class="n">flip_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">wholeX</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここでは 50000 個のデータを生成していますが，ここから 10000 個だけテストデータセットとして用いて良い予測性能が出るように MLP を成長させてください．MLP は TensorFlow で実装してください．また，評価基準には ACC，MCC，F1 スコアを含んでください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ここにプログラムを書く．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>ナイーブにはコスト関数に重みをつけるという方法が考えられます．</p>
+</div>
 </div>
 <div class="section" id="id13">
 <h3>3-2 感情分析<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
