@@ -1,0 +1,1220 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8. 再帰型ニューラルネットワーク &#8212; 実践データ科学</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. アテンションネットワーク" href="tensorflow_06.html" />
+    <link rel="prev" title="7. 多層パーセプトロン" href="tensorflow_02.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/neko.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">実践データ科学</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  データ科学を学ぶにあたって
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   1. 機械学習とその周辺事項
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  プログラミングの基礎
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_01.html">
+   2. Python の基本的な使用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_02.html">
+   3. Python の発展的な使用方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  scikit-learn を利用した機械学習
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="scikit_learn_01.html">
+   4. 教師あり学習法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="scikit_learn_02.html">
+   5. 教師なし学習法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深層学習
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_01.html">
+   6. TensorFlow の基本的な利用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_02.html">
+   7. 多層パーセプトロン
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   8. 再帰型ニューラルネットワーク
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_06.html">
+   9. アテンションネットワーク
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_07.html">
+   10. Hugging Face の利用方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_08.html">
+   11. 敵対的生成ネットワーク
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_10.html">
+   12. 強化学習法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  付録
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="worksheet.html">
+   演習問題
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebook/tensorflow_05.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/yamada-kd/binds-training/tree/main/notebook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/yamada-kd/binds-training/blob/main/notebook/tensorflow_05.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   8.1. 基本的な事柄
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rnn">
+     8.1.1. RNN とは
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     8.1.2. 文字エンコード
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     8.1.3. 入出力データ形式
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   8.2. RNN の実装
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lstm">
+     8.2.1. LSTM とは
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     8.2.2. 実装方法①
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     8.2.3. 実装方法②
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   8.3. テキスト感情分析
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     8.3.1. 対象のデータセット
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     8.3.2. LSTM による計算
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>再帰型ニューラルネットワーク</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   8.1. 基本的な事柄
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rnn">
+     8.1.1. RNN とは
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     8.1.2. 文字エンコード
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     8.1.3. 入出力データ形式
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   8.2. RNN の実装
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lstm">
+     8.2.1. LSTM とは
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     8.2.2. 実装方法①
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     8.2.3. 実装方法②
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   8.3. テキスト感情分析
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     8.3.1. 対象のデータセット
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     8.3.2. LSTM による計算
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">8. </span>再帰型ニューラルネットワーク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2><span class="section-number">8.1. </span>基本的な事柄<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>再帰型ニューラルネットワーク（recurrent neural network（RNN））とそれに関する基本的な事柄をまとめます．</p>
+<div class="section" id="rnn">
+<h3><span class="section-number">8.1.1. </span>RNN とは<a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># データセットの生成．</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+    <span class="c1"># 関数を定義．</span>
+    <span class="n">rnn</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># RNNの計算．</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rnn</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">8.1.2. </span>文字エンコード<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>人工知能に何かの情報を処理させる際には，機械がそれを理解できるように何らかの方法でデータを数字に変換しなければなりませんが，これをエンコードと言います．例えば，自然言語に含まれる単語を，処理したいデータセット中の登場順に数字に変換する，みたいなことです．機械に処理させるためには自然言語では都合が悪く，数字データが都合が良いからです．そのような単語を数字に割り振って人工知能に入力しても，もちろん計算自体は可能です．しかし，この整数エンコーディングにはふたつの欠点があるそうです．あるそうです，と書きましたが，これは TensorFlow の公式ウェブサイトにそう書いてあったことを抜き出したためです．</p>
+<ul class="simple">
+<li><p>整数エンコーディングは単語間のいかなる関係性を含まない．</p></li>
+<li><p>整数エンコーディングは人工知能にとっては解釈が難しい．例えば，線形分類器はそれぞれの特徴量について単一の重みしか学習しないため，ふたつの単語が似ていることとそれらのエンコーディングが似ていることの間には何の関係もなく，特徴と重みの組み合わせに意味がない．</p></li>
+</ul>
+<p>最初のひとつは学習全体を通して考えると人工知能のパラメータの方で解決できるし，ふたつ目も非線形な関数を近似できる人工知能を使えば解決できるため，回避できない問題とは思えませんが．</p>
+<p>これとは別のエンコード方法として，ワンホットエンコーディングがあります．ワンホットエンコーディングはワンホットベクトルに単語を対応させます．ワンホットベクトルとは，ベクトルのある要素が 1 で他の全要素が 0 であるベクトルです．以下のような感じです．</p>
+<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/oneHotEmbedding.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/oneHotEmbedding.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/oneHotEmbedding.svg?raw=1" style="width: 100%;" /></a>
+<p>この方法は非効率的です．ワンホットベクトルはとても疎です．ボキャブラリに 10000 個の単語がある場合，各ベクトルはその要素の 99.99% が 0 からなります．学習を効率よく進めるためには多くの重みパラメータを設定しなければならないことになるでしょう．また，入力ベクトルが場合によってはものすごく長くなるでしょう．</p>
+<p>現在のところ最も良い方法と考えられるのは単語埋め込み（word embedding）です．単語埋め込みを利用すると似たような単語が似たようなベクトルへとエンコードされます（学習の過程で）．埋め込みは浮動小数点数で行い，密なベクトルができます．以下のような感じです．</p>
+<a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/floatEmbedding.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/floatEmbedding.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/floatEmbedding.svg?raw=1" style="width: 100%;" /></a>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">8.1.3. </span>入出力データ形式<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>次の節では，実際の LSTM の実装方法を紹介します．RNN を TensorFlow（や PyTorch）で利用する場合には，その入力データと出力データで少しずつ書き方が変わってしまい，これをしっかり書かないとエラーが起こってしまいます．また，RNN は入力ベクトルの最初から順々にデータを処理する単方向でのデータ処理と，最後から最初に遡りながらデータを処理する逆方向の処理を順方向の処理と同時に行う双方向のデータ処理があり，これを利用するかどうかでも出力が変化します．</p>
+<p>RNN を活用したい問題としては 0 か 1 という分類をする問題があると思います．また，これとは異なり，配列を入力に配列を出力させたいときもあるはずです．さらに，分類ではなく回帰をしたい場合もあるはずです．単語（整数）の多次元のベクトルへの埋め込み（embedding）が必要な場合もあります．例えば <code class="docutils literal notranslate"><span class="pre">1</span></code> という文字は人工知能に入力するためには <code class="docutils literal notranslate"><span class="pre">[0.2,</span> <span class="pre">0.1,</span> <span class="pre">0.3,</span> <span class="pre">0.4]</span></code> みたいなベクトルに変換しなければなりません．何次元のベクトルでも良いです．また，<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0]</span></code> みたいなワンホットエンコーディングと呼ばれる埋め込み方法でも良いです．これらの種類をまとめると以下の表のようになります．実装方法がそれぞれにおいてほんの少しずつ異なります．ちょっと厄介ですね．</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>入力</p></th>
+<th class="text-align:center head"><p>出力</p></th>
+<th class="text-align:center head"><p>問題</p></th>
+<th class="text-align:center head"><p>埋め込み</p></th>
+<th class="text-align:center head"><p>向き</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p><font color="Crimson">配列</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">スカラ</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">分類</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">不要</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">単方向</font></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>スカラ</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>分類</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>不要</p></td>
+<td class="text-align:center"><p>双方向</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>配列</p></td>
+<td class="text-align:center"><p>回帰</p></td>
+<td class="text-align:center"><p>必要</p></td>
+<td class="text-align:center"><p>単方向</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p><font color="Crimson">配列</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">配列</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">回帰</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">必要</font></p></td>
+<td class="text-align:center"><p><font color="Crimson">双方向</font></p></td>
+</tr>
+</tbody>
+</table>
+<p>ここでは，「単方向で入力ベクトルが配列で出力ベクトルがスカラ（1 要素からなるベクトル）で問題が分類で文字の埋め込みが不要なパターン」と「双方向で入力ベクトルと出力ベクトルがともに配列で問題が回帰で埋め込みが必要なパターン」のふたつの実装を紹介します．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>全部紹介しても良いのですけど紙面というかコラボ面があれですからね…</p>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">8.2. </span>RNN の実装<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>この節では RNN の使い方を紹介します．上述のように RNN を利用する際にはいくつかの書き方がありますが，そのうちのいくつかを紹介します．</p>
+<div class="section" id="lstm">
+<h3><span class="section-number">8.2.1. </span>LSTM とは<a class="headerlink" href="#lstm" title="Permalink to this headline">¶</a></h3>
+<p>次に，簡単なデータを生成して RNN の使い方を紹介します．ここでは，LSTM を利用します．LSTM は様々な長さからなる配列情報を入力データとして受け取り，配列情報を出力することができるニューラルネットワークです．「長さの異なる入力ベクトルを同じ構造で扱うことができる」ことと「配列情報を逐次的に出力することができる」という点において MLP とは異なります．LSTM のアルゴリズムは以下の式で定義されます．</p>
+<p><span class="math notranslate nohighlight">\(
+\mathbf{v}_1=\sigma(\mathbf{W}_{1a}\mathbf{u}_t+\mathbf{W}_{1b}\mathbf{h}_{t-1}+\mathbf{b}_{1}),
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\mathbf{v}_2=\sigma(\mathbf{W}_{2a}\mathbf{u}_t+\mathbf{W}_{2b}\mathbf{h}_{t-1}+\mathbf{b}_{2}),
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\mathbf{v}_3=\sigma(\mathbf{W}_{3a}\mathbf{u}_t+\mathbf{W}_{3b}\mathbf{h}_{t-1}+\mathbf{b}_{3}),
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\mathbf{v}_4=\tau(\mathbf{W}_{4a}\mathbf{u}_t+\mathbf{W}_{4b}\mathbf{h}_{t-1}+\mathbf{b}_{4}),
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\mathbf{s}_t=\mathbf{v}_1\odot\mathbf{v}_4+\mathbf{v}_2\odot\mathbf{s}_{t-1},
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\mathbf{h}_t=\mathbf{v}_3\odot\tau(\mathbf{s}_t)．
+\)</span></p>
+<p>ここで，太字の小文字はベクトル（1 列の行列）で，太字の大文字は行列です．<span class="math notranslate nohighlight">\(t\)</span> は入力配列の要素の位置を示します．時系列なら <span class="math notranslate nohighlight">\(t\)</span> 時間目の要素です．文字列なら <span class="math notranslate nohighlight">\(t\)</span> 番目の要素です．例えば，ピリオドを含めて 5 文字の長さからなる <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">have</span> <span class="pre">a</span> <span class="pre">pen</span> <span class="pre">.</span></code> のような文字列において，<span class="math notranslate nohighlight">\(t=1\)</span> の値は <code class="docutils literal notranslate"><span class="pre">I</span></code> で，<span class="math notranslate nohighlight">\(t=5\)</span> の値は <code class="docutils literal notranslate"><span class="pre">.</span></code> です．<span class="math notranslate nohighlight">\(\mathbf{W}\)</span> は LSTM で学習すべき重みパラメータです．<span class="math notranslate nohighlight">\(\mathbf{b}\)</span> はバイアスパラメータです．<span class="math notranslate nohighlight">\(\mathbf{\sigma}\)</span> と <span class="math notranslate nohighlight">\(\mathbf{\tau}\)</span> はそれぞれシグモイド関数とハイパボリックタンジェント関数です．それぞれの値域は，[0, 1] および [-1, 1] です．<span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span> は時間 <span class="math notranslate nohighlight">\(t\)</span> における出力ベクトルです．<span class="math notranslate nohighlight">\(\mathbf{u}_t\)</span> は時間 <span class="math notranslate nohighlight">\(t\)</span> における入力ベクトルです．<span class="math notranslate nohighlight">\(\odot\)</span> はアダマール積を示し，<span class="math notranslate nohighlight">\(+\)</span> は行列の足し算を示します．<span class="math notranslate nohighlight">\(\mathbf{W}\mathbf{u}\)</span> のような変数が結合している部分はその変数間で行列の掛け算を行う表記です．</p>
+<p>LSTM では入力ベクトルに対して最初の類似した 4 つの式にて中間ベクトル <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> を計算します．シグモイド関数を含む式の最小値は 0 で最大値は 1 です．これに対してハイパボリックタンジェント関数を含む 4 番目の式の最小値は-1で最大値は1です．この 4 番目の式は入力された値に LSTM のパラメータを作用させ -1 から 1 の値に規格化する効果を持ちます．1 から 3 番目の式はゲート構造と呼ばれる LSTM の仕組みです．この 3 つの式の出力値を 5 番目と 6 番目で <span class="math notranslate nohighlight">\(\mathbf{v}_4\)</span> に作用させます．</p>
+<p>例えば，<span class="math notranslate nohighlight">\(\mathbf{v}_1\)</span> は入力ゲートと呼ばれるゲートです．この値が <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> であった場合，入力値である <span class="math notranslate nohighlight">\(\mathbf{v}_4\)</span> と <span class="math notranslate nohighlight">\(\mathbf{v}_1\)</span> の（アダマール）積である <span class="math notranslate nohighlight">\(\mathbf{v}_1\odot\mathbf{v}_4\)</span> の値（5 番目の式の第 1 項）は <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> であり，その入力値は以降の計算に影響しなくなります．これはゲートが閉じているという状況です．また，2番目の式は忘却ゲートです．<span class="math notranslate nohighlight">\(\mathbf{s}_{t-1}\)</span> は現在（<span class="math notranslate nohighlight">\(t\)</span>）のひとつ前の時間における情報を保持した以前の記憶を保持したベクトルです．これに対してのゲートとしての機能を持つことから忘却ゲートと呼ばれます．また，3番目の式は出力ゲートです．<span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span> は <span class="math notranslate nohighlight">\(t\)</span> における出力ベクトルですが，これを計算するために用いられるため出力ゲートと呼ばれます．LSTM はこのようなゲート構造を有することで高性能化を達成した RNN であると考えられています．元々は動物の脳の機能をモデルにして開発されました．</p>
+<p>この出力の値 <span class="math notranslate nohighlight">\(\mathbf{h}\)</span> は <span class="math notranslate nohighlight">\(\mathbf{s}\)</span> と同様に保存され，次の時間（timestep）での計算に用いられます．このように，LSTM は以前の情報（ひとつ前の timestep の情報）を使って出力をする人工知能です．ひとつ前の情報にはさらにひとつ前の情報が記憶されており，またそのひとつ前の情報にはさらにひとつ前の情報が記憶されています．よって，LSTM ではどんな長い配列情報であっても（パラメータサイズが十分なら），すべての文脈に関わる情報を記憶することが可能です．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>決して MLP が配列情報を扱えないとは書いていません．</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">8.2.2. </span>実装方法①<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>ここでは，「単方向で入力ベクトルが配列で出力ベクトルがスカラ（1要素からなるベクトル）で問題が分類で文字の埋め込みが不要なパターン」の実装方法を紹介します．ここでは以下のようなデータを生成して利用します．このデータセットは3つのインスタンスからなります．最初のインスタンスは4文脈からなる配列です．入力ベクトルの各 timestep は2要素からなるベクトルで構成されています．<span class="math notranslate nohighlight">\(t=1\)</span> のときの値は <code class="docutils literal notranslate"><span class="pre">[1.1,</span> <span class="pre">0.1]</span></code> で，<span class="math notranslate nohighlight">\(t=2\)</span> のときの値は <code class="docutils literal notranslate"><span class="pre">[2.2,</span> <span class="pre">0.3]</span></code> で，<span class="math notranslate nohighlight">\(t=3\)</span> のときの値は <code class="docutils literal notranslate"><span class="pre">[3.0,</span> <span class="pre">0.3]</span></code> で，<span class="math notranslate nohighlight">\(t=4\)</span> のときの値は <code class="docutils literal notranslate"><span class="pre">[4.0,</span> <span class="pre">1.0]</span></code> です．これに紐づいているターゲットベクトルは <code class="docutils literal notranslate"><span class="pre">[1]</span></code> です．これは分類問題なのでこのターゲットベクトルの <code class="docutils literal notranslate"><span class="pre">0</span></code> は <code class="docutils literal notranslate"><span class="pre">1</span></code> という値より <code class="docutils literal notranslate"><span class="pre">1</span></code> ほど小さい値を意味しているのでなく，単にクラスを意味する数字です．</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>入力ベクトル</p></th>
+<th class="text-align:center head"><p>ターゲットベクトル</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>[ [1.1, 0.1], [2.2, 0.3], [3.0, 0.3], [4.0, 1.0] ]</p></td>
+<td class="text-align:center"><p>[ 1 ]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>[ [2.0 ,0.9], [0.1, 0.8], [3.0, 0.7], [4.0, 0.1], [1.0, 0.3] ]</p></td>
+<td class="text-align:center"><p>[ 2 ]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>[ [2.0, 1.0], [3.0, 0.6], [4.0, 0.6] ]</p></td>
+<td class="text-align:center"><p>[ 0 ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>プログラムは以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">LSTM</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># データセットの生成</span>
+    <span class="n">tx</span><span class="o">=</span><span class="p">[[[</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],[</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]],[[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">0.9</span><span class="p">],[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],[</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]],[[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],[</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">]]]</span>
+    <span class="n">tx</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">tt</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tt</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+    
+    <span class="c1"># ネットワークの定義</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">Network</span><span class="p">()</span>
+    <span class="n">cce</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
+    <span class="n">acc</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+    
+    <span class="c1"># 学習1回の記述</span>
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+            <span class="n">costvalue</span><span class="o">=</span><span class="n">cce</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span> <span class="c1">#正解と出力の順番はこの通りにする必要がある．</span>
+        <span class="n">gradient</span><span class="o">=</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">costvalue</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="n">accvalue</span><span class="o">=</span><span class="n">acc</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">costvalue</span><span class="p">,</span><span class="n">accvalue</span>
+    
+    <span class="c1"># 学習前の人工知能がどのような出力をしているのかを確認</span>
+    <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output vector:&quot;</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target vector:&quot;</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
+
+    <span class="c1"># 学習ループ</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">traincost</span><span class="p">,</span><span class="n">trainacc</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">50</span>==0:
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:5d}</span><span class="s2">: Training cost= </span><span class="si">{:.4f}</span><span class="s2">, Training ACC= </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="n">traincost</span><span class="p">,</span><span class="n">trainacc</span><span class="p">))</span>
+    
+    <span class="c1"># 学習後の人工知能がどのような出力をしているのかを確認</span>
+    <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output vector:&quot;</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target vector:&quot;</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
+
+    <span class="c1"># MLPの場合と比較しつつ，ハイパーパラメータを変更しながらどのような挙動をしているか確認．</span>
+
+<span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="o">=</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="o">=</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tx</span><span class="p">):</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ty</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下の部分はデータセットを生成するための記述です．<code class="docutils literal notranslate"><span class="pre">tx</span></code> が入力ベクトルを格納するための変数です．入力ベクトルは二次元配列なので，<code class="docutils literal notranslate"><span class="pre">tx</span></code> は三次元配列の構造をとります．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># データセットの生成</span>
+    <span class="n">tx</span><span class="o">=</span><span class="p">[[[</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],[</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]],[[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">0.9</span><span class="p">],[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],[</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]],[[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],[</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">]]]</span>
+    <span class="n">tx</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">tt</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tt</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras.preprocessing.sequence.pad_sequences()</span></code> はゼロパディングのための記述です．これによって以下のようにデータは変換されます．</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>入力ベクトル</p></th>
+<th class="text-align:center head"><p>ターゲットベクトル</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>[ [1.1, 0.1], [2.2, 0.3], [3.0, 0.3], [4.0, 1.0], [0.0, 0.0] ]</p></td>
+<td class="text-align:center"><p>[ 1 ]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>[ [2.0 ,0.9], [0.1, 0.8], [3.0, 0.7], [4.0, 0.1], [1.0, 0.3] ]</p></td>
+<td class="text-align:center"><p>[ 2 ]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>[ [2.0, 1.0], [3.0, 0.6], [4.0, 0.6], [0.0, 0.0], [0.0, 0.0] ]</p></td>
+<td class="text-align:center"><p>[ 0 ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>その他の部分は MLP のときと変わりません．ネットワークの定義は異なっており，以下ように行います．MLP の場合は <code class="docutils literal notranslate"><span class="pre">Dense()</span></code> だけを用いました．これに対して LSTM を実装したい場合は <code class="docutils literal notranslate"><span class="pre">LSTM()</span></code> を用います．<code class="docutils literal notranslate"><span class="pre">LSTM(50)</span></code> となっていますが，これは LSTM のユニットサイズが50ということです．また，<code class="docutils literal notranslate"><span class="pre">Dense(3,activation=&quot;softmax&quot;)</span></code> とありますが，これは全結合層（最も基本的な層）でニューロンのサイズは3個であることを意味しています．また，この層は出力層です．前述の MNIST を扱った MLP が入力層784，中間層500，出力層10のサイズでしたが，これを <code class="docutils literal notranslate"><span class="pre">(784,</span> <span class="pre">500,</span> <span class="pre">10)</span></code>と表現します．これに対して，このネットワークの1 timestep では <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">50,</span> <span class="pre">3)</span></code> という MLP の計算がされます．これが LSTM の仕組みによって，timestep 分（5回）繰り返されます．この場合，出力は配列でないため，最後の <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">50,</span> <span class="pre">3)</span></code> の計算の出力のみが最終的な予測に用いられます．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="o">=</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="o">=</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tx</span><span class="p">):</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ty</span>
+</pre></div>
+</div>
+<p>結果を確認すると，しっかりコストが下がっており，同時に正確度も上昇している様子が判ります．また，未学習の際には正解を導けていなかったところ，学習済みのモデルでは正解をしっかり出力できていることが確認できます．</p>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">8.2.3. </span>実装方法②<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>次に，「双方向で入力ベクトルと出力ベクトルがともに配列で問題が回帰で埋め込みが必要なパターン」の実装方法を紹介します．ここでは以下のようなデータを生成して利用します．このデータセットは3つのインスタンスからなります．最初のインスタンスは3文脈からなる配列です．入力ベクトルの各 timestep は整数です．ここでの7という数字は5よりも2ほど大きい値を意味しているのはなく，単なるダミー変数です．ターゲットベクトルの各 timestep は2要素からなるベクトルで構成されています．最初のインスタンスの <span class="math notranslate nohighlight">\(t=1\)</span> のときの値は <code class="docutils literal notranslate"><span class="pre">[6.2,</span> <span class="pre">1.1]</span></code> です．この6.2は1.1よりも5.1ほど大きい数値です．このインスタンスでは，最初に入力された7というダミー変数に対して，<code class="docutils literal notranslate"><span class="pre">[6.2,</span> <span class="pre">1.1]</span></code> を予測しなければなりません．これは，分類問題ではなく回帰問題です．</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>入力ベクトル</p></th>
+<th class="text-align:left head"><p>ターゲットベクトル</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>[ 7, 5, 8 ]</p></td>
+<td class="text-align:left"><p>[ [6.2, 1.1], [3.5, 2.1], [2.0, 1.1] ]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>[ 3, 9, 3, 4, 6 ]</p></td>
+<td class="text-align:left"><p>[ [4.5, 3.8], [4.1, 4.9], [3.4, 4.6], [2.7, 1.7], [2.1, 2.5] ]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>[ 2, 3, 4, 1 ]</p></td>
+<td class="text-align:left"><p>[ [1.2, 1.0], [4.4, 3.3], [3.1, 2.8], [2.7, 1.6] ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>プログラムは以下のように書きます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Bidirectional</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">LSTM</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># データセットの生成</span>
+    <span class="n">tx</span><span class="o">=</span><span class="p">[[</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">tt</span><span class="o">=</span><span class="p">[[[</span><span class="mf">6.2</span><span class="p">,</span><span class="mf">1.1</span><span class="p">],[</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">2.1</span><span class="p">],[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">]],[[</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">3.8</span><span class="p">],[</span><span class="mf">4.1</span><span class="p">,</span><span class="mf">4.9</span><span class="p">],[</span><span class="mf">3.4</span><span class="p">,</span><span class="mf">4.6</span><span class="p">],[</span><span class="mf">2.7</span><span class="p">,</span><span class="mf">1.7</span><span class="p">],[</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">2.5</span><span class="p">]],[[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">4.4</span><span class="p">,</span><span class="mf">3.3</span><span class="p">],[</span><span class="mf">3.1</span><span class="p">,</span><span class="mf">2.8</span><span class="p">],[</span><span class="mf">2.7</span><span class="p">,</span><span class="mf">1.6</span><span class="p">]]]</span>
+    <span class="n">tx</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">tt</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># ネットワークの定義</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">Network</span><span class="p">()</span>
+    <span class="n">mse</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">MeanSquaredError</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+    
+    <span class="c1"># 学習1回の記述</span>
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+            <span class="n">costvalue</span><span class="o">=</span><span class="n">mse</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+        <span class="n">gradient</span><span class="o">=</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">costvalue</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">costvalue</span>
+    
+    <span class="c1"># 学習前の人工知能がどのような出力をしているのかを確認</span>
+    <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output vector:&quot;</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target vector:&quot;</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
+
+    <span class="c1"># 学習ループ</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">traincost</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">%</span><span class="k">50</span>==0:
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch=</span><span class="si">{0:5d}</span><span class="s2"> Cost=</span><span class="si">{1:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">traincost</span><span class="p">)))</span>
+    
+    <span class="c1"># 学習後の人工知能がどのような出力をしているのかを確認</span>
+    <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output vector:&quot;</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target vector:&quot;</span><span class="p">,</span><span class="n">tt</span><span class="p">)</span>
+
+    <span class="c1"># 上の例と比較しながら挙動を確認．</span>
+
+<span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="o">=</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">output_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="o">=</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="o">=</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tx</span><span class="p">):</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ty</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このプログラムでは以下のような関数をインポートしています．この <code class="docutils literal notranslate"><span class="pre">Embedding()</span></code> は <code class="docutils literal notranslate"><span class="pre">7</span></code> とか <code class="docutils literal notranslate"><span class="pre">5</span></code> とか <code class="docutils literal notranslate"><span class="pre">8</span></code> というようなダミー変数をそれぞれ，<code class="docutils literal notranslate"><span class="pre">[5.1234,</span> <span class="pre">0.4516,</span> <span class="pre">1.4631]</span></code> とか <code class="docutils literal notranslate"><span class="pre">[1.5462,</span> <span class="pre">0.4641,</span> <span class="pre">0.9798]</span></code> とか <code class="docutils literal notranslate"><span class="pre">[3.7486,</span> <span class="pre">0.7672,</span> <span class="pre">4.423]</span></code> みたいなベクトルに変換するための関数です．ダミー変数を何らかのベクトル空間に埋め込むという作業をします．</p>
+<div class="highlight-pyton notranslate"><div class="highlight"><pre><span></span>from tensorflow.keras.layers import Embedding
+</pre></div>
+</div>
+<p>次に，以下の部分ですが，ダミー変数の場合は0でパディングを行いました．それに対してこのターゲットベクトルに関しては，<code class="docutils literal notranslate"><span class="pre">-1</span></code> というターゲットベクトルに出現しそうにない値でパディングを行っています．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tt</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>学習1回分の記述がこれまでと少し異なっています．回帰問題においては正確度は計算できないため，その部分を削除しました．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 学習1回の記述</span>
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+            <span class="n">costvalue</span><span class="o">=</span><span class="n">mse</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+        <span class="n">gradient</span><span class="o">=</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">costvalue</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">costvalue</span>
+</pre></div>
+</div>
+<p>実際のネットワークは以下で定義しています．<code class="docutils literal notranslate"><span class="pre">Embedding(input_dim=9+1,output_dim=3,mask_zero=True)</span></code> における <code class="docutils literal notranslate"><span class="pre">9+1</span></code> は入力ベクトルのダミー変数の種類が <code class="docutils literal notranslate"><span class="pre">1</span></code> から <code class="docutils literal notranslate"><span class="pre">9</span></code> の9種類あることに加えて，配列をパディングするために <code class="docutils literal notranslate"><span class="pre">0</span></code> を利用するためです．この <code class="docutils literal notranslate"><span class="pre">0</span></code> から <code class="docutils literal notranslate"><span class="pre">9</span></code> の10種類の値を3要素からなるベクトルデータに変換する作業をこれで行います．<code class="docutils literal notranslate"><span class="pre">LSTM(units=50,return_sequences=True)</span></code> の部分は前述の例と異なります．<code class="docutils literal notranslate"><span class="pre">return_sequences=True</span></code> というオプションが指定されていますが，これは LSTM の最終的な出力としてひとつの固定長のベクトルを返すのではなくて，入力ベクトルの長さに合った個数のベクトルを返すためのオプションです．入力ベクトルはパディングされて5文脈のベクトルに変換されているので，この LSTM では5文脈のベクトルが返されます．また，<code class="docutils literal notranslate"><span class="pre">Bidirectional()</span></code> は RNN を双方向で計算させるためのものです．LSTM 自体は50個のニューロンで定義されていますが，双方向なので正方向の出力と負方向の出力が連結された100の大きさのベクトルが返ります．最後の <code class="docutils literal notranslate"><span class="pre">Dense()</span></code> は全結合層であり，出力データの各時刻における値が2要素からなるベクトルなのでニューロンは2個に設定します．プログラムを実行すると学習済みの人工知能の出力は教師ベクトルと類似していることが確認できます．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="o">=</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">output_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="o">=</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="o">=</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tx</span><span class="p">):</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="n">ty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ty</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">8.3. </span>テキスト感情分析<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>この節では実際の自然言語から作られたデータセットを RNN で処理するためのコードを書きます．</p>
+<div class="section" id="id9">
+<h3><span class="section-number">8.3.1. </span>対象のデータセット<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>ここでは，IMDb（Internet Movie Database）という映画に対するレビューデータを用いて，それに対する感情分析（sentiment analysis）を行います．レビューデータは元々は自然言語なので文字列データです．その文字列情報がポジティブな感じなのかネガティブな感じなのかということを判別する人工知能を構築します．IMDb は TensorFlow を利用することでダウンロードすることができます．以下のように書きます．また，IMDb の性質を調査します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">lilearnx</span><span class="p">,</span> <span class="n">lilearnt</span><span class="p">),</span> <span class="p">(</span><span class="n">litestx</span><span class="p">,</span> <span class="n">litestt</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of instances in the learning dataset:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lilearnx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">lilearnt</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of instances in the test dataset:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">litestx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">litestt</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The input vector of the first instance in the learning dataset:&quot;</span><span class="p">,</span> <span class="n">lilearnx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Its length:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lilearnx</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The target vector of the first instance in the learning datast:&quot;</span><span class="p">,</span> <span class="n">lilearnt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The input vector of the second instance in the learning dataset:&quot;</span><span class="p">,</span> <span class="n">lilearnx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Its length:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lilearnx</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The target vector of the first instance in the learning datast:&quot;</span><span class="p">,</span> <span class="n">lilearnt</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The data in the target vector:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">lilearnt</span><span class="p">))</span>
+
+    <span class="c1"># 次に進む．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+	<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>データセットのサイズは学習セットとテストセットで等しく25000インスタンスでした．学習セットの最初のデータの長さは218で2番目のデータの長さは189です．MNIST はその入力ベクトルの長さは784に固定されていました．IMDb には様々な長さの入力ベクトルが格納されています．RNN はこのような様々な長さの入力ベクトルを扱うことができます．入力ベクトルの要素（数字）は単語を意味しています．元々は英語の単語であったものを，数字（整数）に変換してくれているのです．また，教師ベクトルは0か1の二値です．その文章がどのような感情を示すのかを0か1で表現しています．次に，入力ベクトルに何種類の単語が存在しているのかを調査します．入力ベクトルに存在する最も大きな値を知れたらこれを達成できます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">lilearnx</span><span class="p">,</span> <span class="n">lilearnt</span><span class="p">),</span> <span class="p">(</span><span class="n">litestx</span><span class="p">,</span> <span class="n">litestt</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">vocabsize</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">litestx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&gt;</span><span class="n">vocabsize</span><span class="p">:</span>
+            <span class="n">vocabsize</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">lilearnx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&gt;</span><span class="n">vocabsize</span><span class="p">:</span>
+            <span class="n">vocabsize</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of unique words:&quot;</span><span class="p">,</span><span class="n">vocabsize</span><span class="p">)</span>
+
+    <span class="c1"># 次に進む．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+	<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ユニークな単語の数は88586個でした．実はテストセットの方が少しだけ少ないのですが，テストセットが少ない分には問題ありません．次に，入力ベクトルの長さを調べます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">(</span><span class="n">lilearnx</span><span class="p">,</span> <span class="n">lilearnt</span><span class="p">),</span> <span class="p">(</span><span class="n">litestx</span><span class="p">,</span> <span class="n">litestt</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">maxlen</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000000</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">lilearnx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&gt;</span><span class="n">maxlen</span><span class="p">:</span>
+            <span class="n">maxlen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&lt;</span><span class="n">minlen</span><span class="p">:</span>
+            <span class="n">minlen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum and maximum length of instances in learning dataset:&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="p">,</span><span class="n">maxlen</span><span class="p">)</span>
+    <span class="n">maxlen</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000000</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">litestx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&gt;</span><span class="n">maxlen</span><span class="p">:</span>
+            <span class="n">maxlen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&lt;</span><span class="n">minlen</span><span class="p">:</span>
+            <span class="n">minlen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum and maximum length of instances in test dataset:&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="p">,</span><span class="n">maxlen</span><span class="p">)</span>
+
+    <span class="c1"># 次に進む．</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+	<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>学習セットとテストセットの入力ベクトルの長さの最小値と最大値が判りました．</p>
+</div>
+<div class="section" id="id10">
+<h3><span class="section-number">8.3.2. </span>LSTM による計算<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>LSTM によって IMDb の感情分析をするには以下のようにプログラムを書きます．前述の MLP の書き方とかなり類似しています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">LSTM</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ハイパーパラメータの設定</span>
+    <span class="n">MAXEPOCH</span><span class="o">=</span><span class="mi">30</span>
+    <span class="n">MINIBATCHSIZE</span><span class="o">=</span><span class="mi">500</span>
+    <span class="n">PATIENCE</span><span class="o">=</span><span class="mi">7</span>
+    <span class="n">UNITSIZE</span><span class="o">=</span><span class="mi">100</span>
+    <span class="n">EMBEDSIZE</span><span class="o">=</span><span class="mi">50</span>
+    <span class="n">TRAINSIZE</span><span class="o">=</span><span class="mi">22500</span>
+    <span class="n">VALIDSIZE</span><span class="o">=</span><span class="mi">25000</span><span class="o">-</span><span class="n">TRAINSIZE</span>
+    <span class="n">TRAINMINIBATCHNUMBER</span><span class="o">=</span><span class="n">TRAINSIZE</span><span class="o">//</span><span class="n">MINIBATCHSIZE</span>
+    <span class="n">VALIDMINIBATCHNUMBER</span><span class="o">=</span><span class="n">VALIDSIZE</span><span class="o">//</span><span class="n">MINIBATCHSIZE</span>
+    
+    <span class="c1"># データの読み込み</span>
+    <span class="p">(</span><span class="n">lilearnx</span><span class="p">,</span><span class="n">lilearnt</span><span class="p">),(</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">)</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+    <span class="n">outputsize</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">lilearnt</span><span class="p">))</span>
+    <span class="n">lilearnx</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">lilearnx</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># データセットに存在するボキャブラリのサイズを計算</span>
+    <span class="n">vocabsize</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">lilearnx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&gt;</span><span class="n">vocabsize</span><span class="p">:</span>
+            <span class="n">vocabsize</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="n">vocabsize</span><span class="o">=</span><span class="n">vocabsize</span><span class="o">+</span><span class="mi">1</span>
+    
+    <span class="c1"># 学習セットをトレーニングセットとバリデーションセットに分割（9:1）</span>
+    <span class="n">litrainx</span><span class="p">,</span><span class="n">litraint</span><span class="o">=</span><span class="n">lilearnx</span><span class="p">[:</span><span class="n">TRAINSIZE</span><span class="p">],</span><span class="n">lilearnt</span><span class="p">[:</span><span class="n">TRAINSIZE</span><span class="p">]</span>
+    <span class="n">livalidx</span><span class="p">,</span><span class="n">livalidt</span><span class="o">=</span><span class="n">lilearnx</span><span class="p">[</span><span class="n">TRAINSIZE</span><span class="p">:],</span><span class="n">lilearnt</span><span class="p">[</span><span class="n">TRAINSIZE</span><span class="p">:]</span>
+
+    <span class="c1"># ネットワークの定義</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">Network</span><span class="p">(</span><span class="n">vocabsize</span><span class="p">,</span><span class="n">EMBEDSIZE</span><span class="p">,</span><span class="n">UNITSIZE</span><span class="p">,</span><span class="n">outputsize</span><span class="p">)</span>
+    <span class="n">cce</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
+    <span class="n">acc</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+
+    <span class="c1"># 学習1回の記述</span>
+    <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="n">tt</span><span class="p">,</span><span class="n">mode</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">trainable</span><span class="o">=</span><span class="n">mode</span>
+            <span class="n">ty</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+            <span class="n">costvalue</span><span class="o">=</span><span class="n">cce</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+        <span class="n">gradient</span><span class="o">=</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">costvalue</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="n">accvalue</span><span class="o">=</span><span class="n">acc</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span><span class="n">ty</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">costvalue</span><span class="p">,</span><span class="n">accvalue</span>
+    
+    <span class="c1"># 学習ループ</span>
+    <span class="n">liepoch</span><span class="p">,</span><span class="n">litraincost</span><span class="p">,</span><span class="n">livalidcost</span><span class="o">=</span><span class="p">[],[],[]</span>
+    <span class="n">patiencecounter</span><span class="p">,</span><span class="n">bestvalue</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">100000</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">MAXEPOCH</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># トレーニング</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">TRAINSIZE</span><span class="p">)</span>
+        <span class="n">traincost</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">subepoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">TRAINMINIBATCHNUMBER</span><span class="p">):</span>
+            <span class="n">somb</span><span class="o">=</span><span class="n">subepoch</span><span class="o">*</span><span class="n">MINIBATCHSIZE</span>
+            <span class="n">eomb</span><span class="o">=</span><span class="n">somb</span><span class="o">+</span><span class="n">MINIBATCHSIZE</span>
+            <span class="n">subtraincost</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">litrainx</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="n">somb</span><span class="p">:</span><span class="n">eomb</span><span class="p">]],</span><span class="n">litraint</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="n">somb</span><span class="p">:</span><span class="n">eomb</span><span class="p">]],</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">traincost</span><span class="o">+=</span><span class="n">subtraincost</span>
+        <span class="n">traincost</span><span class="o">=</span><span class="n">traincost</span><span class="o">/</span><span class="n">TRAINMINIBATCHNUMBER</span>
+        <span class="c1"># バリデーション（本来バリデーションでミニバッチ処理をする意味はないがColaboratoryの環境だとバッチ処理するとGPUメモリが枯渇したためミニバッチ処理をする）</span>
+        <span class="n">validcost</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">subepoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">VALIDMINIBATCHNUMBER</span><span class="p">):</span>
+            <span class="n">somb</span><span class="o">=</span><span class="n">subepoch</span><span class="o">*</span><span class="n">MINIBATCHSIZE</span>
+            <span class="n">eomb</span><span class="o">=</span><span class="n">somb</span><span class="o">+</span><span class="n">MINIBATCHSIZE</span>
+            <span class="n">subvalidcost</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">litrainx</span><span class="p">[</span><span class="n">somb</span><span class="p">:</span><span class="n">eomb</span><span class="p">],</span><span class="n">litraint</span><span class="p">[</span><span class="n">somb</span><span class="p">:</span><span class="n">eomb</span><span class="p">],</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">validcost</span><span class="o">+=</span><span class="n">subvalidcost</span>
+        <span class="n">validcost</span><span class="o">=</span><span class="n">validcost</span><span class="o">/</span><span class="n">VALIDMINIBATCHNUMBER</span>
+        <span class="c1"># 学習過程の出力</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{:4d}</span><span class="s2">: Training cost= </span><span class="si">{:7.4f}</span><span class="s2"> Validation cost= </span><span class="si">{:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="n">traincost</span><span class="p">,</span><span class="n">validcost</span><span class="p">))</span>
+        <span class="n">liepoch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+        <span class="n">litraincost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">traincost</span><span class="p">)</span>
+        <span class="n">livalidcost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">validcost</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">validcost</span><span class="o">&lt;</span><span class="n">bestvalue</span><span class="p">:</span>
+            <span class="n">bestvalue</span><span class="o">=</span><span class="n">validcost</span>
+            <span class="n">patiencecounter</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">patiencecounter</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">patiencecounter</span><span class="o">==</span><span class="n">PATIENCE</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="c1"># 学習曲線の描画    </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">liepoch</span><span class="p">,</span><span class="n">litraincost</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">liepoch</span><span class="p">,</span><span class="n">livalidcost</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cost&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># 挙動を確認．</span>
+
+<span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vocabsize</span><span class="p">,</span><span class="n">EMBEDSIZE</span><span class="p">,</span><span class="n">UNITSIZE</span><span class="p">,</span><span class="n">outputsize</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d0</span><span class="o">=</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">vocabsize</span><span class="p">,</span><span class="n">output_dim</span><span class="o">=</span><span class="n">EMBEDSIZE</span><span class="p">,</span><span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="o">=</span><span class="n">LSTM</span><span class="p">(</span><span class="n">UNITSIZE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="o">=</span><span class="n">Dense</span><span class="p">(</span><span class="n">outputsize</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下の部分は MLP による MNIST の解析においてはしなかった処理です．単語のベクトル空間への埋め込みのためにボキャブラリのサイズが必要であるため追加しています．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># データセットに存在するボキャブラリのサイズを計算</span>
+    <span class="n">vocabsize</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">lilearnx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">&gt;</span><span class="n">vocabsize</span><span class="p">:</span>
+            <span class="n">vocabsize</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="n">vocabsize</span><span class="o">=</span><span class="n">vocabsize</span><span class="o">+</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>以下の部分はこれまでの実装と異なります．本来，バリデーションの過程においてミニバッチ処理をする必要はありません．しかし，この Google Colaboratory で使わせてもらっている GPU のメモリの都合上，バッチ処理をすると計算が止まってしまう場合があります．よって，ここではバリデーションの計算の際にもミニバッチ処理を行っています．パラメータの更新はもちろんしていません．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>        <span class="c1"># バリデーション（本来バリデーションでミニバッチ処理をする意味はないがColaboratoryの環境だとバッチ処理するとGPUメモリが枯渇したためミニバッチ処理をする）</span>
+        <span class="n">validcost</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">subepoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">VALIDMINIBATCHNUMBER</span><span class="p">):</span>
+            <span class="n">somb</span><span class="o">=</span><span class="n">subepoch</span><span class="o">*</span><span class="n">MINIBATCHSIZE</span>
+            <span class="n">eomb</span><span class="o">=</span><span class="n">somb</span><span class="o">+</span><span class="n">MINIBATCHSIZE</span>
+            <span class="n">subvalidcost</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">inference</span><span class="p">(</span><span class="n">litrainx</span><span class="p">[</span><span class="n">somb</span><span class="p">:</span><span class="n">eomb</span><span class="p">],</span><span class="n">litraint</span><span class="p">[</span><span class="n">somb</span><span class="p">:</span><span class="n">eomb</span><span class="p">],</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">validcost</span><span class="o">+=</span><span class="n">subvalidcost</span>
+        <span class="n">validcost</span><span class="o">=</span><span class="n">validcost</span><span class="o">/</span><span class="n">VALIDMINIBATCHNUMBER</span>
+</pre></div>
+</div>
+<p>その他の処理に関しては，これまで紹介してきたものと相違ないので省略します．また，テストセットを用いたテストの過程やパラメータ保存の方法もこれまでと同じなので省略します．プログラムを実行すると MLP による MNIST の処理と比べて計算にとても時間がかかったことが確認できると思います．RNN は MLP や CNN 等と比べて本質的に深いネットワークを形成します．よって（設計したネットワークに当然依りますが同程度のパラメータを指定した場合は）それらに比べてたくさんの計算時間が必要となるのです．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>終わりです．</p>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebook"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="tensorflow_02.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">7. </span>多層パーセプトロン</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="tensorflow_06.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>アテンションネットワーク</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      <div class="extra_footer">
+        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img style="0;margin-bottom:0.2em;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> © Copyright 2022 Graduate School of Information Sciences, Tohoku University．
+
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

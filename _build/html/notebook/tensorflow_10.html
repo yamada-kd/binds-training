@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>11. 強化学習法 &#8212; 実践データ科学</title>
+    <title>12. 強化学習法 &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="演習問題" href="worksheet.html" />
-    <link rel="prev" title="10. 敵対的生成ネットワーク" href="tensorflow_08.html" />
+    <link rel="prev" title="11. 敵対的生成ネットワーク" href="tensorflow_08.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -156,23 +156,28 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_05.html">
+   8. 再帰型ニューラルネットワーク
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_06.html">
-   8. アテンションネットワーク
+   9. アテンションネットワーク
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_07.html">
-   9. Hugging Face の利用方法
+   10. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_08.html">
-   10. 敵対的生成ネットワーク
+   11. 敵対的生成ネットワーク
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   11. 強化学習法
+   12. 強化学習法
   </a>
  </li>
 </ul>
@@ -289,123 +294,123 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   11.1. 基本的な事柄
+   12.1. 基本的な事柄
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     11.1.1. 強化学習法とは
+     12.1.1. 強化学習法とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     11.1.2. 用語の整理
+     12.1.2. 用語の整理
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     11.1.3. 強化学習法の種類
+     12.1.3. 強化学習法の種類
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#q">
-   11.2. Q 学習
+   12.2. Q 学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     11.2.1. 解きたい問題
+     12.2.1. 解きたい問題
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     11.2.2. Q 学習で行うこと
+     12.2.2. Q 学習で行うこと
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     11.2.3. Q 学習の実装
+     12.2.3. Q 学習の実装
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     11.2.4. 環境の可視化
+     12.2.4. 環境の可視化
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     11.2.5. Q テーブルの出力
+     12.2.5. Q テーブルの出力
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#openai-gym">
-   11.3. OpenAI Gym
+   12.3. OpenAI Gym
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     11.3.1. インストール
+     12.3.1. インストール
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     11.3.2. 環境の生成
+     12.3.2. 環境の生成
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     11.3.3. 環境遷移の再生
+     12.3.3. 環境遷移の再生
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     11.3.4. 環境遷移の画像化
+     12.3.4. 環境遷移の画像化
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
-     11.3.5. 環境のインポート
+     12.3.5. 環境のインポート
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id16">
-   11.4. 深層 Q 学習
+   12.4. 深層 Q 学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     11.4.1. 深層学習と Q 学習
+     12.4.1. 深層学習と Q 学習
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     11.4.2. 教師データ
+     12.4.2. 教師データ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     11.4.3. 計算の概要
+     12.4.3. 計算の概要
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id20">
-     11.4.4. 性能向上テクニック
+     12.4.4. 性能向上テクニック
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id21">
-     11.4.5. 取り組む問題
+     12.4.5. 取り組む問題
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id22">
-     11.4.6. 深層 Q 学習法の実装
+     12.4.6. 深層 Q 学習法の実装
     </a>
    </li>
   </ul>
@@ -432,123 +437,123 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   11.1. 基本的な事柄
+   12.1. 基本的な事柄
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     11.1.1. 強化学習法とは
+     12.1.1. 強化学習法とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     11.1.2. 用語の整理
+     12.1.2. 用語の整理
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     11.1.3. 強化学習法の種類
+     12.1.3. 強化学習法の種類
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#q">
-   11.2. Q 学習
+   12.2. Q 学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     11.2.1. 解きたい問題
+     12.2.1. 解きたい問題
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     11.2.2. Q 学習で行うこと
+     12.2.2. Q 学習で行うこと
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     11.2.3. Q 学習の実装
+     12.2.3. Q 学習の実装
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     11.2.4. 環境の可視化
+     12.2.4. 環境の可視化
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     11.2.5. Q テーブルの出力
+     12.2.5. Q テーブルの出力
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#openai-gym">
-   11.3. OpenAI Gym
+   12.3. OpenAI Gym
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     11.3.1. インストール
+     12.3.1. インストール
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     11.3.2. 環境の生成
+     12.3.2. 環境の生成
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     11.3.3. 環境遷移の再生
+     12.3.3. 環境遷移の再生
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     11.3.4. 環境遷移の画像化
+     12.3.4. 環境遷移の画像化
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
-     11.3.5. 環境のインポート
+     12.3.5. 環境のインポート
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id16">
-   11.4. 深層 Q 学習
+   12.4. 深層 Q 学習
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     11.4.1. 深層学習と Q 学習
+     12.4.1. 深層学習と Q 学習
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id18">
-     11.4.2. 教師データ
+     12.4.2. 教師データ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id19">
-     11.4.3. 計算の概要
+     12.4.3. 計算の概要
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id20">
-     11.4.4. 性能向上テクニック
+     12.4.4. 性能向上テクニック
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id21">
-     11.4.5. 取り組む問題
+     12.4.5. 取り組む問題
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id22">
-     11.4.6. 深層 Q 学習法の実装
+     12.4.6. 深層 Q 学習法の実装
     </a>
    </li>
   </ul>
@@ -563,12 +568,12 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">11. </span>強化学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">12. </span>強化学習法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">11.1. </span>基本的な事柄<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">12.1. </span>基本的な事柄<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>この章では強化学習法を紹介します．中でも Q 学習と呼ばれる方法を紹介します．その後，深層学習法を利用して Q 学習を実行する深層 Q 学習の紹介をします．この節ではそれらを理解するために必要な基礎知識の説明をします．</p>
 <div class="section" id="id3">
-<h3><span class="section-number">11.1.1. </span>強化学習法とは<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.1.1. </span>強化学習法とは<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>機械学習法は大きく分けて，教師あり学習法，教師なし学習法，強化学習法の 3 個に分類されます．教師あり学習法は入力データとそれに紐づいた教師データからなるデータを利用して，入力データに対して教師データに応じた出力をするように人工知能（機械学習モデル）を成長させるものです．強化学習法で成長させるものはエージェントと呼ばれる人工知能です．強化学習法をする際の登場人物は環境とエージェントのふたつです．エージェントが何らかの根拠に基づいて環境に作用します．例えば，ゲームで言うところの環境とはマップであったり空間であったり，そこに存在するキャラクターであったりしますが，それに作用するとは，プレイヤーの分身であるキャラクターを空間上で動かすこと等に相当します．このエージェントによる行動決定の根拠を方策と言います．強化学習法ではエージェントを成長させますが，これに与えるものは入力データと教師データの組み合わせではありません．エージェントは行動を選択した際のその行動の良さの指標である報酬という値を獲得します．エージェントは自身の行動に基づいてこの報酬を得ますが，環境の遷移が終わったとき（ゲームをクリアしたときや対戦の決着がついたとき）の報酬を最大化するように成長させられます．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -576,7 +581,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">11.1.2. </span>用語の整理<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.1.2. </span>用語の整理<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>強化学習法ではこれまでの機械学習法では用いなかった用語を利用するため，それについての整理を行います．</p>
 <p><strong>エージェント</strong>とは強化学習法で成長させられる対象です．以下で紹介する Q 学習において成長させられるものは Q テーブルというものであるため厳密には違うのですが，エージェントはそれを参照して行動を決定するため，このように書きました．</p>
 <p><strong>環境</strong>とはエージェントが作用を及ぼす対象です．囲碁でいうところの盤面と碁が環境です．任天堂のマリオを動かすゲームでいうところのフィールドやマリオ等が環境です．この環境はエージェントが選択した行動によって遷移をします．</p>
@@ -592,7 +597,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 <p><strong>グリーディ</strong>（greedy）な方法とは長期的に考えればより良い解が見つかることを考慮せずに，短期的に最も良いと考えられる解を見つけようとする方法のことです．貪欲法と言います．これは強化学習の分野における専門的な言葉ではありません．この教材でははじめて出したような気がしたのでここで一応まとめてみました．</p>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">11.1.3. </span>強化学習法の種類<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.1.3. </span>強化学習法の種類<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>強化学習法を実行する方法には様々な分類の方法があります．モデルに基づく方法か価値または方策に基づく方法か等の分類方法です．強化学習法の種類は現在開発が活発であり，どの方法がどのような分類となるかを整理して言及することをこの教材では避けます．</p>
 <p>最初に，モデルに基づく方法かそうでないかの観点から分類をすると，<strong>動的計画法</strong>はモデルに基づく方法です．動的計画法は正確な環境モデルを持っている場合に最適な方策を決定することが可能な方法です．例えば，何らかの格子世界を移動するオブジェクトが右に移動すればある報酬を得られるし，格子世界を出ようとするならペナルティが加えられる等というような環境の性質が完全に判明している場合に利用可能です．エピソードを終了せずとも方策を最適化しようとすることが可能です．これ以降で紹介する方法はモデルに基づく方法ではありません．</p>
 <p>モデルフリーの方法であり，価値ベース法としては<strong>モンテカルロ法</strong>があります．モンテカルロ法はモデルに基づく方法である動的計画法とは異なり，完全な環境モデルを持たない場合，行動の結果として報酬が得られるかどうかが不明な際に用いられる方法です．エージェントの行動に応じて学習を進めます．エピソードを終了させることではじめて報酬を計算します．これを実績ベースであると言います．</p>
@@ -617,10 +622,10 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="q">
-<h2><span class="section-number">11.2. </span>Q 学習<a class="headerlink" href="#q" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">12.2. </span>Q 学習<a class="headerlink" href="#q" title="Permalink to this headline">¶</a></h2>
 <p>この節ではフィールド上を動いてゴールを目指すオブジェクトの動きをコントロールするというタスクを通じて Q 学習の利用方法を理解します．</p>
 <div class="section" id="id6">
-<h3><span class="section-number">11.2.1. </span>解きたい問題<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.2.1. </span>解きたい問題<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>以下のような 5 行 4 列の行列を考えます．これはフィールドです．このフィールド上で何らかのオブジェクト（人でも犬でも何でも良いです）を動かしてゴール（G）を目指すこととします．オブジェクトはフィールド上のグリッド線で囲まれたどこかの位置に存在できることとします．このグリッド線で囲まれた位置のことをこれ以降マスと呼びます．オブジェクトは上下左右に動かせるものとします．ただし，フィールドは壁に囲まれているとします．つまり，オブジェクトはこの 5 行 4 列のフィールドの外には出られません．また，フィールドには障害物（X）があり，障害物が存在する位置にオブジェクトは行けないこととします．オブジェクトは最初ゴールでも障害物でもないオブジェクトが移動可能な普通のマス（S），座標にして <code class="docutils literal notranslate"><span class="pre">(4,</span> <span class="pre">0)</span></code> に位置しているものとします．このオブジェクトをうまく移動させてゴールまで導くエージェントを作ることをここでの問題とします．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/field.svg?raw=1" style="width: 100%;" /></a>
 <div class="admonition hint">
@@ -633,7 +638,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">11.2.2. </span>Q 学習で行うこと<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.2.2. </span>Q 学習で行うこと<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>強化学習はエージェントがもらえる報酬を最大化するように学習を行います．エージェントがオブジェクトを動かした結果ゴールまでオブジェクトを導けたのであれば多くの報酬を獲得できます．一方で，障害物があるマスにはオブジェクトを移動できませんがその際には報酬が減ります．その他のマスにオブジェクトを移動させる場合は報酬は得られません．</p>
 <p>このような状況において，Q 学習では報酬を最大化するために参照する Q テーブルなるものを構築します．学習の過程でこの Q テーブルは更新されます．エージェントは良い Q テーブルを参照することによってより良い性能でオブジェクトを的確に動かせるようになります．つまり，Q 学習で成長させられるものは Q テーブルです．Q テーブルには Q 値が格納されます．というよりは Q 値の集合が Q テーブルです．Q 値は環境がある状態 <span class="math notranslate nohighlight">\(s\)</span> にあるときに <span class="math notranslate nohighlight">\(a\)</span> というアクションをエージェントがとることの良さを示す値です．<span class="math notranslate nohighlight">\(Q(s,a)\)</span> と表します．</p>
 <div class="admonition hint">
@@ -656,7 +661,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">11.2.3. </span>Q 学習の実装<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.2.3. </span>Q 学習の実装<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>実際の Q 学習は以下の手順で行われます．以下の項目の括弧内の記述はこの節で扱う問題に関する記述です．</p>
 <ol class="simple">
 <li><p>環境の初期化（オブジェクトをスタートのマスに置く）．</p></li>
@@ -1013,7 +1018,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">11.2.4. </span>環境の可視化<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.2.4. </span>環境の可視化<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>上のプログラムを実行しただけではエージェントによる行動の選択や環境の遷移によってどのようなことが起こっているのかがよくわかりませんでした．以下のプログラムを動かすとどのように環境が遷移したのかを観察することができます．フィールドの様子を可視化している点以外は上のブログラムと同じものです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1192,7 +1197,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id10">
-<h3><span class="section-number">11.2.5. </span>Q テーブルの出力<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.2.5. </span>Q テーブルの出力<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>最後に Q テーブルがどんなように成長したのかを以下のプログラムで確認します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1375,14 +1380,14 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="openai-gym">
-<h2><span class="section-number">11.3. </span>OpenAI Gym<a class="headerlink" href="#openai-gym" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">12.3. </span>OpenAI Gym<a class="headerlink" href="#openai-gym" title="Permalink to this headline">¶</a></h2>
 <p>OpenAI Gym を利用すると様々なゲームを Python からコントロールできるようになります．スーパーマリオブラザーズ等の有名なゲームも Python コード上で構築したエージェントが動かすことができるようになります．たくさんの Atari のゲームも動かすことができます．</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>ただし，現在の OpenAI Gym には ROM ファイルは同梱されていません．著作権の問題なのかもしれませんが，詳しい事情は知りません．よって，マリオのゲームや Atari のゲームを利用したい場合はどこかからか ROM ファイルを入手する必要があります．</p>
 </div>
 <div class="section" id="id11">
-<h3><span class="section-number">11.3.1. </span>インストール<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.3.1. </span>インストール<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>以下のようなコマンドを打つことで OpenAI Gym をインストールすることができます．グーグルコラボラトリーにはあらかじめインストールされているためこのコマンドは打つ必要はありません．打っても良いです．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1393,7 +1398,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id12">
-<h3><span class="section-number">11.3.2. </span>環境の生成<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.3.2. </span>環境の生成<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>どのような環境（ゲーム）が利用可能であるかは以下のようなコードによって確認できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1478,7 +1483,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id13">
-<h3><span class="section-number">11.3.3. </span>環境遷移の再生<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.3.3. </span>環境遷移の再生<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>グーグルコラボラトリー可視化を行うためには特殊なコマンドを打って準備をする必要があります．以下のコマンドを打ちます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1590,7 +1595,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">11.3.4. </span>環境遷移の画像化<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.3.4. </span>環境遷移の画像化<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>上のプログラムでは動画をグーグルコラボラトリー上で表示しましたが，次のプログラムを実行すると動画を GIF ファイルとして保存することができます．画像の保存方法も 2 個紹介しますが，その 1 個目です．グーグルコラボラトリーの左にあるサイドバー上のフォルダのアイコンをクリックすると保存されたファイルを確認することができます．そのファイル名をダブルクリックすると画面右に動画が表示されます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1655,7 +1660,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id15">
-<h3><span class="section-number">11.3.5. </span>環境のインポート<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.3.5. </span>環境のインポート<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>この項の記述はこの教材を実行する際に必要なものではありません．もし他の色々なゲームを導入したい場合にやってみてください．</p>
@@ -1693,14 +1698,14 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id16">
-<h2><span class="section-number">11.4. </span>深層 Q 学習<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">12.4. </span>深層 Q 学習<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <p>Q 学習に深層学習法を利用した深層 Q 学習という方法を紹介します．</p>
 <div class="section" id="id17">
-<h3><span class="section-number">11.4.1. </span>深層学習と Q 学習<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.4.1. </span>深層学習と Q 学習<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>上の節で紹介した Q 学習法は環境（や行動）のサイズが大きくなるととても大きな計算時間が必要となります．すべての場合における Q テーブルを作成するからです．それを避けるために，Q テーブルを深層学習法を用いて近似しようという試みがありますが，それが深層 Q 学習法です．英語だと Deep Q Network（DQN）と言います．</p>
 </div>
 <div class="section" id="id18">
-<h3><span class="section-number">11.4.2. </span>教師データ<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.4.2. </span>教師データ<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>深層 Q 学習は Q テーブルをニューラルネットワークによって近似する方法です．よって計算の過程でニューラルネットワークを成長させます．どうやって成長させるかですが，実はとても言い難いことなのですが，実は，そのニューラルネットワークは教師あり学習法によって成長させられます．</p>
 <p>Q 値の更新式を再掲します．更新された Q 値を <span class="math notranslate nohighlight">\(Q'\)</span>，環境遷移前の Q 値を <span class="math notranslate nohighlight">\(Q\)</span>，状態を <span class="math notranslate nohighlight">\(s\)</span>，行動を <span class="math notranslate nohighlight">\(a\)</span>，獲得した報酬を <span class="math notranslate nohighlight">\(r\)</span>，環境遷移後の状態を <span class="math notranslate nohighlight">\(s'\)</span>，環境遷移後にとり得る行動を <span class="math notranslate nohighlight">\(a'\)</span> と書きます．</p>
 <p><span class="math notranslate nohighlight">\(
@@ -1713,7 +1718,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id19">
-<h3><span class="section-number">11.4.3. </span>計算の概要<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.4.3. </span>計算の概要<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>深層 Q 学習がどのように計算されるかについて紹介します．エージェントは 2 個のニューラルネットワークを持ちます．ひとつは Q ネットワークと呼ばれるもので，もうひとつはターゲットネットワークと呼ばれるものです．Q ネットワークは Q 値を学習するためのネットワークです．学習の最中にもニューラルネットワークによって Q 値は常に計算され続けるのですが，その計算にこのネットワークを使うのは良くなさそうです．常に別の条件（パラメータ）によって Q 値を計算してしまうからです．よって，パラメータ更新の頻度が少ない別のネットワークを利用して Q 値を計算しますが，それがターゲットネットワークです．</p>
 <ol class="simple">
 <li><p>環境の初期化をする．</p></li>
@@ -1731,17 +1736,17 @@ V_t=r_{t+1}+\gamma V_{t+1}
 </div>
 </div>
 <div class="section" id="id20">
-<h3><span class="section-number">11.4.4. </span>性能向上テクニック<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.4.4. </span>性能向上テクニック<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <p>前述のように<strong>ターゲットネットワークの利用</strong>をすることで常にパラメータが成長させられる Q ネットワークによって Q 値を生成するという不安定さを関係することができます．ターゲットネットワークの構造は Q ネットワークと完全に一致します．</p>
 <p><strong>経験再生法</strong>（<strong>Experience Replay</strong>）は強化学習の最中にミニバッチ学習法を利用すための方法です．環境を進めることで，状態やそのときの行動や停止判定の情報を得ることができますが，その都度にネットワークのパラメータを更新するのではなく，ある一定の情報（経験）が収集された時点ではじめて学習を行う方法です．この経験をどれだけ蓄積するかはハイパーパラメータです．その経験を溜めるものを経験バッファと呼びます．以下のコードでは最大で 512 個の経験を溜めます．新しい経験を記憶した時点で古い記憶を消します．</p>
 <p>イプシロングリーディ法はイプシロンの確率でエージェントにランダムな行動を選択させる方法ですが，この<strong>イプシロンの減衰</strong>をさせることで学習を経るにつれてランダムな行動を減らすという戦略をとることがあります．</p>
 </div>
 <div class="section" id="id21">
-<h3><span class="section-number">11.4.5. </span>取り組む問題<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.4.5. </span>取り組む問題<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <p>この節では上の節で紹介した CartPole というゲームを解きます．台車の上に設置されている棒が倒れないように台車を動かすゲームです．エージェントが選択できる行動は「台車を右に動かす」または「台車を左に動かす」の 2 個です．環境を進めることで得られる状態は前述のように「台車の位置」，「台車の速さ」，「棒の角度」，「棒の角速度」の 4 個です．ゲームの停止条件は「棒の角度が 12 度，または，-12 度より大きく，または，小さくなったとき」，「台車の位置がディスプレイの端に位置（2.4 または -2.4）したとき」，「500 単位時間ゲームが続いたとき」です．</p>
 </div>
 <div class="section" id="id22">
-<h3><span class="section-number">11.4.6. </span>深層 Q 学習法の実装<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">12.4.6. </span>深層 Q 学習法の実装<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <p>この問題を解決するために以下のような深層 Q 学習法の実装コードを実行します．少々行儀が悪いのですが，強化学習が終わった直後にテストを行ってその様子を可視化します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2075,7 +2080,7 @@ V_t=r_{t+1}+\gamma V_{t+1}
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">10. </span>敵対的生成ネットワーク</p>
+            <p class="prev-next-title"><span class="section-number">11. </span>敵対的生成ネットワーク</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="worksheet.html" title="next page">
