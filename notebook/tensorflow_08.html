@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>10. 敵対的生成ネットワーク &#8212; 実践データ科学</title>
+    <title>11. 敵対的生成ネットワーク &#8212; 実践データ科学</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11. 強化学習法" href="tensorflow_10.html" />
-    <link rel="prev" title="9. Hugging Face の利用方法" href="tensorflow_07.html" />
+    <link rel="next" title="12. 強化学習法" href="tensorflow_10.html" />
+    <link rel="prev" title="10. Hugging Face の利用方法" href="tensorflow_07.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -156,23 +156,28 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="tensorflow_05.html">
+   8. 再帰型ニューラルネットワーク
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_06.html">
-   8. アテンションネットワーク
+   9. アテンションネットワーク
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_07.html">
-   9. Hugging Face の利用方法
+   10. Hugging Face の利用方法
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   10. 敵対的生成ネットワーク
+   11. 敵対的生成ネットワーク
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="tensorflow_10.html">
-   11. 強化学習法
+   12. 強化学習法
   </a>
  </li>
 </ul>
@@ -289,73 +294,73 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   10.1. 基本的な事柄
+   11.1. 基本的な事柄
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     10.1.1. 原理と活用方法
+     11.1.1. 原理と活用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gan">
-     10.1.2. 色々な GAN
+     11.1.2. 色々な GAN
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   10.2. 基本的な GAN
+   11.2. 基本的な GAN
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     10.2.1. GAN の学習の手順
+     11.2.1. GAN の学習の手順
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     10.2.2. GAN の実装
+     11.2.2. GAN の実装
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     10.2.3. GAN の問題点
+     11.2.3. GAN の問題点
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#wgan-gp">
-   10.3. WGAN-gp の実装
+   11.3. WGAN-gp の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     10.3.1. WGAN-gp とは
+     11.3.1. WGAN-gp とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     10.3.2. WGAN-gp の実装
+     11.3.2. WGAN-gp の実装
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cgan">
-   10.4. CGAN の実装
+   11.4. CGAN の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     10.4.1. CGAN とは
+     11.4.1. CGAN とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     10.4.2. CGAN の実装
+     11.4.2. CGAN の実装
     </a>
    </li>
   </ul>
@@ -382,73 +387,73 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   10.1. 基本的な事柄
+   11.1. 基本的な事柄
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
-     10.1.1. 原理と活用方法
+     11.1.1. 原理と活用方法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gan">
-     10.1.2. 色々な GAN
+     11.1.2. 色々な GAN
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   10.2. 基本的な GAN
+   11.2. 基本的な GAN
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     10.2.1. GAN の学習の手順
+     11.2.1. GAN の学習の手順
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     10.2.2. GAN の実装
+     11.2.2. GAN の実装
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
-     10.2.3. GAN の問題点
+     11.2.3. GAN の問題点
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#wgan-gp">
-   10.3. WGAN-gp の実装
+   11.3. WGAN-gp の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     10.3.1. WGAN-gp とは
+     11.3.1. WGAN-gp とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     10.3.2. WGAN-gp の実装
+     11.3.2. WGAN-gp の実装
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cgan">
-   10.4. CGAN の実装
+   11.4. CGAN の実装
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     10.4.1. CGAN とは
+     11.4.1. CGAN とは
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     10.4.2. CGAN の実装
+     11.4.2. CGAN の実装
     </a>
    </li>
   </ul>
@@ -463,9 +468,9 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">10. </span>敵対的生成ネットワーク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11. </span>敵対的生成ネットワーク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">10.1. </span>基本的な事柄<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.1. </span>基本的な事柄<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>敵対的生成ネットワークとは英語では generative adversarial network（GAN）と言う（主に）ニューラルネットワークを用いてデータを生成する方法です．入力データを変換することもできますが，やっていることは変更したデータを「生成」することであるため「生成する方法です」と書きました．GAN は現実世界の色々なところで既に応用されている技術です．とても重要な技術なのでここで紹介します．最も基本的な GAN を紹介した後に，その GAN の問題点を解決する GAN を紹介して，最後により便利な利用が可能な GAN を紹介します．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -476,7 +481,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>計算終了までとても時間がかかるので全てのコードセルを最初に実行すると良いと思います．</p>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">10.1.1. </span>原理と活用方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>原理と活用方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>GAN の構成要素はふたつです．生成器（generator）と識別器（discriminator）です．識別器は以下で紹介する Wasserstein GAN（WGAN）を利用する場合は critic と名前を変えます．これの和訳は多分ありません．ここではクリティックと表記します．GAN はデータを生成（その派生として変換）する人工知能を作る方法です．最終的に得たいのは性能良く育った生成器です．識別器の役割は生成器をより良く育てることです．</p>
 <p>GAN の学習は，より良い質の偽札を作ろうとする紙幣の偽造者とその偽札を見破る警察によるイタチごっこに例えられます．GAN においては偽造者が生成器で，警察が識別器です．GAN は以下のような構造をしています．生成器にはランダムに発生させられたノイズデータが入力されます．このランダムノイズを入力にして生成器は質の良い偽札を生成しようとします．これに対して，識別器には生成器から出力された偽札データ（偽物のデータ）または，本物の札（本物のデータ）のどちらかが入力されます．このどちらかのデータを入力にして識別器は入力データが本物か偽物かの値を出力します．例えば，生成したいデータが画像である場合，生成器から出力されるものは画像で，識別器から出力されるものは <code class="docutils literal notranslate"><span class="pre">0</span></code> または <code class="docutils literal notranslate"><span class="pre">1</span></code> です．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/gan.svg?raw=1" style="width: 100%;" /></a>
@@ -505,17 +510,17 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="gan">
-<h3><span class="section-number">10.1.2. </span>色々な GAN<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.2. </span>色々な GAN<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h3>
 <p>GAN は色々なところで使われています．元々の GAN は 2014 年に開発されたのですが，その後もその改良は様々な研究者によって行われてきました．GAN の特有の問題を解決するための研究や GAN の適用先を画像解析分野や文字列解析分野にした研究や GAN に新たな機能を加える研究等です．数多くの GAN が開発されており，それらの GAN をまとめて GAN Zoo という場合があります．GAN Zoo は以下のウェブサイトにまとめられています．</p>
 <p><a class="reference external" href="https://github.com/hindupuravinash/the-gan-zoo">https://github.com/hindupuravinash/the-gan-zoo</a></p>
 <p>全ての GAN について説明することはできないため，ここでは，最も基本的な GAN を紹介した後に，GAN の特有の問題であるモード崩壊を抑制するために開発された方法である WGAN-gp と GAN の入力に何らかの条件を加えることで，その条件にあった出力をさせることができるようになる Conditional GAN（CGAN）の紹介を行います．</p>
 </div>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">10.2. </span>基本的な GAN<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.2. </span>基本的な GAN<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>この節では基本的な GAN の実装方法を紹介します．また，GAN に関してどのような問題が存在しているのかについてまとめます．</p>
 <div class="section" id="id5">
-<h3><span class="section-number">10.2.1. </span>GAN の学習の手順<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.1. </span>GAN の学習の手順<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>GAN の学習は以下のような手順で行われます．</p>
 <ol class="simple">
 <li><p>ノイズを入力にして生成器が偽物のデータを生成する．</p></li>
@@ -528,7 +533,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>実際の学習の際には適した最適化法を選ぶとか，生成器と識別器の学習回数を変えるとか，真とラベルを 1 ではなくて 0.8 から 1.2 の範囲に含まれる値にするとかのテクニックが存在しますが，そのようなものは以下の実装の部分で紹介します．</p>
 </div>
 <div class="section" id="id6">
-<h3><span class="section-number">10.2.2. </span>GAN の実装<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.2. </span>GAN の実装<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>最も基本的な GAN を実装します．このプログラムでは MNIST の学習データセットを読み込んで，類似した数字画像を出力する人工知能を構築します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -803,17 +808,17 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">10.2.3. </span>GAN の問題点<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.3. </span>GAN の問題点<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>上のプログラムを実行した際には観測できなかったかもしれませんが，GAN の学習を行った結果得られる人工知能（学習済み生成器）が同じような出力しかしなくなる現象があります．MNIST を例にすると 1 が含まれる画像しか生成しなくなるような現象です．この現象のことをモード崩壊と言います．英語では mode collpase と書きます．データを生成するために利用する GAN なので，利用目的にも依りますが，この現象は普通好ましくないものであると考えられます．これを解決しようとした WGAN-gp を以下で紹介します．</p>
 <p>また，生成器の学習がとても進みにくいという問題もあります．最適化法を変更するとか，ハイパーパラメータの設定を慎重に行うとか，学習データサイズを増やすとかの色々な対策をとる必要があります．GAN の学習をうまく進めるために様々なテクニックがインターネット上でまとめられていますが，それらを自分の問題に合わせて取捨選択すると良いと思います．</p>
 <p>その他の GAN の問題点としては，上のプログラムを実行した結果から確認できたと思いますが，生成したいデータの条件を指定できないことです．例えば，MNIST のような数字が含まれた画像の中でも 2 が含まれる画像のみを生成したい場合，上のプログラムではかなり蕪雑な方法を使わないとできません．これを解決しようとした方法を以下で紹介します．</p>
 </div>
 </div>
 <div class="section" id="wgan-gp">
-<h2><span class="section-number">10.3. </span>WGAN-gp の実装<a class="headerlink" href="#wgan-gp" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.3. </span>WGAN-gp の実装<a class="headerlink" href="#wgan-gp" title="Permalink to this headline">¶</a></h2>
 <p>基本的な GAN の改良版である WGAN-gp の実装方法を紹介します．</p>
 <div class="section" id="id8">
-<h3><span class="section-number">10.3.1. </span>WGAN-gp とは<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.1. </span>WGAN-gp とは<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>WGAN-gp は基本的な GAN で起こりやすく問題となるモード崩壊を解決しようとした方法です．GAN では何らかの分布に従ってデータが生成していると考えますが，この分布と本物のデータが生成される分布を近づけようとします．基本的な GAN の学習で行っている行為はそのふたつの分布間のヤンセン・シャノンダイバージェンスと言う値を小さくしようとすることに相当します．これに対して WGAN-gp ではより収束性能に優れたワッサースタイン距離を小さくしようとします．詳しくは元の論文を参照してください．</p>
 <p>WGAN-gp の学習における生成器のコスト関数は以下の式で表されます．</p>
 <p><span class="math notranslate nohighlight">\(
@@ -834,7 +839,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>式中で用いられている <span class="math notranslate nohighlight">\(\epsilon\)</span> は，最小値が 0 で最大値が 1 の一様分布からサンプリングしたランダムな値です．</p>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">10.3.2. </span>WGAN-gp の実装<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.2. </span>WGAN-gp の実装<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>WGAN-gp を実装します．このプログラムでも MNIST の学習データセットを読み込んで，類似した数字画像を出力する人工知能を構築します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,10 +1068,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="cgan">
-<h2><span class="section-number">10.4. </span>CGAN の実装<a class="headerlink" href="#cgan" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.4. </span>CGAN の実装<a class="headerlink" href="#cgan" title="Permalink to this headline">¶</a></h2>
 <p>この節では条件を指定することで条件に合ったデータを生成することができる GAN の改良版である CGAN の実装方法を紹介します．</p>
 <div class="section" id="id10">
-<h3><span class="section-number">10.4.1. </span>CGAN とは<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.4.1. </span>CGAN とは<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>GAN のプログラムで確認したように，0から9までの手書き数字の文字が含まれた画像を入力データとして学習させた学習済みのGANの生成器は，ランダムに生成されたノイズを入力データとして，ランダムに0から9までの数字が描かれた画像を生成することができます．生成される数字はノイズに応じたランダムなものであり，特定の数字が描かれた画像を意図的に出力させることはできません．これに対して，CGAN は生成器への入力データとしてノイズに加えて，何らかの条件を入力情報として与えることができる方法です．この条件を例えば0から9までの数字として設定して学習すれば，学習済みの生成器に特定の数字を条件として入力することで特定の数字を含む画像だけを生成させることができます．CGAN の全体像は以下の図に示す通りです．ほぼ GAN と同様なのですが，条件データを生成器と識別器に入れることができます．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/cgan.svg?raw=1" style="width: 100%;" /></a>
 <p>基本的な GAN は新たなデータを生成することが可能でしたが，CGANを利用すれば，データの変換を行うことができます．例えば，人の顔画像を出力すように学習させた生成器に「笑う」，「怒る」，「悲しむ」のような条件を同時に与えることで画像中の人の表情を変化させることができます．また，風景画を出力するように学習させた生成器に「歌川広重」，「フェルメール」，「レンブラント」等のような画家（転じて画風）の条件を与えることで，指定した画家が描いたような風景画を出力させることができます．</p>
@@ -1076,7 +1081,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id11">
-<h3><span class="section-number">10.4.2. </span>CGAN の実装<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.4.2. </span>CGAN の実装<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>CGAN を実装します．ただし，この CGAN では基本的な GAN の学習法ではなくて WGAN-gp の方法を使っています．WGAN-gp が非常に強力な方法だからです．よって，これは元々の CGAN でなくて CWGAN-gp とでも呼ぶべきものです．このプログラムでも MNIST の学習データセットを読み込んで，類似した数字画像を出力する人工知能を構築します．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1309,13 +1314,13 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">9. </span>Hugging Face の利用方法</p>
+            <p class="prev-next-title"><span class="section-number">10. </span>Hugging Face の利用方法</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="tensorflow_10.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>強化学習法</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>強化学習法</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
