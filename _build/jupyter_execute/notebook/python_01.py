@@ -40,7 +40,7 @@ if __name__ == "__main__":
 # 実は ` print("Hello world") ` だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．
 # ```
 
-# ```{attention}
+# ```{note}
 # Python コードをプログラムファイルとして実行した場合，` __name__ ` という変数に ` "__main__" ` という文字列が割り当てられます．一方で，` hoge.py ` という名前の Python コードをライブラリとして別のプログラムから ` import hoge ` で呼び出した場合，` __name__ ` という変数に ` "hoge" ` が割り当てられます．つまり，` if __name__ == "__main__": ` を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．
 # ```
 
@@ -113,7 +113,7 @@ def main():
     print(a - b) # subtraction
     print(b / a) # division
     print(a * b) # multiplication
- 
+
 if __name__ == "__main__":
     main()
 
@@ -127,7 +127,7 @@ if __name__ == "__main__":
  
 def main():
     aaa = 5
- 
+
 if __name__ == "__main__":
     main()
 
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 def main():
     greeting = "Hello world"
     print(greeting)
- 
+
 if __name__ == "__main__":
     main()
 
@@ -162,7 +162,39 @@ if __name__ == "__main__":
 # Python では数値と文字列は明確に区別されます．数値を変数に代入したときは ` " ` を利用しませんでした．` " ` に囲まれた部分は文字列としてみなされます．
 # ```
 
-# ダブルクォーテーション（`"`）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で `"greeting"` と書いてその内容（`Hello world`）を出力しようとしても，`greeting` という文字列が出力されるだけで中身を出力できません．目的の動作をさせるには変数の中身をダブルクォーテション内で「展開」しなければならないのです．変数を文字列の中で展開したい場合は `{` と `}` と `format()` を組み合わせて使います．
+# ダブルクォーテーション（`"`）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で `"greeting"` と書いてその内容（`Hello world`）を出力しようとしても，`greeting` という文字列が出力されるだけで中身を出力できません．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+ 
+def main():
+    greeting = "Hello world"
+    print("greeting")
+
+if __name__ == "__main__":
+    main()
+
+
+# よって，以下のような計算もできません．文字列と文字の割り算をさせようとしているからです．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+ 
+def main():
+    a = "3"
+    b = "18"
+    print(a)
+    print(b / a)
+
+if __name__ == "__main__":
+    main()
+
+
+# 文字列を扱う際に，その文字列の途中で変数を利用したい場合があるかもしれません．そのような際には，変数の中身をダブルクォーテション内で「展開」する必要があります．変数を文字列の中で展開したい場合は `{` と `}` と `format()` を組み合わせて使います．
 
 # In[ ]:
 
@@ -172,7 +204,7 @@ if __name__ == "__main__":
 def main():
     name = "Ken"
     age = 6
-    print("{0}, which is {1} years old is now sitting.".format(name, age))
+    print("{}, which is {} years old is now sitting.".format(name, age))
  
 if __name__ == "__main__":
     main()
@@ -192,7 +224,7 @@ def main():
     print(list_a[0]) # access first element of list_a
     print(list_a[1]) # access second element of list_a
     print(list_a[2]) # access third element of list_a
- 
+
 if __name__ == "__main__":
     main()
 
@@ -209,14 +241,14 @@ if __name__ == "__main__":
 def main():
     dict_a = {"January" : "1", "February" : "2"} # declaration of dictionary, dict_a. this dictionary contains two keys and two values
     print(dict_a["January"]) # access a value corresponding to a key "January"
- 
+
 if __name__ == "__main__":
     main()
 
 
 # ### 繰り返し処理
 
-# Python で繰り返し処理をするには「for」を使います．以下のように書くと，`range(5)` に格納されている「0，1，2，3，4」という値が一行ごとに表示されます．プログラムではこの「for」を様々な局面で利用することによって人間ではできないような同じことの繰り返し作業を実現します．この繰り返し処理の方法と後に出る条件分岐の方法（if）さえ用いればどのようなプログラムでも実現することができます．繰り返し操作が終わった次の行からは，インデントを再びアウトデントするのを忘れないよう注意しましょう．
+# Python で繰り返し処理をするには「for」を使います．以下のように書くと，配列 `[0，1，2，3，4]` に含まれる各要素が一行ごとに表示されます．プログラムではこの「for」を様々な局面で利用することによって人間ではできないような同じことの繰り返し作業を実現します．この繰り返し処理の方法と後に出る条件分岐の方法（if）さえ用いればどのようなプログラムでも実現することができます．繰り返し操作が終わった次の行からは，インデントを再びアウトデントするのを忘れないよう注意しましょう．
 
 # In[ ]:
 
@@ -224,10 +256,30 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
  
 def main():
-    for i in [0,1,2,3,4]:
+    for i in [0, 1, 2, 3, 4]:
         print(i)
     print("hoge")
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# アウトデントした部分は繰り返されていませんよね？
+# ```
+
+# この処理は以下のようにも書けます．以下のように書くと，`range(5)` に格納されている「0，1，2，3，4」という値が一行ごとに表示されます．`range()` に指定した回数の繰り返しが行われるのですね．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
  
+def main():
+    for i in range(5):
+        print(i)
+    print("hoge")
+
 if __name__ == "__main__":
     main()
 

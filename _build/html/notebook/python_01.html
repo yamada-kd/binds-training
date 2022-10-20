@@ -505,8 +505,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>実は <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">world&quot;)</span></code> だけでコードは問題なく動きます．特にこの Google Colaboratory を使う場合，コードセルで実行した結果はメモリ上に保存されるので寧ろコマンドだけ書いた方が良い場合もあります．Google Colaboratory は本来そのようなプログラミング環境として利用することを想定されているのかもしれません．しかし，今回の実習の目的は最終的には Python プログラムを自身の計算機で動かせるようになることとしているので，この書き方を続けます．このようにすることで，コードセルをコピーして別の環境に持って行ったとしても問題なく利用できます．</p>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Python コードをプログラムファイルとして実行した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code> という文字列が割り当てられます．一方で，<code class="docutils literal notranslate"><span class="pre">hoge.py</span></code> という名前の Python コードをライブラリとして別のプログラムから <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> で呼び出した場合，<code class="docutils literal notranslate"><span class="pre">__name__</span></code> という変数に <code class="docutils literal notranslate"><span class="pre">&quot;hoge&quot;</span></code> が割り当てられます．つまり，<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かないコードを別のファイルから呼び出して使おうとすると，望んでもいないのにそのコードの全部がインポート時に勝手に実行されてしまうという弊害が起きてしまうのです．</p>
 </div>
 </div>
@@ -575,7 +575,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="c1"># subtraction</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">b</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span> <span class="c1"># division</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="c1"># multiplication</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -589,7 +589,7 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">aaa</span> <span class="o">=</span> <span class="mi">5</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -615,7 +615,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -626,7 +626,39 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>Python では数値と文字列は明確に区別されます．数値を変数に代入したときは <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を利用しませんでした．<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> に囲まれた部分は文字列としてみなされます．</p>
 </div>
-<p>ダブルクォーテーション（<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で <code class="docutils literal notranslate"><span class="pre">&quot;greeting&quot;</span></code> と書いてその内容（<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world</span></code>）を出力しようとしても，<code class="docutils literal notranslate"><span class="pre">greeting</span></code> という文字列が出力されるだけで中身を出力できません．目的の動作をさせるには変数の中身をダブルクォーテション内で「展開」しなければならないのです．変数を文字列の中で展開したい場合は <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> と <code class="docutils literal notranslate"><span class="pre">format()</span></code> を組み合わせて使います．</p>
+<p>ダブルクォーテーション（<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>）に囲まれた部分には何を書いてもそれは文字列とみなされます．よって，上の例で <code class="docutils literal notranslate"><span class="pre">&quot;greeting&quot;</span></code> と書いてその内容（<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world</span></code>）を出力しようとしても，<code class="docutils literal notranslate"><span class="pre">greeting</span></code> という文字列が出力されるだけで中身を出力できません．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;greeting&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>よって，以下のような計算もできません．文字列と文字の割り算をさせようとしているからです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+ 
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;3&quot;</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;18&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>文字列を扱う際に，その文字列の途中で変数を利用したい場合があるかもしれません．そのような際には，変数の中身をダブルクォーテション内で「展開」する必要があります．変数を文字列の中で展開したい場合は <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> と <code class="docutils literal notranslate"><span class="pre">format()</span></code> を組み合わせて使います．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -634,7 +666,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Ken&quot;</span>
     <span class="n">age</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">, which is </span><span class="si">{1}</span><span class="s2"> years old is now sitting.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, which is </span><span class="si">{}</span><span class="s2"> years old is now sitting.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">))</span>
  
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -655,7 +687,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># access first element of list_a</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># access second element of list_a</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># access third element of list_a</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -671,7 +703,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">dict_a</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;January&quot;</span> <span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;February&quot;</span> <span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">}</span> <span class="c1"># declaration of dictionary, dict_a. this dictionary contains two keys and two values</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">dict_a</span><span class="p">[</span><span class="s2">&quot;January&quot;</span><span class="p">])</span> <span class="c1"># access a value corresponding to a key &quot;January&quot;</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -681,16 +713,36 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id10">
 <h3><span class="section-number">2.3.4. </span>繰り返し処理<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<p>Python で繰り返し処理をするには「for」を使います．以下のように書くと，<code class="docutils literal notranslate"><span class="pre">range(5)</span></code> に格納されている「0，1，2，3，4」という値が一行ごとに表示されます．プログラムではこの「for」を様々な局面で利用することによって人間ではできないような同じことの繰り返し作業を実現します．この繰り返し処理の方法と後に出る条件分岐の方法（if）さえ用いればどのようなプログラムでも実現することができます．繰り返し操作が終わった次の行からは，インデントを再びアウトデントするのを忘れないよう注意しましょう．</p>
+<p>Python で繰り返し処理をするには「for」を使います．以下のように書くと，配列 <code class="docutils literal notranslate"><span class="pre">[0，1，2，3，4]</span></code> に含まれる各要素が一行ごとに表示されます．プログラムではこの「for」を様々な局面で利用することによって人間ではできないような同じことの繰り返し作業を実現します．この繰り返し処理の方法と後に出る条件分岐の方法（if）さえ用いればどのようなプログラムでも実現することができます．繰り返し操作が終わった次の行からは，インデントを再びアウトデントするのを忘れないよう注意しましょう．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hoge&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>アウトデントした部分は繰り返されていませんよね？</p>
+</div>
+<p>この処理は以下のようにも書けます．以下のように書くと，<code class="docutils literal notranslate"><span class="pre">range(5)</span></code> に格納されている「0，1，2，3，4」という値が一行ごとに表示されます．<code class="docutils literal notranslate"><span class="pre">range()</span></code> に指定した回数の繰り返しが行われるのですね．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
  
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hoge&quot;</span><span class="p">)</span>
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
