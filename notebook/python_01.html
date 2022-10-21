@@ -359,7 +359,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     2.3.8. 文字列処理（正規表現）
+     2.3.8. 文字列処理
     </a>
    </li>
   </ul>
@@ -453,7 +453,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     2.3.8. 文字列処理（正規表現）
+     2.3.8. 文字列処理
     </a>
    </li>
   </ul>
@@ -1052,7 +1052,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">2.3.8. </span>文字列処理（正規表現）<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.3.8. </span>文字列処理<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>プログラミング言語は「正規表現（regular expression）」と呼ばれる文字列パターン表現方法を持ちます．プログラミングで文字列を操作するための非常に強力なツールです．Python で正規表現を使用する場合は、「re」 ライブラリを利用します．ここでは，以下のような文を用いて正規表現を学びます．</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2018</span> <span class="p">(</span><span class="n">MMXVIII</span><span class="p">)</span> <span class="n">was</span> <span class="n">a</span> <span class="n">common</span> <span class="n">year</span> <span class="n">starting</span> <span class="n">on</span> <span class="n">Monday</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Gregorian</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">the</span> <span class="mi">2018</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Common</span> <span class="n">Era</span> <span class="p">(</span><span class="n">CE</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Anno</span> <span class="n">Domini</span> <span class="p">(</span><span class="n">AD</span><span class="p">)</span> <span class="n">designations</span><span class="p">,</span> <span class="n">the</span> <span class="mi">18</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">3</span><span class="n">rd</span> <span class="n">millennium</span><span class="p">,</span> <span class="n">the</span> <span class="mi">18</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">21</span><span class="n">st</span> <span class="n">century</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="mi">9</span><span class="n">th</span> <span class="n">year</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">2010</span><span class="n">s</span> <span class="n">decade</span><span class="o">.</span>
 </pre></div>
@@ -1148,6 +1148,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><a class="reference external" href="https://www.debuggex.com/cheatsheet/regex/python">https://www.debuggex.com/cheatsheet/regex/python</a></p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a></p></li>
 </ul>
+<p>ちょっと以下のものは行儀が良くないので，説明は省きますが以下のようにすると何かのプログラムを実行した結果を処理することができます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;ls sample_data&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>これのどこが行儀が良くないのかはインジェクションで調べてみるとわかります．</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>終わりです．</p>
