@@ -584,7 +584,7 @@ get_ipython().system(' pip3 list')
 # 本物のコマンドライン上で実行するときには ` ! ` は不要です．
 # ```
 
-# ### 文字列処理（正規表現）
+# ### 文字列処理
 
 # プログラミング言語は「正規表現（regular expression）」と呼ばれる文字列パターン表現方法を持ちます．プログラミングで文字列を操作するための非常に強力なツールです．Python で正規表現を使用する場合は、「re」 ライブラリを利用します．ここでは，以下のような文を用いて正規表現を学びます．
 
@@ -685,6 +685,26 @@ if __name__ == "__main__":
 # *   https://docs.python.org/3/howto/regex.html
 # 
 # 
+
+# ちょっと以下のものは行儀が良くないので，説明は省きますが以下のようにすると何かのプログラムを実行した結果を処理することができます．
+
+# In[ ]:
+
+
+#!/usr/bin/env python3
+import subprocess
+
+def main():
+    text = subprocess.check_output("ls sample_data", shell=True).decode("utf-8").rstrip().split("\n")
+    print(text)
+
+if __name__ == "__main__":
+    main()
+
+
+# ```{note}
+# これのどこが行儀が良くないのかはインジェクションで調べてみるとわかります．
+# ```
 
 # ```{note}
 # 終わりです．
