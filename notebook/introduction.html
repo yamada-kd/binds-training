@@ -336,7 +336,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     1.2.5. 入力ベクトル，ターゲットベクトル，出力ベクトル
+     1.2.5. 入出力ベクトル
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -346,7 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     1.2.7. 損失（ロス）と損失関数（ロス関数）とコスト関数
+     1.2.7. 損失関数とコスト関数
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -356,7 +356,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     1.2.9. パラメータとハイパーパラメータ
+     1.2.9. パラメータ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -371,7 +371,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     1.2.12. 一括学習，逐次学習，ミニバッチ学習
+     1.2.12. パラメータ更新法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -489,7 +489,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id10">
-     1.2.5. 入力ベクトル，ターゲットベクトル，出力ベクトル
+     1.2.5. 入出力ベクトル
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -499,7 +499,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id12">
-     1.2.7. 損失（ロス）と損失関数（ロス関数）とコスト関数
+     1.2.7. 損失関数とコスト関数
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -509,7 +509,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     1.2.9. パラメータとハイパーパラメータ
+     1.2.9. パラメータ
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -524,7 +524,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id17">
-     1.2.12. 一括学習，逐次学習，ミニバッチ学習
+     1.2.12. パラメータ更新法
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -634,7 +634,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>このような問題の場合，人工知能の最終的な出力は 0 または 1 でありますが，これは人工知能にとって単なるシンボルであって，人工知能は「0 という手書きの数字が書かれている画像」が「1 という手書きの数字が書かれている画像」より小さいから 0 という出力をするのではなく，単に「0 という手書きの数字が書かれている画像」にある 0 というパターンが0というシンボルと類似しており，1 というシンボルと類似していないため，0 を出力するに過ぎません．</p>
 </div>
 <div class="section" id="id10">
-<h3><span class="section-number">1.2.5. </span>入力ベクトル，ターゲットベクトル，出力ベクトル<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.2.5. </span>入出力ベクトル<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>入力ベクトルとは人工知能を成長させるため，または，開発した人工知能に予測をさせるために入力するデータです．入力ベクトルの各インスタンスは基本的にはベクトルの型式をしているため入力ベクトルと呼ばれます（本当は入力データ，ターゲットデータ，出力データと呼んだ方が良いかもしれないです）．インプットベクトルとも呼ばれます．ターゲットベクトルは教師あり学習の際に入力ベクトルとペアになっているベクトルです．1次元からなるベクトルは，実質スカラですが，ベクトルと呼びます．教師ベクトルとも呼ばれます．出力ベクトルは入力ベクトルを人工知能に処理させたときに出力されるベクトルです．教師あり学習の場合，このベクトルの値がターゲットベクトルに似ているほど良いです（人工知能の性能が）．</p>
 </div>
 <div class="section" id="id11">
@@ -642,8 +642,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>用意したトレーニングデータセット（パラメータ更新にのみ用いるデータセット）の全部を人工知能が処理する時間の単位です．1 エポックだと全データを人工知能が舐めたことになります．2 エポックだと 2 回ほど人工知能が全データを舐めたことになります．学習の過程では繰り返しデータを人工知能に読ませるのです．</p>
 </div>
 <div class="section" id="id12">
-<h3><span class="section-number">1.2.7. </span>損失（ロス）と損失関数（ロス関数）とコスト関数<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<p>人工知能が出力する値とターゲット（教師）の値がどれだけ似ていないかを表す指標です．これが小さいほど，人工知能はターゲットに近い値を出力できることになります．よって，この損失を小さくすることが学習の目標です．損失を計算するための関数を損失関数と言います．また，コストは損失と似ているものですが，正則化項（人工知能の過剰適合を防ぐために用いる値）を損失に加えた場合の小さくする目標の関数です．それを計算する関数をコスト関数と言います．損失関数とコスト関数はどちらも場合によって学習の目的関数となり得ます．</p>
+<h3><span class="section-number">1.2.7. </span>損失関数とコスト関数<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>損失（ロス）とは人工知能が出力する値とターゲット（教師）の値がどれだけ似ていないかを表す指標です．これが小さいほど，人工知能はターゲットに近い値を出力できることになります．よって，この損失を小さくすることが学習の目標です．損失を計算するための関数を損失関数（ロス関数）と言います．また，コストは損失と似ているものですが，正則化項（人工知能の過剰適合を防ぐために用いる値）を損失に加えた場合の小さくする目標の関数です．それを計算する関数をコスト関数と言います．損失関数とコスト関数はどちらも場合によって学習の目的関数となり得ます．</p>
 </div>
 <div class="section" id="id13">
 <h3><span class="section-number">1.2.8. </span>正確度と精度<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
@@ -655,7 +655,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">https://en.wikipedia.org/wiki/Precision_and_recall</a></p>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">1.2.9. </span>パラメータとハイパーパラメータ<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.2.9. </span>パラメータ<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>パラメータは人工知能を構成する一部です．機械学習法で成長させられるモデルは何らかの入力に対して何らかの出力をしますが，このモデルがその計算をするために必要とする値を持っている場合があり，それをパラメータと言います．機械学習ではアルゴリズム自体は変化させずに，パラメータを変化させることによって良い人工知能を作ろうとします．深層学習界隈では最急降下法によってパラメータは更新される場合が多いです．また，学習によって更新されるパラメータとは異なり，学習の前に人間が決めなければならないパラメータがありますが，これをハイパーパラメータと言います．ニューラルネットワークでは，活性化関数の種類であったり，各層のニューロンの数であったり，層の数であったりします．このハイパーパラメータすらも自動で最適化しようとする方法もあり，そういう方法を network architecture search（NAS）と言います．</p>
 </div>
 <div class="section" id="id15">
@@ -667,8 +667,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>要素を合計すると 1 になるベクトルタイプのデータです．各要素の最小値は 0 です．これを出力する関数をソフトマックス関数と言います．入力ベクトルに対して入力ベクトルと同じ要素次元数のベクトル（ソフトマックス）を出力します．</p>
 </div>
 <div class="section" id="id17">
-<h3><span class="section-number">1.2.12. </span>一括学習，逐次学習，ミニバッチ学習<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
-<p>一括学習はバッチ学習とも呼ばれます．人工知能を成長させるときにデータを全部読み込ませた後に初めてパラメータを更新します．逐次学習はオンライン学習とも呼ばれます．人工知能を成長させるときにデータを1個ずつ読み込ませ，その都度パラメータを更新する方法です．ミニバッチ学習は全データからあらかじめ決めた分のデータを読み込ませ，その度にパラメータを更新する方法です．ミニバッチ学習のミニバッチサイズが全データサイズと等しいならそれは一括学習で，ミニバッチサイズが1なら逐次学習です．</p>
+<h3><span class="section-number">1.2.12. </span>パラメータ更新法<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>機械学習モデルのパラメータの更新の仕方には種類があります．一括学習はバッチ学習とも呼ばれます．人工知能を成長させるときにデータを全部読み込ませた後に初めてパラメータを更新します．逐次学習はオンライン学習とも呼ばれます．人工知能を成長させるときにデータを1個ずつ読み込ませ，その都度パラメータを更新する方法です．ミニバッチ学習は全データからあらかじめ決めた分のデータを読み込ませ，その度にパラメータを更新する方法です．ミニバッチ学習のミニバッチサイズが全データサイズと等しいならそれは一括学習で，ミニバッチサイズが1なら逐次学習です．</p>
 </div>
 <div class="section" id="id18">
 <h3><span class="section-number">1.2.13. </span>早期終了<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
