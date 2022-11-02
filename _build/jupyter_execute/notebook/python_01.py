@@ -427,7 +427,7 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
  
 def main():
-    func_1(); # The function "func_1()" is executed in a function "main()".
+    func_1() # The function "func_1()" is executed in a function "main()".
      
 def func_1(): # Declaration of a novel function "func_1()".
     print("Hello") # substance of "func_1()"
@@ -436,7 +436,7 @@ if __name__ == "__main__":
     main() # The function "main()" is executed (and "main()" execute "func_1()" and "func_1()" execute "print("Hello")").
 
 
-# ```{attention}
+# ```{note}
 # ` if __name__ == "__main__": ` を書かない人結構いますが，では，その書いたプログラム，hoge.py としましょう，別のプログラムでインポート ` import hoge ` したときの挙動は期待したものと異なると思いますのでので試してみましょう！あと，変数のスコープの管理もしやすいです．
 # ```
 
@@ -449,7 +449,7 @@ if __name__ == "__main__":
  
 def main():
     str_1 = "Python"
-    func_1(str_1); # pass the variable "str_1" to the function "func_1"
+    func_1(str_1) # pass the variable "str_1" to the function "func_1"
      
 def func_1(arg_1): # To get argument from external call, you need to set a variable to receive the argument. In this case, it is "arg_1".
     print("Hello", arg_1) # print "Hello" and arg_1 (= str_1 in main() = "Python").
@@ -471,13 +471,13 @@ def main():
     numbers = [2, 4, 5, -2, 3] # a list to be calculated
     result_1 = summation(numbers) # execution of summation(). Numbers is passed to the function. And the result of the function is assigned to the variable "result_1"
     print(result_1)
-     
+
 def summation(arg_1): # arg_1 is a variable to contain the argument (numbers in main()).
     sumvalue = 0 # A variable to contain a result of summation.
     for number in arg_1:
         sumvalue = sumvalue + number # this means "sum is renewed by the value of sum + number"
     return sumvalue # return the result of above calculation to the function caller by the word "return"
- 
+
 if __name__ == "__main__":
     main()
 
@@ -494,7 +494,7 @@ import statistics
  
 def main():
     pass
- 
+
 if __name__ == "__main__":
     main()
 
@@ -514,12 +514,12 @@ import sys
  
 def main():
     pass
- 
+
 if __name__ == "__main__":
     main()
 
 
-# 例えば，モジュール「statistics」を用いれば平均や標準偏差の計算が1行で可能です．モジュールに入っている関数（メソッド）を使うときは「モジュール名.関数名()」という形式で書きます．
+# 例えば，モジュール「statistics」を用いれば平均や標準偏差の計算が 1 行で可能です．モジュールに入っている関数（メソッド）を使うときは「モジュール名.関数名()」という形式で書きます．
 
 # In[ ]:
 
@@ -550,12 +550,12 @@ def main():
     print("log_10:", math.log10(x))
     print("log_2:", math.log2(x))
     print("log_e:", math.log(x))
-     
-    x=math.radians(180) #This is radian of an angle of 90 degrees
+    
+    x=math.radians(180) #This is radian of an angle of 180 degrees
     print(math.sin(x))
     print(math.cos(x))
     print(math.tan(x))
- 
+
 if __name__ == "__main__":
     main()
 
@@ -609,7 +609,7 @@ if __name__ == "__main__":
     main()
 
 
-# このコードにおいて6行目の `\d+` が正規表現です．` \d` が「アラビア数字の任意の1文字」を表し，その後の `+` は「前の表現の1回以上の繰り返すこと」を意味しています．すなわち，`\d+` は「1つ以上のアラビア数字が連続した文字列」を意味します．関数 `re.findall()` は最初の引数に指定されたパターン（正規表現）を2番目ので指定された文字列より検索して抽出するための役割を果たします．
+# このコードにおいて 6 行目の `\d+` が正規表現です．` \d` が「アラビア数字の任意の 1 文字」を表し，その後の `+` は「前の表現の 1 回以上の繰り返し」を意味しています．すなわち，`\d+` は「1 つ以上のアラビア数字が連続した文字列」を意味します．関数 `re.findall()` は最初の引数に指定されたパターン（正規表現）を2番目で指定された文字列より検索して抽出するための役割を果たします．
 
 # 次に，以下のプログラムを実行します．これによって得られるリストには，「大文字から始まる文字列」が含まれます．使用する正規表現において，`[A-Z]` は大文字，`[a-z]` は小文字を意味します．
 
