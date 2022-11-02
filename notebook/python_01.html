@@ -892,7 +892,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">func_1</span><span class="p">();</span> <span class="c1"># The function &quot;func_1()&quot; is executed in a function &quot;main()&quot;.</span>
+    <span class="n">func_1</span><span class="p">()</span> <span class="c1"># The function &quot;func_1()&quot; is executed in a function &quot;main()&quot;.</span>
      
 <span class="k">def</span> <span class="nf">func_1</span><span class="p">():</span> <span class="c1"># Declaration of a novel function &quot;func_1()&quot;.</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span> <span class="c1"># substance of &quot;func_1()&quot;</span>
@@ -903,8 +903,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> を書かない人結構いますが，では，その書いたプログラム，<a class="reference external" href="http://hoge.py">hoge.py</a> としましょう，別のプログラムでインポート <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hoge</span></code> したときの挙動は期待したものと異なると思いますのでので試してみましょう！あと，変数のスコープの管理もしやすいです．</p>
 </div>
 <p>関数を生成する際に <code class="docutils literal notranslate"><span class="pre">()</span></code> が付属していますが，これは，引数（ひきすう，パラメータ）の受け渡しに使うためのものです．以下のように書くと，<code class="docutils literal notranslate"><span class="pre">Python</span></code> という文字列が格納された変数 <code class="docutils literal notranslate"><span class="pre">str_1</span></code> を関数 <code class="docutils literal notranslate"><span class="pre">func_1()</span></code> のパラメータとして関数が実行されます．その後，<code class="docutils literal notranslate"><span class="pre">func_1()</span></code> 内では，パラメータ <code class="docutils literal notranslate"><span class="pre">str_1</span> <span class="pre">==</span> <span class="pre">Python</span></code> を <code class="docutils literal notranslate"><span class="pre">func_1()</span></code> の中でのみ定義されるパラメータ変数である <code class="docutils literal notranslate"><span class="pre">arg_1</span></code> で受け取りそれを利用して新たな処理が実行されます．</p>
@@ -914,7 +914,7 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">str_1</span> <span class="o">=</span> <span class="s2">&quot;Python&quot;</span>
-    <span class="n">func_1</span><span class="p">(</span><span class="n">str_1</span><span class="p">);</span> <span class="c1"># pass the variable &quot;str_1&quot; to the function &quot;func_1&quot;</span>
+    <span class="n">func_1</span><span class="p">(</span><span class="n">str_1</span><span class="p">)</span> <span class="c1"># pass the variable &quot;str_1&quot; to the function &quot;func_1&quot;</span>
      
 <span class="k">def</span> <span class="nf">func_1</span><span class="p">(</span><span class="n">arg_1</span><span class="p">):</span> <span class="c1"># To get argument from external call, you need to set a variable to receive the argument. In this case, it is &quot;arg_1&quot;.</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">arg_1</span><span class="p">)</span> <span class="c1"># print &quot;Hello&quot; and arg_1 (= str_1 in main() = &quot;Python&quot;).</span>
@@ -934,13 +934,13 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1"># a list to be calculated</span>
     <span class="n">result_1</span> <span class="o">=</span> <span class="n">summation</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># execution of summation(). Numbers is passed to the function. And the result of the function is assigned to the variable &quot;result_1&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">result_1</span><span class="p">)</span>
-     
+
 <span class="k">def</span> <span class="nf">summation</span><span class="p">(</span><span class="n">arg_1</span><span class="p">):</span> <span class="c1"># arg_1 is a variable to contain the argument (numbers in main()).</span>
     <span class="n">sumvalue</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># A variable to contain a result of summation.</span>
     <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">arg_1</span><span class="p">:</span>
         <span class="n">sumvalue</span> <span class="o">=</span> <span class="n">sumvalue</span> <span class="o">+</span> <span class="n">number</span> <span class="c1"># this means &quot;sum is renewed by the value of sum + number&quot;</span>
     <span class="k">return</span> <span class="n">sumvalue</span> <span class="c1"># return the result of above calculation to the function caller by the word &quot;return&quot;</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -958,7 +958,7 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">pass</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -978,14 +978,14 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">pass</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>例えば，モジュール「statistics」を用いれば平均や標準偏差の計算が1行で可能です．モジュールに入っている関数（メソッド）を使うときは「モジュール名.関数名()」という形式で書きます．</p>
+<p>例えば，モジュール「statistics」を用いれば平均や標準偏差の計算が 1 行で可能です．モジュールに入っている関数（メソッド）を使うときは「モジュール名.関数名()」という形式で書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -1014,12 +1014,12 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;log_10:&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;log_2:&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;log_e:&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-     
-    <span class="n">x</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span> <span class="c1">#This is radian of an angle of 90 degrees</span>
+    
+    <span class="n">x</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span> <span class="c1">#This is radian of an angle of 180 degrees</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
- 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -1074,7 +1074,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>このコードにおいて6行目の <code class="docutils literal notranslate"><span class="pre">\d+</span></code> が正規表現です．<code class="docutils literal notranslate"> <span class="pre">\d</span></code> が「アラビア数字の任意の1文字」を表し，その後の <code class="docutils literal notranslate"><span class="pre">+</span></code> は「前の表現の1回以上の繰り返すこと」を意味しています．すなわち，<code class="docutils literal notranslate"><span class="pre">\d+</span></code> は「1つ以上のアラビア数字が連続した文字列」を意味します．関数 <code class="docutils literal notranslate"><span class="pre">re.findall()</span></code> は最初の引数に指定されたパターン（正規表現）を2番目ので指定された文字列より検索して抽出するための役割を果たします．</p>
+<p>このコードにおいて 6 行目の <code class="docutils literal notranslate"><span class="pre">\d+</span></code> が正規表現です．<code class="docutils literal notranslate"> <span class="pre">\d</span></code> が「アラビア数字の任意の 1 文字」を表し，その後の <code class="docutils literal notranslate"><span class="pre">+</span></code> は「前の表現の 1 回以上の繰り返し」を意味しています．すなわち，<code class="docutils literal notranslate"><span class="pre">\d+</span></code> は「1 つ以上のアラビア数字が連続した文字列」を意味します．関数 <code class="docutils literal notranslate"><span class="pre">re.findall()</span></code> は最初の引数に指定されたパターン（正規表現）を2番目で指定された文字列より検索して抽出するための役割を果たします．</p>
 <p>次に，以下のプログラムを実行します．これによって得られるリストには，「大文字から始まる文字列」が含まれます．使用する正規表現において，<code class="docutils literal notranslate"><span class="pre">[A-Z]</span></code> は大文字，<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code> は小文字を意味します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
