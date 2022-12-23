@@ -526,14 +526,14 @@ const thebe_selector_output = ".output, .cell_output"
        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), &#39;frame&#39;: None, &#39;target_names&#39;: array([&#39;setosa&#39;, &#39;versicolor&#39;, ．．．略
 </pre></div>
 </div>
-<p>最初の行に表示されている <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4,</span> <span class="pre">0.2]</span></code> が最初のデータです．4個の要素からなるベクトルデータです．このような4個の要素からなるインスタンスが150個あります．すべてのインスタンスの後に表示されている target という項目がありますが，これは，各インスタンスがどのアヤメの種類に属しているかを示しています．アヤメには種類があるらしく，<code class="docutils literal notranslate"><span class="pre">0</span></code> は setosa，<code class="docutils literal notranslate"><span class="pre">1</span></code> は versicolor，<code class="docutils literal notranslate"><span class="pre">2</span></code> は virginica という種類を意味しています．それぞれ均等にデータが取得されており，全部で150個のインスタンスの内，50個が setosa，別の50個が versicolor，残りの50個が virginica です．各インスタンスは4個の要素からなるベクトルデータであることを紹介しましたが，各要素はそのインスタンスの属性（アトリビュート）と言います．このデータの場合，最初の要素は咢の長さです．咢というのは以下の写真の茎ではない緑色の部分を示すものらしいです．単位は cm です．次の要素は咢の幅，次の要素は花弁（花びら）の長さ，最後の要素は花弁の幅です．どれも単位は cm です．</p>
+<p>最初の行に表示されている <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4,</span> <span class="pre">0.2]</span></code> が最初のデータです．4個の要素からなるベクトルデータです．このような4個の要素からなるインスタンスが150個あります．すべてのインスタンスの後に表示されている target という項目がありますが，これは，各インスタンスがどのアヤメの種類に属しているかを示しています．アヤメには種類があるらしく，<code class="docutils literal notranslate"><span class="pre">0</span></code> は setosa，<code class="docutils literal notranslate"><span class="pre">1</span></code> は versicolor，<code class="docutils literal notranslate"><span class="pre">2</span></code> は virginica という種類を意味しています．それぞれ均等にデータが取得されており，全部で150個のインスタンスの内，50個が setosa，別の50個が versicolor，残りの50個が virginica です．各インスタンスは4個の要素からなるベクトルデータであることを紹介しましたが，各要素はそのインスタンスの属性（アトリビュート）と言います．このデータの場合，最初の要素は花弁（花びら）の長さです．単位は cm です．次の要素は花弁の幅，次の要素は咢の長さ，最後の要素は咢の幅です．咢というのは以下の写真の茎ではない緑色の部分を示すものらしいです．どれも単位は cm です．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/iris.png?raw=1" style="width: 25%;" /></a>
 <p>出典：<a class="reference external" href="https://ja.wikipedia.org/">https://ja.wikipedia.org/</a></p>
 <p>この実習では，アイリスデータセットの各インスタンスのベクトルデータを入力データとして，そのインスタンスがどのアヤメの種類に属するのかを予測する予測器を構築します．分類問題です．また，このデータには分類先のデータ，ターゲットデータとしてアヤメの種類（3個）が与えられていますが，このようなターゲットデータ（教師データ）と入力データを用いて行う学習法を教師あり学習法と言います．</p>
 </div>
 <div class="section" id="id4">
 <h3><span class="section-number">4.1.3. </span>決定木による予測器の構築<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>決定木という機械学習アルゴリズムを用いて人工知能を構築します．最初にデータを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の2割にします（何割でも良いのですが2割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
+<p>決定木という機械学習アルゴリズムを用いて人工知能を構築します．最初にデータを学習データセットとテストデータセットに分割します．テストデータセットのサイズは全体の 2 割にします（何割でも良いのですが 2 割にしてみました）．データセットの分割もとても便利な方法が用意されています．以下のように書きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -581,7 +581,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>結果として出力された上段の値とそれに対応する教師データが完全に一致しています．高性能な予測器が作れたということです．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>出力の1行目は予測器がテストデータセットの入力値に対して予測した予測値です．1行目はテストデータセットの教師データです．</p>
+<p>出力の 1 行目は予測器がテストデータセットの入力値に対して予測した予測値です．2 行目はテストデータセットの教師データです．</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -618,8 +618,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>決定木はこのような選択肢の分岐を繰り返すことで入力データを分類する手法です．最上段からスタートします．この場合，咢の幅が <code class="docutils literal notranslate"><span class="pre">0.8</span></code> 以下であるなら（<code class="docutils literal notranslate"><span class="pre">True</span></code> の方向へ進む），データは <code class="docutils literal notranslate"><span class="pre">setosa</span></code> と分類されます．</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>画像中に <code class="docutils literal notranslate"><span class="pre">gini</span></code> とありますが，これは決定木の目的関数です．決定木はこれを指標にしてデータが分割します．気になった場合は「ジニ不純度」のようなキーワードで検索してみてください．</p>
 </div>
 <div class="admonition note">
@@ -765,7 +765,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>このように scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても観点に実装することができます．scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
+<p>このように scikit-learn を利用すれば，様々な機械学習アルゴリズムをとても簡単に実装することができます．scikit-learn で利用可能な方法はまだまだたくさんあります．それらの方法は <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html">https://scikit-learn.org/stable/supervised_learning.html</a> にまとめられています．</p>
 </div>
 </div>
 <div class="section" id="id10">
@@ -782,7 +782,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 <span class="kn">import</span> <span class="nn">pickle</span> <span class="c1"># インポートする．</span>
- 
+
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
     <span class="n">learnx</span><span class="p">,</span> <span class="n">testx</span><span class="p">,</span> <span class="n">learnt</span><span class="p">,</span> <span class="n">testt</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">diris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
@@ -798,7 +798,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>これで予測器の情報がファイル，predictor.sav としてが保存されました．以下のようにすることでこの計算機上（Google Colaboratory が動いている Google の所有物のどこか遠くにある計算機上）に保存されたファイルを確認することができます．</p>
+<p>これで予測器の情報がファイル，predictor.sav として保存されました．以下のようにすることでこの計算機上（Google Colaboratory が動いている Google の所有物のどこか遠くにある計算機上）に保存されたファイルを確認することができます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> ls
@@ -806,8 +806,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>これは Python のコマンドではありません．Google Colaboratory のコードセルは通常，Python を実行させるためのものです．<code class="docutils literal notranslate"><span class="pre">!</span></code> をコマンドの前に付けて実行すると，この計算機のシェルを動かすことができます．</p>
 </div>
 <p>上のコマンドを実行すると確かに predictor.sav というファイルが保存されていることが確認できました．次はこのファイルを別のプログラムから呼び出して利用します．以下のように書きます．</p>
@@ -833,7 +833,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>このプログラムでは SVC をインポートすらしていないし，学習データセットの学習をするためにコードも書いていないのに，しっかりと予測器が動いていることを確認できます．つまり，学習済み決定木を読み込めたということを意味しています．</p>
+<p>このプログラムでは SVC をインポートすらしていないし，学習データセットの学習をするためにコードも書いていないのに，しっかりと予測器が動いていることを確認できます．つまり，学習済みサポートベクトルマシンを読み込めたということを意味しています．</p>
 </div>
 <div class="section" id="id12">
 <h3><span class="section-number">4.4.2. </span>ハイパーパラメータの探索<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
@@ -842,11 +842,11 @@ const thebe_selector_output = ".output, .cell_output"
 f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 \)</span></p>
 <p>機械学習アルゴリズムは学習の過程においてパラメータの値を変化させます．これに対して，学習によって決定されないパラメータをハイパーパラメータと言います．例えば，決定木においてはその分岐の深さをあらかじめ決めて分岐の仕方を学習させることができますが，これはハイパーパラメータのひとつです．また，機械学習アルゴリズムに持たせるパラメータのサイズもハイパーパラメータであるし，そのパラメータを学習させる最適化法もハイパーパラメータと言えます．このようなハイパーパラメータは各機械学習アルゴリズムが固有に持っているものです．</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>学習によって決定されないパラメータをハイパーパラメータと言い，これをうまく設定することが開発者の腕の見せ所のひとつです．</p>
 </div>
-<p>ハイパーパラメータを決定するための探索法には様々なものがあります．例えば，ランダムに決定したハイパーパラメータを利用して学習を完了させ，その性能を擬似的なテストデータセット（バリデーションデータセット）を用いて評価し，最も性能が良くなるハイパーパラメータを最終的なハイパーパラメータとする方法があります．また，ランダム探索より効率的に探索するために，ベイズ最適化法（以前のハイパーパラメータを利用した学習の結果を利用してより良さそうなハイパーパラメータを探索する方法）や進化計算法（離散最適化法の一種）が利用されています．そんな中において，最もナイーブですが強力な探索法としてグリッドサーチがあります．しらみつぶし的にあり得そうなハイパーパラメータの組み合わせを全部計算してしまう方法です．例えば，ハイパーパラメータをふたつ持つ機械学習アルゴリズムについて，最初のハイパーパラメータの値の候補として10点が考えられるとして，また，もうひとつのハイパーパラメータの値の候補として5点が考えられるとした場合，それらを掛け算した組み合わせ分，すなわち50種類のハイパーパラメータの組み合わせすべてで学習を行う方法です．グリッドサーチは以下のように行います．ここではサポートベクトルマシンのハイパーパラメータである「カーネル」と「ガンマ」と「C」の値の組み合わせを探索しています（どのような性質を持つものか興味があったら調べてみてください）．</p>
+<p>ハイパーパラメータを決定するための探索法には様々なものがあります．例えば，ランダムに決定したハイパーパラメータを利用して学習を完了させ，その性能を擬似的なテストデータセット（バリデーションデータセット）を用いて評価し，最も性能が良くなるハイパーパラメータを最終的なハイパーパラメータとする方法があります．また，ランダム探索より効率的に探索するために，ベイズ最適化法（以前のハイパーパラメータを利用した学習の結果を利用してより良さそうなハイパーパラメータを探索する方法）や進化計算法（離散最適化法の一種）が利用されています．そんな中において，最もナイーブですが強力な探索法としてグリッドサーチがあります．しらみつぶし的にあり得そうなハイパーパラメータの組み合わせを全部計算してしまう方法です．例えば，ハイパーパラメータをふたつ持つ機械学習アルゴリズムについて，最初のハイパーパラメータの値の候補として 10 点が考えられるとして，また，もうひとつのハイパーパラメータの値の候補として 5 点が考えられるとした場合，それらを掛け算した組み合わせ分，すなわち 50 種類のハイパーパラメータの組み合わせすべてで学習を行う方法です．グリッドサーチは以下のように行います．ここではサポートベクトルマシンのハイパーパラメータである「カーネル」と「ガンマ」と「C」の値の組み合わせを探索しています（どのような性質を持つものか興味があったら調べてみてください）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -875,7 +875,7 @@ f(x_1,x_2,x_3)=w_1x_1+w_2x_2+w_3x_3+b
 </div>
 </div>
 </div>
-<p>グリッドサーチの際には，クロスバリデーションによる評価を行っています．ここでは，<code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">=</span> <span class="pre">5</span></code> と指定しています．学習データセットを5分割にし，それらの内の4分割分で学習を行い，残りの1分割分で擬似テストをし，次に別の4分割分で学習を行い，残りの1分割分で擬似テストをする，という行為を合計5回行うという操作です．最終的なハイパーパラメータとしてどのような値が選択されたのかは以下のように書くことでわかります．</p>
+<p>グリッドサーチの際には，クロスバリデーションによる評価を行っています．ここでは，<code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">=</span> <span class="pre">5</span></code> と指定しています．学習データセットを 5 分割にし，それらの内の 4 分割分で学習を行い，残りの 1 分割分で擬似テストをし，次に別の 4 分割分で学習を行い，残りの 1 分割分で擬似テストをする，という行為を合計 5 回行うという操作です．最終的なハイパーパラメータとしてどのような値が選択されたのかは以下のように書くことでわかります．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
