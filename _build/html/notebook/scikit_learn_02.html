@@ -573,6 +573,10 @@ const thebe_selector_output = ".output, .cell_output"
 \)</span></p>
 <p>K-means ではこの値を最初化するようにクラスタへのインスタンスの割り当てを行います．つまり，K-means では以下の <span class="math notranslate nohighlight">\(E\)</span> を最小化します．</p>
 <p><span class="math notranslate nohighlight">\(\displaystyle E=\sum_{i=1}^kI_k\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>クラスタ内平方和を小さくすることによって似たものが同じクラスタに属するようになります．</p>
+</div>
 </div>
 <div class="section" id="id4">
 <h3><span class="section-number">5.2.2. </span>クラスタリングの実行<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
@@ -617,7 +621,7 @@ const thebe_selector_output = ".output, .cell_output"
 
     <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">cluster</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
-
+    
     <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;navy&quot;</span><span class="p">,</span> <span class="s2">&quot;turquoise&quot;</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
@@ -692,7 +696,7 @@ const thebe_selector_output = ".output, .cell_output"
  
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
+    
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">):</span>
         <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">cluster</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
@@ -704,13 +708,13 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>シルエットスコアはクラスタの個数が3個のとき最も良い値を示しており，やはり，クラスタ数は3個が良さそうであることが確認できます．</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<p>シルエットスコアはクラスタの個数が 3 個のとき最も良い値を示しており，やはり，クラスタ数は 3 個が良さそうであることが確認できます．</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>クラスタ数を決定付ける強力な根拠ではありません．こういう指標があるという程度に使ってください．</p>
 </div>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>他にはクラスタ数に対するクラスタ内平方和の変化を観察するエルボー法という方法があります．</p>
 </div>
 </div>
@@ -729,9 +733,9 @@ const thebe_selector_output = ".output, .cell_output"
 <ol class="simple">
 <li><p>対象とするクラスタとその他のクラスタの類似度等の指標を計算します（この指標は単連結法や完全連結法やその他の方法で異なります）．</p></li>
 <li><p>計算した指標を最も良くするようにクラスタと別のクラスタを連結して新たなクラスタを生成します．</p></li>
-<li><p>クラスタがひとつになるまで，上の1，2を繰り返します．</p></li>
+<li><p>クラスタがひとつになるまで，上の 1，2 を繰り返します．</p></li>
 </ol>
-<p>例えば，ウォード法を利用するのであれば1番で計算する指標は，以下のクラスタ内平方和です．クラスタ <span class="math notranslate nohighlight">\(C_k\)</span> のクラスタ内平方和 <span class="math notranslate nohighlight">\(I_k\)</span> は以下のように計算します．</p>
+<p>例えば，ウォード法を利用するのであれば 1 番で計算する指標は，以下のクラスタ内平方和です．クラスタ <span class="math notranslate nohighlight">\(C_k\)</span> のクラスタ内平方和 <span class="math notranslate nohighlight">\(I_k\)</span> は以下のように計算します．</p>
 <p><span class="math notranslate nohighlight">\(
 \displaystyle I_k=\sum_{i=1}^{n_k}\|x_i-\mu_k\|_2^2
 \)</span></p>
@@ -745,6 +749,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>ウォード法ではあるクラスタ <span class="math notranslate nohighlight">\(C_l\)</span> のクラスタ内平方和 <span class="math notranslate nohighlight">\(I_l\)</span> と別のクラスタ <span class="math notranslate nohighlight">\(C_m\)</span> のクラスタ内平方和 <span class="math notranslate nohighlight">\(I_m\)</span> を計算します．また，それらのクラスタを連結して新たなクラスタ <span class="math notranslate nohighlight">\(C_n\)</span> を生成した場合のクラスタ内平方和 <span class="math notranslate nohighlight">\(I_n\)</span> の値を計算します．ウォード法では，元のふたつのクラスタ内平方和の和と新たなクラスタのクラスタ内平方和の差 <span class="math notranslate nohighlight">\(E\)</span> を最小化するようにクラスタを連結させます．</p>
 <p><span class="math notranslate nohighlight">\(E=I_n-(I_l+I_m)\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>クラスタ <span class="math notranslate nohighlight">\(C_l\)</span> とクラスタ <span class="math notranslate nohighlight">\(C_m\)</span> がものすごく離れているとき，<span class="math notranslate nohighlight">\(I_n\)</span> の値は大きくなるため，<span class="math notranslate nohighlight">\(E\)</span> も大きくなります．<span class="math notranslate nohighlight">\(E\)</span> が小さくなるようにクラスタを形成させることは近いクラスタ同士を凝集させるという行為をしているということになります．</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>ウォード法はよく用いられる方法です．</p>
@@ -808,12 +816,12 @@ const thebe_selector_output = ".output, .cell_output"
 <p>主成分分析法の進め方を紹介します．</p>
 <div class="section" id="id11">
 <h3><span class="section-number">5.4.1. </span>基本的な事柄<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>与えられたデータに対して主成分分析を行う理由は，人が目で見て理解するには複雑なデータを人が理解しやすい形式に整えたいためです．4個以上の要素からなるベクトル形式のデータを2個または3個（または稀に1個）の要素からなるベクトル形式のデータに変換し2次元または3次元（または1次元）平面上にインスタンスをプロットし直すことでデータの関連性を把握することができます．</p>
+<p>与えられたデータに対して主成分分析を行う理由は，人が目で見て理解するには複雑なデータを人が理解しやすい形式に整えたいためです．4 個以上の要素からなるベクトル形式のデータを 2 個または 3 個（または稀に 1 個）の要素からなるベクトル形式のデータに変換し 2 次元または 3 次元（または 1 次元）平面上にインスタンスをプロットし直すことでデータの関連性を把握することができます．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>この変換を次元削減と言います．</p>
 </div>
-<p>主成分分析で行っていることはちょうど以下のような作業です．左に示されている2次元平面上にプロットされた点を右に示されているように1次元平面上にプロットしています．</p>
+<p>主成分分析で行っていることはちょうど以下のような作業です．左に示されている 2 次元平面上にプロットされた点を右に示されているように 1 次元平面上にプロットしています．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/pca_01.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/pca_01.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/pca_01.svg?raw=1" style="width: 100%;" /></a>
 <p>ただし，主成分分析で行いたいことは以下のような次元削減ではありません．以下のようにすると変換後の軸上のインスタンスが互いに重なっており，かなりの情報が失われているように思えます．</p>
 <a class="reference internal image-reference" href="https://github.com/yamada-kd/binds-training/blob/main/image/pca_02.svg?raw=1"><img alt="https://github.com/yamada-kd/binds-training/blob/main/image/pca_02.svg?raw=1" src="https://github.com/yamada-kd/binds-training/blob/main/image/pca_02.svg?raw=1" style="width: 100%;" /></a>
@@ -828,7 +836,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id13">
 <h3><span class="section-number">5.4.3. </span>次元の削減<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<p>アヤメのデータセットに対して次元の削減を行います．以下のようにこのデータセットにおける各インスタンスは4個の要素からなるベクトル形式のデータです．よってこれを4次元平面上にプロットしたとしてもその関係性を人は理解できません．</p>
+<p>アヤメのデータセットに対して次元の削減を行います．以下のようにこのデータセットにおける各インスタンスは 4 個の要素からなるベクトル形式のデータです．よってこれを 4 次元平面上にプロットしたとしてもその関係性を人は理解できません．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>そもそも4次元平面なんて描画できませんね．</p>
@@ -849,7 +857,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>主成分分析は以下のように行います．主成分分析で得られた全インスタンス（150個）の値を出力させます．</p>
+<p>主成分分析は以下のように行います．主成分分析で得られた全インスタンス（150 個）の値を出力させます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -900,7 +908,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>各種類のアヤメがそれぞれ集まっていることがわかります．2次元平面上にプロットすることで各インスタンスの関係性を把握することができました．この主成分平面には横軸と縦軸がありますが，これらの軸が何を意味しているのかは解析者がデータの分布の様子を観察する等して決定しなければなりません．</p>
+<p>各種類のアヤメがそれぞれ集まっていることがわかります．2 次元平面上にプロットすることで各インスタンスの関係性を把握することができました．この主成分平面には横軸と縦軸がありますが，これらの軸が何を意味しているのかは解析者がデータの分布の様子を観察する等して決定しなければなりません．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>軸の意味の解釈のヒントは主成分負荷量を散布図上にプロットすることである程度は得られます．主成分負荷量とは最終的に得られた固有ベクトル（線形結合の係数）にそれに対応する固有値の正の平方根を掛けた値のことです．</p>
@@ -909,38 +917,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Note</p>
 <p>この主成分平面上の任意の点をサンプリングして主成分分析の逆操作をすると新たなデータを生成することも可能です．</p>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;ggplot&quot;</span><span class="p">)</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">diris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">diris</span><span class="o">.</span><span class="n">data</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">diris</span><span class="o">.</span><span class="n">target</span>
-    <span class="n">target_names</span> <span class="o">=</span> <span class="n">diris</span><span class="o">.</span><span class="n">target_names</span>
-    <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">xt</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;navy&quot;</span><span class="p">,</span> <span class="s2">&quot;turquoise&quot;</span><span class="p">,</span> <span class="s2">&quot;darkorange&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">target_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">target_names</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xt</span><span class="p">[</span><span class="n">t</span><span class="o">==</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xt</span><span class="p">[</span><span class="n">t</span><span class="o">==</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">target_name</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="id14">
 <h3><span class="section-number">5.4.4. </span>次元削減データの説明力<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
-<p>これまでの計算で4つの要素からなるベクトルデータを2つの要素からなるベクトルデータへと変換しました．そのインスタンスを特徴付ける4つの要素を半分にしたのですから元々インスタンスが持っていた情報は少なくなっているはずです．この主成分分析の操作でどれくらいの情報が失われたのか，どれくらいの情報が維持されているのかは以下のコードで確認できます．元々の情報を1としたときに各軸が持つ説明力の割合を出力することができます．また，それらの値を合計することで元々の情報を2つの軸だけでどれくらい説明できるかを計算できます．</p>
+<p>これまでの計算で 4 個の要素からなるベクトルデータを 2 個の要素からなるベクトルデータへと変換しました．そのインスタンスを特徴付ける 4 個の要素を半分にしたのですから元々インスタンスが持っていた情報は少なくなっているはずです．この主成分分析の操作でどれくらいの情報が失われたのか，どれくらいの情報が維持されているのかは以下のコードで確認できます．元々の情報を1としたときに各軸が持つ説明力の割合を出力することができます．また，それらの値を合計することで元々の情報を 2 個の軸だけでどれくらい説明できるかを計算できます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -963,7 +943,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>第一主成分のみで全体の大体92%の説明力を持ち，第二主成分で大体5%の説明力を持つようです．ふたつの軸によって元の約98%の説明ができているようです．</p>
+<p>第一主成分のみで全体の大体 92% の説明力を持ち，第二主成分で大体 5% の説明力を持つようです．ふたつの軸によって元の約 98% の説明ができているようです．</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>この説明力の比率は寄与率と言います．それらを（解析者が必要と感じる次元数まで）足したものを累積寄与率と言います．</p>
@@ -1007,7 +987,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Hint</p>
 <p>正規分布の母数（パラメータ）は平均値と分散ですね．母数の値が決まればそれに対応する正規分布の形状は一意に決まるのですね．</p>
 </div>
-<p>以下のコードで <span class="math notranslate nohighlight">\(N(-3, 1.5)\)</span> と <span class="math notranslate nohighlight">\(N(-3, 2)\)</span> の正規分布を描画します．</p>
+<p>以下のコードで <span class="math notranslate nohighlight">\(N(2, 1.5)\)</span> と <span class="math notranslate nohighlight">\(N(-3, 2)\)</span> の正規分布を描画します．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -1027,7 +1007,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>次に，以下のコードで <span class="math notranslate nohighlight">\(N(-3, 1.5)\)</span> に従う50個のインスタンスと <span class="math notranslate nohighlight">\(N(-3, 2)\)</span> に従う50個のインスタンスをサンプリングします．また，そのヒストグラムを描きます．</p>
+<p>次に，以下のコードで <span class="math notranslate nohighlight">\(N(2, 1.5)\)</span> に従う50個のインスタンスと <span class="math notranslate nohighlight">\(N(-3, 2)\)</span> に従う50個のインスタンスをサンプリングします．また，そのヒストグラムを描きます．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
@@ -1049,8 +1029,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>計算機実験をする際は乱数の種は固定しなきゃならないのでしたね．</p>
 </div>
 <p>カーネル密度推定は以下のように行います．</p>
@@ -1089,8 +1069,8 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id19">
 <h3><span class="section-number">5.5.4. </span>生成モデルとしての利用<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>カーネル密度推定法は何もないところからデータを生成する生成モデルとして利用することができます．何らかのデータを入力にしてそのデータが出力される確率分布をカーネル密度推定法で推定します．次に，その確率密度分布に基づいてデータを生成する，といった手順です．</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>与えられたデータが出力された確率分布を推定できたのなら，その分布から新たなデータは当然出力することができるよねという仕組みです．</p>
 </div>
 <p>ここでは機械学習界隈で最も有名なデータセットである MNIST（Mixed National Institute of Standards and Technology database）を解析対象に用います．「エムニスト」と発音します．MNIST は縦横28ピクセル，合計784ピクセルよりなる画像データです．画像には手書きの一桁の数字（0から9）が含まれています．公式ウェブサイトでは，学習データセット6万個とテストデータセット1万個，全部で7万個の画像からなるデータセットが無償で提供されています．そのデータセットを以下のようにダウンロードして最初のデータを可視化します．</p>

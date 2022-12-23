@@ -36,7 +36,7 @@ import numpy as np
  
 def main():
     print(np.array([1, 2, 3]))
- 
+
 if __name__ == "__main__":
     main()
 
@@ -52,7 +52,7 @@ import numpy as np
 def main():
     na = np.array([1, 2, 3])
     print(na[0])
- 
+
 if __name__ == "__main__":
     main()
 
@@ -72,7 +72,7 @@ def main():
     print(na - nb)
     print(na * nb)
     print(nb / na)
- 
+
 if __name__ == "__main__":
     main()
 
@@ -92,7 +92,7 @@ def main():
     na[0] = 2
     nb[0] = 3
     print(na, nb)
- 
+
 if __name__ == "__main__":
     main()
 
@@ -112,7 +112,7 @@ def main():
     na[0] = 2
     nb[0] = 3
     print(na, nb)
- 
+
 if __name__ == "__main__":
     main()
 
@@ -448,7 +448,7 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import matplotlib.pyplot as plt
- 
+
 def main():
     pass
  
@@ -647,7 +647,7 @@ if __name__ == "__main__":
     main()
 
 
-# 多分，ここまでで意味がわからなくなったと思うので，まずはインスタンスを生成してみます．以下のように書きます．これによって `mydog` というインスタンスが生成されました．引数には，`Ken` と `6` を与えました．6歳の Ken という名前の犬の情報です．
+# 多分，ここまでで意味がわからなくなったと思うので，まずはインスタンスを生成してみます．以下のように書きます．これによって `mydog` というインスタンスが生成されました．引数には，`Ken` と `6` を与えました．6 歳の Ken という名前の犬の情報です．
 
 # In[ ]:
 
@@ -721,7 +721,7 @@ class Dog:
         self.name = name
         self.age  = age
     def sit(self):
-        print("{0}, which is ({1}) years old is now sitting.".format(self.name, self.age))
+        print("{}, which is ({}) years old is now sitting.".format(self.name, self.age))
 
 if __name__ == "__main__":
     main()
@@ -1069,7 +1069,7 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
 
 def main():
-    liline=[]
+    liline = []
     fin = open("ff.txt", "r")
     for line in fin:
         line = line.rstrip()
@@ -1099,7 +1099,7 @@ if __name__ == "__main__":
 
 # ### ファイルの一括読み込み
 
-# 以上ではファイルを1行ずつ読み込みました．普通，ファイルはそのように読み込む方が良いと思われますが，小さいファイルであれば以下のように一括で読み込むことができます．
+# 以上ではファイルを 1 行ずつ読み込みました．普通，ファイルはそのように読み込む方が良いと思われますが，小さいファイルであれば以下のように一括で読み込むことができます．
 
 # In[ ]:
 

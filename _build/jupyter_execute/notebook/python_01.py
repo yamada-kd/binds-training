@@ -5,7 +5,7 @@
 
 # ## Python とは
 
-# Python は，科学技術界隈，特にデータ科学に関する分野において昨今，最も利用されていると言って過言ではないプログラミング言語です．これを習得することで今後，プログラミング技術なしでは為し得なかったような大量データの解析ができるようになります．Python は C言語とか Fortran とかの伝統的なプログラミング言語と比べて簡単に学ぶことができるプログラミング言語です．ものすごく人気がある言語であり，たくさんのライブラリ（補助ツール）が存在しているので，色々なことができます．計算の速さもそこそこで，少なくとも悪くはありません．ここでは，Python のバージョン3（Python3）の使い方を学びます．
+# Python は，科学技術界隈，特にデータ科学に関する分野において昨今，最も利用されているプログラミング言語です．これを習得することで今後，プログラミング技術なしでは為し得なかったような大量データの解析ができるようになります．Python は C言語とか Fortran とかの伝統的なプログラミング言語と比べて簡単に学ぶことができるプログラミング言語です．ものすごく人気がある言語であり，たくさんのライブラリ（補助ツール）が存在しているので，色々なことができます．計算の速さもそこそこで，少なくとも悪くはありません．ここでは，Python のバージョン3（Python3）の使い方を学びます．
 
 # ## Python の実行方法
 
@@ -31,7 +31,7 @@
 
 def main():
     print("Hello world")
-     
+
 if __name__ == "__main__":
     main()
 
@@ -88,7 +88,7 @@ def main():
     print(10 - 2) # subtraction
     print(90 / 3) # division
     print(51 * 5) # multiplication
- 
+
 if __name__ == "__main__":
     main()
 
@@ -205,7 +205,7 @@ def main():
     name = "Ken"
     age = 6
     print("{}, which is {} years old is now sitting.".format(name, age))
- 
+
 if __name__ == "__main__":
     main()
 
@@ -231,7 +231,7 @@ if __name__ == "__main__":
 
 # Python のリストでは上のように数値と文字（列）をひとつのリストに同時に入れることができます．リストを使うことが可能な多くのプログラミング言語ではこのような操作はできない場合が多いです．
 
-# また，以下のような特別な変数も存在します．これをディクショナリ（dictionary）と呼びます．ディクショナリ変数は `{` と `}` と `,` と `:` を使って生成します．ディクショナリ変数には，キー（key）とそれに対応する値（value）を一組にして代入します．その後，キーの値を使って以下のようにしてディクショナリ変数にアクセスすることで，そのキーに対応する値を取得することができます．
+# また，以下のような特別な変数も存在します．これをディクショナリ（dictionary）と呼びます．ディクショナリ変数は `{` と `}` と `,` と `:` を使って生成します．ディクショナリ変数には，キー（key）とそれに対応するバリュー（value）を一組にして代入します．その後，キーの値を使って以下のようにしてディクショナリ変数にアクセスすることで，そのキーに対応するバリューを取得することができます．
 
 # In[ ]:
 
@@ -312,7 +312,7 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
  
 def main():
-    dict_a={"January" : "1", "February" : "2"}
+    dict_a = {"January" : "1", "February" : "2"}
     for k in dict_a.keys(): # dict_a.keys() is a list containing only keys of "dict_a". or you can write simply "dict_a" instead of "dict_a.keys()"
         print(k, dict_a[k]) # k is a key and dict_a[k] is a value corresponding to the key.
  
@@ -332,7 +332,7 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
  
 def main():
-    dict_a={"January" : "1", "February" : "2"}
+    dict_a = {"January" : "1", "February" : "2"}
     for k, v in dict_a.items():
         print(k, v) # k is a key and dict_a[k] is a value corresponding to the key.
  
@@ -354,7 +354,7 @@ if __name__ == "__main__":
 def main():
     i = 0
     while i < 10: # If the condition "i < 10" is satisfied,
-        print(i) 
+        print(i)
         i = i + 1 # these two lines are processed.
  
 if __name__ == "__main__":
@@ -373,7 +373,7 @@ def main():
     while i != 10:
         print(i)
         i = i + 1
- 
+
 if __name__ == "__main__":
     main()
 
@@ -391,12 +391,12 @@ def main():
     for i in range(5):
         if i == 2:
             print(i)
- 
+
 if __name__ == "__main__":
     main()
 
 
-# 繰り返し処理と条件分岐を組み合わせることで複雑な動作を実現することができます．以下のように書くと，もしキーが「January」であった場合，「1」が表示されます．それ以外でもし，「ディクショナリ変数の値が2」であった場合，`February corresponds to 2 in dict_a.` と表示されます．それら以外の全ての場合おいては，`key is not January or February.` と表示されます．
+# 繰り返し処理と条件分岐を組み合わせることで複雑な動作を実現することができます．以下のように書くと，もしキーが「January」であった場合，「1」が表示されます．それ以外でもし，「ディクショナリ変数のバリューが 2」であった場合，`February corresponds to 2 in dict_a.` と表示されます．それら以外の全ての場合おいては，`key is not January or February.` と表示されます．
 
 # In[ ]:
 
@@ -404,12 +404,12 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
  
 def main():
-    dict_a={"January" : "1", "February" : "2", "May" : "5"}
+    dict_a = {"January" : "1", "February" : "2", "May" : "5"}
     for k in dict_a.keys():
         if k == "January": # a condition means if variable "k" is same as "January"
             print(dict_a[k]) # If the above condition is satisfied, this line is executed. do not forget an indent
         elif dict_a[k] == "2": # If "k" is not "January" and "dict_a[k]" is same as "2",
-            print(k,"corresponds to",dict_a[k],"in dict_a.") # this line is executed.
+            print(k, "corresponds to", dict_a[k], "in dict_a.") # this line is executed.
         else: # In all situation except above two condition,
             print(k,"is not January or February.") # this line is executed.
  
@@ -431,7 +431,7 @@ def main():
      
 def func_1(): # Declaration of a novel function "func_1()".
     print("Hello") # substance of "func_1()"
- 
+
 if __name__ == "__main__":
     main() # The function "main()" is executed (and "main()" execute "func_1()" and "func_1()" execute "print("Hello")").
 
@@ -440,7 +440,7 @@ if __name__ == "__main__":
 # ` if __name__ == "__main__": ` を書かない人結構いますが，では，その書いたプログラム，hoge.py としましょう，別のプログラムでインポート ` import hoge ` したときの挙動は期待したものと異なると思いますのでので試してみましょう！あと，変数のスコープの管理もしやすいです．
 # ```
 
-# 関数を生成する際に `()` が付属していますが，これは，引数（ひきすう，パラメータ）の受け渡しに使うためのものです．以下のように書くと，`Python` という文字列が格納された変数 `str_1` を関数 `func_1()` のパラメータとして関数が実行されます．その後，`func_1()` 内では，パラメータ `str_1 == Python` を `func_1()` の中でのみ定義されるパラメータ変数である `arg_1` で受け取りそれを利用して新たな処理が実行されます．
+# 関数を生成する際に `()` が付属していますが，これは，引数（ひきすう，パラメータ）の受け渡しに使うためのものです．以下のように書くと，`Python` という文字列が格納された変数 `str_1` を関数 `func_1()` のパラメータとして関数が実行されます．その後，`func_1()` 内では，パラメータ `str_1`（`== Python`）を `func_1()` の中でのみ定義されるパラメータ変数である `arg_1` で受け取りそれを利用して新たな処理が実行されます．
 
 # In[ ]:
 
@@ -453,12 +453,12 @@ def main():
      
 def func_1(arg_1): # To get argument from external call, you need to set a variable to receive the argument. In this case, it is "arg_1".
     print("Hello", arg_1) # print "Hello" and arg_1 (= str_1 in main() = "Python").
- 
+
 if __name__ == "__main__":
     main()
 
 
-# また，関数はその関数内で処理された結果の値を関数の呼び出し元に返す (呼び出し元の関数内で使うことができるように値を渡す) ことができます．例えば，以下の書くと，`summation()` の呼び出し元に対して，`summation()` で計算した結果（リスト内の数値の和）が返ってきます．その返ってきた値を変数 `result_1` に格納してその後の処理に利用することができます．
+# また，関数はその関数内で処理された結果の値を関数の呼び出し元に返す (呼び出し元の関数内で使うことができるように値を渡す) ことができます．例えば，以下のように書くと，`summation()` の呼び出し元に対して，`summation()` で計算した結果（リスト内の数値の和）が返ってきます．その返ってきた値を変数 `result_1` に格納してその後の処理に利用することができます．
 # 
 # 
 
@@ -528,7 +528,7 @@ if __name__ == "__main__":
 import statistics
  
 def main():
-    linumber=[1, 2, 3, 4, 5, 6, 7, 8]
+    linumber = [1, 2, 3, 4, 5, 6, 7, 8]
      
     print("mean:", statistics.mean(linumber))
     print("sd:", statistics.stdev(linumber))
@@ -546,12 +546,12 @@ if __name__ == "__main__":
 import math
  
 def main():
-    x=10
+    x = 10
     print("log_10:", math.log10(x))
     print("log_2:", math.log2(x))
     print("log_e:", math.log(x))
     
-    x=math.radians(180) #This is radian of an angle of 180 degrees
+    x = math.radians(180) #This is radian of an angle of 180 degrees
     print(math.sin(x))
     print(math.cos(x))
     print(math.tan(x))
