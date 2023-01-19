@@ -84,10 +84,11 @@ get_ipython().system(' ls /root/.keras/datasets')
 
 #!/usr/bin/env python3
 import tensorflow as tf
-tf.random.set_seed(0)
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model
 import numpy as np
+tf.random.set_seed(0)
+np.random.seed(0)
 
 def main():
     # データセットの生成
@@ -95,7 +96,7 @@ def main():
     tx=np.asarray(tx,dtype=np.float32)
     tt=[0,1,2]
     tt=tf.convert_to_tensor(tt)
-    
+
     # ネットワークの定義
     model=Network()
     cce=tf.keras.losses.SparseCategoricalCrossentropy() #これでロス関数を生成する．
@@ -242,9 +243,10 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import tensorflow as tf
-tf.random.set_seed(0)
 from tensorflow.keras.layers import Dense
 import numpy as np
+tf.random.set_seed(0)
+np.random.seed(0)
 
 def main():
     # データセットの生成
@@ -311,11 +313,12 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import tensorflow as tf
-tf.random.set_seed(0)
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model
 import numpy as np
+tf.random.set_seed(0)
+np.random.seed(0)
 
 def main():
     # ハイパーパラメータの設定
@@ -491,12 +494,13 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import tensorflow as tf
-tf.random.set_seed(0)
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model
 import numpy as np
 import matplotlib.pyplot as plt
+tf.random.set_seed(0)
+np.random.seed(0)
 
 def main():
     # ハイパーパラメータの設定
@@ -634,12 +638,13 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import tensorflow as tf
-tf.random.set_seed(0)
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model
 import numpy as np
 import matplotlib.pyplot as plt
+tf.random.set_seed(0)
+np.random.seed(0)
 
 def main():
     # ハイパーパラメータの設定
@@ -792,12 +797,13 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import tensorflow as tf
-tf.random.set_seed(0)
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model
 import numpy as np
 import matplotlib.pyplot as plt
+tf.random.set_seed(0)
+np.random.seed(0)
 
 def main():
     # ハイパーパラメータの設定
