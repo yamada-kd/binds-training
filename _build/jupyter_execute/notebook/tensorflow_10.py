@@ -1363,7 +1363,7 @@ class Agent:
     def learn(self, experiences):
         instances = random.sample(experiences, self.minibatchSize) # リプレイバッファからミニバッチサイズ分のデータを抽出．
         observationInstances = np.asarray([instance["observation"] for instance in instances]) # ニューラルネットワークの入力値を取り出しているだけ．
-        qValues = self.targetModel(observationInstances, False).numpy() # Q値を計算．
+        qValues = self.targetModel(observationInstances, False).numpy() # Q値を計算（Q値を格納するための変数を作っただけ）．
         newObservationInstances = np.asarray([instance["newObservation"] for instance in instances]) # ニューラルネットワークの入力値を取り出しているだけ．
         newQValues = self.targetModel(newObservationInstances, False).numpy() # Q値を計算．
         # 以下のforは教師データを作成するための記述．
@@ -1396,7 +1396,7 @@ class Network(tf.keras.Model):
         y = self.w2(y)
         y = self.a1(y)
         y = self.dropout(y, training=learningFlag)
-        y = self.w3(y) # 出力はソフトマックス関数を使って確率にしても良いかもしれない．
+        y = self.w3(y)
         return y
 
 if __name__ == "__main__":
@@ -1505,7 +1505,7 @@ if __name__ == "__main__":
 #     def learn(self, experiences):
 #         instances = random.sample(experiences, self.minibatchSize) # リプレイバッファからミニバッチサイズ分のデータを抽出．
 #         observationInstances = np.asarray([instance["observation"] for instance in instances]) # ニューラルネットワークの入力値を取り出しているだけ．
-#         qValues = self.targetModel(observationInstances, False).numpy() # Q値を計算．
+#         qValues = self.targetModel(observationInstances, False).numpy() # Q値を計算（Q値を格納するための変数を作っただけ）．
 #         newObservationInstances = np.asarray([instance["newObservation"] for instance in instances]) # ニューラルネットワークの入力値を取り出しているだけ．
 #         newQValues = self.targetModel(newObservationInstances, False).numpy() # Q値を計算．
 #         # 以下のforは教師データを作成するための記述．
