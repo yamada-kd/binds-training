@@ -1290,7 +1290,7 @@ def main():
     # エージェントの生成．
     agent = Agent(epsilon, epsilonDecayRate, minimumEpsilon, gamma, actionShape, observationShape, middleUnitSize, minibatchSize, dropoutRate)
       
-    for episode in range(1, 100+1):
+    for episode in range(1, 200+1):
         observation = env.reset()
         rewards, costs = [], [] # エピソード毎に報酬とニューラルネットワークの学習コストを溜めるリスト．
         while True:
@@ -1303,7 +1303,8 @@ def main():
                 cost = agent.learn(experiences) # Qネットワーク（qModel）の学習．
                 costs.append(cost)
             if done: break
-        agent.update() # エピソードの最後にターゲットネットワーク（targetModel）の更新．
+        if len(experiences) >= minibatchSize:
+            agent.update() # エピソードの最後にターゲットネットワーク（targetModel）の更新．
         print("Episode: {:3d}, Number of steps: {:3d}, Mean reward: {:3.1f}, Cost: {:5.3f}".format(episode, len(rewards), np.mean(rewards), np.mean(costs)))
         
     # 以下はテスト結果を可視化するため．
@@ -1544,7 +1545,8 @@ if __name__ == "__main__":
 #                 cost = agent.learn(experiences) # Qネットワーク（qModel）の学習．
 #                 costs.append(cost)
 #             if done: break
-#         agent.update() # エピソードの最後にターゲットネットワーク（targetModel）の更新．
+#         if len(experiences) >= minibatchSize:
+#             agent.update() # エピソードの最後にターゲットネットワーク（targetModel）の更新．
 #         print("Episode: {:3d}, Number of steps: {:3d}, Mean reward: {:3.1f}, Cost: {:5.3f}".format(episode, len(rewards), np.mean(rewards), np.mean(costs)))
 # ```
 
