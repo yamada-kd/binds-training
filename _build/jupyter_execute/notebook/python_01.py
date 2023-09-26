@@ -65,15 +65,15 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     print(3 + 15) # addition
- 
+
 if __name__ == "__main__":
     main()
 
 
-# ```{attention}
+# ```{note}
 # ハッシュ（#）とシャープ（♯）は実は違うものですよね．
 # ```
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     print(10 - 2) # subtraction
     print(90 / 3) # division
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     a = 3 # assign a value "3" to a variable "a"  ==
     b = 18
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     aaa = 5
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     greeting = "Hello world"
     print(greeting)
@@ -168,7 +168,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     greeting = "Hello world"
     print("greeting")
@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     a = "3"
     b = "18"
@@ -200,7 +200,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     name = "Ken"
     age = 6
@@ -218,7 +218,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     list_a = [10, 4, "aaa"] # declaration of a variable, list_a, this list variable contains three values
     print(list_a[0]) # access first element of list_a
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     dict_a = {"January" : "1", "February" : "2"} # declaration of dictionary, dict_a. this dictionary contains two keys and two values
     print(dict_a["January"]) # access a value corresponding to a key "January"
@@ -254,7 +254,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     for i in [0, 1, 2, 3, 4]:
         print(i)
@@ -274,7 +274,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     for i in range(5):
         print(i)
@@ -294,12 +294,12 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     list_a = [10, 4, "aaa"] # declaration of variable list_a
     for w in list_a: # repetitive access of list_a. w represents an element.
         print(w) # when you start a "function" you have to insert [tab] (and when you finish the function, also you need outdent)
- 
+
 if __name__ == "__main__":
     main()
 
@@ -310,12 +310,12 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     dict_a = {"January" : "1", "February" : "2"}
     for k in dict_a.keys(): # dict_a.keys() is a list containing only keys of "dict_a". or you can write simply "dict_a" instead of "dict_a.keys()"
         print(k, dict_a[k]) # k is a key and dict_a[k] is a value corresponding to the key.
- 
+
 if __name__ == "__main__":
     main()
 
@@ -330,12 +330,12 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     dict_a = {"January" : "1", "February" : "2"}
     for k, v in dict_a.items():
         print(k, v) # k is a key and dict_a[k] is a value corresponding to the key.
- 
+
 if __name__ == "__main__":
     main()
 
@@ -350,13 +350,13 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     i = 0
     while i < 10: # If the condition "i < 10" is satisfied,
         print(i)
         i = i + 1 # these two lines are processed.
- 
+
 if __name__ == "__main__":
     main()
 
@@ -367,7 +367,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     i = 0
     while i != 10:
@@ -386,7 +386,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     for i in range(5):
         if i == 2:
@@ -402,7 +402,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     dict_a = {"January" : "1", "February" : "2", "May" : "5"}
     for k in dict_a.keys():
@@ -412,7 +412,7 @@ def main():
             print(k, "corresponds to", dict_a[k], "in dict_a.") # this line is executed.
         else: # In all situation except above two condition,
             print(k,"is not January or February.") # this line is executed.
- 
+
 if __name__ == "__main__":
     main()
 
@@ -425,10 +425,10 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     func_1() # The function "func_1()" is executed in a function "main()".
-     
+
 def func_1(): # Declaration of a novel function "func_1()".
     print("Hello") # substance of "func_1()"
 
@@ -446,11 +446,11 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     str_1 = "Python"
     func_1(str_1) # pass the variable "str_1" to the function "func_1"
-     
+
 def func_1(arg_1): # To get argument from external call, you need to set a variable to receive the argument. In this case, it is "arg_1".
     print("Hello", arg_1) # print "Hello" and arg_1 (= str_1 in main() = "Python").
 
@@ -466,7 +466,7 @@ if __name__ == "__main__":
 
 
 #!/usr/bin/env python3
- 
+
 def main():
     numbers = [2, 4, 5, -2, 3] # a list to be calculated
     result_1 = summation(numbers) # execution of summation(). Numbers is passed to the function. And the result of the function is assigned to the variable "result_1"
@@ -491,7 +491,7 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import statistics
- 
+
 def main():
     pass
 
@@ -511,7 +511,7 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
 import statistics
 import sys
- 
+
 def main():
     pass
 
@@ -526,13 +526,13 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import statistics
- 
+
 def main():
     linumber = [1, 2, 3, 4, 5, 6, 7, 8]
-     
+
     print("mean:", statistics.mean(linumber))
     print("sd:", statistics.stdev(linumber))
- 
+
 if __name__ == "__main__":
     main()
 
@@ -544,13 +544,13 @@ if __name__ == "__main__":
 
 #!/usr/bin/env python3
 import math
- 
+
 def main():
     x = 10
     print("log_10:", math.log10(x))
     print("log_2:", math.log2(x))
     print("log_e:", math.log(x))
-    
+
     x = math.radians(180) #This is radian of an angle of 180 degrees
     print(math.sin(x))
     print(math.cos(x))
